@@ -113,11 +113,14 @@
   <ItemGroup>
     <ProjectCapability Include="Linux" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
   <!-- To Enable linux debugger End -->
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>
-    </NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>C:\Progra~2\PuTTY\pscp.exe -i $(PrivateKey) "$(SolutionDir)$(MSBuildProjectName)\main.cpp"  $(RemoteUserName)@$(RemoteHostName):$(RemoteWorkingDirectory)/main.cpp 
+$(SecureShellExecutable) $(RemoteUserName)@$(RemoteHostName) -i $(PrivateKey) "cd $(RemoteWorkingDirectory);g++ -g main.cpp -o $(RemoteExecutable)"</NMakeBuildCommandLine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>
