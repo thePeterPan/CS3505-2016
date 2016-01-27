@@ -15,7 +15,7 @@ EXECUTABLE = spiralPDF
 # will let make know that it should run these commands no matter what.
 .PHONY: all clean
 # Sets the default goal to be used if no targets were specified on the command line 
-# Reset by using: 
+# Reset the default goal by using: 
 # .DEFAULT_GOAL := 
 .DEFAULT_GOAL := all
 
@@ -28,7 +28,9 @@ LIBDIR = .
 
 
 # If you just write make in command line, without specifying the target, 
-#		it will build the first target. That's why this goes first here.
+# it will build the first target. That's why this goes first here. But 
+# we have the .DEFAULT_GOAL special variable, so it will already default
+# to this target. 
 all: $(TARGETDIR)/$(EXECUTABLE)
 
 # Create the target directory if it doesn't exist
@@ -38,8 +40,20 @@ all: $(TARGETDIR)/$(EXECUTABLE)
 $(TARGETDIR):
 	mkdir -p $(TARGETDIR)
 
+# compile the main executable 
 $(EXECUTABLE): spiralPDF.cpp HaruPDF.o Spiral.o pdfExample.o
 	$(CXX) $(CXXFLAGS) -o $@ spiralPDF.cpp
 
+# Compile all source files into .o files 
+HaruPDF.o: HaruPDF.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+Sprial.o: Sprial.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+pdfExample.o: pdfExample.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Delete all generated files
 clean: 
 	rm -rf $(EXECUTABLE) *.o
