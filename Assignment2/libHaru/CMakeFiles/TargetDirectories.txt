@@ -1,2 +1,0 @@
-/home/ppan/cs3505/libHaru/libharu-libharu-d84867e/src/CMakeFiles/hpdf.dir
-/home/ppan/cs3505/libHaru/libharu-libharu-d84867e/src/CMakeFiles/hpdfs.dir
