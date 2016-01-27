@@ -113,6 +113,9 @@
   <ItemGroup>
     <ProjectCapability Include="Linux" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="spiralPDF.cpp" />
+  </ItemGroup>
   <!-- To Enable linux debugger End -->
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -122,6 +125,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>
     </NMakeBuildCommandLine>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <NMakeBuildCommandLine>C:\Progra~2\PuTTY\pscp.exe -i "$(PrivateKey)" "$(SolutionDir)$(MSBuildProjectName)\spiralPDF.cpp"  $(RemoteUserName)@$(RemoteHostName):$(RemoteWorkingDirectory)/spiralPDF.cpp
+$(SecureShellExecutable) $(RemoteUserName)@$(RemoteHostName) -i "$(PrivateKey)" "cd $(RemoteWorkingDirectory);g++ -g spiralPDF.cpp -o $(RemoteExecutable)"</NMakeBuildCommandLine>
   </PropertyGroup>
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

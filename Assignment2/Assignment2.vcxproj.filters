@@ -42,4 +42,7 @@
       <UniqueIdentifier>{fba64bae-4073-4f46-af33-d3b048352479}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="spiralPDF.cpp" />
+  </ItemGroup>
 </Project>
