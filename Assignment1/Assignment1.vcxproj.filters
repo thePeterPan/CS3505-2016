@@ -30,6 +30,8 @@
     <Text Include="Readme\stylesheet.css">
       <Filter>Readme</Filter>
     </Text>
+    <Text Include="data.txt" />
+    <Text Include="result.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -43,6 +45,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="inch_to_cm.cpp" />
   </ItemGroup>
 </Project>

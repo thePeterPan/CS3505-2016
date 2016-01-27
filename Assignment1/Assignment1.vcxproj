@@ -65,12 +65,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <Text Include="data.txt" />
     <Text Include="Readme\readme.txt" />
     <Text Include="Readme\readme.html" />
     <Text Include="Readme\stylesheet.css" />
     <None Include="Readme\images\debugproperties.png" />
     <None Include="Readme\images\remotebuild.png" />
     <None Include="Readme\images\remotebuildcmdline.png" />
+    <Text Include="result.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\LinuxDebugger.xaml" />
@@ -114,13 +116,13 @@
     <ProjectCapability Include="Linux" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="inch_to_cm.cpp" />
   </ItemGroup>
   <!-- To Enable linux debugger End -->
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>C:\Progra~2\PuTTY\pscp.exe -i $(PrivateKey) "$(SolutionDir)$(MSBuildProjectName)\main.cpp"  $(RemoteUserName)@$(RemoteHostName):$(RemoteWorkingDirectory)/main.cpp 
-$(SecureShellExecutable) $(RemoteUserName)@$(RemoteHostName) -i $(PrivateKey) "cd $(RemoteWorkingDirectory);g++ -g main.cpp -o $(RemoteExecutable)"</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>C:\Progra~2\PuTTY\pscp.exe -i $(PrivateKey) "$(SolutionDir)$(MSBuildProjectName)\*.cpp" "$(SolutionDir)$(MSBuildProjectName)\*.h"  "$(SolutionDir)$(MSBuildProjectName)\*.txt" $(RemoteUserName)@$(RemoteHostName):$(RemoteWorkingDirectory)/ 
+$(SecureShellExecutable) $(RemoteUserName)@$(RemoteHostName) -i $(PrivateKey) "cd $(RemoteWorkingDirectory);g++ -g inch_to_cm.cpp -o $(RemoteExecutable)"</NMakeBuildCommandLine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>
