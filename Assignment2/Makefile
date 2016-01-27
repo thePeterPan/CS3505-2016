@@ -1,5 +1,9 @@
 ## Make file
 
+## running with a -j56 option: 6s
+## general principle is 7 * cores
+## http://programmers.stackexchange.com/questions/156569/how-many-make-threads-to-use
+
 # the compiler to use
 CXX = g++
 # -g turns on debugging
@@ -21,10 +25,12 @@ EXECUTABLE = spiralPDF
 
 
 ### Directories ###
-# Target directory if we want to change output to antoher folder.
+# Target directory if we want to change output to another folder.
 TARGETDIR = .
+# libHaru Library files.
+LIBHARU = ./libharu-libharu-d84867e
 # Library directory to include any library files.
-LIBDIR = .
+LIBDIR = $(LIBHARU)/include
 
 
 # If you just write make in command line, without specifying the target, 
@@ -39,6 +45,14 @@ all: $(TARGETDIR)/$(EXECUTABLE)
 #		directory already exists, ignore the error.
 $(TARGETDIR):
 	mkdir -p $(TARGETDIR)
+# Compile libHaru:
+# If the directory doesn't exist, extract it and then build it.
+# The -C option changes the directory before invoking the make command.
+# The $(MAKE) variable will use the same make executable as the top-level makefile. 
+# Commands on different lines are executed on different shells.
+$(LIBHARU):
+	unzip libharu.zip -d . 
+	cd $(LIBHARU) && cmake . && $(MAKE) -C .
 
 # compile the main executable 
 $(EXECUTABLE): spiralPDF.cpp HaruPDF.o Spiral.o pdfExample.o
@@ -51,9 +65,10 @@ HaruPDF.o: HaruPDF.cpp
 Sprial.o: Sprial.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-pdfExample.o: pdfExample.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+pdfExample.o: pdfExample.cpp $(LIBHARU)
+	$(CXX) $(CXXFLAGS) -I$(LIBDIR) -c $< -o $@ 
 
 # Delete all generated files
 clean: 
 	rm -rf $(EXECUTABLE) *.o
+	rm -rf $(LIBHARU)
