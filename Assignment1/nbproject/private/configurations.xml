@@ -8,7 +8,6 @@
         <df name="images">
         </df>
       </df>
-      <in>Makefile</in>
       <in>inch_to_cm.cpp</in>
     </df>
   </logicalFolder>
