@@ -11,7 +11,7 @@ CXX = g++
 # -std=c++11 does something
 CXXFLAGS = -g -Wall -std=c++11
 # The main resulting executable that will be compiled into.
-EXECUTABLE = $(TARGETDIR)/spiralPDF
+EXECUTABLE = $(BUILDDIR)/spiralPDF
 
 
 ### Directives/Special Variables ###
@@ -26,9 +26,9 @@ EXECUTABLE = $(TARGETDIR)/spiralPDF
 
 ### Directories ###
 # Target directory if we want to change output to another folder.
-TARGETDIR = ./bin
+BUILDDIR = ./bin
 # libHaru Library files.
-LIBHARU = $(TARGETDIR)/libharu-libharu-d84867e
+LIBHARU = $(BUILDDIR)/libharu-libharu-d84867e
 # Library directory to include any library files.
 LIBDIR = $(LIBHARU)/include
 
@@ -43,31 +43,31 @@ all: $(EXECUTABLE)
 # -p: will also create all directories leading up to the given 
 #		directory that do not exist already. If the given 
 #		directory already exists, ignore the error.
-$(TARGETDIR):
-	mkdir -p $(TARGETDIR)
+$(BUILDDIR):
+	mkdir -p $(BUILDDIR)
 # Compile libHaru:
 # If the directory doesn't exist, extract it and then build it.
 # The -C option changes the directory before invoking the make command.
 # The $(MAKE) variable will use the same make executable as the top-level makefile. 
 # Commands on different lines are executed on different shells.
-$(LIBHARU): $(TARGETDIR)
-	unzip libharu.zip -d $(TARGETDIR) 
+$(LIBHARU): $(BUILDDIR)
+	unzip libharu.zip -d $(BUILDDIR) 
 	cd $(LIBHARU) && cmake . && $(MAKE) -C .
 
 # compile the main executable 
-$(EXECUTABLE): spiralPDF.cpp $(TARGETDIR)/HaruPDF.o $(TARGETDIR)/Spiral.o $(TARGETDIR)/pdfExample.o
+$(EXECUTABLE): spiralPDF.cpp $(BUILDDIR)/HaruPDF.o $(BUILDDIR)/Spiral.o $(BUILDDIR)/pdfExample.o
 	$(CXX) $(CXXFLAGS) $< -o $@ 
 
 # Compile all source files into .o files 
-$(TARGETDIR)/HaruPDF.o: HaruPDF.cpp
+$(BUILDDIR)/HaruPDF.o: HaruPDF.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(TARGETDIR)/Spiral.o: Spiral.cpp
+$(BUILDDIR)/Spiral.o: Spiral.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Tried to use dependency of $(LIBDIR), but it didn't like it. I guess it
 # doesn't traverse variables dependency. 
-$(TARGETDIR)/pdfExample.o: pdfExample.cpp $(LIBHARU)
+$(BUILDDIR)/pdfExample.o: pdfExample.cpp $(LIBHARU)
 	$(CXX) $(CXXFLAGS) -I$(LIBDIR) -c $< -o $@ 
 
 # Delete all generated files
