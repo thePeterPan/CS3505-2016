@@ -4,5 +4,10 @@
  * CS3505
  * Assignment 2 
  * 
- * HaruPDF facade class
+ * HaruPDF facade class.
+ * General purpose for placing text on a page and saving the pdf.
  */
+
+#include "HaruPDF.h"        // Header file
+#include <iostream>
+

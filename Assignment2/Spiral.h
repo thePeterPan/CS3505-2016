@@ -21,8 +21,6 @@
 #include <iostream>     // std::ostream
 #include <cmath>        // M_PI
 
-using namespace std;
-
 class Spiral {
     
     // Center X coordinate

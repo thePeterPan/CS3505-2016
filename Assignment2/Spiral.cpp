@@ -5,6 +5,9 @@
  * Assignment 2 
  * 
  * Spiral class
+ * The Spiral class should not have any haru functionality, although it should 
+ * share the haru sense of coordinate systems and scale (in other words, you do 
+ * not need to figure out the units of both and make them consistent).
  */
 
 #include "Spiral.h"     // Header file
