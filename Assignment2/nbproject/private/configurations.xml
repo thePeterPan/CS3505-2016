@@ -4,12 +4,116 @@
     <df root="." name="0">
       <df name="Assets">
       </df>
+      <df name="libharu-libharu-d84867e">
+        <df name="include">
+          <in>hpdf.h</in>
+          <in>hpdf_3dmeasure.h</in>
+          <in>hpdf_annotation.h</in>
+          <in>hpdf_catalog.h</in>
+          <in>hpdf_conf.h</in>
+          <in>hpdf_config.h</in>
+          <in>hpdf_consts.h</in>
+          <in>hpdf_destination.h</in>
+          <in>hpdf_doc.h</in>
+          <in>hpdf_encoder.h</in>
+          <in>hpdf_encrypt.h</in>
+          <in>hpdf_encryptdict.h</in>
+          <in>hpdf_error.h</in>
+          <in>hpdf_exdata.h</in>
+          <in>hpdf_ext_gstate.h</in>
+          <in>hpdf_font.h</in>
+          <in>hpdf_fontdef.h</in>
+          <in>hpdf_gstate.h</in>
+          <in>hpdf_image.h</in>
+          <in>hpdf_info.h</in>
+          <in>hpdf_list.h</in>
+          <in>hpdf_mmgr.h</in>
+          <in>hpdf_namedict.h</in>
+          <in>hpdf_objects.h</in>
+          <in>hpdf_outline.h</in>
+          <in>hpdf_page_label.h</in>
+          <in>hpdf_pages.h</in>
+          <in>hpdf_pdfa.h</in>
+          <in>hpdf_streams.h</in>
+          <in>hpdf_types.h</in>
+          <in>hpdf_u3d.h</in>
+          <in>hpdf_utils.h</in>
+          <in>hpdf_version.h</in>
+        </df>
+        <df name="src">
+          <df name="CMakeFiles">
+            <df name="hpdf.dir">
+            </df>
+            <df name="hpdfs.dir">
+            </df>
+          </df>
+          <in>hpdf_3dmeasure.c</in>
+          <in>hpdf_annotation.c</in>
+          <in>hpdf_array.c</in>
+          <in>hpdf_binary.c</in>
+          <in>hpdf_boolean.c</in>
+          <in>hpdf_catalog.c</in>
+          <in>hpdf_destination.c</in>
+          <in>hpdf_dict.c</in>
+          <in>hpdf_doc.c</in>
+          <in>hpdf_doc_png.c</in>
+          <in>hpdf_encoder.c</in>
+          <in>hpdf_encoder_cns.c</in>
+          <in>hpdf_encoder_cnt.c</in>
+          <in>hpdf_encoder_jp.c</in>
+          <in>hpdf_encoder_kr.c</in>
+          <in>hpdf_encoder_utf.c</in>
+          <in>hpdf_encrypt.c</in>
+          <in>hpdf_encryptdict.c</in>
+          <in>hpdf_error.c</in>
+          <in>hpdf_exdata.c</in>
+          <in>hpdf_ext_gstate.c</in>
+          <in>hpdf_font.c</in>
+          <in>hpdf_font_cid.c</in>
+          <in>hpdf_font_tt.c</in>
+          <in>hpdf_font_type1.c</in>
+          <in>hpdf_fontdef.c</in>
+          <in>hpdf_fontdef_base14.c</in>
+          <in>hpdf_fontdef_cid.c</in>
+          <in>hpdf_fontdef_cns.c</in>
+          <in>hpdf_fontdef_cnt.c</in>
+          <in>hpdf_fontdef_jp.c</in>
+          <in>hpdf_fontdef_kr.c</in>
+          <in>hpdf_fontdef_tt.c</in>
+          <in>hpdf_fontdef_type1.c</in>
+          <in>hpdf_gstate.c</in>
+          <in>hpdf_image.c</in>
+          <in>hpdf_image_ccitt.c</in>
+          <in>hpdf_image_png.c</in>
+          <in>hpdf_info.c</in>
+          <in>hpdf_list.c</in>
+          <in>hpdf_mmgr.c</in>
+          <in>hpdf_name.c</in>
+          <in>hpdf_namedict.c</in>
+          <in>hpdf_null.c</in>
+          <in>hpdf_number.c</in>
+          <in>hpdf_objects.c</in>
+          <in>hpdf_outline.c</in>
+          <in>hpdf_page_label.c</in>
+          <in>hpdf_page_operator.c</in>
+          <in>hpdf_pages.c</in>
+          <in>hpdf_pdfa.c</in>
+          <in>hpdf_real.c</in>
+          <in>hpdf_streams.c</in>
+          <in>hpdf_string.c</in>
+          <in>hpdf_u3d.c</in>
+          <in>hpdf_utils.c</in>
+          <in>hpdf_xref.c</in>
+          <in>t4.h</in>
+        </df>
+      </df>
       <df name="Readme">
         <df name="images">
         </df>
       </df>
       <in>HaruPDF.cpp</in>
       <in>HaruPDF.h</in>
+      <in>README.md</in>
       <in>Spiral.cpp</in>
       <in>Spiral.h</in>
       <in>pdfExample.cpp</in>
