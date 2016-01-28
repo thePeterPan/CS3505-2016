@@ -14,3 +14,10 @@
 #include <iostream>
 
 using namespace std;
+
+// Constructor using member initialization
+Spiral::Spiral(double centerX, double centerY, double angle, double startingRadius) :
+		centerX(centerX), centerY(centerX), angle(angle), startingRadius(startingRadius) {}
+
+// Destructor:
+Sprial::~Spiral() { }

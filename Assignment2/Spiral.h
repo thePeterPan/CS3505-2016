@@ -23,6 +23,7 @@
 
 class Spiral {
     
+private: 
     // Center X coordinate
     double centerX;
     // Center Y coordinate
