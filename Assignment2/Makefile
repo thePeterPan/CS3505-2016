@@ -1,3 +1,9 @@
+#
+#  Peter Pan
+#  u0680482
+#  CS3505
+#  Assignment 2 
+# 
 ## Make file
 
 ## running with a -j56 option: 6s
