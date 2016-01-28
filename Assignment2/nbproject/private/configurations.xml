@@ -41,12 +41,6 @@
           <in>hpdf_version.h</in>
         </df>
         <df name="src">
-          <df name="CMakeFiles">
-            <df name="hpdf.dir">
-            </df>
-            <df name="hpdfs.dir">
-            </df>
-          </df>
           <in>hpdf_3dmeasure.c</in>
           <in>hpdf_annotation.c</in>
           <in>hpdf_array.c</in>

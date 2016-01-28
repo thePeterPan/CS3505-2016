@@ -39,6 +39,24 @@
           <buildCommand>${MAKE} -f Makefile -j56</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
           <executablePath></executablePath>
+          <cTool>
+            <incDir>
+              <pElem>libharu-libharu-d84867e/include</pElem>
+              <pElem>libharu-libharu-d84867e/src</pElem>
+            </incDir>
+            <incFile>
+              <pElem>libharu-libharu-d84867e/include</pElem>
+            </incFile>
+          </cTool>
+          <ccTool>
+            <incDir>
+              <pElem>libharu-libharu-d84867e/src</pElem>
+              <pElem>libharu-libharu-d84867e/include</pElem>
+            </incDir>
+            <incFile>
+              <pElem>libharu-libharu-d84867e/include</pElem>
+            </incFile>
+          </ccTool>
         </makeTool>
         <preBuild>
           <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
