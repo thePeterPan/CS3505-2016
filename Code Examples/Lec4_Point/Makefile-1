@@ -1,0 +1,2 @@
+pointTest : Point.cpp Point.h main.cpp
+	g++ -o pointTest Point.cpp main.cpp

@@ -1,0 +1,12 @@
+# Break the compilation into steps so that everything doesn't need to be compiled each time.
+# The executable depends on the .o object files
+# The object files depend on changes to .cpp and .h files
+
+pointTest : Point.o main.o
+	g++ -o pointTest Point.o main.o
+
+Point.o : Point.h Point.cpp
+	g++ -c Point.cpp
+
+main.o : main.cpp
+	g++ -c main.cpp

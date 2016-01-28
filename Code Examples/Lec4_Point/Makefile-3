@@ -1,0 +1,21 @@
+# Add variables for compiler and cflags
+# Assign the values
+CC = g++
+CFLAGS = -Wall -std=c++11
+
+# then evaluate them using the $(VASR) notation
+pointTest : Point.o main.o
+	$(CC) $(CFLAGS) -o pointTest Point.o main.o
+
+Point.o : Point.h Point.cpp
+	$(CC) $(CFLAGS) -c Point.cpp
+
+main.o : main.cpp
+	$(CC) $(CFLAGS) -c main.cpp
+
+# add a make clean and make test option
+clean:
+	rm pointTest *.o
+
+test:
+	./pointTest
