@@ -155,8 +155,9 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" </runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" "test"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" "test test test test"</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" "Lorem ipsum dolor sit amet, vix stet decore no. Ut eum tritani adipiscing. Modo brute suscipit ei sit. Oportere iudicabit nec ex. Posse interpretaris no mei, per at velit nostro deleniti."</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" "test test test test"</runcommand>
+        <runcommand>"${OUTPUT_PATH}" "Lorem ipsum dolor sit amet, vix stet decore no. Ut eum tritani adipiscing. Modo brute suscipit ei sit. Oportere iudicabit nec ex. Posse interpretaris no mei, per at velit nostro deleniti."</runcommand>
         <rundir>.</rundir>
         <buildfirst>false</buildfirst>
         <terminal-type>0</terminal-type>

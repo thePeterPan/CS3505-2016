@@ -18,15 +18,20 @@ using namespace std;
 
 // Constructor using member initialization
 Spiral::Spiral(double centerX, double centerY, double angle, double startingRadius)
-            : centerX(centerX), centerY(centerX)
+            : centerX(centerX), centerY(centerY)
 {
     // Clamp the minimum starting radius.
-    currentRadius = (startingRadius < 30) ? 30 : startingRadius;
+    currentRadius = (startingRadius < 50) ? 50 : startingRadius;
     
     // Add 90 degrees because: "starting angle clockwise from vertical".
     currentSpiralAngle = angle + 90;
     // Starting spacing growth rate in degrees
-    spacingGrowthRate = 10;
+    spacingGrowthRate = 18;
+    
+    currentTextAngle = (currentSpiralAngle - 90) / 180 * M_PI;
+    double currentPosAroundCircle = currentSpiralAngle / 180 * M_PI;
+    currentX = centerX + cos(currentPosAroundCircle) * currentRadius;
+    currentY = centerY + sin(currentPosAroundCircle) * currentRadius;
 }
 
 // Destructor:
@@ -58,9 +63,10 @@ void Spiral::incrementSpiralPosition() {
     double currentPosAroundCircle;
     
     currentSpiralAngle -= spacingGrowthRate;
-//    currentRadius += radiusGrowthRate;
+    currentRadius += radiusGrowthRate;
     
     // TODO: decrease spacing growth rate
+    spacingGrowthRate -= 0.05;
     
     currentTextAngle = (currentSpiralAngle - 90) / 180 * M_PI;
     currentPosAroundCircle = currentSpiralAngle / 180 * M_PI;

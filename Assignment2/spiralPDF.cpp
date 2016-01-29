@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     
     unsigned int i;
     const char* sampleText = argv[1];
-    Spiral spiral1(210, 300, 0, 150);
+    Spiral spiral1(210, 300, 0, 50);
     HaruPDF haruPdf1;
     
     for (i = 0; i < std::strlen(sampleText); i++) {
