@@ -9,8 +9,7 @@
  */
 
 #include "HaruPDF.h"    // Header file
-#include <iostream>
-#include "hpdf.h"       // HPDF_New, 
+#include "hpdf.h"       // HPDF_*
 #include <cmath>        // cos, sin
 
 using namespace std;
@@ -47,7 +46,7 @@ HaruPDF::~HaruPDF() {
 }
 
 /**
- * 
+ * Inserts the given character into the document at the given position.
  * @param character
  * @param letterAngle
  * @param xPos
@@ -55,28 +54,37 @@ HaruPDF::~HaruPDF() {
  */
 void HaruPDF::insert_char(char character, double letterAngle, double xPos, double yPos) {
     
-    
-    //page - The handle of a page object
-    //a - The horizontal rotation of the text. Typically expressed as cosine(Angle)
-    //b - The vertical rotation of the text. Typically expressed as sine(Angle)
-    //c, d - ?? Appear to be controlling offset adjustments after text drawn ???
-    //x - The page x coordinate
-    //y - The page y coordinate
-    
+    // HPDF_Page_SetTextMatrix(HPDF_Page page, HPDF_REAL a, HPDF_REAL b, HPDF_REAL c, HPDF_REAL d, HPDF_REAL x, HPDF_REAL y)
+    // Sets a transformation matrix for text to be drawn in using HPDF_Page_ShowText().
+    // page - The handle of a page object
+    // a - The horizontal rotation of the text. Typically expressed as cosine(Angle)
+    // b - The vertical rotation of the text. Typically expressed as sine(Angle)
+    // c, d - ?? Appear to be controlling offset adjustments after text drawn ???
+    // x - The page x coordinate
+    // y - The page y coordinate
     HPDF_Page_SetTextMatrix(page, 
             cos(letterAngle), sin(letterAngle), 
             -sin(letterAngle), cos(letterAngle), 
             xPos, yPos);
     
+    // C-style strings are null-terminated. The last character must a 0.
     char buffer[2];
     buffer[0] = character;
     buffer[1] = 0;
+    
+    // Print the text at the current position on the page
     HPDF_Page_ShowText(page, buffer);   
 }
 
+/**
+ * 
+ * @param filename
+ */
 void HaruPDF::save_pdf(const char* filename) {
-    
+    // End the text object
     HPDF_Page_EndText(page);
+    // Save the current document to the specified file
     HPDF_SaveToFile(pdf, filename);
+    // Revoke the document object and all resources
     HPDF_Free(pdf);
 }

@@ -14,7 +14,8 @@
 #include <iostream>     // ostream
 #include <cmath>        // M_PI
 
-using namespace std;
+// Sometimes this is needed in older versions/Visual C++
+#define _USE_MATH_DEFINES
 
 // Constructor using member initialization
 Spiral::Spiral(double centerX, double centerY, double angle, double startingRadius)
@@ -25,13 +26,8 @@ Spiral::Spiral(double centerX, double centerY, double angle, double startingRadi
     
     // Add 90 degrees because: "starting angle clockwise from vertical".
     currentSpiralAngle = angle + 90;
-    // Starting spacing growth rate in degrees
-    spacingGrowthRate = 18;
-    
-    currentTextAngle = (currentSpiralAngle - 90) / 180 * M_PI;
-    double currentPosAroundCircle = currentSpiralAngle / 180 * M_PI;
-    currentX = centerX + cos(currentPosAroundCircle) * currentRadius;
-    currentY = centerY + sin(currentPosAroundCircle) * currentRadius;
+            
+    calculateSpiral();
 }
 
 // Destructor:
@@ -58,19 +54,31 @@ Spiral& Spiral::operator ++() {
     return *this;
 }
 
+/**
+ * Helper method for moving the spiral to the next position. 
+ * Moves the spiral object to the next position, used in the increment operator.
+ */
 void Spiral::incrementSpiralPosition() {
-    // the current position around the circle in radians
-    double currentPosAroundCircle;
-    
+    // Decrement the currentSpiralAngle to move the character around in a circle
     currentSpiralAngle -= spacingGrowthRate;
-    currentRadius += radiusGrowthRate;
-    
-    // TODO: decrease spacing growth rate
+    // Decrease the spacing growth rate to accommodate bigger radii
     spacingGrowthRate -= 0.05;
     
-    currentTextAngle = (currentSpiralAngle - 90) / 180 * M_PI;
-    currentPosAroundCircle = currentSpiralAngle / 180 * M_PI;
+    // Slowly increase the radius making it a spiral
+    currentRadius += radiusGrowthRate;   
+}
 
+/**
+ * Helper method for moving the spiral to the next position.
+ * Performs calculations for the current position of the spiral
+ */
+void Spiral::calculateSpiral() {
+    // Calculate the angle of the letter in radians
+    currentTextAngle = (currentSpiralAngle - 90) / 180 * M_PI;
+    // Calculate the position angle of the letter on the circle in radians
+    double currentPosAroundCircle = currentSpiralAngle / 180 * M_PI;
+
+    // Calculate the location of the letter on the document
     currentX = centerX + cos(currentPosAroundCircle) * currentRadius;
     currentY = centerY + sin(currentPosAroundCircle) * currentRadius;
 }
@@ -113,7 +121,7 @@ double Spiral::get_text_angle() {
  * @param spiral
  * @return 
  */
-ostream& operator <<(ostream& output, Spiral spiral) {
+std::ostream& operator <<(std::ostream& output, Spiral spiral) {
     output << "Center Position: (" << spiral.centerX << ", " << spiral.centerY << "), " <<
             "Current Char Position: (" << spiral.currentX << ", " << spiral.currentY << "), " <<
             "Radius: " << spiral.currentRadius << ", " << 

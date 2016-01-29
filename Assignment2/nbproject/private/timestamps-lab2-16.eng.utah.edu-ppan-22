@@ -1,4 +1,4 @@
-#Thu Jan 28 23:54:35 MST 2016
+#Fri Jan 29 02:23:32 MST 2016
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/win32/include/hpdf_config.h=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/src/hpdf_fontdef_base14.c=c1453914346000
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_pages.c=c1453959592524
@@ -142,7 +142,7 @@ e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\include\\hpdf
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/if/ruby/demo/encryption.rb=c1453914346000
 VERSION=1.3
 /users/peterpan/documents/cs3505_2016/assignment2/readme/images/remotebuild.png=c1453914346000
-e\:\\documents\\cs3505_2016\\assignment2\\spiral.cpp=c1454050472892
+e\:\\documents\\cs3505_2016\\assignment2\\spiral.cpp=c1454058779907
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_fontdef_base14.c=c1453959592515
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_destination.c=c1453959592304
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/src/hpdf_number.c=c1453914346000
@@ -163,7 +163,7 @@ e\:\\documents\\cs3505_2016\\assignment2\\pdfexample.cpp=c1454044193883
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/cmake_install.cmake=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/if/vb6/hpdf_consts.bas=c1453914346000
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_encryptdict.c=c1453959592512
-e\:\\documents\\cs3505_2016\\assignment2\\harupdf.cpp=c1454049469511
+e\:\\documents\\cs3505_2016\\assignment2\\harupdf.cpp=c1454058025036
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/src/hpdf_xref.c=c1435485905000
 /users/peterpan/documents/cs3505_2016/assignment2/spiralpdf.cpp=c1454036015000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/src/hpdf_image_png.c=c1435485905000
@@ -400,7 +400,7 @@ e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\include\\hpdf
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/src/hpdf_encrypt.c=c1435485905000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/src/hpdf_string.c=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/src/hpdf_3dmeasure.c=c1453914346000
-e\:\\documents\\cs3505_2016\\assignment2\\makefile=c1454049142551
+e\:\\documents\\cs3505_2016\\assignment2\\makefile=c1454059380648
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/include/hpdf_outline.h=c1435485905000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/doc/readme=c1453914346000
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_real.c=c1453959592524
@@ -555,7 +555,7 @@ e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\include\\hpdf
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/src/hpdf_boolean.c=c1435485905000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/include/.gitignore=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/demo/image_demo.pdf=c1453914346000
-e\:\\documents\\cs3505_2016\\assignment2\\spiralpdf.cpp=c1454050126411
+e\:\\documents\\cs3505_2016\\assignment2\\spiralpdf.cpp=c1454057634972
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/if/python/demo/encoding_list.py=c1453914346000
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\include\\hpdf_pdfa.h=c1453959592259
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/if/ruby/makefile.msvc=c1453914346000
@@ -563,7 +563,7 @@ e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\include\\hpdf
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/src/hpdf_3dmeasure.c=c1435485905000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/if/vb6/form1.frm=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/demo/pngsuite/basn6a16.png=c1453914346000
-e\:\\documents\\cs3505_2016\\assignment2\\harupdf.h=c1454049462116
+e\:\\documents\\cs3505_2016\\assignment2\\harupdf.h=c1454058053508
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_font_tt.c=c1453959592513
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/include/hpdf_annotation.h=c1435485905000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/demo/jpfont_demo.c=c1453914346000
@@ -579,29 +579,29 @@ e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_gst
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/src/hpdf_null.c=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/src/hpdf_array.c=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/src/cmakefiles/hpdfs.dir/dependinfo.cmake=c1453922163000
-/users/peterpan/documents/cs3505_2016/assignment2/libharu/if/ruby/demo/line_demo.rb=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/src/hpdf_encryptdict.c=c1453914346000
+/users/peterpan/documents/cs3505_2016/assignment2/libharu/if/ruby/demo/line_demo.rb=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/if/ruby/extconf.rb=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/demo/png_demo.c=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/src/hpdf_doc_png.c=c1453914346000
-/users/peterpan/documents/cs3505_2016/assignment2/libharu/if/python/hpdf_consts.py=c1453914346000
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_xref.c=c1453959592527
+/users/peterpan/documents/cs3505_2016/assignment2/libharu/if/python/hpdf_consts.py=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/if/python/demo/ext_gstate_demo.py=c1453914346000
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_3dmeasure.c=c1453959592301
-/users/peterpan/documents/cs3505_2016/assignment2/libharu/demo/outline_demo.c=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/cmakefiles/targetdirectories.txt=c1453914346000
-e\:\\documents\\cs3505_2016\\assignment2\\spiral.h=c1454048468596
+/users/peterpan/documents/cs3505_2016/assignment2/libharu/demo/outline_demo.c=c1453914346000
+e\:\\documents\\cs3505_2016\\assignment2\\spiral.h=c1454058653054
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\include\\hpdf_3dmeasure.h=c1453959592244
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/if/ruby/extconf.rb.all=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/if/c\#/hpdf.cs=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/readme=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/demo/pngsuite/basn2c08.png=c1453914346000
-/users/peterpan/documents/cs3505_2016/assignment2/libharu/src/cmakefiles/hpdf.dir/depend.make=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/src/hpdf_font_type1.c=c1453914346000
+/users/peterpan/documents/cs3505_2016/assignment2/libharu/src/cmakefiles/hpdf.dir/depend.make=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/src/hpdf_streams.c=c1435485905000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/src/cmakefiles/hpdf.dir/depend.internal=c1453922164000
-/users/peterpan/documents/cs3505_2016/assignment2/nbproject/project.xml=c1454024876000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/win32/mingw/libhpdf_mingw.res=c1453914346000
+/users/peterpan/documents/cs3505_2016/assignment2/nbproject/project.xml=c1454024876000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/src/hpdf_real.c=c1435485905000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu.zip=c1453919637000
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_pdfa.c=c1453959592524
@@ -609,5 +609,5 @@ e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_pdf
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/demo/mbtext/cp932.txt=c1453914346000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/src/t4.h=c1453914346000
 e\:\\documents\\cs3505_2016\\assignment2\\libharu-libharu-d84867e\\src\\hpdf_objects.c=c1453959592522
-/users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/include/hpdf_objects.h=c1435485905000
 /users/peterpan/documents/cs3505_2016/assignment2/libharu/if/c\#/demo/imagedemo.cs=c1453914346000
+/users/peterpan/documents/cs3505_2016/assignment2/libharu-libharu-d84867e/include/hpdf_objects.h=c1435485905000

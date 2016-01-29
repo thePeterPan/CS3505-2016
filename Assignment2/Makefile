@@ -21,6 +21,8 @@ OPTFLAGS = -O0
 # The main resulting executable that will be compiled into.
 EXECUTABLE = $(BUILDDIR)/spiralPDF
 
+
+
 ### Directives/Special Variables ###
 # Just in case you have a file also named "all" or "clean" this 
 # will let make know that it should run these commands no matter what.
@@ -30,11 +32,15 @@ EXECUTABLE = $(BUILDDIR)/spiralPDF
 # .DEFAULT_GOAL := 
 .DEFAULT_GOAL := all
 
-### Directories ###
+
+
+### Directory Variables ###
 # Target directory if we want to change output to another folder.
 BUILDDIR = ./bin
-# Library directory to include any library files.
+# Library directory to include any additional library files.
 LIBDIR = .
+
+
 
 ### libHaru variables ###
 # libHaru Library files.
@@ -52,6 +58,8 @@ $(LIBHARU): $(BUILDDIR)
 	cd $(LIBHARU) && cmake . && $(MAKE) -C .
 
 
+
+
 # If you just write make in command line, without specifying the target, 
 # it will build the first target. But we have the .DEFAULT_GOAL special 
 # variable, so it will default to this target. 
@@ -63,29 +71,32 @@ all: $(EXECUTABLE)
 #		directory already exists, ignore the error.
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
+	
+# compile the main executable linking all object files
+# Tried to use dependency of $(LIBHARU_INCLUDE), but it didn't like it. I guess 
+# it doesn't traverse variable dependencies.
+$(EXECUTABLE): spiralPDF.cpp $(SPIRALPDF_OBJS) $(LIBHARU) # $(BUILDDIR)/pdfExample.o
+	$(CXX) $(CXXFLAGS) $< $(SPIRALPDF_OBJS) -o $@ $(LIBHARU_FLAGS)
 
-# compile the main executable 
-$(EXECUTABLE): spiralPDF.cpp $(BUILDDIR)/HaruPDF.o $(BUILDDIR)/Spiral.o $(LIBHARU) # $(BUILDDIR)/pdfExample.o
-	$(CXX) $(CXXFLAGS) $< $(BUILDDIR)/HaruPDF.o $(BUILDDIR)/Spiral.o -o $@ $(LIBHARU_FLAGS)
-
-# Compile all source files into .o files 
+# List and compile all object files 
+SPIRALPDF_OBJS = \
+    $(BUILDDIR)/HaruPDF.o \
+    $(BUILDDIR)/Spiral.o
 $(BUILDDIR)/HaruPDF.o: HaruPDF.cpp $(LIBHARU)
 	$(CXX) $(CXXFLAGS) -c $< -o $@ $(LIBHARU_FLAGS)
-
 $(BUILDDIR)/Spiral.o: Spiral.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# Tried to use dependency of $(LIBHARU_INCLUDE), but it didn't like it. I guess it
-# doesn't traverse variable dependencies.
-#$(BUILDDIR)/pdfExample.o: pdfExample.cpp $(LIBHARU)
-#	$(CXX) $(CXXFLAGS) -c $< -o $@ $(LIBHARU_FLAGS)
-
-# just for the record, the working compile statement expanded: 
-# g++ -o pdfExample -O2 -Wall pdfExample.cpp -L ./bin/libharu-libharu-d84867e/src -I ./bin/libharu-libharu-d84867e/include -l hpdfs -lz
-pdfExample: pdfExample.cpp $(BUILDDIR) $(LIBHARU)
-	$(CXX) $(CXXFLAGS) $< -o $(BUILDDIR)/$@ $(LIBHARU_FLAGS)
-
+	
 # Delete all generated files
 clean:
 	rm -rf $(EXECUTABLE) *.o
 	rm -rf $(LIBHARU)
+
+
+
+
+# If need to compile the pdfExample code, use this target
+# Just for the record, the working compile statement expanded: 
+# g++ -o pdfExample -O2 -Wall pdfExample.cpp -L ./bin/libharu-libharu-d84867e/src -I ./bin/libharu-libharu-d84867e/include -l hpdfs -lz
+pdfExample: pdfExample.cpp $(BUILDDIR) $(LIBHARU)
+	$(CXX) $(CXXFLAGS) $< -o $(BUILDDIR)/$@ $(LIBHARU_FLAGS)

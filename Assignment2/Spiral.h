@@ -37,10 +37,15 @@ private:
     double currentRadius;
     double currentSpiralAngle, currentTextAngle;
     
-    double spacingGrowthRate;
+    // Starting spacing growth rate in degrees
+    double spacingGrowthRate = 18;
+    // Growth rate of the radius
     const double radiusGrowthRate = 1;
     
+    // Moves the spiral object to the next position, used in the increment operator
     void incrementSpiralPosition();
+    // Performs calculations for the current position of the spiral
+    void calculateSpiral();
     
 public: 
     

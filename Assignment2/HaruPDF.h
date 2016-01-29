@@ -10,8 +10,6 @@
 #ifndef HARUPDF_H
 #define HARUPDF_H
 
-#include <iostream>
-#include <string>
 #include "hpdf.h"       // HPDF_Doc, HPDF_Page, HPDF_Font
 
 class HaruPDF {
