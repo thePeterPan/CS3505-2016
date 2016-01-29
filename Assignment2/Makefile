@@ -69,8 +69,8 @@ $(EXECUTABLE): spiralPDF.cpp $(BUILDDIR)/HaruPDF.o $(BUILDDIR)/Spiral.o $(BUILDD
 	$(CXX) $(CXXFLAGS) $< -o $@ 
 
 # Compile all source files into .o files 
-$(BUILDDIR)/HaruPDF.o: HaruPDF.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(BUILDDIR)/HaruPDF.o: HaruPDF.cpp $(LIBHARU)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ $(LIBHARU_FLAGS)
 
 $(BUILDDIR)/Spiral.o: Spiral.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
@@ -78,7 +78,7 @@ $(BUILDDIR)/Spiral.o: Spiral.cpp
 # Tried to use dependency of $(LIBHARU_INCLUDE), but it didn't like it. I guess it
 # doesn't traverse variable dependencies.
 $(BUILDDIR)/pdfExample.o: pdfExample.cpp $(LIBHARU)
-	$(CXX) $(CXXFLAGS) -I $(LIBHARU_INCLUDE) -c $< -o $@ 
+	$(CXX) $(CXXFLAGS) -c $< -o $@ $(LIBHARU_FLAGS)
 
 # just for the record, the working compile statement expanded: 
 # g++ -o pdfExample -O2 -Wall pdfExample.cpp -L ./bin/libharu-libharu-d84867e/src -I ./bin/libharu-libharu-d84867e/include -l hpdfs -lz

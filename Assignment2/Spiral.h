@@ -38,10 +38,18 @@ private:
     
 public: 
     
-    // Constructor: 
+    /**
+     * Constructor
+     * @param centerX
+     * @param centerY
+     * @param angle
+     * @param startingRadius
+     */
     Spiral(double centerX, double centerY, double angle, double startingRadius);
     
-    // Destructor: 
+    /**
+     * Destructor
+     */ 
     ~Spiral();
     
     /* 
@@ -53,20 +61,33 @@ public:
      * out and the lines should have some spacing. This pleasant spacing should 
      * at least work for spirals that fit on one 8.5 x 11in page.
      */
-    Spiral operator++(int);     // Postfix increment operator.
-    Spiral& operator++();       // Prefix increment operator. 
+    Spiral operator ++(int);     // Postfix increment operator.
+    Spiral& operator ++();       // Prefix increment operator. 
     
-    // Gets the x coordinate for the text position
+    /**
+     * Gets the x coordinate for the text position
+     * @return 
+     */
     double get_text_x();
-    // Gets the y coordinate for the text position
+    /**
+     * Gets the y coordinate for the text position
+     * @return 
+     */
     double get_text_y();
-    // Gets the spiral angle for the text position
+    /**
+     * Gets the spiral angle for the text position
+     * @return 
+     */
     double get_spiral_angle();
-    // Gets the angle in degrees for the text position
+    /**
+     * Gets the angle in degrees for the text position
+     * @return 
+     */
     double get_text_angle();
     
-    /* 
-     * Overloading the ostream<< function: 
+    /**
+     * 
+     * Overloading the ostream << operator 
      * 
      * Reports in a nicely formatted way the state of a Spiral object. Relies 
      * on users of this function to provide any desired newlines after 

@@ -47,6 +47,7 @@
       <item path="HaruPDF.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
           <incDir>
+            <pElem>../../../Library/Caches/NetBeans/8.1/remote-files/lab2-16.eng.utah.edu_22_ppan/Users/peterpan/Documents/CS3505_2016/Assignment2/bin/libharu-libharu-d84867e/include</pElem>
             <pElem>../../../Library/Caches/NetBeans/8.1/remote-files/lab2-16.eng.utah.edu_22_ppan/Users/peterpan/Documents/CS3505_2016/Assignment2</pElem>
           </incDir>
         </ccTool>

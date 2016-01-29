@@ -11,7 +11,7 @@
  */
 
 #include "Spiral.h"     // Header file
-#include <iostream>
+#include <iostream>     // ostream
 
 using namespace std;
 
@@ -20,4 +20,65 @@ Spiral::Spiral(double centerX, double centerY, double angle, double startingRadi
 		centerX(centerX), centerY(centerX), angle(angle), startingRadius(startingRadius) {}
 
 // Destructor:
-Sprial::~Spiral() { }
+Spiral::~Spiral() { }
+
+/**
+ * Advances the spiral character to the next position. 
+ * Postfix increment operator. 
+ * @param 
+ * @return 
+ */
+Spiral Spiral::operator ++(int) {
+    
+}
+
+/**
+ * Advances the spiral character to the next position.
+ * Prefix increment operator. 
+ * @return 
+ */
+Spiral& Spiral::operator ++() {
+    
+}
+
+/**
+ * Public accessor method for the x coordinate
+ * @return 
+ */
+double Spiral::get_text_x() {
+    
+}
+
+/**
+ * Public accessor method for the y coordinate
+ * @return 
+ */
+double Spiral::get_text_y() {
+    
+}
+
+/**
+ * Public accessor method for the current angle
+ * @return 
+ */
+double Spiral::get_spiral_angle() {
+    
+}
+
+/**
+ * Public accessor method for the current text angle
+ * @return 
+ */
+double Spiral::get_text_angle() {
+    
+}
+
+/**
+ * 
+ * @param output
+ * @param spiral
+ * @return 
+ */
+ostream& operator <<(ostream& output, Spiral spiral) {
+    
+}

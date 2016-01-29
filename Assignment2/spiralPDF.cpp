@@ -42,6 +42,8 @@ int main(int argc, char **argv)
     
     unsigned int i;
     const char* sampleText = argv[1];
+    Spiral spiral1();
+    
     for (i = 0; i < std::strlen(sampleText); i++) {
         std::cout << sampleText[i] << endl;
     }
