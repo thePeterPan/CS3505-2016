@@ -19,7 +19,6 @@
 #define _USE_MATH_DEFINES
 
 #include <iostream>     // std::ostream
-#include <cmath>        // M_PI
 
 class Spiral {
     
@@ -28,13 +27,20 @@ private:
     double centerX;
     // Center Y coordinate
     double centerY;
-    
     // Degrees which gives the starting angle clockwise from vertical 
     // for the text to begin drawing
     double angle;
-    
     // The spiral should grow larger from this start size.
     double startingRadius;
+    
+    double currentX, currentY;
+    double currentRadius;
+    double currentSpiralAngle, currentTextAngle;
+    
+    double spacingGrowthRate;
+    const double radiusGrowthRate = 1;
+    
+    void incrementSpiralPosition();
     
 public: 
     
@@ -86,7 +92,6 @@ public:
     double get_text_angle();
     
     /**
-     * 
      * Overloading the ostream << operator 
      * 
      * Reports in a nicely formatted way the state of a Spiral object. Relies 

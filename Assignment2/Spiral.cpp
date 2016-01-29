@@ -12,12 +12,22 @@
 
 #include "Spiral.h"     // Header file
 #include <iostream>     // ostream
+#include <cmath>        // M_PI
 
 using namespace std;
 
 // Constructor using member initialization
 Spiral::Spiral(double centerX, double centerY, double angle, double startingRadius)
-            : centerX(centerX), centerY(centerX), angle(angle), startingRadius(startingRadius) {}
+            : centerX(centerX), centerY(centerX)
+{
+    // Clamp the minimum starting radius.
+    currentRadius = (startingRadius < 30) ? 30 : startingRadius;
+    
+    // Add 90 degrees because: "starting angle clockwise from vertical".
+    currentSpiralAngle = angle + 90;
+    // Starting spacing growth rate in degrees
+    spacingGrowthRate = 10;
+}
 
 // Destructor:
 Spiral::~Spiral() { }
@@ -29,7 +39,7 @@ Spiral::~Spiral() { }
  * @return 
  */
 Spiral Spiral::operator ++(int) {
-    
+    incrementSpiralPosition();
     return *this;
 }
 
@@ -39,8 +49,24 @@ Spiral Spiral::operator ++(int) {
  * @return 
  */
 Spiral& Spiral::operator ++() {
-    
+    incrementSpiralPosition();
     return *this;
+}
+
+void Spiral::incrementSpiralPosition() {
+    // the current position around the circle in radians
+    double currentPosAroundCircle;
+    
+    currentSpiralAngle -= spacingGrowthRate;
+//    currentRadius += radiusGrowthRate;
+    
+    // TODO: decrease spacing growth rate
+    
+    currentTextAngle = (currentSpiralAngle - 90) / 180 * M_PI;
+    currentPosAroundCircle = currentSpiralAngle / 180 * M_PI;
+
+    currentX = centerX + cos(currentPosAroundCircle) * currentRadius;
+    currentY = centerY + sin(currentPosAroundCircle) * currentRadius;
 }
 
 /**
@@ -48,7 +74,7 @@ Spiral& Spiral::operator ++() {
  * @return 
  */
 double Spiral::get_text_x() {
-    return centerX;
+    return currentX;
 }
 
 /**
@@ -56,23 +82,23 @@ double Spiral::get_text_x() {
  * @return 
  */
 double Spiral::get_text_y() {
-    return centerY;
+    return currentY;
 }
 
 /**
- * Public accessor method for the current angle
+ * Public accessor method for the current angle position around the circle
  * @return 
  */
 double Spiral::get_spiral_angle() {
-    return angle;
+    return currentSpiralAngle;
 }
 
 /**
- * Public accessor method for the current text angle
+ * Public accessor method for the current angle of the character
  * @return 
  */
 double Spiral::get_text_angle() {
-    
+    return currentTextAngle;
 }
 
 /**
@@ -82,6 +108,10 @@ double Spiral::get_text_angle() {
  * @return 
  */
 ostream& operator <<(ostream& output, Spiral spiral) {
-    
+    output << "Center Position: (" << spiral.centerX << ", " << spiral.centerY << "), " <<
+            "Current Char Position: (" << spiral.currentX << ", " << spiral.currentY << "), " <<
+            "Radius: " << spiral.currentRadius << ", " << 
+            "Spiral angle: " << spiral.currentSpiralAngle << ", " << 
+            "Text angle: " << spiral.currentTextAngle;
     return output;
 }

@@ -66,7 +66,7 @@ $(BUILDDIR):
 
 # compile the main executable 
 $(EXECUTABLE): spiralPDF.cpp $(BUILDDIR)/HaruPDF.o $(BUILDDIR)/Spiral.o $(LIBHARU) # $(BUILDDIR)/pdfExample.o
-	$(CXX) $(CXXFLAGS) $< -o $@ $(LIBHARU_FLAGS)
+	$(CXX) $(CXXFLAGS) $< $(BUILDDIR)/HaruPDF.o $(BUILDDIR)/Spiral.o -o $@ $(LIBHARU_FLAGS)
 
 # Compile all source files into .o files 
 $(BUILDDIR)/HaruPDF.o: HaruPDF.cpp $(LIBHARU)

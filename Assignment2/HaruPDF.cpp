@@ -11,6 +11,7 @@
 #include "HaruPDF.h"    // Header file
 #include <iostream>
 #include "hpdf.h"       // HPDF_New, 
+#include <cmath>        // cos, sin
 
 using namespace std;
 
@@ -22,8 +23,8 @@ HaruPDF::HaruPDF() {
     pdf = HPDF_New(NULL, NULL);
     // Add a new page to the document
     page = HPDF_AddPage(pdf);
-    // Set the size of the page to letter size in portrait orientation
-    HPDF_Page_SetSize(page, HPDF_PAGE_SIZE_LETTER, HPDF_PAGE_PORTRAIT);
+    // Set the size of the page to A5 size in portrait orientation
+    HPDF_Page_SetSize(page, HPDF_PAGE_SIZE_A5, HPDF_PAGE_PORTRAIT);
     // Set a default font to Helvetica
     font = HPDF_GetFont(pdf, "Helvetica", NULL);
     
@@ -48,9 +49,11 @@ HaruPDF::~HaruPDF() {
 /**
  * 
  * @param character
- * @return 
+ * @param letterAngle
+ * @param xPos
+ * @param yPos
  */
-void HaruPDF::insert_char(char character) {
+void HaruPDF::insert_char(char character, double letterAngle, double xPos, double yPos) {
     
     
     //page - The handle of a page object
@@ -59,25 +62,21 @@ void HaruPDF::insert_char(char character) {
     //c, d - ?? Appear to be controlling offset adjustments after text drawn ???
     //x - The page x coordinate
     //y - The page y coordinate
-    // HPDF_Page_SetTextMatrix(); 
     
+    HPDF_Page_SetTextMatrix(page, 
+            cos(letterAngle), sin(letterAngle), 
+            -sin(letterAngle), cos(letterAngle), 
+            xPos, yPos);
     
-    char buf[2];
-    buf[0] = character;
-    buf[1] = 0;
-    HPDF_Page_ShowText(page, buf);
-    
+    char buffer[2];
+    buffer[0] = character;
+    buffer[1] = 0;
+    HPDF_Page_ShowText(page, buffer);   
 }
 
-/**
- * 
- * @return 
- */
-bool HaruPDF::save_pdf(std::string filename) {
+void HaruPDF::save_pdf(const char* filename) {
     
     HPDF_Page_EndText(page);
-    // HPDF_SaveToFile(pdf, filename);
+    HPDF_SaveToFile(pdf, filename);
     HPDF_Free(pdf);
-    
-    return true;
 }

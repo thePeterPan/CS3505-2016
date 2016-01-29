@@ -37,15 +37,17 @@ public:
     /**
      * 
      * @param character
+     * @param letterAngle
+     * @param xPos
+     * @param yPos
      */
-    void insert_char(char character);
+    void insert_char(char character, double letterAngle, double xPos, double yPos);
     
     /**
      * 
      * @param filename
-     * @return 
      */
-    bool save_pdf(std::string filename);
+    void save_pdf(const char* filename);
 };
 
 #endif

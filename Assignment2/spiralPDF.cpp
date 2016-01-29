@@ -28,6 +28,7 @@ int main(int argc, char **argv)
     char file_name[256];
     std::strcpy(file_name, argv[0]);
     std::strcat(file_name, ".pdf");
+//    std::string fileName(file_name);
     
     
     // Make sure that there is a valid number of arguments. 
@@ -42,11 +43,20 @@ int main(int argc, char **argv)
     
     unsigned int i;
     const char* sampleText = argv[1];
-    Spiral spiral1();
+    Spiral spiral1(210, 300, 0, 150);
+    HaruPDF haruPdf1;
     
     for (i = 0; i < std::strlen(sampleText); i++) {
-        std::cout << sampleText[i] << endl;
+        haruPdf1.insert_char(
+                sampleText[i], 
+                spiral1.get_text_angle(),
+                spiral1.get_text_x(),
+                spiral1.get_text_y()
+                );
+        spiral1++;
     }
+
+    haruPdf1.save_pdf(file_name);
     
     return 0;
 }
