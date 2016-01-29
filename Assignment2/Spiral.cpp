@@ -16,8 +16,8 @@
 using namespace std;
 
 // Constructor using member initialization
-Spiral::Spiral(double centerX, double centerY, double angle, double startingRadius) :
-		centerX(centerX), centerY(centerX), angle(angle), startingRadius(startingRadius) {}
+Spiral::Spiral(double centerX, double centerY, double angle, double startingRadius)
+            : centerX(centerX), centerY(centerX), angle(angle), startingRadius(startingRadius) {}
 
 // Destructor:
 Spiral::~Spiral() { }
@@ -30,6 +30,7 @@ Spiral::~Spiral() { }
  */
 Spiral Spiral::operator ++(int) {
     
+    return *this;
 }
 
 /**
@@ -39,6 +40,7 @@ Spiral Spiral::operator ++(int) {
  */
 Spiral& Spiral::operator ++() {
     
+    return *this;
 }
 
 /**
@@ -46,7 +48,7 @@ Spiral& Spiral::operator ++() {
  * @return 
  */
 double Spiral::get_text_x() {
-    
+    return centerX;
 }
 
 /**
@@ -54,7 +56,7 @@ double Spiral::get_text_x() {
  * @return 
  */
 double Spiral::get_text_y() {
-    
+    return centerY;
 }
 
 /**
@@ -62,7 +64,7 @@ double Spiral::get_text_y() {
  * @return 
  */
 double Spiral::get_spiral_angle() {
-    
+    return angle;
 }
 
 /**
@@ -81,4 +83,5 @@ double Spiral::get_text_angle() {
  */
 ostream& operator <<(ostream& output, Spiral spiral) {
     
+    return output;
 }

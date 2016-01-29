@@ -65,8 +65,8 @@ $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
 
 # compile the main executable 
-$(EXECUTABLE): spiralPDF.cpp $(BUILDDIR)/HaruPDF.o $(BUILDDIR)/Spiral.o $(BUILDDIR)/pdfExample.o
-	$(CXX) $(CXXFLAGS) $< -o $@ 
+$(EXECUTABLE): spiralPDF.cpp $(BUILDDIR)/HaruPDF.o $(BUILDDIR)/Spiral.o $(LIBHARU) # $(BUILDDIR)/pdfExample.o
+	$(CXX) $(CXXFLAGS) $< -o $@ $(LIBHARU_FLAGS)
 
 # Compile all source files into .o files 
 $(BUILDDIR)/HaruPDF.o: HaruPDF.cpp $(LIBHARU)
@@ -77,13 +77,13 @@ $(BUILDDIR)/Spiral.o: Spiral.cpp
 
 # Tried to use dependency of $(LIBHARU_INCLUDE), but it didn't like it. I guess it
 # doesn't traverse variable dependencies.
-$(BUILDDIR)/pdfExample.o: pdfExample.cpp $(LIBHARU)
-	$(CXX) $(CXXFLAGS) -c $< -o $@ $(LIBHARU_FLAGS)
+#$(BUILDDIR)/pdfExample.o: pdfExample.cpp $(LIBHARU)
+#	$(CXX) $(CXXFLAGS) -c $< -o $@ $(LIBHARU_FLAGS)
 
 # just for the record, the working compile statement expanded: 
 # g++ -o pdfExample -O2 -Wall pdfExample.cpp -L ./bin/libharu-libharu-d84867e/src -I ./bin/libharu-libharu-d84867e/include -l hpdfs -lz
-pdfExample: pdfExample.cpp $(LIBHARU)
-	$(CXX) $(CXXFLAGS) $< -o $@ $(LIBHARU_FLAGS)
+pdfExample: pdfExample.cpp $(BUILDDIR) $(LIBHARU)
+	$(CXX) $(CXXFLAGS) $< -o $(BUILDDIR)/$@ $(LIBHARU_FLAGS)
 
 # Delete all generated files
 clean:

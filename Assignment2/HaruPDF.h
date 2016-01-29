@@ -27,7 +27,7 @@ public:
     /**
      * Default Constructor
      */
-    HaruPDF() {}
+    HaruPDF();
     
     /**
      * Destructor
