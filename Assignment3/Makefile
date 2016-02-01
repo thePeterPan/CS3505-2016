@@ -1,128 +1,74 @@
 #
-#  There exist several targets which are by default empty and which can be 
-#  used for execution of your targets. These targets are usually executed 
-#  before and after some main targets. They are: 
-#
-#     .build-pre:              called before 'build' target
-#     .build-post:             called after 'build' target
-#     .clean-pre:              called before 'clean' target
-#     .clean-post:             called after 'clean' target
-#     .clobber-pre:            called before 'clobber' target
-#     .clobber-post:           called after 'clobber' target
-#     .all-pre:                called before 'all' target
-#     .all-post:               called after 'all' target
-#     .help-pre:               called before 'help' target
-#     .help-post:              called after 'help' target
-#
-#  Targets beginning with '.' are not intended to be called on their own.
-#
-#  Main targets can be executed directly, and they are:
-#  
-#     build                    build a specific configuration
-#     clean                    remove built files from a configuration
-#     clobber                  remove all built files
-#     all                      build all configurations
-#     help                     print help mesage
-#  
-#  Targets .build-impl, .clean-impl, .clobber-impl, .all-impl, and
-#  .help-impl are implemented in nbproject/makefile-impl.mk.
-#
-#  Available make variables:
-#
-#     CND_BASEDIR                base directory for relative paths
-#     CND_DISTDIR                default top distribution directory (build artifacts)
-#     CND_BUILDDIR               default top build directory (object files, ...)
-#     CONF                       name of current configuration
-#     CND_PLATFORM_${CONF}       platform name (current configuration)
-#     CND_ARTIFACT_DIR_${CONF}   directory of build artifact (current configuration)
-#     CND_ARTIFACT_NAME_${CONF}  name of build artifact (current configuration)
-#     CND_ARTIFACT_PATH_${CONF}  path to build artifact (current configuration)
-#     CND_PACKAGE_DIR_${CONF}    directory of package (current configuration)
-#     CND_PACKAGE_NAME_${CONF}   name of package (current configuration)
-#     CND_PACKAGE_PATH_${CONF}   path to package (current configuration)
-#
-# NOCDDL
+#  Peter Pan
+#  u0680482
+#  CS3505
+#  Assignment 3
+# 
+## Make file
 
+## running with a -j56 option: 6s
+## general principle is 7 * cores
+## http://programmers.stackexchange.com/questions/156569/how-many-make-threads-to-use
 
-# Environment 
-MKDIR=mkdir
-CP=cp
-CCADMIN=CCadmin
-
-
-# build
-build: .build-post
-
-.build-pre:
-# Add your pre 'build' code here...
-
-.build-post: .build-impl
-# Add your post 'build' code here...
-
-
-# clean
-clean: .clean-post
-
-.clean-pre:
-# Add your pre 'clean' code here...
-
-.clean-post: .clean-impl
-# Add your post 'clean' code here...
-
-
-# clobber
-clobber: .clobber-post
-
-.clobber-pre:
-# Add your pre 'clobber' code here...
-
-.clobber-post: .clobber-impl
-# Add your post 'clobber' code here...
-
-
-# all
-all: .all-post
-
-.all-pre:
-# Add your pre 'all' code here...
-
-.all-post: .all-impl
-# Add your post 'all' code here...
-
-
-# build tests
-build-tests: .build-tests-post
-
-.build-tests-pre:
-# Add your pre 'build-tests' code here...
-
-.build-tests-post: .build-tests-impl
-# Add your post 'build-tests' code here...
-
-
-# run tests
-test: .test-post
-
-.test-pre: build-tests
-# Add your pre 'test' code here...
-
-.test-post: .test-impl
-# Add your post 'test' code here...
-
-
-# help
-help: .help-post
-
-.help-pre:
-# Add your pre 'help' code here...
-
-.help-post: .help-impl
-# Add your post 'help' code here...
+# the compiler to use
+CXX = g++
+# -g turns on debugging
+# -Wall turns on almost all warnings for g++
+# -std=c++11 does something
+CXXFLAGS = -g -Wall -std=c++11 $(OPTFLAGS)
+# Optimization flags: 
+OPTFLAGS = -O0
+# The main resulting executable that will be compiled into.
+EXECUTABLE = $(BUILDDIR)/TrieTest
 
 
 
-# include project implementation makefile
-include nbproject/Makefile-impl.mk
+### Directives/Special Variables ###
+# Just in case you have a file also named "all" or "clean" this 
+# will let make know that it should run these commands no matter what.
+.PHONY: all clean
+# Sets the default goal to be used if no targets were specified on the command line 
+# Reset the default goal by using: 
+# .DEFAULT_GOAL := 
+.DEFAULT_GOAL := all
 
-# include project make variables
-include nbproject/Makefile-variables.mk
+
+
+### Directory Variables ###
+# Target directory if we want to change output to another folder.
+BUILDDIR = ./bin
+# Library directory to include any additional library files.
+LIBDIR = .
+
+
+
+# If you just write make in command line, without specifying the target, 
+# it will build the first target. But we have the .DEFAULT_GOAL special 
+# variable, so it will default to this target. 
+all: $(EXECUTABLE)
+
+# Create the target directory if it doesn't exist
+# -p: will also create all directories leading up to the given 
+#		directory that do not exist already. If the given 
+#		directory already exists, ignore the error.
+$(BUILDDIR):
+	mkdir -p $(BUILDDIR)
+	
+# compile the main executable linking all object files
+# Tried to use dependency of $(LIBHARU_INCLUDE), but it didn't like it. I guess 
+# it doesn't traverse variable dependencies.
+$(EXECUTABLE): TrieTest.cpp $(BUILDDIR) $(BUILDDIR)/Trie.o $(BUILDDIR)/node.o
+	$(CXX) $(CXXFLAGS) $< $(BUILDDIR)/Trie.o $(BUILDDIR)/node.o -o $@
+
+# List and compile all object files 
+#TRIETEST_OBJS = \
+#    $(BUILDDIR)/Trie.o \
+#    $(BUILDDIR)/node.o
+$(BUILDDIR)/Trie.o: Trie.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(BUILDDIR)/node.o: node.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+	
+# Delete all generated files
+clean:
+	rm -rf $(EXECUTABLE) *.o
