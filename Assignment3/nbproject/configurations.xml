@@ -5,6 +5,7 @@
       <in>Trie.cpp</in>
       <in>TrieTest.cpp</in>
       <in>node.cpp</in>
+      <in>queries.txt</in>
     </df>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -36,7 +37,7 @@
           <buildCommandWorkingDir>.</buildCommandWorkingDir>
           <buildCommand>${MAKE} -f Makefile</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
-          <executablePath></executablePath>
+          <executablePath>build/TrieTest</executablePath>
           <ccTool>
             <incDir>
               <pElem>../../../Library/Caches/NetBeans/8.1/remote-files/lab2-16.eng.utah.edu_22_ppan/Users/peterpan/Documents/CS3505_2016/Assignment3</pElem>
@@ -59,6 +60,8 @@
       <item path="node.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
+      </item>
+      <item path="queries.txt" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
