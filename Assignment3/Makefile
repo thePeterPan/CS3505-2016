@@ -36,10 +36,16 @@ EXECUTABLE = $(BUILDDIR)/TrieTest
 
 ### Directory Variables ###
 # Target directory if we want to change output to another folder.
-BUILDDIR = ./bin
+BUILDDIR = ./build
 # Library directory to include any additional library files.
 LIBDIR = .
 
+
+### Object files ###
+# Had it under the main target, but didn't like it so moved it up here.
+TRIETEST_OBJS = \
+    $(BUILDDIR)/Trie.o \
+    $(BUILDDIR)/node.o
 
 
 # If you just write make in command line, without specifying the target, 
@@ -53,17 +59,15 @@ all: $(EXECUTABLE)
 #		directory already exists, ignore the error.
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
-	
+
+
 # compile the main executable linking all object files
 # Tried to use dependency of $(LIBHARU_INCLUDE), but it didn't like it. I guess 
 # it doesn't traverse variable dependencies.
-$(EXECUTABLE): TrieTest.cpp $(BUILDDIR) $(BUILDDIR)/Trie.o $(BUILDDIR)/node.o
-	$(CXX) $(CXXFLAGS) $< $(BUILDDIR)/Trie.o $(BUILDDIR)/node.o -o $@
+$(EXECUTABLE): TrieTest.cpp $(BUILDDIR) $(TRIETEST_OBJS)
+	$(CXX) $(CXXFLAGS) $< $(TRIETEST_OBJS) -o $@
 
-# List and compile all object files 
-#TRIETEST_OBJS = \
-#    $(BUILDDIR)/Trie.o \
-#    $(BUILDDIR)/node.o
+# Compile all object files 
 $(BUILDDIR)/Trie.o: Trie.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 $(BUILDDIR)/node.o: node.cpp
@@ -71,4 +75,4 @@ $(BUILDDIR)/node.o: node.cpp
 	
 # Delete all generated files
 clean:
-	rm -rf $(EXECUTABLE) *.o
+	rm -rf $(BUILDDIR)
