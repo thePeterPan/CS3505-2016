@@ -58,7 +58,7 @@ all: $(EXECUTABLE)
 #		directory that do not exist already. If the given 
 #		directory already exists, ignore the error.
 $(BUILDDIR):
-	mkdir -p $(BUILDDIR)
+	mkdir -p $(BUILDDIR) && cp *.txt $(BUILDDIR)
 
 
 # compile the main executable linking all object files
