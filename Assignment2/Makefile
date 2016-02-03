@@ -15,7 +15,7 @@ CXX = g++
 # -g turns on debugging
 # -Wall turns on almost all warnings for g++
 # -std=c++11 does something
-CXXFLAGS = -g -Wall $(OPTFLAGS)
+CXXFLAGS = -g -Wall -std=c++11 $(OPTFLAGS)
 # Optimization flags: 
 OPTFLAGS = -O0
 # The main resulting executable that will be compiled into.
