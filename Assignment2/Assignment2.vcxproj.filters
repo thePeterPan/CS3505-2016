@@ -15,12 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="readme.txt" />
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HaruPDF.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="pdfExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,17 +27,21 @@
     <ClCompile Include="spiralPDF.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HaruPDF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HaruPDF.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <None Include="README.md" />
+    <None Include="libharu.zip" />
+    <None Include="Makefile" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="Spiral.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Makefile" />
-    <None Include="libharu.zip" />
+    <ClInclude Include="HaruPDF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

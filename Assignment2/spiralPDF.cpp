@@ -7,6 +7,8 @@
  * Testing class
  */
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>     // std::cout
 #include <cstring>      // std::strcpy, std::strcat
 #include "HaruPDF.h"    // 
