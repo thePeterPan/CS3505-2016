@@ -2,7 +2,6 @@ install: true
 language: cpp
 compiler: g++
 env:
-    - ASSIGN_DIR=Assignment1
     - ASSIGN_DIR=Assignment2
     - ASSIGN_DIR=Assignment3
 script: cd $ASSIGN_DIR && make && make test

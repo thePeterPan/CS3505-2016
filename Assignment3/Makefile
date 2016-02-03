@@ -76,3 +76,6 @@ $(BUILDDIR)/node.o: node.cpp
 # Delete all generated files
 clean:
 	rm -rf $(BUILDDIR)
+
+test: 
+	$(BUILDDIR)/TrieTest dictionary.txt queries.txt
