@@ -1,16 +1,16 @@
 ========================================================================
-    MAKEFILE PROJECT : Assignment3 Project Overview
+    CONSOLE APPLICATION : Assignment3 Project Overview
 ========================================================================
 
-AppWizard has created this Assignment3 project for you.  
+AppWizard has created this Assignment3 application for you.
 
 This file contains a summary of what you will find in each of the files that
-make up your Assignment3 project.
+make up your Assignment3 application.
 
 
 Assignment3.vcxproj
-    This is the main project file for VC++ projects generated using an Application Wizard. 
-    It contains information about the version of Visual C++ that generated the file, and 
+    This is the main project file for VC++ projects generated using an Application Wizard.
+    It contains information about the version of Visual C++ that generated the file, and
     information about the platforms, configurations, and project features selected with the
     Application Wizard.
 
@@ -21,9 +21,20 @@ Assignment3.vcxproj.filters
     similar extensions under a specific node (for e.g. ".cpp" files are associated with the
     "Source Files" filter).
 
-This project allows you to build/clean/rebuild from within Visual Studio by calling the commands you have input 
-in the wizard. The build command can be nmake or any other tool you use.
+Assignment3.cpp
+    This is the main application source file.
 
-This project does not contain any files, so there are none displayed in Solution Explorer.
+/////////////////////////////////////////////////////////////////////////////
+Other standard files:
+
+StdAfx.h, StdAfx.cpp
+    These files are used to build a precompiled header (PCH) file
+    named Assignment3.pch and a precompiled types file named StdAfx.obj.
+
+/////////////////////////////////////////////////////////////////////////////
+Other notes:
+
+AppWizard uses "TODO:" comments to indicate parts of the source code you
+should add to or customize.
 
 /////////////////////////////////////////////////////////////////////////////
