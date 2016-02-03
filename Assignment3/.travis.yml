@@ -1,0 +1,4 @@
+install: true
+language: cpp
+compiler: g++
+script: make && make test
