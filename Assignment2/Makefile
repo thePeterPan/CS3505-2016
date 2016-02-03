@@ -58,6 +58,11 @@ $(LIBHARU): $(BUILDDIR)
 	cd $(LIBHARU) && cmake . && $(MAKE) -C .
 
 
+### Object files ###
+# Had it under the main target, but didn't like it so moved it up here.
+SPIRALPDF_OBJS = \
+    $(BUILDDIR)/HaruPDF.o \
+    $(BUILDDIR)/Spiral.o
 
 
 # If you just write make in command line, without specifying the target, 
@@ -78,10 +83,7 @@ $(BUILDDIR):
 $(EXECUTABLE): spiralPDF.cpp $(SPIRALPDF_OBJS) $(LIBHARU) # $(BUILDDIR)/pdfExample.o
 	$(CXX) $(CXXFLAGS) $< $(SPIRALPDF_OBJS) -o $@ $(LIBHARU_FLAGS)
 
-# List and compile all object files 
-SPIRALPDF_OBJS = \
-    $(BUILDDIR)/HaruPDF.o \
-    $(BUILDDIR)/Spiral.o
+# Compile all object files 
 $(BUILDDIR)/HaruPDF.o: HaruPDF.cpp $(LIBHARU)
 	$(CXX) $(CXXFLAGS) -c $< -o $@ $(LIBHARU_FLAGS)
 $(BUILDDIR)/Spiral.o: Spiral.cpp
