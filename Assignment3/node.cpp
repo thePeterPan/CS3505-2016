@@ -38,3 +38,4 @@ node::~node() {
 //kind node::getValue() {
 //    return value;
 //}
+
