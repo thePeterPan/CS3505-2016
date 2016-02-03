@@ -36,8 +36,6 @@ private:
     // vector of pointers for child nodes
     // May want to change this to array or another data type
     std::vector<node *> children;
-
-    node *childNodes[26];
 };
 
 #endif /* NODE_H */

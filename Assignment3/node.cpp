@@ -12,7 +12,7 @@
 /**
  * Constructor
  */
-node::node() {
+node::node(size_t numberOfChildren) {
     
 }
 
