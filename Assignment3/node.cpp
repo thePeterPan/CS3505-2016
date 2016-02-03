@@ -9,15 +9,32 @@
 
 #include "node.h"
 
+/**
+ * Constructor
+ */
 node::node() {
     
 }
 
+/**
+ * Copy Constructor
+ * @param orig
+ */
 node::node(const node& orig) {
     
 }
 
+/**
+ * Destructor
+ */
 node::~node() {
     
 }
 
+/**
+ * Get the value of the current node
+ * @return the value of the current node
+ */
+kind node::getValue() {
+    return value;
+}
