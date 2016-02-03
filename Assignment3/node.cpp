@@ -35,6 +35,6 @@ node::~node() {
  * Get the value of the current node
  * @return the value of the current node
  */
-kind node::getValue() {
-    return value;
-}
+//kind node::getValue() {
+//    return value;
+//}

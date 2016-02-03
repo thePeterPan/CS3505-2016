@@ -12,7 +12,7 @@
 
 #include <vector>
 
-template<typename kind>
+//template<typename kind>
 class node {
     
 public:
@@ -27,11 +27,11 @@ public:
      * Get the value of the current node
      * @return the value of the current node.
      */
-    kind getValue();
+    //kind getValue();
     
 private:
     
-    kind value;
+    //kind value;
     
     // vector of pointers for child nodes
     // May want to change this to array or another data type
