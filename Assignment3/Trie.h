@@ -13,6 +13,8 @@
 #include <string>       // std::string
 #include <vector>       // std::vector
 
+#include "node.h"       // node<type>
+
 class Trie {
     
 public:
@@ -63,6 +65,8 @@ public:
     
 private:
 
+    node<char> rootNode;
+    
 };
 
 #endif /* TRIE_H */

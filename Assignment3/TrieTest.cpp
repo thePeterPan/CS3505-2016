@@ -117,17 +117,17 @@ int main(int argc, char** argv) {
     }
     queriesFile.close();
     
-//    // create a new vector iterator
-    std::vector<std::string>::iterator it;
-    vector<string> myvector;
-        myvector.push_back("a");
-        myvector.push_back("b");
-        myvector.push_back("c");
-        myvector.push_back("d");
+    // create a new vector iterator
+    // std::vector<std::string>::iterator it;
+    // vector<string> myvector;
+    //     myvector.push_back("a");
+    //     myvector.push_back("b");
+    //     myvector.push_back("c");
+    //     myvector.push_back("d");
 
-    for (it = myvector.begin(); it < myvector.end(); it++) {
-        std::cout << *it << endl;
-    }
+    // for (it = myvector.begin(); it < myvector.end(); it++) {
+    //     std::cout << *it << endl;
+    // }
     
     return 0;
 }
