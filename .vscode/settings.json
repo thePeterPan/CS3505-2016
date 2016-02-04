@@ -1,0 +1,10 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "editor.fontSize": 11,
+    
+    "editor.scrollBeyondLastLine": false,
+    
+    "travis.repository": "u0680482",
+    
+    "travis.username": "University-of-Utah-CS3505"
+}
