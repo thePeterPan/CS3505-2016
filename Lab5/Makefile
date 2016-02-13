@@ -30,7 +30,7 @@ CXXFLAGS += -pthread
 # I guess if LOCAL_BUILDDIR and TRAVIS_BUILDDIR are the same
 # make will get confused.
 TRAVIS_BUILDDIR = ./build
-TRAVIS_EXECUTABLE = $(TRAVIS_BUILDDIR)/test
+TRAVIS_EXECUTABLE = $(TRAVIS_BUILDDIR)/StudentsTest
 # LIBRARY_PATH is given by the .travis.yml file
 TRAVIS_LIB = $(LIBRARY_PATH)/libgtest_main.a \
 			$(LIBRARY_PATH)/libgtest.a
@@ -40,10 +40,10 @@ travis_ci : $(TRAVIS_BUILDDIR) $(TRAVIS_EXECUTABLE)
 $(TRAVIS_BUILDDIR) : 
 	mkdir -p $@
 
-$(TRAVIS_EXECUTABLE) : $(TRAVIS_BUILDDIR)/test.o 
+$(TRAVIS_EXECUTABLE) : $(TRAVIS_BUILDDIR)/StudentsTest.o 
 	$(CXX) $(CXXFLAGS) -lpthread $^ Students.o $(TRAVIS_LIB) -o $@
 
-$(TRAVIS_BUILDDIR)/test.o : StudentsTest.cpp
+$(TRAVIS_BUILDDIR)/StudentsTest.o : StudentsTest.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ 
 
 test : 
@@ -54,17 +54,17 @@ test :
 
 ### MAIN LOCAL_EXECUTABLE
 LOCAL_BUILDDIR = ./bin
-LOCAL_EXECUTABLE = $(LOCAL_BUILDDIR)/test
+LOCAL_EXECUTABLE = $(LOCAL_BUILDDIR)/StudentsTest
 
 local : $(LOCAL_BUILDDIR) $(LOCAL_EXECUTABLE)
 
 $(LOCAL_BUILDDIR) :
 	mkdir -p $@
 
-$(LOCAL_EXECUTABLE) : $(LOCAL_BUILDDIR)/test.o $(LOCAL_BUILDDIR)/gtest_main.a 
+$(LOCAL_EXECUTABLE) : $(LOCAL_BUILDDIR)/StudentsTest.o $(LOCAL_BUILDDIR)/gtest_main.a 
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ Students.o -o $@
 
-$(LOCAL_BUILDDIR)/test.o : StudentsTest.cpp
+$(LOCAL_BUILDDIR)/StudentsTest.o : StudentsTest.cpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ 
 
 local_test:
