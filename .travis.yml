@@ -1,46 +1,38 @@
 language: cpp
-compiler: g++
+compiler: gcc
 sudo: false
-
 addons:
-  apt:
-    sources:
+  apt: 
+   sources: 
       - ubuntu-toolchain-r-test
-    packages:
+   packages:
+      - gcc-4.8 
       - g++-4.8
-      - gcov-4.8
+      - gcov-4.6
       - clang
       - doxygen
+      - valgrind
       - libgtest-dev
       - libboost-dev
 
 before_script:
-  - uname -a
-  - printenv
-  - g++ --version 2>&1 | grep g++
-  - gcov --version | grep gcov
-  - clang++ --version 2>&1 | grep clang
-  - doxygen --version
-  - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
+    - uname -a
+    - printenv
+    - clang++ --version 2>&1 | grep clang
+    - g++ --version 2>&1 | grep g++
+    - gcov --version | grep gcov
+    - valgrind --version
+    - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
+    - doxygen --version
 
-install:
-  # Install gtest without sudo
-  - mkdir ~/gtest && cd ~/gtest
-  - export LIBRARY_PATH=$(pwd)
-  - cp -r /usr/src/gtest/* ./
-  - cmake -D CMAKE_INSTALL_PREFIX:PATH=./ ./
-  - make
-  - cd -
+install: 
+    # Install gtest without sudo 
+    - mkdir ~/gtest && cd ~/gtest
+    - export LIBRARY_PATH=$(pwd)
+    - cp -r /usr/src/gtest/* ./
+    - cmake -D CMAKE_INSTALL_PREFIX:PATH=./ ./
+    - make
+    - cd -
 
-env:
-    - ASSIGN_DIR=Lab5
-    - ASSIGN_DIR=Assignment4
-    
-script: 
-  # - cd $ASSIGN_DIR && make && make test
-  - ls -lap
-  - pwd
-  - cd ../
-  - ls -lap
-  - cd ~
-  - ls -lap
+script:
+    - ls -al
