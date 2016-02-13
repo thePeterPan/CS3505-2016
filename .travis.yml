@@ -35,7 +35,7 @@ before_script:
 
 script:
   - cd $DIR
-  - make -B test.cpp -j14
+  - make -B -j14
 
 
 # $ lscpu
