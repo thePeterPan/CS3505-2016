@@ -33,6 +33,8 @@ install:
     - cmake -D CMAKE_INSTALL_PREFIX:PATH=./ ./
     - make
     - cd -
+    - ls /usr/bin/g++*
 
 script:
     - ls -al
+    - g++ --version | grep g++
