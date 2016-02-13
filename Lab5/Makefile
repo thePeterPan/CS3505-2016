@@ -1,14 +1,16 @@
 ### Makefile
 
 # CXX = g++
-.PHONY: travis_ci clean local 
+.PHONY: travis_ci test local local_test clean
 .DEFAULT_GOAL := travis_ci
 
 # Flags passed to the C++ compiler.
-OPTFLAGS = -O0
-CXXFLAGS = -g -Wall -std=c++11 -Wextra -pthread $(OPTFLAGS)
+CXXFLAGS = -g -Wall -std=c++11 -Wextra
+# Optimization flags
+CXXFLAGS += -O0
 
 ### GTEST
+# https://github.com/google/googletest/blob/master/googletest/make/Makefile
 # Points to the root of Google Test, relative to where this file is.
 # Remember to tweak this if you move this file.
 LOCAL_GTEST_DIR = ./googletest/googletest
@@ -16,22 +18,17 @@ LOCAL_GTEST_DIR = ./googletest/googletest
 # definition.
 LOCAL_GTEST_HEADERS = $(LOCAL_GTEST_DIR)/include/gtest/*.h \
                 $(LOCAL_GTEST_DIR)/include/gtest/internal/*.h
-
-
 # Flags passed to the preprocessor.
 # Set Google Test's header directory as a system directory, such that
 # the compiler doesn't generate warnings in Google Test headers.
 CPPFLAGS += -isystem $(LOCAL_GTEST_DIR)/include
+CXXFLAGS += -pthread
 
-
-### MAIN LOCAL_EXECUTABLE
-LOCAL_BUILDDIR = ./bin
-LOCAL_EXECUTABLE = $(LOCAL_BUILDDIR)/test
 
 
 ### TRAVIS BUILD
 # I guess if LOCAL_BUILDDIR and TRAVIS_BUILDDIR are the same
-# they'll get confused.
+# make will get confused.
 TRAVIS_BUILDDIR = ./build
 TRAVIS_EXECUTABLE = $(TRAVIS_BUILDDIR)/test
 # LIBRARY_PATH is given by the .travis.yml file
@@ -53,6 +50,12 @@ test :
 	$(TRAVIS_EXECUTABLE)
 
 
+
+
+### MAIN LOCAL_EXECUTABLE
+LOCAL_BUILDDIR = ./bin
+LOCAL_EXECUTABLE = $(LOCAL_BUILDDIR)/test
+
 local : $(LOCAL_BUILDDIR) $(LOCAL_EXECUTABLE)
 
 $(LOCAL_BUILDDIR) :
@@ -64,8 +67,11 @@ $(LOCAL_EXECUTABLE) : $(LOCAL_BUILDDIR)/test.o $(LOCAL_BUILDDIR)/gtest_main.a
 $(LOCAL_BUILDDIR)/test.o : StudentsTest.cpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ 
 
+local_test:
+	$(LOCAL_EXECUTABLE)
 
 ### GTEST
+# https://github.com/google/googletest/blob/master/googletest/make/Makefile
 # For simplicity and to avoid depending on Google Test's
 # implementation details, the dependencies specified below are
 # conservative and not optimized.  This is fine as Google Test
