@@ -1,27 +1,46 @@
-install: true
 language: cpp
 compiler: g++
+sudo: false
 
-before_install:
-  # g++4.8.1
-  - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+      - gcov-4.8
+      - clang
+      - doxygen
+      - libgtest-dev
+      - libboost-dev
 
-  # clang 3.4
-  - if [ "$CXX" == "clang++" ]; then sudo add-apt-repository -y ppa:h-rayflood/llvm; fi
-
-  - sudo apt-get update -qq
+before_script:
+  - uname -a
+  - printenv
+  - g++ --version 2>&1 | grep g++
+  - gcov --version | grep gcov
+  - clang++ --version 2>&1 | grep clang
+  - doxygen --version
+  - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
 
 install:
-  # g++4.8.1
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8"; fi
-
-  # clang 3.4
-  - if [ "$CXX" == "clang++" ]; then sudo apt-get install --allow-unauthenticated -qq clang-3.4; fi
-  - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.4"; fi
+  # Install gtest without sudo
+  - mkdir ~/gtest && cd ~/gtest
+  - export LIBRARY_PATH=$(pwd)
+  - cp -r /usr/src/gtest/* ./
+  - cmake -D CMAKE_INSTALL_PREFIX:PATH=./ ./
+  - make
+  - cd -
 
 env:
-    - ASSIGN_DIR=Assignment2
-    - ASSIGN_DIR=Assignment3
+    - ASSIGN_DIR=Lab5
+    - ASSIGN_DIR=Assignment4
     
-script: cd $ASSIGN_DIR && make && make test
+script: 
+  # - cd $ASSIGN_DIR && make && make test
+  - ls -lap
+  - pwd
+  - cd ../
+  - ls -lap
+  - cd ~
+  - ls -lap
