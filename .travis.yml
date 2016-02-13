@@ -1,18 +1,10 @@
 language: cpp
-compiler: gcc
+compiler: g++-4.8
 sudo: false
 addons:
   apt: 
-   sources: 
-      - ubuntu-toolchain-r-test
-   packages:
-      - gcc-4.8 
-      - g++-4.8
-      - gcov-4.8
-      - clang
-      - doxygen
-      - libgtest-dev
-      - libboost-dev
+   sources: ['ubuntu-toolchain-r-test']
+   packages: ['gcc-4.8', 'g++-4.8', 'gcov-4.8', 'clang', 'doxygen', 'libgtest-dev', 'libboost-dev']
 
 before_script:
     - uname -a
@@ -34,7 +26,7 @@ install:
     - ls /usr/bin/g++*
 
 env:
-  - DIR=Lab5
+  - DIR=Lab5 COMPILER=g++-4.8
 
 script:
     - cd $DIR
