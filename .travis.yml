@@ -16,14 +16,13 @@ install:
   # Install gtest without sudo 
   - mkdir ~/gtest && cd ~/gtest
   - export LIBRARY_PATH=$(pwd)
-  - ls -lap /usr/src/gtest/
+  - ls -laRp /usr/src/gtest/
   - cp -r /usr/src/gtest/* ./
   - cmake -D CMAKE_INSTALL_PREFIX:PATH=./ ./
-  - ls -lap
+  - ls -laRp
   - make
-  - ls -lap
+  - ls -laRp
   - cd -
-  - ls /usr/bin/g++*
 
 before_script:
   - uname -a
