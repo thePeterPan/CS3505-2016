@@ -35,7 +35,7 @@ before_script:
 
 script:
   - cd $DIR
-  - make -n
+  - make -n travis_ci
 
 
 # $ lscpu
