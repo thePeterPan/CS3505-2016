@@ -28,7 +28,9 @@ CPPFLAGS += -isystem $(LOCAL_GTEST_DIR)/include
 LOCAL_BUILDDIR = ./bin
 LOCAL_EXECUTABLE = $(LOCAL_BUILDDIR)/test
 
-TRAVIS_BUILDDIR = ./bin
+# I guess if LOCAL_BUILDDIR and TRAVIS_BUILDDIR are the same
+# they'll get confused.
+TRAVIS_BUILDDIR = ./build
 TRAVIS_EXECUTABLE = $(TRAVIS_BUILDDIR)/test
 
 TRAVIS_LIB = $(LIBRARY_PATH)/libgtest_main.a \
