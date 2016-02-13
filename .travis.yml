@@ -35,7 +35,7 @@ before_script:
 
 script:
   - cd $DIR
-  - make -B -j14
+  - make -n
 
 
 # $ lscpu
