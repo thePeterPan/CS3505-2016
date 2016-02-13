@@ -1,7 +1,7 @@
 ### Makefile
 
 # CXX = g++
-.PHONY: clean_local local travis_ci
+.PHONY: travis_ci clean local 
 .DEFAULT_GOAL := travis_ci
 
 # Flags passed to the C++ compiler.
@@ -44,46 +44,3 @@ $(TRAVIS_EXECUTABLE) : $(TRAVIS_BUILDDIR)/test.o
 
 $(TRAVIS_BUILDDIR)/test.o : StudentsTest.cpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ 
-
-
-
-local : $(LOCAL_BUILDDIR) $(LOCAL_EXECUTABLE)
-
-$(LOCAL_BUILDDIR) :
-	mkdir -p $@
-
-$(LOCAL_EXECUTABLE) : $(LOCAL_BUILDDIR)/test.o $(LOCAL_BUILDDIR)/gtest_main.a 
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ Students.o -o $@
-
-$(LOCAL_BUILDDIR)/test.o : StudentsTest.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ 
-
-
-### GTEST
-# For simplicity and to avoid depending on Google Test's
-# implementation details, the dependencies specified below are
-# conservative and not optimized.  This is fine as Google Test
-# compiles fast and for ordinary users its source rarely changes.
-$(LOCAL_BUILDDIR)/gtest-all.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(LOCAL_GTEST_DIR) $(CXXFLAGS) -c \
-            $(LOCAL_GTEST_DIR)/src/gtest-all.cc \
-            -o $@
-
-$(LOCAL_BUILDDIR)/gtest_main.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(LOCAL_GTEST_DIR) $(CXXFLAGS) -c \
-            $(LOCAL_GTEST_DIR)/src/gtest_main.cc \
-            -o $@
-
-$(LOCAL_BUILDDIR)/gtest.a : $(LOCAL_BUILDDIR)/gtest-all.o
-	$(AR) $(ARFLAGS) $@ $^
-
-$(LOCAL_BUILDDIR)/gtest_main.a : $(LOCAL_BUILDDIR)/gtest-all.o $(LOCAL_BUILDDIR)/gtest_main.o
-	$(AR) $(ARFLAGS) $@ $^
-
-
-clean : 
-	rm -rf $(LOCAL_BUILDDIR)
-	rm -rf $(TRAVIS_BUILDDIR)
-
-test.cpp:
-	$(CXX) -std=c++11 -g -Wall test.cpp && ./a.out
