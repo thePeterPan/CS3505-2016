@@ -66,4 +66,4 @@ $(BUILDDIR)/gtest_main.a : $(BUILDDIR)/gtest-all.o $(BUILDDIR)/gtest_main.o
 
 
 test.cpp:
-	$(CXX) -std=c++11 -g -Wall test.cpp
+	$(CXX) -std=c++11 -g -Wall test.cpp && ./a.out

@@ -1,37 +1,69 @@
+sudo: false
 language: cpp
 compiler: g++-4.8
-sudo: false
+
 addons:
   apt: 
    sources: ['ubuntu-toolchain-r-test']
-   packages: ['gcc-4.8', 'g++-4.8', 'gcov-4.8', 'clang', 'doxygen', 'libgtest-dev', 'libboost-dev']
+   packages: ['gcc-4.8', 'g++-4.8', 'clang', 'doxygen', 'libboost-dev', 'libgtest-dev']
 
 env:
-  - DIR=Lab5 COMPILER=g++-4.8
+  - DIR=Lab5
 
 install: 
-    # Install gtest without sudo 
-    - mkdir ~/gtest && cd ~/gtest
-    - export LIBRARY_PATH=$(pwd)
-    - cp -r /usr/src/gtest/* ./
-    - cmake -D CMAKE_INSTALL_PREFIX:PATH=./ ./
-    - make
-    - cd -
-    - ls /usr/bin/g++*
+  # Set the default compiler that 'make' uses to g++-4.8
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+  # Install gtest without sudo 
+  - mkdir ~/gtest && cd ~/gtest
+  - export LIBRARY_PATH=$(pwd)
+  - cp -r /usr/src/gtest/* ./
+  - cmake -D CMAKE_INSTALL_PREFIX:PATH=./ ./
+  - make
+  - cd -
+  - ls /usr/bin/g++*
 
 before_script:
-    - uname -a
-    - printenv
-    - clang++ --version 2>&1 | grep clang
-    - g++ --version 2>&1 | grep g++
-    - gcov --version | grep gcov
-    - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
-    - doxygen --version
+  - uname -a
+  - printenv
+  - $CC --version 2>$1 | grep gcc
+  - $CXX --version 2>&1 | grep g++
+  - clang++ --version 2>&1 | grep clang
+  - doxygen --version
+  - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
 
 script:
-    - cd $DIR
-    - ls -al
-    - g++ --version | grep g++
-    - nproc
-    - lscpu
-    - make test.cpp CXX=$COMPILER -j3
+  - cd $DIR
+  - ls -al
+  - g++ --version | grep g++
+  - nproc
+  - lscpu
+  - make test.cpp -j14
+
+
+# $ lscpu
+# Architecture:          x86_64
+# CPU op-mode(s):        32-bit, 64-bit
+# Byte Order:            Little Endian
+# CPU(s):                32
+# On-line CPU(s) list:   0-31
+# Thread(s) per core:    2
+# Core(s) per socket:    8
+# Socket(s):             2
+# NUMA node(s):          2
+# Vendor ID:             GenuineIntel
+# CPU family:            6
+# Model:                 62
+# Stepping:              4
+# CPU MHz:               2793.328
+# BogoMIPS:              5660.02
+# Hypervisor vendor:     Xen
+# Virtualization type:   full
+# L1d cache:             32K
+# L1i cache:             32K
+# L2 cache:              256K
+# L3 cache:              25600K
+# NUMA node0 CPU(s):     0-7,16-23
+# NUMA node1 CPU(s):     8-15,24-31
+
+# nproc
+# 2
