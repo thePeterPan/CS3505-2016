@@ -28,11 +28,13 @@ CPPFLAGS += -isystem $(LOCAL_GTEST_DIR)/include
 LOCAL_BUILDDIR = ./bin
 LOCAL_EXECUTABLE = $(LOCAL_BUILDDIR)/test
 
+
+### TRAVIS BUILD
 # I guess if LOCAL_BUILDDIR and TRAVIS_BUILDDIR are the same
 # they'll get confused.
 TRAVIS_BUILDDIR = ./build
 TRAVIS_EXECUTABLE = $(TRAVIS_BUILDDIR)/test
-
+# LIBRARY_PATH is given by the .travis.yml file
 TRAVIS_LIB = $(LIBRARY_PATH)/libgtest_main.a \
 			$(LIBRARY_PATH)/libgtest.a
 
@@ -47,6 +49,8 @@ $(TRAVIS_EXECUTABLE) : $(TRAVIS_BUILDDIR)/test.o
 $(TRAVIS_BUILDDIR)/test.o : StudentsTest.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ 
 
+test : 
+	$(TRAVIS_EXECUTABLE)
 
 
 local : $(LOCAL_BUILDDIR) $(LOCAL_EXECUTABLE)
@@ -86,6 +90,3 @@ $(LOCAL_BUILDDIR)/gtest_main.a : $(LOCAL_BUILDDIR)/gtest-all.o $(LOCAL_BUILDDIR)
 clean : 
 	rm -rf $(LOCAL_BUILDDIR)
 	rm -rf $(TRAVIS_BUILDDIR)
-
-test.cpp:
-	$(CXX) -std=c++11 -g -Wall test.cpp && ./a.out
