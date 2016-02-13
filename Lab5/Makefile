@@ -65,4 +65,5 @@ $(BUILDDIR)/gtest_main.a : $(BUILDDIR)/gtest-all.o $(BUILDDIR)/gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
 
-	
+test.cpp:
+	$(CXX) -std=c++11 -g -Wall test.cpp

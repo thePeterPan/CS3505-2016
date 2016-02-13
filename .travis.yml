@@ -6,14 +6,8 @@ addons:
    sources: ['ubuntu-toolchain-r-test']
    packages: ['gcc-4.8', 'g++-4.8', 'gcov-4.8', 'clang', 'doxygen', 'libgtest-dev', 'libboost-dev']
 
-before_script:
-    - uname -a
-    - printenv
-    - clang++ --version 2>&1 | grep clang
-    - g++ --version 2>&1 | grep g++
-    - gcov --version | grep gcov
-    - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
-    - doxygen --version
+env:
+  - DIR=Lab5 COMPILER=g++-4.8
 
 install: 
     # Install gtest without sudo 
@@ -25,11 +19,19 @@ install:
     - cd -
     - ls /usr/bin/g++*
 
-env:
-  - DIR=Lab5 COMPILER=g++-4.8
+before_script:
+    - uname -a
+    - printenv
+    - clang++ --version 2>&1 | grep clang
+    - g++ --version 2>&1 | grep g++
+    - gcov --version | grep gcov
+    - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
+    - doxygen --version
 
 script:
     - cd $DIR
     - ls -al
     - g++ --version | grep g++
-    - g++ -std=c++11 -g -Wall test.cpp
+    - nproc
+    - lscpu
+    - make test.cpp CXX=$COMPILER -j3
