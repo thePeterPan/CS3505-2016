@@ -25,7 +25,7 @@ install:
 before_script:
   - uname -a
   - printenv
-  - $CC --version 2>$1 | grep gcc
+  - $CC --version 2>&1 | grep gcc
   - $CXX --version 2>&1 | grep g++
   - clang++ --version 2>&1 | grep clang
   - doxygen --version
