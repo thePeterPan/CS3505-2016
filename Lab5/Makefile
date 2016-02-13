@@ -40,10 +40,10 @@ $(TRAVIS_BUILDDIR) :
 	mkdir -p $@
 
 $(TRAVIS_EXECUTABLE) : $(TRAVIS_BUILDDIR)/test.o 
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ Students.o $(TRAVIS_LIB) -o $@
+	$(CXX) $(CXXFLAGS) -lpthread $^ Students.o $(TRAVIS_LIB) -o $@
 
 $(TRAVIS_BUILDDIR)/test.o : StudentsTest.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ 
+	$(CXX) $(CXXFLAGS) -c $< -o $@ 
 
 
 
@@ -64,12 +64,12 @@ $(LOCAL_BUILDDIR)/test.o : StudentsTest.cpp
 # implementation details, the dependencies specified below are
 # conservative and not optimized.  This is fine as Google Test
 # compiles fast and for ordinary users its source rarely changes.
-$(LOCAL_BUILDDIR)/gtest-all.o : $(GTEST_SRCS_)
+$(LOCAL_BUILDDIR)/gtest-all.o : 
 	$(CXX) $(CPPFLAGS) -I$(LOCAL_GTEST_DIR) $(CXXFLAGS) -c \
             $(LOCAL_GTEST_DIR)/src/gtest-all.cc \
             -o $@
 
-$(LOCAL_BUILDDIR)/gtest_main.o : $(GTEST_SRCS_)
+$(LOCAL_BUILDDIR)/gtest_main.o : 
 	$(CXX) $(CPPFLAGS) -I$(LOCAL_GTEST_DIR) $(CXXFLAGS) -c \
             $(LOCAL_GTEST_DIR)/src/gtest_main.cc \
             -o $@
