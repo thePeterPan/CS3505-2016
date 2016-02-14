@@ -9,6 +9,6 @@
 //  ... test body ...
 // }
 
-TEST(TrieTest, Dummy) {
+TEST(TrieUnitTests, Dummy) {
 	ASSERT_EQ(1, 1);
 }
