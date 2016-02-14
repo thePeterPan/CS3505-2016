@@ -26,6 +26,7 @@ install:
   - cd -
 
 before_script:
+  # Verify the version information of the installed binaries
   - uname -a
   - printenv
   # http://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean
