@@ -1,0 +1,7 @@
+mkdir -p build
+g++ -g -Wall -std=c++11 -Wextra -O0 -pthread -c Trie.cpp -o build/Trie.o
+g++ -g -Wall -std=c++11 -Wextra -O0 -pthread -c node.cpp -o build/node.o 
+g++ -g -Wall -std=c++11 -Wextra -O0 -pthread -lpthread build/Trie.o build/node.o /libgtest_main.a /libgtest.a -o build/TrieUnitTests
+g++: error: /libgtest_main.a: No such file or directory
+g++: error: /libgtest.a: No such file or directory
+gmake: *** [build/TrieUnitTests] Error 1

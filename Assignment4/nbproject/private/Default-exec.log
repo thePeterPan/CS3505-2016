@@ -1,0 +1,45 @@
+called: g++
+	/home/ppan/.netbeans/remote/lab2-16.eng.utah.edu/owner-pc-Windows-x86_64/E/Documents/University-of-Utah-CS3505-u0680482/Assignment4
+	g++
+	-g
+	-Wall
+	-std=c++11
+	-Wextra
+	-O0
+	-pthread
+	-c
+	Trie.cpp
+	-o
+	build/Trie.o
+
+called: g++
+	/home/ppan/.netbeans/remote/lab2-16.eng.utah.edu/owner-pc-Windows-x86_64/E/Documents/University-of-Utah-CS3505-u0680482/Assignment4
+	g++
+	-g
+	-Wall
+	-std=c++11
+	-Wextra
+	-O0
+	-pthread
+	-c
+	node.cpp
+	-o
+	build/node.o
+
+called: g++
+	/home/ppan/.netbeans/remote/lab2-16.eng.utah.edu/owner-pc-Windows-x86_64/E/Documents/University-of-Utah-CS3505-u0680482/Assignment4
+	g++
+	-g
+	-Wall
+	-std=c++11
+	-Wextra
+	-O0
+	-pthread
+	-lpthread
+	build/Trie.o
+	build/node.o
+	/libgtest_main.a
+	/libgtest.a
+	-o
+	build/TrieUnitTests
+

@@ -57,7 +57,6 @@ LOCAL_GTEST_LIB = \
 
 # Build and run it
 local : $(LOCAL_BUILDDIR) $(LOCAL_EXECUTABLE)
-	$(LOCAL_EXECUTABLE)
 
 $(LOCAL_BUILDDIR) :
 	mkdir -p $@
