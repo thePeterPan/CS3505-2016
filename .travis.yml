@@ -28,6 +28,7 @@ install:
 before_script:
   - uname -a
   - printenv
+  # http://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean
   - $CC --version 2>&1 | grep gcc
   - $CXX --version 2>&1 | grep g++
   - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
