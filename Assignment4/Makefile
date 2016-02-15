@@ -23,6 +23,7 @@ TRAVIS_GTEST_LIB = \
 	$(LIBRARY_PATH)/libgtest_main.a \
 	$(LIBRARY_PATH)/libgtest.a
 TRAVIS_TRIETEST_OBJS = \
+	$(TRAVIS_BUILDDIR)/TrieUnitTests.o \
 	$(TRAVIS_BUILDDIR)/Trie.o \
 	$(TRAVIS_BUILDDIR)/node.o
 
@@ -33,6 +34,9 @@ $(TRAVIS_BUILDDIR) :
 
 $(TRAVIS_EXECUTABLE) : $(TRAVIS_TRIETEST_OBJS)
 	$(CXX) $(CXXFLAGS) -lpthread $^ $(TRAVIS_GTEST_LIB) -o $@
+
+$(TRAVIS_BUILDDIR)/TrieUnitTests.o : TrieUnitTests.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(TRAVIS_BUILDDIR)/Trie.o : Trie.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
