@@ -5,7 +5,7 @@ file=dictionary.txt
 qfile=test.txt
 
 TrieTest: 
-	g++ -g -std=c++11 -Wextra -o TrieUnitTests TrieUnitTests.cpp Trie.cpp Node.cpp \
+	$(CXX) -g -std=c++11 -Wextra -o TrieUnitTests TrieUnitTests.cpp Trie.cpp Node.cpp \
 	-pthread -lpthread $(LIBRARY_PATH)/libgtest_main.a $(LIBRARY_PATH)/libgtest.a 
 clean: 
 	$ rm *.o TrieTest
