@@ -5,7 +5,7 @@
 .DEFAULT_GOAL := travis_ci
 
 # Flags passed to the C++ compiler.
-CXXFLAGS = -g -Wall -std=c++11 -Wextra
+CXXFLAGS = -g -std=c++11 -Wextra
 # Optimization flags
 CXXFLAGS += -O0
 # Possible flags that gtest may need
@@ -29,7 +29,7 @@ TRAVIS_TRIETEST_OBJS = \
 
 travis_ci : $(TRAVIS_BUILDDIR) $(TRAVIS_EXECUTABLE)
 
-$(TRAVIS_BUILDDIR) : 
+$(TRAVIS_BUILDDIR) :
 	mkdir -p $@
 
 $(TRAVIS_EXECUTABLE) : $(TRAVIS_TRIETEST_OBJS)
@@ -38,9 +38,9 @@ $(TRAVIS_EXECUTABLE) : $(TRAVIS_TRIETEST_OBJS)
 $(TRAVIS_BUILDDIR)/Trie.o : Trie.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 $(TRAVIS_BUILDDIR)/node.o : node.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@ 
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-test : 
+test :
 	$(TRAVIS_EXECUTABLE)
 
 
@@ -55,7 +55,7 @@ LOCAL_TRIETEST_OBJS = \
 	$(LOCAL_BUILDDIR)/node.o
 
 # Apparently order matters here
-LOCAL_GTEST_LIB = 
+# LOCAL_GTEST_LIB =
 #	./gtest/gtest_main.a
 #	./gtest/libgtest_main.a	\
 #	./gtest/libgtest.a
@@ -65,35 +65,7 @@ GTEST_DIR = ./googletest/googletest
 # Flags passed to the preprocessor.
 # Set Google Test's header directory as a system directory, such that
 # the compiler doesn't generate warnings in Google Test headers.
-CPPFLAGS += -isystem $(GTEST_DIR)/include
-
-# All Google Test headers.  Usually you shouldn't change this
-# definition.
-GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
-                $(GTEST_DIR)/include/gtest/internal/*.h
-
-# Usually you shouldn't tweak such internal variables, indicated by a
-# trailing _.
-GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
-
-
-$(LOCAL_BUILDDIR)/gtest-all.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-            $(GTEST_DIR)/src/gtest-all.cc \
-            -o $@
-
-$(LOCAL_BUILDDIR)/gtest_main.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-            $(GTEST_DIR)/src/gtest_main.cc \
-            -o $@
-
-$(LOCAL_BUILDDIR)/gtest.a : $(LOCAL_BUILDDIR)/gtest-all.o
-	$(AR) $(ARFLAGS) $@ $^
-
-$(LOCAL_BUILDDIR)/gtest_main.a : $(LOCAL_BUILDDIR)/gtest-all.o $(LOCAL_BUILDDIR)/gtest_main.o
-	$(AR) $(ARFLAGS) $@ $^
-
-
+GTEST_FLAGS += -isystem $(GTEST_DIR)/include
 
 # Build and run it
 local : $(LOCAL_BUILDDIR) $(LOCAL_EXECUTABLE)
@@ -101,20 +73,16 @@ local : $(LOCAL_BUILDDIR) $(LOCAL_EXECUTABLE)
 $(LOCAL_BUILDDIR) :
 	mkdir -p $@
 
-$(LOCAL_EXECUTABLE) : $(LOCAL_BUILDDIR)/TrieUnitTests.o $(LOCAL_TRIETEST_OBJS) $(LOCAL_BUILDDIR)/gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
-## 	$(CXX) $(CXXFLAGS) -lpthread $^ $(LOCAL_GTEST_LIB) -lgtest -o $@
-
-$(LOCAL_BUILDDIR)/TrieUnitTests.o : TrieUnitTests.cpp $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+$(LOCAL_EXECUTABLE) : TrieUnitTests.cpp $(LOCAL_TRIETEST_OBJS) $(LOCAL_BUILDDIR)/gtest_main.a
+	$(CXX) $(CXXFLAGS) -lpthread $(GTEST_FLAGS) $^ -o $@
 
 $(LOCAL_BUILDDIR)/Trie.o : Trie.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(LOCAL_BUILDDIR)/node.o : node.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 
-clean : 
+clean :
 	rm -rf $(LOCAL_BUILDDIR)
 	rm -rf $(TRAVIS_BUILDDIR)
