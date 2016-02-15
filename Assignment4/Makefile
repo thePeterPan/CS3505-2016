@@ -51,6 +51,7 @@ test :
 LOCAL_BUILDDIR = ./bin
 LOCAL_EXECUTABLE = $(LOCAL_BUILDDIR)/TrieUnitTests
 LOCAL_TRIETEST_OBJS = \
+	$(LOCAL_BUILDDIR)/TrieUnitTests.o \
 	$(LOCAL_BUILDDIR)/Trie.o \
 	$(LOCAL_BUILDDIR)/node.o
 
@@ -73,8 +74,11 @@ local : $(LOCAL_BUILDDIR) $(LOCAL_EXECUTABLE)
 $(LOCAL_BUILDDIR) :
 	mkdir -p $@
 
-$(LOCAL_EXECUTABLE) : TrieUnitTests.cpp $(LOCAL_TRIETEST_OBJS) $(LOCAL_BUILDDIR)/gtest_main.a
+$(LOCAL_EXECUTABLE) : $(LOCAL_TRIETEST_OBJS) $(LOCAL_BUILDDIR)/gtest_main.a
 	$(CXX) $(CXXFLAGS) -lpthread $(GTEST_FLAGS) $^ -o $@
+
+$(LOCAL_BUILDDIR)/TrieUnitTests.o : TrieUnitTests.cpp
+	$(CXX) $(CXXFLAGS) $(GTEST_FLAGS) -c $< -o $@
 
 $(LOCAL_BUILDDIR)/Trie.o : Trie.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
