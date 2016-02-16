@@ -1,6 +1,8 @@
 ### Makefile
 
-# CXX = g++
+# will use g++ if the environment variable is not set
+CXX ?= g++
+
 .PHONY: travis_ci test local local_test clean
 .DEFAULT_GOAL := travis_ci
 
@@ -17,6 +19,7 @@ CXXFLAGS += -pthread
 
 # I guess if LOCAL_BUILDDIR and TRAVIS_BUILDDIR are the same make will get confused.
 TRAVIS_BUILDDIR = ./build
+TRAVIS_SRC = ./Trie
 TRAVIS_EXECUTABLE = $(TRAVIS_BUILDDIR)/TrieUnitTests
 # LIBRARY_PATH is given by the .travis.yml file
 TRAVIS_GTEST_LIB = \
@@ -38,12 +41,12 @@ $(TRAVIS_EXECUTABLE) : $(TRAVIS_TRIETEST_OBJS)
 $(TRAVIS_BUILDDIR)/TrieUnitTests.o : TrieUnitTests.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(TRAVIS_BUILDDIR)/Trie.o : Trie.cpp
+$(TRAVIS_BUILDDIR)/Trie.o : $(TRAVIS_SRC)/Trie.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
-$(TRAVIS_BUILDDIR)/node.o : node.cpp
+$(TRAVIS_BUILDDIR)/node.o : $(TRAVIS_SRC)/node.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-test :
+test : travis_ci
 	$(TRAVIS_EXECUTABLE)
 
 
@@ -51,6 +54,7 @@ test :
 ### --------------------- MAIN LOCAL_EXECUTABLE -------------------------------- ###
 
 LOCAL_BUILDDIR = ./bin
+LOCAL_SRC = ./Trie
 LOCAL_EXECUTABLE = $(LOCAL_BUILDDIR)/TrieUnitTests
 LOCAL_TRIETEST_OBJS = \
 	$(LOCAL_BUILDDIR)/TrieUnitTests.o \
@@ -80,10 +84,10 @@ $(LOCAL_EXECUTABLE) : $(LOCAL_TRIETEST_OBJS) $(LOCAL_GTEST_LIB)
 $(LOCAL_BUILDDIR)/TrieUnitTests.o : TrieUnitTests.cpp
 	$(CXX) $(CXXFLAGS) $(GTEST_FLAGS) -c $< -o $@
 
-$(LOCAL_BUILDDIR)/Trie.o : Trie.cpp
+$(LOCAL_BUILDDIR)/Trie.o : $(LOCAL_SRC)/Trie.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(LOCAL_BUILDDIR)/node.o : node.cpp
+$(LOCAL_BUILDDIR)/node.o : $(LOCAL_SRC)/node.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 
