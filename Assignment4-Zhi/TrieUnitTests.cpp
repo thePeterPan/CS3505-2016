@@ -49,6 +49,127 @@ TEST(TrieUnitTests, Dummy3) {
 	ASSERT_EQ(16, v.size());
 }
 
+TEST(TrieUnitTests, Dummy4) {
+    Trie trie;
+    ifstream input("dictionary.txt");
+    for(string inputStr; !input.eof();)
+	{
+		input >> inputStr;
+		trie.addWord(inputStr);
+	}
+	/* close the stream*/
+	input.close();
+	vector<string> v = trie.allWordsWithPrefix("asdfghjkl");
+    
+	ASSERT_EQ(0, v.size());
+}
+
+TEST(TrieUnitTests, Dummy5) {
+    Trie trie;
+    ifstream input("dictionary.txt");
+    for(string inputStr; !input.eof();)
+	{
+		input >> inputStr;
+		trie.addWord(inputStr);
+	}
+	/* close the stream*/
+	input.close();
+	vector<string> v = trie.allWordsWithPrefix("peace");
+    
+	ASSERT_EQ(1, v.size());
+}
+
+TEST(TrieUnitTests, Dummy6) {
+    Trie trie;
+    ifstream input("dictionary.txt");
+    for(string inputStr; !input.eof();)
+	{
+		input >> inputStr;
+		trie.addWord(inputStr);
+	}
+	/* close the stream*/
+	input.close();
+	
+	 Trie trie2;
+	ifstream input2("test.txt");
+    for(string inputStr; !input2.eof();)
+	{
+		input2 >> inputStr;
+		trie2.addWord(inputStr);
+	}
+	/* close the stream*/
+	input2.close();
+	
+	
+	vector<string> v = trie2.allWordsWithPrefix("map");
+    
+	ASSERT_EQ(0, v.size());
+}
+TEST(TrieUnitTests, Dummy7) {
+    Trie trie;
+    ifstream input("dictionary.txt");
+    for(string inputStr; !input.eof();)
+	{
+		input >> inputStr;
+		trie.addWord(inputStr);
+	}
+	/* close the stream*/
+	input.close();
+	
+	 Trie trie2;
+	ifstream input2("test.txt");
+    for(string inputStr; !input2.eof();)
+	{
+		input2 >> inputStr;
+		trie2.addWord(inputStr);
+	}
+	/* close the stream*/
+	input2.close();
+	
+	Trie trie3(trie);
+	vector<string> v = trie3.allWordsWithPrefix("map");
+    
+	ASSERT_EQ(1, v.size());
+}
+TEST(TrieUnitTests, Dummy8) {
+    Trie trie;
+    ifstream input("dictionary.txt");
+    for(string inputStr; !input.eof();)
+	{
+		input >> inputStr;
+		trie.addWord(inputStr);
+	}
+	/* close the stream*/
+	input.close();
+	
+	 Trie trie2;
+	ifstream input2("test.txt");
+    for(string inputStr; !input2.eof();)
+	{
+		input2 >> inputStr;
+		trie2.addWord(inputStr);
+	}
+	/* close the stream*/
+	input2.close();
+	
+	Trie trie3(trie);
+	
+	trie3=trie2;
+	
+	vector<string> v = trie3.allWordsWithPrefix("map");
+    
+	ASSERT_EQ(0, v.size());
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
