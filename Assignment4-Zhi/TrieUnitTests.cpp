@@ -104,6 +104,22 @@ TEST(TrieUnitTests, Dummy6) {
 	vector<string> v = trie2.allWordsWithPrefix("map");
     
 	ASSERT_EQ(0, v.size());
+	
+	Trie trie3(trie);
+	vector<string> v1 = trie3.allWordsWithPrefix("map");
+	ASSERT_EQ(1, v1.size());
+	
+	trie3=trie2;
+	//vector<string> v2 = trie3.allWordsWithPrefix("map");
+	ASSERT_EQ(false, trie3.isWord("map"));
+	
+	trie3.~Trie();
+	vector<string> v3 = trie3.allWordsWithPrefix("map");
+	ASSERT_EQ(0, v3.size());
+	
+	
+	
+	
 }
 TEST(TrieUnitTests, Dummy7) {
     Trie trie;
@@ -131,6 +147,8 @@ TEST(TrieUnitTests, Dummy7) {
     
 	ASSERT_EQ(1, v.size());
 }
+
+
 TEST(TrieUnitTests, Dummy8) {
     Trie trie;
     ifstream input("dictionary.txt");
@@ -162,7 +180,37 @@ TEST(TrieUnitTests, Dummy8) {
 }
 
 
-
+TEST(TrieUnitTests, Dummy9) {
+    Trie trie;
+    ifstream input("dictionary.txt");
+    for(string inputStr; !input.eof();)
+	{
+		input >> inputStr;
+		trie.addWord(inputStr);
+	}
+	/* close the stream*/
+	input.close();
+	
+	 Trie trie2;
+	ifstream input2("test.txt");
+    for(string inputStr; !input2.eof();)
+	{
+		input2 >> inputStr;
+		trie2.addWord(inputStr);
+	}
+	/* close the stream*/
+	input2.close();
+	
+	Trie trie3(trie);
+	
+	//trie3=trie2;
+	 
+	 //trie3.~Trie();
+	
+	vector<string> v = trie2.allWordsWithPrefix("text");
+    
+	ASSERT_EQ(0, v.size());
+}
 
 
 
