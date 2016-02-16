@@ -21,7 +21,7 @@ install:
   # cmake gtest into the current directory
   - cmake /usr/src/gtest/
   # make gtest
-  - make
+  - make -j14
   # chage directory back to previous directory
   - cd -
 
@@ -36,7 +36,7 @@ before_script:
 
 script:
   - cd $DIR
-  - make -B && make test
+  - make -B -j14 && make test
 
 
 # $ lscpu
