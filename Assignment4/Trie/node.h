@@ -18,6 +18,9 @@
 class node {
     
 public:
+    // Put the extern int refCount in any header whose .cpp needs to use it 
+    // since it is a declaration of the refCount variable not definition.
+    extern int refCount;
     
     static const int child_nodes_array_size = 26;
     
