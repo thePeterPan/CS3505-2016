@@ -2,15 +2,49 @@
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
-      <df name="gtest">
+      <df name="googletest">
+        <df name="include">
+          <df name="gtest">
+            <df name="internal">
+              <df name="custom">
+                <in>gtest-port.h</in>
+                <in>gtest-printers.h</in>
+                <in>gtest.h</in>
+              </df>
+              <in>gtest-death-test-internal.h</in>
+              <in>gtest-filepath.h</in>
+              <in>gtest-internal.h</in>
+              <in>gtest-linked_ptr.h</in>
+              <in>gtest-param-util-generated.h</in>
+              <in>gtest-param-util.h</in>
+              <in>gtest-port-arch.h</in>
+              <in>gtest-port.h</in>
+              <in>gtest-string.h</in>
+              <in>gtest-tuple.h</in>
+              <in>gtest-type-util.h</in>
+            </df>
+            <in>gtest-death-test.h</in>
+            <in>gtest-message.h</in>
+            <in>gtest-param-test.h</in>
+            <in>gtest-printers.h</in>
+            <in>gtest-spi.h</in>
+            <in>gtest-test-part.h</in>
+            <in>gtest-typed-test.h</in>
+            <in>gtest.h</in>
+            <in>gtest_pred_impl.h</in>
+            <in>gtest_prod.h</in>
+          </df>
+        </df>
       </df>
-      <in>Trie.cpp</in>
-      <in>Trie.h</in>
-      <in>TrieTest.cpp</in>
+      <df name="Trie">
+        <in>Trie.cpp</in>
+        <in>Trie.h</in>
+        <in>node.cpp</in>
+        <in>node.h</in>
+      </df>
       <in>TrieUnitTests.cpp</in>
-      <in>node.cpp</in>
-      <in>node.h</in>
     </df>
+    <itemPath>googletest/gtest_main.a</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
