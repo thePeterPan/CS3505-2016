@@ -1,5 +1,5 @@
-#include "node.h"
-#include "Trie.h"
+#include "Trie/node.h"
+#include "Trie/Trie.h"
 #include "gtest/gtest.h"
 
 #include <iostream>

@@ -15,13 +15,14 @@
 
 #include "node.h"       // node
 
+// Put the extern int refCount in any header whose .cpp needs to use it
+// since it is a declaration of the refCount variable not definition
+extern int refCount;
+
 class Trie {
     
 public:
-    // Put the extern int refCount in any header whose .cpp needs to use it 
-    // since it is a declaration of the refCount variable not definition.
-    extern int refCount;
-    
+
     // Default Constructor
     Trie();
     // Destructor
