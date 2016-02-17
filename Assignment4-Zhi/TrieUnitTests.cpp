@@ -9,6 +9,7 @@
 //  ... test body ...
 // }
 int refCount = 0;
+// test for the refcount for counting the nodes
 TEST(TrieUnitTests, Dummy1) {
     refCount = 0;
     Trie trie;
@@ -40,7 +41,7 @@ TEST(TrieUnitTests, Dummy1) {
 	
 	//vector<string> v = trie3.allWordsWithPrefix("text");
     
-	ASSERT_EQ(1530, refCount);
+	ASSERT_EQ(25, refCount);
 }
 TEST(TrieUnitTests, Dummy2) {
     Trie trie;
@@ -210,7 +211,7 @@ refCount = 0;
 	//Trie trie3(trie);
 	//vector<string> v = trie3.allWordsWithPrefix("map");
     
-	ASSERT_EQ(1530, refCount);
+	ASSERT_EQ(9214, refCount);
 }
 
 

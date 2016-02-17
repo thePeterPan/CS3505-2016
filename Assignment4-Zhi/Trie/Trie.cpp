@@ -17,7 +17,7 @@ Trie::Trie()
 } 
 Trie::~Trie () {
 delete root;
-refCount==0;
+//refCount==0;
   //delete root;
 }
 Trie& Trie::operator=(Trie other)
@@ -32,7 +32,7 @@ Trie& Trie::operator=(Trie other)
  
 void Trie :: addWord(string s) 
 {
-         refCount++;
+        
 		if(s.length() == 0)
 		{
 			return;
@@ -44,6 +44,7 @@ void Trie :: addWord(string s)
     	if(!current->getword()[Index])
     		current->getword()[Index] = new Node();
     	current = current->getword()[Index];
+    	 refCount++;
 	}
 	current->setEnd();
          
