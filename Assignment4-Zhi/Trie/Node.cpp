@@ -15,10 +15,11 @@ for (unsigned i = 0; i < 26; i ++)
 //deconstructor for deleting node
 Node::~Node() {
 for (unsigned i = 0; i < 26; i++)
-		if(this->word[i])
+		while(this->word[i])
 			{
-			refCount--;
-			delete this->word[i];}
+			refCount=refCount-1;
+			delete this->word[i];
+			}
 			
 }
 

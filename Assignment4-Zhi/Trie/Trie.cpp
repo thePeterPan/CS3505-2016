@@ -16,9 +16,9 @@ Trie::Trie()
 	root = new Node(*(other.root));	// copy the root from other
 } 
 Trie::~Trie () {
-delete root;
+//root.~Node();
 
-  //delete root;
+  delete root;
 }
 Trie& Trie::operator=(Trie other)
 {
