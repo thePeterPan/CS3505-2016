@@ -17,7 +17,7 @@
 node::node(char value)
     : value(value), child_nodes(), word_flag(false)
 {
-    
+    ++refCount;
 }
 
 /**
@@ -106,7 +106,6 @@ void node::addChildNode(char character) {
     child_nodes[charIndex] = new node(character);
     // and add child to list of children
     list_of_children.push_back(character);
-    ++refCount;
 }
 
 /**
