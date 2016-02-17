@@ -17,7 +17,7 @@ Trie::Trie()
 } 
 Trie::~Trie () {
 delete root;
-//refCount==0;
+
   //delete root;
 }
 Trie& Trie::operator=(Trie other)

@@ -16,7 +16,9 @@ for (unsigned i = 0; i < 26; i ++)
 Node::~Node() {
 for (unsigned i = 0; i < 26; i++)
 		if(this->word[i])
-			{delete this->word[i];refCount--;}
+			{
+			refCount--;
+			delete this->word[i];}
 			
 }
 
