@@ -254,8 +254,10 @@ TEST_F(TrieUnitTests, AllWordWithPrefixCountWhole) {
     ASSERT_EQ(1, v.size());
 }
 
-// test for making different tries for adding and checking word exists
-TEST_F(TrieUnitTests, Dummy9) {
+/**
+ *  Test for making multiple tries for adding and checking word exists.
+ */
+TEST_F(TrieUnitTests, MultipleTrieObjects) {
     for(std::string inputStr; !input.eof();) {
         input >> inputStr;
         trie.addWord(inputStr);
@@ -278,8 +280,10 @@ TEST_F(TrieUnitTests, Dummy9) {
     ASSERT_EQ(0, v3.size());
 }
 
-//counting nodes from dictionary and test 2 files 
-TEST_F(TrieUnitTests, Dummy10) {
+/** 
+ * 
+ */
+TEST_F(TrieUnitTests, CountNodesFromTwoFiles) {
     refCount = 0;
     for(std::string inputStr; !input.eof();)
     {
@@ -295,8 +299,10 @@ TEST_F(TrieUnitTests, Dummy10) {
     ASSERT_EQ(9214, refCount);
 }
 
-//test for counting deleting nodes
-TEST_F(TrieUnitTests, Dummy11) {
+/**
+ * 
+ */
+TEST_F(TrieUnitTests, CountNodesBeingDeleted) {
 refCount = 0;
     for(std::string inputStr; !input.eof();)
     {
@@ -320,7 +326,7 @@ refCount = 0;
 }
 
 // test for copy trie2 it should not have word map
-TEST_F(TrieUnitTests, DISABLED_Dummy12) {
+TEST_F(TrieUnitTests, DISABLED_TrieCopyConstructor) {
     for(std::string inputStr; !input.eof();)
     {
         input >> inputStr;
