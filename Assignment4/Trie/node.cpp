@@ -17,7 +17,7 @@
 node::node(char value)
     : value(value), child_nodes(), word_flag(false)
 {
-    
+    refCount++;
 }
 
 /**
@@ -26,6 +26,7 @@ node::node(char value)
 node::~node() {    
     for (int i = 0; i < child_nodes_array_size; i++ ) {
         delete child_nodes[i];
+        refCount--;
     }
 }
 
