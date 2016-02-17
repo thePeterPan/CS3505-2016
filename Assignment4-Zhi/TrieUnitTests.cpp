@@ -8,7 +8,7 @@
 // TEST(test_case_name, test_name) {
 //  ... test body ...
 // }
-
+int refCount = 0;
 TEST(TrieUnitTests, Dummy) {
     Trie trie;
     trie.addWord("cnm");
@@ -209,7 +209,7 @@ TEST(TrieUnitTests, Dummy9) {
 	
 	vector<string> v = trie2.allWordsWithPrefix("text");
     
-	ASSERT_EQ(0, v.size());
+	ASSERT_EQ(3, refCount);
 }
 
 

@@ -4,8 +4,10 @@
 #include <vector>
 using namespace std;
  
+ extern int refCount;
 Trie::Trie()
 {
+
  root = new Node();   
 } // Constructor
   
@@ -15,6 +17,7 @@ Trie::Trie()
 } 
 Trie::~Trie () {
 delete root;
+refCount==0;
   //delete root;
 }
 Trie& Trie::operator=(Trie other)
@@ -29,7 +32,7 @@ Trie& Trie::operator=(Trie other)
  
 void Trie :: addWord(string s) 
 {
-         
+         refCount++;
 		if(s.length() == 0)
 		{
 			return;
