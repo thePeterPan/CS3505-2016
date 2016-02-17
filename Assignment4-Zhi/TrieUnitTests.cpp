@@ -231,7 +231,7 @@ refCount = 0;
 	 trie2.~Trie();
 	
     
-	ASSERT_EQ(6, refCount);
+	ASSERT_EQ(0, refCount);
 }
 
 
