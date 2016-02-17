@@ -1,4 +1,3 @@
-#include "Trie/node.h"
 #include "Trie/Trie.h"
 #include "gtest/gtest.h"
 
@@ -21,6 +20,7 @@ protected:
     
     std::ifstream input;
     std::ifstream input2;
+    std::ifstream input3;
     
     TrieUnitTests() {
         // You can do set-up work for each test here.
@@ -36,6 +36,7 @@ protected:
         refCount = 0;
         input.open("dictionary.txt");
         input2.open("test.txt");
+        input3.open("queries.txt");
     }
     
     virtual void TearDown() {
@@ -162,20 +163,31 @@ TEST_F(TrieUnitTests, IsWordIsNotAWord) {
  * Test for the refCount for counting the nodes of test.txt which should 
  * has 25 chars at all.
  */
-TEST_F(TrieUnitTests, Dummy1) {
-    
+TEST_F(TrieUnitTests, DISABLED_CountNodesForDictionaryFile) {
     for (std::string inputStr; !input.eof();) {
         input >> inputStr;
         trie.addWord(inputStr);
     }
-    refCount = 0;
     
+    ASSERT_EQ(10066, refCount);
+}
+
+TEST_F(TrieUnitTests, CountNodesForTestFile) {
     for (std::string inputStr; !input2.eof();) {
         input2 >> inputStr;
-        trie2.addWord(inputStr);
+        trie.addWord(inputStr);
     }
+    
+    ASSERT_EQ(19, refCount);
+}
 
-    ASSERT_EQ(25, refCount);
+TEST_F(TrieUnitTests, CountNodesForQueriesFile) {
+    for (std::string inputStr; !input3.eof();) {
+        input3 >> inputStr;
+        trie.addWord(inputStr);
+    }
+    
+    ASSERT_EQ(10, refCount);
 }
 
 /**
@@ -280,29 +292,10 @@ TEST_F(TrieUnitTests, MultipleTrieObjects) {
     ASSERT_EQ(0, v3.size());
 }
 
-/** 
- * 
- */
-TEST_F(TrieUnitTests, CountNodesFromTwoFiles) {
-    refCount = 0;
-    for(std::string inputStr; !input.eof();)
-    {
-        input >> inputStr;
-        trie.addWord(inputStr);
-    }
-	
-    for(std::string inputStr; !input2.eof();)
-    {
-        input2 >> inputStr;
-        trie2.addWord(inputStr);
-    }
-    ASSERT_EQ(9214, refCount);
-}
-
 /**
  * 
  */
-TEST_F(TrieUnitTests, CountNodesBeingDeleted) {
+TEST_F(TrieUnitTests, DISABLED_CountNodesBeingDeleted) {
 refCount = 0;
     for(std::string inputStr; !input.eof();)
     {
