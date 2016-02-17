@@ -216,6 +216,70 @@ TEST(TrieUnitTests, Dummy9) {
 
 
 
+TEST(TrieUnitTests, Dummy10) {
+    Trie trie;
+    ifstream input("dictionary.txt");
+    for(string inputStr; !input.eof();)
+	{
+		input >> inputStr;
+		trie.addWord(inputStr);
+	}
+	/* close the stream*/
+	input.close();
+	
+	 Trie trie2;
+	ifstream input2("test.txt");
+    for(string inputStr; !input2.eof();)
+	{
+		input2 >> inputStr;
+		trie2.addWord(inputStr);
+	}
+	/* close the stream*/
+	input2.close();
+	
+	Trie trie3(trie);
+	
+	//trie3=trie2;
+	 
+	 //trie3.~Trie();
+	
+	vector<string> v = trie3.allWordsWithPrefix("text");
+    
+	ASSERT_EQ(3, refCount);
+}
+
+
+TEST(TrieUnitTests, Dummy11) {
+    Trie trie;
+    ifstream input("dictionary.txt");
+    for(string inputStr; !input.eof();)
+	{
+		input >> inputStr;
+		trie.addWord(inputStr);
+	}
+	/* close the stream*/
+	input.close();
+	
+	 Trie trie2;
+	ifstream input2("test.txt");
+    for(string inputStr; !input2.eof();)
+	{
+		input2 >> inputStr;
+		trie2.addWord(inputStr);
+	}
+	/* close the stream*/
+	input2.close();
+	
+	//Trie trie3(trie);
+	
+	//trie3=trie2;
+	 
+	 //trie3.~Trie();
+	
+	 trie2.addWord("cnm");
+    
+	ASSERT_EQ(false, trie2.isWord("cnm"));
+}
 
 
 
