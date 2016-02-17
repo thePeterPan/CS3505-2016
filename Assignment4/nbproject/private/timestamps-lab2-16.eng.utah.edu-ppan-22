@@ -1,4 +1,4 @@
-#Mon Feb 15 18:01:28 MST 2016
+#Tue Feb 16 21:25:10 MST 2016
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\dictionary.txt=c1454232151192
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\internal\\custom\\gtest-port.h=c1455531885965
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\gtest-param-test.h=c1455531885959
@@ -21,7 +21,7 @@ VERSION=1.3
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\gtest-spi.h=c1455531885961
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\internal\\gtest-param-util.h=c1455531885970
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\node.cpp=c1454730973294
-e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\trie\\node.h=c1455583455976
+e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\trie\\node.h=c1455596903483
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\internal\\gtest-death-test-internal.h=c1455531885966
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\gtest-death-test.h=c1455531885958
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\nbproject\\project.xml=c1455435364409
@@ -29,7 +29,7 @@ e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\trie.cpp=c14547
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\internal\\gtest-tuple.h.pump=c1455531885973
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\internal\\custom\\gtest.h=c1455531885965
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\gtest_prod.h=c1455531885964
-e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\makefile=c1455584263310
+e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\makefile=c1455596903482
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\trie\\node.cpp=c1455583455976
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\internal\\gtest-type-util.h=c1455531885974
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\gtest_main.a=c1455531885957
@@ -37,10 +37,10 @@ e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\inc
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\trietest.cpp=c1454730402435
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\trie\\trie.cpp=c1455583455975
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\gtest-printers.h=c1455531885960
-e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\trie\\trie.h=c1455583455975
+e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\trie\\trie.h=c1455596903482
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\node.h=c1454729201961
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\internal\\gtest-string.h=c1455531885972
-e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\trieunittests.cpp=c1455531885936
+e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\trieunittests.cpp=c1455683101811
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\internal\\custom\\gtest-printers.h=c1455531885965
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\googletest\\include\\gtest\\internal\\gtest-param-util-generated.h.pump=c1455531885969
 e\:\\documents\\university-of-utah-cs3505-u0680482\\assignment4\\gtest\\libgtest.a=c1455126608000

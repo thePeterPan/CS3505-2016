@@ -5,14 +5,15 @@ compiler: g++-4.8
 addons:
   apt: 
    sources: ['ubuntu-toolchain-r-test']
-   packages: ['gcc-4.8', 'g++-4.8', 'libboost-dev', 'libgtest-dev']
+   # packages: ['gcc-4.8', 'g++-4.8', 'libboost-dev', 'libgtest-dev']
+   packages: ['g++-4.8','libgtest-dev']
 
 env: ['DIR=Assignment4','DIR=Assignment4-Zhi','DIR=Lab5']
 
 install: 
   # Set the default compiler that 'make' uses to g++-4.8
   # - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-  - export CXX="g++-4.8" CC="gcc-4.8"
+  - export CXX="g++-4.8"
   # Install gtest without sudo 
   # Create directory to install into
   - mkdir ~/gtest && cd ~/gtest
@@ -30,9 +31,9 @@ before_script:
   - uname -a
   - printenv
   # http://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean
-  - $CC --version 2>&1 | grep gcc
+  # - $CC --version 2>&1 | grep gcc
   - $CXX --version 2>&1 | grep g++
-  - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
+  # - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
 
 script:
   - cd $DIR
