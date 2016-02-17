@@ -26,10 +26,10 @@ TRAVIS_GTEST_LIB = \
 	$(LIBRARY_PATH)/libgtest_main.a \
 	$(LIBRARY_PATH)/libgtest.a
 TRAVIS_TRIETEST_OBJS = \
-	$(LOCAL_BUILDDIR)/nodeUnitTests.o \
-	$(LOCAL_BUILDDIR)/TrieUnitTests.o \
-	$(LOCAL_BUILDDIR)/Trie.o \
-	$(LOCAL_BUILDDIR)/node.o
+	$(TRAVIS_BUILDDIR)/nodeUnitTests.o \
+	$(TRAVIS_BUILDDIR)/TrieUnitTests.o \
+	$(TRAVIS_BUILDDIR)/Trie.o \
+	$(TRAVIS_BUILDDIR)/node.o
 
 travis_ci : $(TRAVIS_BUILDDIR) $(TRAVIS_EXECUTABLE) travis_text_files
 
