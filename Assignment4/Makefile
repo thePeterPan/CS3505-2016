@@ -30,7 +30,10 @@ TRAVIS_TRIETEST_OBJS = \
 	$(TRAVIS_BUILDDIR)/Trie.o \
 	$(TRAVIS_BUILDDIR)/node.o
 
-travis_ci : $(TRAVIS_BUILDDIR) $(TRAVIS_EXECUTABLE)
+travis_ci : $(TRAVIS_BUILDDIR) $(TRAVIS_EXECUTABLE) travis_text_files
+
+travis_text_files : 
+	cp *.txt $(TRAVIS_BUILDDIR)
 
 $(TRAVIS_BUILDDIR) :
 	mkdir -p $@
@@ -73,7 +76,10 @@ LOCAL_GTEST_LIB = \
 GTEST_FLAGS += -isystem ./googletest/include
 
 # Build and run it
-local : $(LOCAL_BUILDDIR) $(LOCAL_EXECUTABLE)
+local : $(LOCAL_BUILDDIR) $(LOCAL_EXECUTABLE) local_text_files
+
+local_text_files : 
+	cp *.txt $(LOCAL_BUILDDIR)
 
 $(LOCAL_BUILDDIR) :
 	mkdir -p $@
