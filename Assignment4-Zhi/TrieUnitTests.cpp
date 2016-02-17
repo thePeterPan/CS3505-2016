@@ -236,7 +236,7 @@ refCount = 0;
 
 
 // test for copy trie2 it should not have word map
-TEST(TrieUnitTests, Dummy12) {
+TEST(TrieUnitTests, DISABLED_Dummy12) {
     Trie trie;
     ifstream input("dictionary.txt");
     for(string inputStr; !input.eof();)
