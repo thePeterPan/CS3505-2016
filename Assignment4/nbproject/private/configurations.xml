@@ -43,6 +43,7 @@
         <in>node.h</in>
       </df>
       <in>TrieUnitTests.cpp</in>
+      <in>nodeUnitTests.cpp</in>
     </df>
     <itemPath>googletest/gtest_main.a</itemPath>
   </logicalFolder>

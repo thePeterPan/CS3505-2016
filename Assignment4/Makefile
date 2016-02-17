@@ -26,9 +26,10 @@ TRAVIS_GTEST_LIB = \
 	$(LIBRARY_PATH)/libgtest_main.a \
 	$(LIBRARY_PATH)/libgtest.a
 TRAVIS_TRIETEST_OBJS = \
-	$(TRAVIS_BUILDDIR)/TrieUnitTests.o \
-	$(TRAVIS_BUILDDIR)/Trie.o \
-	$(TRAVIS_BUILDDIR)/node.o
+	$(LOCAL_BUILDDIR)/nodeUnitTests.o \
+	$(LOCAL_BUILDDIR)/TrieUnitTests.o \
+	$(LOCAL_BUILDDIR)/Trie.o \
+	$(LOCAL_BUILDDIR)/node.o
 
 travis_ci : $(TRAVIS_BUILDDIR) $(TRAVIS_EXECUTABLE) travis_text_files
 
@@ -41,11 +42,15 @@ $(TRAVIS_BUILDDIR) :
 $(TRAVIS_EXECUTABLE) : $(TRAVIS_TRIETEST_OBJS)
 	$(CXX) $(CXXFLAGS) -lpthread $^ $(TRAVIS_GTEST_LIB) -o $@
 
+$(TRAVIS_BUILDDIR)/nodeUnitTests.o : nodeUnitTests.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 $(TRAVIS_BUILDDIR)/TrieUnitTests.o : TrieUnitTests.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(TRAVIS_BUILDDIR)/Trie.o : $(TRAVIS_SRC)/Trie.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 $(TRAVIS_BUILDDIR)/node.o : $(TRAVIS_SRC)/node.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
@@ -60,6 +65,7 @@ LOCAL_BUILDDIR = ./bin
 LOCAL_SRC = ./Trie
 LOCAL_EXECUTABLE = $(LOCAL_BUILDDIR)/TrieUnitTests
 LOCAL_TRIETEST_OBJS = \
+	$(LOCAL_BUILDDIR)/nodeUnitTests.o \
 	$(LOCAL_BUILDDIR)/TrieUnitTests.o \
 	$(LOCAL_BUILDDIR)/Trie.o \
 	$(LOCAL_BUILDDIR)/node.o
@@ -86,6 +92,9 @@ $(LOCAL_BUILDDIR) :
 
 $(LOCAL_EXECUTABLE) : $(LOCAL_TRIETEST_OBJS) $(LOCAL_GTEST_LIB)
 	$(CXX) $(CXXFLAGS) -lpthread $(GTEST_FLAGS) $^ -o $@
+
+$(LOCAL_BUILDDIR)/nodeUnitTests.o : nodeUnitTests.cpp
+	$(CXX) $(CXXFLAGS) $(GTEST_FLAGS) -c $< -o $@
 
 $(LOCAL_BUILDDIR)/TrieUnitTests.o : TrieUnitTests.cpp
 	$(CXX) $(CXXFLAGS) $(GTEST_FLAGS) -c $< -o $@

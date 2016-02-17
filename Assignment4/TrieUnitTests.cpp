@@ -2,8 +2,8 @@
 #include "Trie/Trie.h"
 #include "gtest/gtest.h"
 
-#include <iostream>
-#include <fstream>
+#include <iostream>     // std::cout, std::cin
+#include <fstream>      // std::ifstream
 #include <string>
 
 // You should add to your test file an int variable called refCount in 
@@ -344,11 +344,4 @@ TEST_F(TrieUnitTests, DISABLED_TrieCopyConstructor) {
     std::vector<std::string> v = trie3.allWordsWithPrefix("map");
 
     ASSERT_EQ(0, v.size());
-}
-
-int main(int argc, char **argv) {
-    // parses the command line for Google Test flags, and removes all recognized flags
-    ::testing::InitGoogleTest(&argc, argv);
-    // Run all tests registered w/ gtest.    
-    return RUN_ALL_TESTS();
 }
