@@ -17,7 +17,7 @@
 node::node(char value)
     : value(value), child_nodes(), word_flag(false)
 {
-    ++refCount;
+    
 }
 
 /**
