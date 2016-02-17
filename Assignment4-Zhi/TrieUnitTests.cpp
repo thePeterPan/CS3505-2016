@@ -9,8 +9,8 @@
 //  ... test body ...
 // }
 int refCount = 0;
-TEST(TrieUnitTests, Dummy10) {
-int refCount = 0;
+TEST(TrieUnitTests, Dummy1) {
+    refCount = 0;
     Trie trie;
     ifstream input("dictionary.txt");
     for(string inputStr; !input.eof();)
@@ -21,6 +21,7 @@ int refCount = 0;
 	/* close the stream*/
 	input.close();
 	
+	 refCount = 0;
 	 Trie trie2;
 	ifstream input2("test.txt");
     for(string inputStr; !input2.eof();)
@@ -31,17 +32,17 @@ int refCount = 0;
 	/* close the stream*/
 	input2.close();
 	
-	Trie trie3(trie);
+	//Trie trie3(trie);
 	
 	//trie3=trie2;
 	 
 	 //trie3.~Trie();
 	
-	vector<string> v = trie3.allWordsWithPrefix("text");
+	//vector<string> v = trie3.allWordsWithPrefix("text");
     
-	ASSERT_EQ(3, refCount);
+	ASSERT_EQ(1530, refCount);
 }
-TEST(TrieUnitTests, Dummy11) {
+TEST(TrieUnitTests, Dummy2) {
     Trie trie;
     ifstream input("dictionary.txt");
     for(string inputStr; !input.eof();)
@@ -72,19 +73,19 @@ TEST(TrieUnitTests, Dummy11) {
     
 	ASSERT_TRUE(trie2.isWord("cnm"));
 }
-TEST(TrieUnitTests, Dummy) {
+TEST(TrieUnitTests, Dummy3) {
     Trie trie;
     trie.addWord("cnm");
     
 	ASSERT_EQ(true, trie.isWord("cnm"));
 }
-TEST(TrieUnitTests, Dummy1) {
+TEST(TrieUnitTests, Dummy4) {
     Trie trie;
     trie.addWord("cnm");
     
 	ASSERT_EQ(false, trie.isWord("c"));
 }
-TEST(TrieUnitTests, Dummy2) {
+TEST(TrieUnitTests, Dummy5) {
     Trie trie;
     ifstream input("dictionary.txt");
     for(string inputStr; !input.eof();)
@@ -97,7 +98,7 @@ TEST(TrieUnitTests, Dummy2) {
     
 	ASSERT_EQ(true, trie.isWord("people"));
 }
-TEST(TrieUnitTests, Dummy3) {
+TEST(TrieUnitTests, Dummy6) {
     Trie trie;
     ifstream input("dictionary.txt");
     for(string inputStr; !input.eof();)
@@ -112,7 +113,7 @@ TEST(TrieUnitTests, Dummy3) {
 	ASSERT_EQ(16, v.size());
 }
 
-TEST(TrieUnitTests, Dummy4) {
+TEST(TrieUnitTests, Dummy7) {
     Trie trie;
     ifstream input("dictionary.txt");
     for(string inputStr; !input.eof();)
@@ -127,7 +128,7 @@ TEST(TrieUnitTests, Dummy4) {
 	ASSERT_EQ(0, v.size());
 }
 
-TEST(TrieUnitTests, Dummy5) {
+TEST(TrieUnitTests, Dummy8) {
     Trie trie;
     ifstream input("dictionary.txt");
     for(string inputStr; !input.eof();)
@@ -142,7 +143,7 @@ TEST(TrieUnitTests, Dummy5) {
 	ASSERT_EQ(1, v.size());
 }
 
-TEST(TrieUnitTests, Dummy6) {
+TEST(TrieUnitTests, Dummy9) {
     Trie trie;
     ifstream input("dictionary.txt");
     for(string inputStr; !input.eof();)
@@ -184,7 +185,8 @@ TEST(TrieUnitTests, Dummy6) {
 	
 	
 }
-TEST(TrieUnitTests, Dummy7) {
+TEST(TrieUnitTests, Dummy10) {
+refCount = 0;
     Trie trie;
     ifstream input("dictionary.txt");
     for(string inputStr; !input.eof();)
@@ -205,14 +207,14 @@ TEST(TrieUnitTests, Dummy7) {
 	/* close the stream*/
 	input2.close();
 	
-	Trie trie3(trie);
-	vector<string> v = trie3.allWordsWithPrefix("map");
+	//Trie trie3(trie);
+	//vector<string> v = trie3.allWordsWithPrefix("map");
     
-	ASSERT_EQ(1, v.size());
+	ASSERT_EQ(1530, refCount);
 }
 
 
-TEST(TrieUnitTests, Dummy8) {
+TEST(TrieUnitTests, Dummy11) {
     Trie trie;
     ifstream input("dictionary.txt");
     for(string inputStr; !input.eof();)
@@ -243,7 +245,7 @@ TEST(TrieUnitTests, Dummy8) {
 }
 
 
-TEST(TrieUnitTests, Dummy9) {
+TEST(TrieUnitTests, Dummy12) {
     Trie trie;
     ifstream input("dictionary.txt");
     for(string inputStr; !input.eof();)
@@ -264,15 +266,14 @@ TEST(TrieUnitTests, Dummy9) {
 	/* close the stream*/
 	input2.close();
 	
-	Trie trie3(trie);
+	Trie trie3(trie2);
 	
 	//trie3=trie2;
 	 
-	 //trie3.~Trie();
+	 trie3.~Trie();
 	
-	vector<string> v = trie2.allWordsWithPrefix("text");
     
-	ASSERT_EQ(3, refCount);
+	ASSERT_EQ(1530, refCount);
 }
 
 
