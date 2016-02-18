@@ -7,6 +7,7 @@
         <in>node.cpp</in>
       </df>
       <in>TrieUnitTests.cpp</in>
+      <in>nodeUnitTests.cpp</in>
     </df>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -57,15 +58,23 @@
       <item path="TrieUnitTests.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
           <incDir>
-            <pElem>googletest/include</pElem>
-            <pElem></pElem>
+            <pElem>../../../Library/Caches/NetBeans/8.1/remote-files/lab2-16.eng.utah.edu_22_ppan/Users/peterpan/Documents/cs3505_github/Assignment4/googletest/include</pElem>
+            <pElem>../../../Library/Caches/NetBeans/8.1/remote-files/lab2-16.eng.utah.edu_22_ppan/Users/peterpan/Documents/cs3505_github/Assignment4</pElem>
           </incDir>
         </ccTool>
       </item>
       <folder path="0/Trie">
         <ccTool>
           <incDir>
-            <pElem></pElem>
+            <pElem>../../../Library/Caches/NetBeans/8.1/remote-files/lab2-16.eng.utah.edu_22_ppan/Users/peterpan/Documents/cs3505_github/Assignment4</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <item path="nodeUnitTests.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+          <incDir>
+            <pElem>../../../Library/Caches/NetBeans/8.1/remote-files/lab2-16.eng.utah.edu_22_ppan/Users/peterpan/Documents/cs3505_github/Assignment4/googletest/include</pElem>
+            <pElem>../../../Library/Caches/NetBeans/8.1/remote-files/lab2-16.eng.utah.edu_22_ppan/Users/peterpan/Documents/cs3505_github/Assignment4</pElem>
           </incDir>
         </ccTool>
       </folder>

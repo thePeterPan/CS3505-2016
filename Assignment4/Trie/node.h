@@ -15,12 +15,16 @@
 #include <vector>       // std::vector<type>
 #include <cstdint>      // std::size_t
 
+// Put the extern int refCount in any header whose .cpp needs to use it
+// since it is a declaration of the refCount variable not definition.
+extern int refCount;
+
 class node {
-    
+
 public:
-    
+
     static const int child_nodes_array_size = 26;
-    
+
     // Constructor
     node(char value);
     // Destructor

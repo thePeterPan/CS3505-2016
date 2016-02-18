@@ -1,13 +1,13 @@
+#include "Trie/Node.h"
 #include "Trie/Trie.h"
 #include "gtest/gtest.h"
-
-#include <iostream>     // std::cout, std::cin
-#include <fstream>      // std::ifstream
+#include <fstream>
+#include <iostream>
 #include <string>
 
-// You should add to your test file an int variable called refCount in 
-// global scope and initialize it to 0. The definition of the refCount
-// variable. 
+// TEST(test_case_name, test_name) {
+//  ... test body ...
+// }
 int refCount = 0;
 
 // The fixture for testing class TrieUnitTests
@@ -20,7 +20,6 @@ protected:
     
     std::ifstream input;
     std::ifstream input2;
-    std::ifstream input3;
     
     TrieUnitTests() {
         // You can do set-up work for each test here.
@@ -36,7 +35,6 @@ protected:
         refCount = 0;
         input.open("dictionary.txt");
         input2.open("test.txt");
-        input3.open("queries.txt");
     }
     
     virtual void TearDown() {
@@ -71,7 +69,7 @@ TEST_F(TrieUnitTests, DISABLED_AddWordUppercase) {
 /**
  * 
  */
-TEST_F(TrieUnitTests, AddWordWithNewline) {
+TEST_F(TrieUnitTests, DISABLED_AddWordWithNewline) {
     trie.addWord("lorem\n");
     
     ASSERT_TRUE(trie.isWord("lorem"));
@@ -144,7 +142,7 @@ TEST_F(TrieUnitTests, IsWordEmpty) {
     ASSERT_FALSE(trie.isWord(""));
 }
 
-TEST_F(TrieUnitTests, IsWordNewline) {
+TEST_F(TrieUnitTests, DISABLED_IsWordNewline) {
     trie.addWord("lorem");
     
     ASSERT_TRUE(trie.isWord("lorem\n"));
@@ -163,31 +161,20 @@ TEST_F(TrieUnitTests, IsWordIsNotAWord) {
  * Test for the refCount for counting the nodes of test.txt which should 
  * has 25 chars at all.
  */
-TEST_F(TrieUnitTests, DISABLED_CountNodesForDictionaryFile) {
+TEST_F(TrieUnitTests, Dummy1) {
+    
     for (std::string inputStr; !input.eof();) {
         input >> inputStr;
         trie.addWord(inputStr);
     }
+    refCount = 0;
     
-    ASSERT_EQ(10066, refCount);
-}
-
-TEST_F(TrieUnitTests, CountNodesForTestFile) {
     for (std::string inputStr; !input2.eof();) {
         input2 >> inputStr;
-        trie.addWord(inputStr);
+        trie2.addWord(inputStr);
     }
-    
-    ASSERT_EQ(19, refCount);
-}
 
-TEST_F(TrieUnitTests, CountNodesForQueriesFile) {
-    for (std::string inputStr; !input3.eof();) {
-        input3 >> inputStr;
-        trie.addWord(inputStr);
-    }
-    
-    ASSERT_EQ(10, refCount);
+    ASSERT_EQ(25, refCount);
 }
 
 /**
@@ -227,7 +214,7 @@ TEST_F(TrieUnitTests, AllWordWithPrefixCount) {
 /**
  * Count the number of words that have the specified prefix. 
  */
-TEST_F(TrieUnitTests, AllWordWithPrefixCountNewLine) {
+TEST_F(TrieUnitTests, DISABLED_AllWordWithPrefixCountNewLine) {
     for(std::string inputStr; !input.eof();) {
         input >> inputStr;
         trie.addWord(inputStr);
@@ -292,11 +279,30 @@ TEST_F(TrieUnitTests, MultipleTrieObjects) {
     ASSERT_EQ(0, v3.size());
 }
 
+/** 
+ * 
+ */
+TEST_F(TrieUnitTests, CountNodesFromTwoFiles) {
+    refCount = 0;
+    for(std::string inputStr; !input.eof();)
+    {
+        input >> inputStr;
+        trie.addWord(inputStr);
+    }
+	
+    for(std::string inputStr; !input2.eof();)
+    {
+        input2 >> inputStr;
+        trie2.addWord(inputStr);
+    }
+    ASSERT_EQ(9214, refCount);
+}
+
 /**
  * 
  */
 TEST_F(TrieUnitTests, DISABLED_CountNodesBeingDeleted) {
-    refCount = 0;
+refCount = 0;
     for(std::string inputStr; !input.eof();)
     {
         input >> inputStr;
@@ -337,4 +343,9 @@ TEST_F(TrieUnitTests, DISABLED_TrieCopyConstructor) {
     std::vector<std::string> v = trie3.allWordsWithPrefix("map");
 
     ASSERT_EQ(0, v.size());
+}
+
+int main(int argc, char **argv) {
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
