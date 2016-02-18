@@ -296,7 +296,7 @@ TEST_F(TrieUnitTests, MultipleTrieObjects) {
  * 
  */
 TEST_F(TrieUnitTests, DISABLED_CountNodesBeingDeleted) {
-refCount = 0;
+    refCount = 0;
     for(std::string inputStr; !input.eof();)
     {
         input >> inputStr;
