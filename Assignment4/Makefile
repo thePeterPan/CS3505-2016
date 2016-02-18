@@ -22,6 +22,7 @@ TRAVIS_BUILDDIR = ./build
 TRAVIS_SRC = ./Trie
 TRAVIS_EXECUTABLE = $(TRAVIS_BUILDDIR)/TrieUnitTests
 # LIBRARY_PATH is given by the .travis.yml file
+# Order does matter here
 TRAVIS_GTEST_LIB = \
 	$(LIBRARY_PATH)/libgtest_main.a \
 	$(LIBRARY_PATH)/libgtest.a
@@ -42,6 +43,10 @@ $(TRAVIS_BUILDDIR) :
 $(TRAVIS_EXECUTABLE) : $(TRAVIS_TRIETEST_OBJS)
 	$(CXX) $(CXXFLAGS) -lpthread $^ $(TRAVIS_GTEST_LIB) -o $@
 
+# This does not need the GTEST_FLAGS like in the local version because
+# I'm assuming that the gtest header files are already located in the
+# system where g++ automatically looks for header files because gtest
+# was 'installed' in the Travis CI system.
 $(TRAVIS_BUILDDIR)/nodeUnitTests.o : nodeUnitTests.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 

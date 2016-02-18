@@ -77,6 +77,8 @@
             <pElem>../../../Library/Caches/NetBeans/8.1/remote-files/lab2-16.eng.utah.edu_22_ppan/Users/peterpan/Documents/cs3505_github/Assignment4</pElem>
           </incDir>
         </ccTool>
+      </folder>
+      <item path="googletest/gtest_main.a" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
