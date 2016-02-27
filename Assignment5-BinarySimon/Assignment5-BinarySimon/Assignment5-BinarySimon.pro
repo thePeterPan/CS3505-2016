@@ -18,3 +18,9 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
+
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/E:/msvc2013_64/lib/ -llibEGL
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/E:/msvc2013_64/lib/ -llibEGLd
+
+#INCLUDEPATH += $$PWD/E:/msvc2013_64/include
+#DEPENDPATH += $$PWD/E:/msvc2013_64/include
