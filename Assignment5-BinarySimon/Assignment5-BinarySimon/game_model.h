@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QObject>
+#include <QDebug>
 
 class game_model : public QObject
 {
@@ -10,6 +11,14 @@ class game_model : public QObject
 
 private:
     int progress;
+    std::vector<char> pattern;
+
+    void add_to_pattern();
+
+private slots:
+
+protected:
+    void timerEvent(QTimerEvent *event);
 
 public:
     explicit game_model(QObject *parent = 0);
@@ -18,7 +27,9 @@ public:
 
     void incrementProgressBar();
 
-    void emitSignal();
+    void addToPattern(char color);
+
+    void startTimer();
 
 public slots:
 
