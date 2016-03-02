@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QObject>
 #include <QDebug>
+#include <QTimer>
 
 class game_model : public QObject
 {
@@ -14,6 +15,8 @@ private:
     std::vector<char> pattern;
 
     void add_to_pattern();
+
+    QTimer *timer;
 
 private slots:
 
@@ -32,6 +35,7 @@ public:
     void startTimer();
 
 public slots:
+    void timerSlot();
 
 signals:
     void signalProgress(int);

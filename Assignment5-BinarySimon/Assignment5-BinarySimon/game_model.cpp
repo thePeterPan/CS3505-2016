@@ -1,16 +1,25 @@
 #include "game_model.h"
 
+#include <iostream>
+
 game_model::game_model(QObject *parent) :
     QObject(parent),
     progress(0)
 {
+    // Start off with a two patterns.
+    srand(10);
     add_to_pattern();
     add_to_pattern();
+
+    // create new timer
+    timer = new QTimer(this);
+    // setup signal and slots
+    connect(timer, SIGNAL(timeout()), this, SLOT(timerSlot()));
 }
 
 game_model::~game_model()
 {
-
+    delete timer;
 }
 
 void game_model::incrementProgressBar()
@@ -33,22 +42,24 @@ void game_model::timerEvent(QTimerEvent *event)
 
 void game_model::startTimer()
 {
-//    startTimer(100);
+    timer->start(1000);
+}
+
+void game_model::timerSlot()
+{
+    incrementProgressBar();
 }
 
 void game_model::add_to_pattern()
 {
-    int num = rand() % 1;
 //    srand((unsigned)time(0));
-    srand(20);
-    int floor = 0, ceiling = 20, range = (ceiling - floor);
-    int rnd = floor + int((range * rand()) / (RAND_MAX + 1.0));
+//    int floor = 0, ceiling = 20, range = (ceiling - floor);
+//    int rnd = floor + int((range * rand()) / (RAND_MAX + 1.0));
 
-    while(true)
-    {
-//        rnd = floor + int((range * rand()) / (RAND_MAX + 1.0));
-        num = rand() % 4;
-    }
+//    qDebug() << "test";
+
+    int rnd = rand() %2;
+
     switch(rnd)
     {
     case 0:
