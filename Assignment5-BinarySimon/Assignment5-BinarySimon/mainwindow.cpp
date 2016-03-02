@@ -4,6 +4,8 @@
 #include <QProgressBar>
 #include <QFileDialog>
 
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -19,6 +21,11 @@ MainWindow::MainWindow(QWidget *parent) :
 //    connect(ui->pushButton_start, SIGNAL(clicked(bool)), this, SLOT(on_pushButton_start_clicked()));
 //    connect(ui->pushButton_blue, SIGNAL(clicked(bool)), this, SLOT(on_pushButton_blue_clicked()));
 //    connect(ui->pushButton_red, SIGNAL(clicked(bool)), this, SLOT(on_pushButton_red_clicked()));
+
+    ui->progressBar->setRange(0,100);
+
+    connect(&gm, SIGNAL(signalProgress(int)), ui->progressBar, SLOT(setValue(int)));
+    gm.incrementProgressBar();
 }
 
 MainWindow::~MainWindow()
@@ -28,15 +35,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_start_clicked()
 {
-    QString imagePath = QFileDialog::getOpenFileName(this, tr("open File"), "", tr("JPEG(*.jpg *.jpeg);;PNG(*.png)"));
+    gm.incrementProgressBar();
 }
 
 void MainWindow::on_pushButton_blue_clicked()
 {
-    QString imagePath = QFileDialog::getOpenFileName(this, tr("open File"), "", tr("JPEG(*.jpg *.jpeg);;PNG(*.png)"));
+
 }
 
 void MainWindow::on_pushButton_red_clicked()
 {
-    QString imagePath = QFileDialog::getOpenFileName(this, tr("open File"), "", tr("JPEG(*.jpg *.jpeg);;PNG(*.png)"));
+
 }

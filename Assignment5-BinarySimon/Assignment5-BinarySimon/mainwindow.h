@@ -5,6 +5,8 @@
 #include <QPushButton>
 #include <QProgressBar>
 
+#include "game_model.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -28,6 +30,8 @@ private:
     QPushButton *pushButton_blue;
 
     QProgressBar *progressBar;
+
+    game_model gm;
 
 private slots:
     void on_pushButton_start_clicked();

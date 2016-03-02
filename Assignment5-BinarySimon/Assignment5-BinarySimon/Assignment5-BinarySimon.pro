@@ -13,9 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    game_model.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    game_model.h
 
 FORMS    += mainwindow.ui
 
@@ -24,3 +26,4 @@ FORMS    += mainwindow.ui
 
 #INCLUDEPATH += $$PWD/E:/msvc2013_64/include
 #DEPENDPATH += $$PWD/E:/msvc2013_64/include
+
