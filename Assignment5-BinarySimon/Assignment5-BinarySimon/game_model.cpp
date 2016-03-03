@@ -19,7 +19,7 @@ game_model::game_model(QObject *parent) :
  */
 game_model::~game_model()
 {
-    delete timer;
+
 }
 
 /**
@@ -51,13 +51,13 @@ void game_model::add_to_sequence()
     switch(rnd)
     {
     case 0:
-        sequence.push_back('b');
+        sequence << "blue";
         break;
     case 1:
-        sequence.push_back('r');
+        sequence << "red";
         break;
     default:
-        sequence.push_back('g');
+        sequence << "green";
     }
 }
 
@@ -65,7 +65,7 @@ void game_model::add_to_sequence()
  * @brief game_model::checkSequence
  * @param color
  */
-void game_model::checkSequence(char color)
+void game_model::checkSequence(QString color)
 {
     if (sequence[current_sequence_progress] == color)
     {
@@ -88,7 +88,7 @@ void game_model::checkSequence(char color)
  * @brief game_model::getSequence
  * @return
  */
-std::vector<char> game_model::getSequence()
+QStringList game_model::getSequence()
 {
     return sequence;
 }

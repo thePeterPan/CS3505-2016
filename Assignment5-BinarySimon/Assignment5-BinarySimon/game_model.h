@@ -2,9 +2,10 @@
 #define GAME_MODEL_H
 
 #include <QMainWindow>
-#include <QObject>
-#include <QDebug>
-#include <QTimer>
+#include <QObject>      // QObject
+#include <QDebug>       // qDebug()
+#include <QString>      // QString
+#include <QStringList>  // QStringList
 
 class game_model : public QObject
 {
@@ -16,7 +17,7 @@ private:
     int game_state;
 
     // Pattern:
-    std::vector<char> sequence;
+    QStringList sequence;
     // the currrent progression of the pattern
     int current_sequence_progress;
     // the delay between the flashing of the pattern
@@ -37,8 +38,8 @@ public:
     ~game_model();
     void gameStart();
 
-    void checkSequence(char color);
-    std::vector<char> getSequence();
+    void checkSequence(QString color);
+    QStringList getSequence();
     int getDisplaySequenceDelay();
 
     void nextState(bool restartGame = false);

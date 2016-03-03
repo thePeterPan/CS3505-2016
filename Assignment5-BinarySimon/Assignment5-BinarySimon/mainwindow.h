@@ -7,6 +7,8 @@
 #include <QLabel>
 #include <QMessageBox>
 
+#include <QStringList>
+
 #include "game_model.h"
 
 namespace Ui {
@@ -39,7 +41,7 @@ private:
 
     // Used to keep track of the progress bar.
     int clickCount;
-
+    int currentPatternIndex = 0;
     void connectSignalsAndSlots();
 
 private slots:
@@ -49,7 +51,6 @@ private slots:
 
     void state_changed(int state);
 
-    int currentPatternIndex = 0;
     void displayPattern();
     void updateProgressBar(int value);
     void pattern_complete();
