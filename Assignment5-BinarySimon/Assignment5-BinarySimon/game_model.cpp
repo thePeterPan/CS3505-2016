@@ -11,10 +11,10 @@ game_model::game_model(QObject *parent) :
     add_to_pattern();
     add_to_pattern();
 
-    // create new timer
+    // create new timer for incrementing the progress bar
     timer = new QTimer(this);
     // setup signal and slots
-    connect(timer, SIGNAL(timeout()), this, SLOT(timerSlot()));
+//    connect(timer, SIGNAL(timeout()), this, SLOT(timerSlot()));
 }
 
 game_model::~game_model()
@@ -30,14 +30,9 @@ void game_model::incrementProgressBar()
     emit signalProgress(progress);
 }
 
-void game_model::addToPattern(char color)
+void game_model::addToCheckPattern(char color)
 {
     pattern.push_back(color);
-}
-
-void game_model::timerEvent(QTimerEvent *event)
-{
-//    qDebug() << "Timer ID:" << event->timerId();
 }
 
 void game_model::startTimer()
@@ -45,9 +40,15 @@ void game_model::startTimer()
     timer->start(1000);
 }
 
-void game_model::timerSlot()
+void game_model::nextState(bool restart)
 {
-    incrementProgressBar();
+    if (restart || gameState == 3)
+    {
+        gameState = 0;
+    } else {
+        ++gameState;
+    }
+    emit signalStateChange(gameState);
 }
 
 void game_model::add_to_pattern()
@@ -72,4 +73,5 @@ void game_model::add_to_pattern()
         pattern.push_back('g');
     }
 
+    emit signalPatternSizeChange(pattern.size());
 }

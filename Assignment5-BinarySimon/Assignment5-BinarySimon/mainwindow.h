@@ -33,11 +33,16 @@ private:
 
     game_model gm;
 
+    // Used to keep track of the progress bar.
+    int clickCount;
+
 private slots:
     void on_pushButton_start_clicked();
     void on_pushButton_blue_clicked();
     void on_pushButton_red_clicked();
 
+    void on_state_changed(int state);
+    void on_patternSize_changed(int patternSize);
 };
 
 #endif // MAINWINDOW_H

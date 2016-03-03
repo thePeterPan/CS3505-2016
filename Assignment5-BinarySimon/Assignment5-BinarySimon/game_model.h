@@ -12,16 +12,19 @@ class game_model : public QObject
 
 private:
     int progress;
+
     std::vector<char> pattern;
 
-    void add_to_pattern();
-
     QTimer *timer;
+
+    int gameState;
+
+    void add_to_pattern();
 
 private slots:
 
 protected:
-    void timerEvent(QTimerEvent *event);
+//    void timerEvent(QTimerEvent *event);
 
 public:
     explicit game_model(QObject *parent = 0);
@@ -30,15 +33,19 @@ public:
 
     void incrementProgressBar();
 
-    void addToPattern(char color);
+    void addToCheckPattern(char color);
 
     void startTimer();
 
+    void nextState(bool restart = false);
+
 public slots:
-    void timerSlot();
+
 
 signals:
     void signalProgress(int);
+    void signalStateChange(int);        // Not connected yet
+    void signalPatternSizeChange(int);  // Not connected yet
 };
 
 #endif // GAME_MODEL_H

@@ -5,7 +5,6 @@
 #include <QFileDialog>
 
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -42,10 +41,24 @@ void MainWindow::on_pushButton_start_clicked()
 
 void MainWindow::on_pushButton_blue_clicked()
 {
-    gm.addToPattern('b');
+    gm.addToCheckPattern('b');
+    ++clickCount;
+    ui->progressBar->setValue(clickCount);
 }
 
 void MainWindow::on_pushButton_red_clicked()
 {
-    gm.addToPattern('r');
+    gm.addToCheckPattern('r');
+    ++clickCount;
+    ui->progressBar->setValue(clickCount);
+}
+
+void MainWindow::on_state_changed(int state)
+{
+
+}
+
+void MainWindow::on_patternSize_changed(int patternSize)
+{
+    ui->progressBar->setRange(0, patternSize);
 }
