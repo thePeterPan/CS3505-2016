@@ -43,9 +43,12 @@ private:
     game_model gm;
 
     // Used to keep track of the progress bar.
-    int clickCount;
     int currentPatternIndex = 0;
     void connectSignalsAndSlots();
+
+    // Timer functionality
+    QThread* timer_thread;
+    QTimer* timer;
 
 private slots:
     void pushButton_start_clicked();

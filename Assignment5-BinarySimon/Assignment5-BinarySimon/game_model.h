@@ -6,6 +6,7 @@
 #include <QDebug>       // qDebug()
 #include <QString>      // QString
 #include <QStringList>  // QStringList
+#include <QTimer>       // QTimer
 
 class game_model : public QObject
 {
@@ -23,7 +24,7 @@ private:
     // the delay between the flashing of the pattern
     int display_sequence_delay;
     // add another move to the sequence
-    void add_to_sequence();
+    void add_color_to_sequence();
 
     // Stats:
     int total_number_of_rounds;
@@ -38,11 +39,11 @@ public:
     ~game_model();
     void gameStart();
 
-    void checkSequence(QString color);
+    void checkSequenceNext(QString color);
     QStringList getSequence();
     int getDisplaySequenceDelay();
 
-    void nextState(bool restartGame = false);
+
 
     int getTotalNumberOfRounds();
     int getTotalMoves();
@@ -56,11 +57,12 @@ public:
     };
 
 public slots:
-
+    void nextRound();
+    void nextState(bool restartGame = false);
 
 signals:
     void signalStateChange(int);
-    void signalProgressUpdate(int);
+    void signalProgressBarUpdate(int);
     void signalSequenceComplete();
     void signalGameOver();
 };

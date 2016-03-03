@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent), ui(new Ui::MainWindow), clickCount(0)
+    QMainWindow(parent), ui(new Ui::MainWindow)
 {
     // I think this should always be first.
     ui->setupUi(this);
@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete timer_thread;
 }
 
 void MainWindow::connectSignalsAndSlots()
@@ -34,10 +35,13 @@ void MainWindow::connectSignalsAndSlots()
     connect(&gm, SIGNAL(signalStateChange(int)), this, SLOT(state_changed(int)));
 
     // Signal for the progress bar to progress.
-    connect(&gm, SIGNAL(signalProgressUpdate(int)), this, SLOT(updateProgressBar(int)));
+    connect(&gm, SIGNAL(signalProgressBarUpdate(int)), this, SLOT(updateProgressBar(int)));
 
     // Signal that the user has successfully completed the pattern.
-    connect(&gm, SIGNAL(signalSequenceComplete()), &gm, SLOT(nextState()));
+    connect(&gm, SIGNAL(signalSequenceComplete()), &gm, SLOT(nextRound()));
+
+    // Signal that the player has made a mistake, game over
+    connect(&gm, SIGNAL(signalGameOver()), &gm, SLOT(nextState(bool)));
 }
 
 /**
@@ -47,20 +51,27 @@ void MainWindow::pushButton_start_clicked()
 {
     if (ui->pushButton_start->text() == "Reset")
     {
+        if (timer_thread->isRunning())
+        {
+            timer->stop();
+        }
         QMessageBox msgBox;
         msgBox.setText("Are you sure you want to restart?");
-        msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        msgBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Cancel);
         int selection = msgBox.exec();
 
         if (selection == QMessageBox::Ok)
-        {
-            // Restart the game.
+        {   // Restart the game.
+            // kill the thread if it's running the timer.
+            timer_thread->exit(0);
             gm.nextState(true);
             return;
         }
         else
-        {
+        {   // Resume the game
+            // this restarts the timer, but whatever.
+            timer->start();
             return;
         }
     }
@@ -72,9 +83,7 @@ void MainWindow::pushButton_start_clicked()
  */
 void MainWindow::pushButton_blue_clicked()
 {
-    gm.checkSequence("blue");
-    ++clickCount;
-    ui->progressBar->setValue(clickCount);
+    gm.checkSequenceNext("blue");
 }
 
 /**
@@ -82,9 +91,7 @@ void MainWindow::pushButton_blue_clicked()
  */
 void MainWindow::pushButton_red_clicked()
 {
-    gm.checkSequence("red");
-    ++clickCount;
-    ui->progressBar->setValue(clickCount);
+    gm.checkSequenceNext("red");
 }
 
 /**
@@ -108,6 +115,9 @@ void MainWindow::state_changed(int nextState)
         ui->label_currentPlayer->setText(QString("Computer"));
 
         qDebug() << "Start!";
+
+        // Now wait for the start button to be pressed.
+        // see pushButton_start_clicked()
     }
     // Displaying state
     else if (nextState == game_model::gameState::DisplaySequence)
@@ -116,21 +126,22 @@ void MainWindow::state_changed(int nextState)
         ui->label_currentPlayer->setText(QString("Computer"));
 
 //        for (auto const& value : gm.getSequence())
-//        {
-//            qDebug() << QString(value);
-//        }
+//            QTimer::singleShot(1000, this, SLOT(displayPattern()));
 //        gm.nextState();
 
         // http://stackoverflow.com/questions/10492480/starting-qtimer-in-a-qthread
         // http://stackoverflow.com/questions/16501284/qt-updating-main-window-with-second-thread
-        QThread* timer_thread = new QThread(this);
-        QTimer* timer = new QTimer(0); // not 'this'!
+        timer_thread = new QThread(this);
+        timer = new QTimer(0); // not 'this'!
         timer->setInterval(gm.getDisplaySequenceDelay());
         timer->moveToThread(timer_thread);
         connect(timer, SIGNAL(timeout()), this, SLOT(displayPattern()));
         // Make sure the timer gets started from timer_thread.
         QObject::connect(timer_thread, SIGNAL(started()), timer, SLOT(start()));
         timer_thread->start();
+
+        // Now wait for the timer event to finish
+        // see displayPattern()
     }
     // User input state
     else if (nextState == game_model::gameState::UserInput)
@@ -139,10 +150,16 @@ void MainWindow::state_changed(int nextState)
         ui->pushButton_red->setEnabled(true);
 
         ui->label_currentPlayer->setText(QString("User"));
+
+        // Now wait for as signal of the user finishing the sequence or make a mistake.
+        // see game_model::checkSequenceNext()
     }
     // User lost state.
     else if (nextState == game_model::gameState::GameOver)
     {
+        ui->pushButton_blue->setDisabled(true);
+        ui->pushButton_red->setDisabled(true);
+
         QMessageBox message;
         message.setText(tr("Game Over!"));
         message.setInformativeText(
@@ -167,7 +184,15 @@ void MainWindow::state_changed(int nextState)
  */
 void MainWindow::displayPattern()
 {
-
+    qDebug() << gm.getSequence()[currentPatternIndex];
+    ++currentPatternIndex;
+    // if we've reached the end of the list
+    if (currentPatternIndex == gm.getSequence().size())
+    {
+        currentPatternIndex = 0;
+        timer_thread->exit(0);
+        gm.nextState();
+    }
 }
 
 /**

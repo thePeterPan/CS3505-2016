@@ -6,12 +6,12 @@ game_model::game_model(QObject *parent) :
     total_number_of_rounds(0),
     total_moves(0),
     current_sequence_progress(0),
-    display_sequence_delay(500)
+    display_sequence_delay(10000)
 {
     // Start off with a two patterns.
     srand(10);
-    add_to_sequence();
-    add_to_sequence();
+    add_color_to_sequence();
+    add_color_to_sequence();
 }
 
 /**
@@ -36,9 +36,9 @@ void game_model::gameStart()
 }
 
 /**
- * @brief game_model::add_to_sequence
+ * @brief game_model::add_color_to_sequence
  */
-void game_model::add_to_sequence()
+void game_model::add_color_to_sequence()
 {
 //    srand((unsigned)time(0));
 //    int floor = 0, ceiling = 20, range = (ceiling - floor);
@@ -62,18 +62,20 @@ void game_model::add_to_sequence()
 }
 
 /**
- * @brief game_model::checkSequence
+ * @brief game_model::checkSequenceNext
  * @param color
  */
-void game_model::checkSequence(QString color)
+void game_model::checkSequenceNext(QString color)
 {
     if (sequence[current_sequence_progress] == color)
     {
         ++current_sequence_progress;
-        emit signalProgressUpdate(current_sequence_progress);
+        ++total_moves;
+        emit signalProgressBarUpdate(current_sequence_progress);
 
         if (current_sequence_progress == (int) sequence.size())
         {
+            current_sequence_progress = 0;
             emit signalSequenceComplete();
         }
     }
@@ -117,6 +119,18 @@ void game_model::nextState(bool restartGame)
         ++game_state;
     }
     emit signalStateChange(game_state);
+}
+
+/**
+ * @brief game_model::nextRound
+ */
+void game_model::nextRound()
+{
+    add_color_to_sequence();
+    display_sequence_delay -= 50;
+    ++total_number_of_rounds;
+    // Give the player a little bit of time to get ready.
+    QTimer::singleShot(1000, this, SLOT(nextState()));
 }
 
 /**
