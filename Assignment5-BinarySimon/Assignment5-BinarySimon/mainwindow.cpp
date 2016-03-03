@@ -120,6 +120,17 @@ void MainWindow::state_changed(int nextState)
 //            qDebug() << QString(value);
 //        }
 //        gm.nextState();
+
+        // http://stackoverflow.com/questions/10492480/starting-qtimer-in-a-qthread
+        QThread* timer_thread = new QThread(this);
+        QTimer* timer = new QTimer(0); // _not_ 'this'!
+        timer->setInterval(display_sequence_delay);
+        timer->moveToThread(timer_thread);
+        // Use a direct connection to make sure that doIt() is called from m_thread.
+        connect(timer, SIGNAL(timeout()), this, displayPattern());
+        // Make sure the timer gets started from m_thread.
+        QObject::connect(timer_thread, SIGNAL(started()), timer, SLOT(start()));
+        timer_thread->start();
     }
     // User input state
     else if (nextState == game_model::gameState::UserInput)
@@ -149,6 +160,14 @@ void MainWindow::state_changed(int nextState)
         message.exec();
         QCoreApplication::exit();
     }
+}
+
+/**
+ * @brief MainWindow::displayPattern
+ */
+void MainWindow::displayPattern()
+{
+
 }
 
 /**
