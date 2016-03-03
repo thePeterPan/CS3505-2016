@@ -16,9 +16,13 @@ private:
     int game_state;
 
     // Pattern:
-    std::vector<char> pattern;
-    int current_pattern_index;
-    void add_to_pattern();
+    std::vector<char> sequence;
+    // the currrent progression of the pattern
+    int current_sequence_progress;
+    // the delay between the flashing of the pattern
+    int display_sequence_delay;
+    // add another move to the sequence
+    void add_to_sequence();
 
     // Stats:
     int total_number_of_rounds;
@@ -33,8 +37,8 @@ public:
     ~game_model();
     void gameStart();
 
-    void checkPattern(char color);
-    std::vector<char> getPattern();
+    void checkSequence(char color);
+    std::vector<char> getSequence();
 
     void startTimer();
 
@@ -46,7 +50,7 @@ public:
     enum gameState : int
     {
         Start,
-        DisplayPattern,
+        DisplaySequence,
         UserInput,
         GameOver,
     };
@@ -56,7 +60,8 @@ public slots:
 
 signals:
     void signalStateChange(int);
-    void signalPatternComplete();
+    void signalProgressUpdate(int);
+    void signalSequenceComplete();
     void signalGameOver();
 };
 

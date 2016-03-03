@@ -46,6 +46,7 @@ private slots:
 
     void state_changed(int state);
 
+    void updateProgressBar(int);
     void pattern_complete();
 };
 

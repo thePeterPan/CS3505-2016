@@ -2,12 +2,12 @@
 
 game_model::game_model(QObject *parent) :
     QObject(parent), game_state(gameState::Start), total_number_of_rounds(0), total_moves(0),
-    current_pattern_index(0)
+    current_sequence_progress(0)
 {
     // Start off with a two patterns.
     srand(10);
-    add_to_pattern();
-    add_to_pattern();
+    add_to_sequence();
+    add_to_sequence();
 
     // create new timer for incrementing the progress bar
     timer = new QTimer(this);
@@ -35,9 +35,9 @@ void game_model::gameStart()
 }
 
 /**
- * @brief game_model::add_to_pattern
+ * @brief game_model::add_to_sequence
  */
-void game_model::add_to_pattern()
+void game_model::add_to_sequence()
 {
 //    srand((unsigned)time(0));
 //    int floor = 0, ceiling = 20, range = (ceiling - floor);
@@ -50,28 +50,30 @@ void game_model::add_to_pattern()
     switch(rnd)
     {
     case 0:
-        pattern.push_back('b');
+        sequence.push_back('b');
         break;
     case 1:
-        pattern.push_back('r');
+        sequence.push_back('r');
         break;
     default:
-        pattern.push_back('g');
+        sequence.push_back('g');
     }
 }
 
 /**
- * @brief game_model::checkPattern
+ * @brief game_model::checkSequence
  * @param color
  */
-void game_model::checkPattern(char color)
+void game_model::checkSequence(char color)
 {
-    if (pattern[current_pattern_index] == color)
+    if (sequence[current_sequence_progress] == color)
     {
-        ++current_pattern_index;
-        if (current_pattern_index == (int) pattern.size())
+        ++current_sequence_progress;
+        emit signalProgressUpdate(current_sequence_progress);
+
+        if (current_sequence_progress == (int) sequence.size())
         {
-            emit signalPatternComplete();
+            emit signalSequenceComplete();
         }
     }
     else
@@ -82,12 +84,12 @@ void game_model::checkPattern(char color)
 }
 
 /**
- * @brief game_model::getPattern
+ * @brief game_model::getSequence
  * @return
  */
-std::vector<char> game_model::getPattern()
+std::vector<char> game_model::getSequence()
 {
-    return pattern;
+    return sequence;
 }
 
 /**
@@ -107,7 +109,9 @@ void game_model::nextState(bool restartGame)
     if (restartGame || game_state == gameState::GameOver)
     {
         game_state = gameState::Start;
-    } else {
+    }
+    else
+    {
         ++game_state;
     }
     emit signalStateChange(game_state);

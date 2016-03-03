@@ -33,6 +33,9 @@ void MainWindow::connectSignalsAndSlots()
     // Signal that the state has changed.
     connect(&gm, SIGNAL(signalStateChange(int)), this, SLOT(state_changed(int)));
 
+    // Signal for the progress bar to progress.
+    connect(&gm, SIGNAL(signalProgressUpdate(int)), this, SLOT(updateProgressBar(int)));
+
     // Signal that the user has successfully completed the pattern.
     connect(&gm, SIGNAL(signalPatternComplete()), &gm, SLOT(nextState()));
 }
@@ -69,7 +72,7 @@ void MainWindow::pushButton_start_clicked()
  */
 void MainWindow::pushButton_blue_clicked()
 {
-    gm.checkPattern('b');
+    gm.checkSequence('b');
     ++clickCount;
     ui->progressBar->setValue(clickCount);
 
@@ -81,7 +84,7 @@ void MainWindow::pushButton_blue_clicked()
  */
 void MainWindow::pushButton_red_clicked()
 {
-    gm.checkPattern('r');
+    gm.checkSequence('r');
     ++clickCount;
     ui->progressBar->setValue(clickCount);
 
@@ -102,16 +105,16 @@ void MainWindow::state_changed(int nextState)
         ui->pushButton_red->setDisabled(true);
 
         // http://stackoverflow.com/questions/14230265/what-is-the-proper-way-to-set-qprogressbar-to-update-from-the-logic-layer
-        ui->progressBar->setRange(0, (int) gm.getPattern().size());
+        ui->progressBar->setRange(0, (int) gm.getSequence().size());
         ui->progressBar->setValue(0);
 
         qDebug() << "Start!";
     }
     // Displaying state
-    else if (nextState == game_model::gameState::DisplayPattern)
+    else if (nextState == game_model::gameState::DisplaySequence)
     {
         ui->pushButton_start->setText("Reset");
-        for (auto const& value : gm.getPattern())
+        for (auto const& value : gm.getSequence())
         {
             qDebug() << QString(value);
         }
@@ -143,6 +146,14 @@ void MainWindow::state_changed(int nextState)
         message.exec();
         // TODO: quit program
     }
+}
+
+/**
+ * @brief MainWindow::updateProgressBar
+ */
+void MainWindow::updateProgressBar()
+{
+
 }
 
 /**
