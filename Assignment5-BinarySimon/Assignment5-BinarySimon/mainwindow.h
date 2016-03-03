@@ -47,9 +47,6 @@ private:
     int currentPatternIndex = 0;
     void connectSignalsAndSlots();
 
-    void testMethod();
-    int testIndex = 0;
-
 private slots:
     void pushButton_start_clicked();
     void pushButton_blue_clicked();
@@ -60,8 +57,6 @@ private slots:
     void displayPattern();
     void updateProgressBar(int value);
     void pattern_complete();
-
-    void testMethod2();
 };
 
 #endif // MAINWINDOW_H
