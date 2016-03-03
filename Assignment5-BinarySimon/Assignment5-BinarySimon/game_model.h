@@ -39,8 +39,7 @@ public:
 
     void checkSequence(char color);
     std::vector<char> getSequence();
-
-    void startTimer();
+    int getDisplaySequenceDelay();
 
     void nextState(bool restartGame = false);
 
