@@ -38,10 +38,10 @@ void MainWindow::connectSignalsAndSlots()
     connect(&gm, SIGNAL(signalProgressBarUpdate(int)), this, SLOT(updateProgressBar(int)));
 
     // Signal that the user has successfully completed the pattern.
-    connect(&gm, SIGNAL(signalSequenceComplete()), &gm, SLOT(nextRound()));
+//    connect(&gm, SIGNAL(signalSequenceComplete()), &gm, SLOT(nextRound()));
 
     // Signal that the player has made a mistake, game over
-    connect(&gm, SIGNAL(signalGameOver()), &gm, SLOT(nextState(bool)));
+//    connect(&gm, SIGNAL(signalGameOver()), &gm, SLOT(nextState(bool)));
 }
 
 /**
@@ -70,7 +70,7 @@ void MainWindow::pushButton_start_clicked()
         }
         else
         {   // Resume the game
-            // this restarts the timer, but whatever.
+            // this resets the timer, but whatever.
             timer->start();
             return;
         }

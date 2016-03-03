@@ -43,8 +43,6 @@ public:
     QStringList getSequence();
     int getDisplaySequenceDelay();
 
-
-
     int getTotalNumberOfRounds();
     int getTotalMoves();
 
@@ -64,7 +62,7 @@ signals:
     void signalStateChange(int);
     void signalProgressBarUpdate(int);
     void signalSequenceComplete();
-    void signalGameOver();
+//    void signalGameOver();
 };
 
 #endif // GAME_MODEL_H

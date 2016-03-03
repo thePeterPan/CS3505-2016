@@ -31,6 +31,7 @@ game_model::~game_model()
  */
 void game_model::gameStart()
 {
+    nextRound();
     // Tell the view to initialize in start mode:
     emit signalStateChange(game_state);
 }
@@ -76,14 +77,31 @@ void game_model::checkSequenceNext(QString color)
         if (current_sequence_progress == (int) sequence.size())
         {
             current_sequence_progress = 0;
-            emit signalSequenceComplete();
+//            emit signalSequenceComplete();
+            nextRound();
         }
     }
     else
     {
         // if next color does not match pattern emit lose signal
-        emit signalGameOver();
+//        emit signalGameOver();
+        game_state = gameState::GameOver;
+        emit signalStateChange(game_state);
     }
+}
+
+/**
+ * @brief game_model::nextRound
+ */
+void game_model::nextRound()
+{
+    add_color_to_sequence();
+    // speed up the sequence display
+    display_sequence_delay -= 50;
+    ++total_number_of_rounds;
+    // Give the player a little bit of time to get ready.
+    game_state = gameState::DisplaySequence;
+    QTimer::singleShot(1000, [=]() { emit signalStateChange(game_state); });
 }
 
 /**
@@ -112,6 +130,8 @@ void game_model::nextState(bool restartGame)
 {
     if (restartGame || game_state == gameState::GameOver)
     {
+        // If we receive a command to restart the game, or if the game is over
+        // restart the game.
         game_state = gameState::Start;
     }
     else
@@ -119,18 +139,6 @@ void game_model::nextState(bool restartGame)
         ++game_state;
     }
     emit signalStateChange(game_state);
-}
-
-/**
- * @brief game_model::nextRound
- */
-void game_model::nextRound()
-{
-    add_color_to_sequence();
-    display_sequence_delay -= 50;
-    ++total_number_of_rounds;
-    // Give the player a little bit of time to get ready.
-    QTimer::singleShot(1000, this, SLOT(nextState()));
 }
 
 /**
