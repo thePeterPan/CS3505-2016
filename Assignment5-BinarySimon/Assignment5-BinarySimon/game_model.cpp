@@ -1,10 +1,8 @@
 #include "game_model.h"
 
-#include <iostream>
-
 game_model::game_model(QObject *parent) :
-    QObject(parent),
-    progress(0)
+    QObject(parent), game_state(gameState::Start), total_number_of_rounds(0), total_moves(0),
+    current_pattern_index(0)
 {
     // Start off with a two patterns.
     srand(10);
@@ -13,8 +11,6 @@ game_model::game_model(QObject *parent) :
 
     // create new timer for incrementing the progress bar
     timer = new QTimer(this);
-    // setup signal and slots
-//    connect(timer, SIGNAL(timeout()), this, SLOT(timerSlot()));
 }
 
 game_model::~game_model()
@@ -22,35 +18,9 @@ game_model::~game_model()
     delete timer;
 }
 
-void game_model::incrementProgressBar()
-{
-    // increment the progress bar
-    progress += 1;
-    // tell the view that the progress has been updated
-    emit signalProgress(progress);
-}
-
-void game_model::addToCheckPattern(char color)
-{
-    pattern.push_back(color);
-}
-
-void game_model::startTimer()
-{
-    timer->start(1000);
-}
-
-void game_model::nextState(bool restart)
-{
-    if (restart || gameState == 3)
-    {
-        gameState = 0;
-    } else {
-        ++gameState;
-    }
-    emit signalStateChange(gameState);
-}
-
+/**
+ * @brief game_model::add_to_pattern
+ */
 void game_model::add_to_pattern()
 {
 //    srand((unsigned)time(0));
@@ -73,5 +43,72 @@ void game_model::add_to_pattern()
         pattern.push_back('g');
     }
 
-    emit signalPatternSizeChange(pattern.size());
+    emit signalPatternSizeChange((int)pattern.size());
+}
+
+/**
+ * @brief game_model::checkPattern
+ * @param color
+ */
+void game_model::checkPattern(char color)
+{
+    if (pattern[current_pattern_index] == color)
+    {
+        ++current_pattern_index;
+        if (current_pattern_index == (int) pattern.size())
+        {
+            emit signalPatternComplete();
+        }
+    }
+    else
+    {
+        // if next color does not match pattern emit lose signal
+        emit signalGameOver();
+    }
+}
+
+/**
+ * @brief game_model::startTimer
+ */
+void game_model::startTimer()
+{
+    timer->start(1000);
+}
+
+/**
+ * @brief game_model::nextState
+ * @param restartGame
+ */
+void game_model::nextState(bool restartGame)
+{
+    if (restartGame || game_state == gameState::GameOver)
+    {
+        game_state = gameState::Start;
+    } else {
+        ++game_state;
+
+        if (game_state == gameState::DisplayPattern)
+        {
+            emit signalDisplayPattern(pattern);
+        }
+    }
+    emit signalStateChange(game_state);
+}
+
+/**
+ * @brief game_model::getTotalMoves
+ * @return
+ */
+int game_model::getTotalMoves()
+{
+    return total_moves;
+}
+
+/**
+ * @brief game_model::getTotalNumberOfRounds
+ * @return
+ */
+int game_model::getTotalNumberOfRounds()
+{
+    return total_number_of_rounds;
 }

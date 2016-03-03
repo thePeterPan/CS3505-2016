@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QProgressBar>
+#include <QMessageBox>
 
 #include "game_model.h"
 
@@ -36,13 +37,16 @@ private:
     // Used to keep track of the progress bar.
     int clickCount;
 
-private slots:
-    void on_pushButton_start_clicked();
-    void on_pushButton_blue_clicked();
-    void on_pushButton_red_clicked();
+    void connectSignalsAndSlots();
 
-    void on_state_changed(int state);
-    void on_patternSize_changed(int patternSize);
+private slots:
+    void pushButton_start_clicked();
+    void pushButton_blue_clicked();
+    void pushButton_red_clicked();
+
+    void state_changed(int state);
+    void patternSize_changed(int patternSize);
+    void displayPattern(std::vector<char> thePattern);
 };
 
 #endif // MAINWINDOW_H

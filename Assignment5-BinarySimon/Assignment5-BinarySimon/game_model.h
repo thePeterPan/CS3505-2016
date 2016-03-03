@@ -6,46 +6,62 @@
 #include <QDebug>
 #include <QTimer>
 
+// needed to send vectors in signals:
+Q_DECLARE_METATYPE(std::vector<char>)
+
 class game_model : public QObject
 {
     Q_OBJECT
 
 private:
-    int progress;
-
-    std::vector<char> pattern;
-
     QTimer *timer;
 
-    int gameState;
+    int game_state;
 
+    // Pattern:
+    std::vector<char> pattern;
+    int current_pattern_index;
     void add_to_pattern();
+
+    // Stats:
+    int total_number_of_rounds;
+    int total_moves;
 
 private slots:
 
 protected:
-//    void timerEvent(QTimerEvent *event);
 
 public:
     explicit game_model(QObject *parent = 0);
 
     ~game_model();
 
-    void incrementProgressBar();
-
-    void addToCheckPattern(char color);
+    void checkPattern(char color);
 
     void startTimer();
 
-    void nextState(bool restart = false);
+    void nextState(bool restartGame = false);
+
+    int getTotalNumberOfRounds();
+    int getTotalMoves();
+
+    enum gameState : int
+    {
+        Start,
+        DisplayPattern,
+        UserInput,
+        GameOver,
+    };
 
 public slots:
 
 
 signals:
-    void signalProgress(int);
-    void signalStateChange(int);        // Not connected yet
-    void signalPatternSizeChange(int);  // Not connected yet
+    void signalStateChange(int);
+    void signalPatternSizeChange(int);
+    void signalDisplayPattern(std::vector<char>);
+    void signalPatternComplete();
+    void signalGameOver();
 };
 
 #endif // GAME_MODEL_H
