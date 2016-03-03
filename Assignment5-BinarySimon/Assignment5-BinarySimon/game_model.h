@@ -6,9 +6,6 @@
 #include <QDebug>
 #include <QTimer>
 
-// needed to send vectors in signals:
-Q_DECLARE_METATYPE(std::vector<char>)
-
 class game_model : public QObject
 {
     Q_OBJECT
@@ -33,10 +30,11 @@ protected:
 
 public:
     explicit game_model(QObject *parent = 0);
-
     ~game_model();
+    void gameStart();
 
     void checkPattern(char color);
+    std::vector<char> getPattern();
 
     void startTimer();
 
@@ -58,8 +56,6 @@ public slots:
 
 signals:
     void signalStateChange(int);
-    void signalPatternSizeChange(int);
-    void signalDisplayPattern(std::vector<char>);
     void signalPatternComplete();
     void signalGameOver();
 };

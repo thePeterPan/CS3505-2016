@@ -13,9 +13,25 @@ game_model::game_model(QObject *parent) :
     timer = new QTimer(this);
 }
 
+/**
+ * @brief game_model::~game_model
+ */
 game_model::~game_model()
 {
     delete timer;
+}
+
+/**
+ * Tried to put this in the constructor, but I assume that the constructor gets
+ * called before the signals and slots are connected, therefore this is needed
+ * to be called after the everything gets connected.
+
+ * @brief game_model::gameStart
+ */
+void game_model::gameStart()
+{
+    // Tell the view to initialize in start mode:
+    emit signalStateChange(game_state);
 }
 
 /**
@@ -29,7 +45,7 @@ void game_model::add_to_pattern()
 
 //    qDebug() << "test";
 
-    int rnd = rand() %2;
+    int rnd = rand() % 2;
 
     switch(rnd)
     {
@@ -42,8 +58,6 @@ void game_model::add_to_pattern()
     default:
         pattern.push_back('g');
     }
-
-    emit signalPatternSizeChange((int)pattern.size());
 }
 
 /**
@@ -68,6 +82,15 @@ void game_model::checkPattern(char color)
 }
 
 /**
+ * @brief game_model::getPattern
+ * @return
+ */
+std::vector<char> game_model::getPattern()
+{
+    return pattern;
+}
+
+/**
  * @brief game_model::startTimer
  */
 void game_model::startTimer()
@@ -86,11 +109,6 @@ void game_model::nextState(bool restartGame)
         game_state = gameState::Start;
     } else {
         ++game_state;
-
-        if (game_state == gameState::DisplayPattern)
-        {
-            emit signalDisplayPattern(pattern);
-        }
     }
     emit signalStateChange(game_state);
 }

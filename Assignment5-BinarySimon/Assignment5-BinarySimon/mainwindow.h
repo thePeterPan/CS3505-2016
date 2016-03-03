@@ -45,8 +45,6 @@ private slots:
     void pushButton_red_clicked();
 
     void state_changed(int state);
-    void patternSize_changed(int patternSize);
-    void displayPattern(std::vector<char> thePattern);
 };
 
 #endif // MAINWINDOW_H

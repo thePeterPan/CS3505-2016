@@ -10,17 +10,11 @@ MainWindow::MainWindow(QWidget *parent) :
     // Disallow resizing of the window.
     ui->statusBar->setSizeGripEnabled(false);
 
-    // Disable buttons:
-    ui->pushButton_blue->setEnabled(false);
-    ui->pushButton_red->setEnabled(false);
-
-    // http://stackoverflow.com/questions/14230265/what-is-the-proper-way-to-set-qprogressbar-to-update-from-the-logic-layer
-    // Initialize the progress bar.
-    // TODO: better way of initializing this?
-    ui->progressBar->setRange(0,2);
-    ui->progressBar->setValue(0);
-
+    // Connect everything
     connectSignalsAndSlots();
+
+    // Tell the model to start the game.
+    gm.gameStart();
 }
 
 MainWindow::~MainWindow()
@@ -39,11 +33,7 @@ void MainWindow::connectSignalsAndSlots()
     // Signal that the state has changed.
     connect(&gm, SIGNAL(signalStateChange(int)), this, SLOT(state_changed(int)));
 
-    // Signal that the size of the pattern has changed, update the progress bar.
-    connect(&gm, SIGNAL(signalPatternSizeChange(int)), this, SLOT(patternSize_changed(int)));
 
-    // Signal to display the pattern to the user.
-    connect(&gm, SIGNAL(signalDisplayPattern(std::vector<char>)), this, SLOT(displayPattern(std::vector<char>)));
 }
 
 /**
@@ -109,18 +99,28 @@ void MainWindow::state_changed(int nextState)
         ui->pushButton_start->setText("Start");
         ui->pushButton_blue->setDisabled(true);
         ui->pushButton_red->setDisabled(true);
+
+        // http://stackoverflow.com/questions/14230265/what-is-the-proper-way-to-set-qprogressbar-to-update-from-the-logic-layer
+        ui->progressBar->setRange(0, (int) gm.getPattern().size());
+        ui->progressBar->setValue(0);
+
+        qDebug() << "Start!";
     }
     // Displaying state
     else if (nextState == game_model::gameState::DisplayPattern)
     {
         ui->pushButton_start->setText("Reset");
-
+        for (auto const& value : gm.getPattern())
+        {
+            qDebug() << QString(value);
+        }
+        gm.nextState();
     }
     // User input state
     else if (nextState == game_model::gameState::UserInput)
     {
-        ui->pushButton_blue->setDisabled(false);
-        ui->pushButton_red->setDisabled(false);
+        ui->pushButton_blue->setEnabled(true);
+        ui->pushButton_red->setEnabled(true);
     }
     // User lost state.
     else if (nextState == game_model::gameState::GameOver)
@@ -142,26 +142,4 @@ void MainWindow::state_changed(int nextState)
         message.exec();
         // TODO: quit program
     }
-}
-
-/**
- * @brief MainWindow::patternSize_changed
- * @param patternSize
- */
-void MainWindow::patternSize_changed(int patternSize)
-{
-    ui->progressBar->setRange(0, patternSize);
-    ui->progressBar->setValue(0);
-}
-
-/**
- * @brief MainWindow::displayPattern
- */
-void MainWindow::displayPattern(std::vector<char> thePattern)
-{
-    for (auto const& value : thePattern)
-    {
-        qDebug() << tr(value);
-    }
-    gm.nextState();
 }
