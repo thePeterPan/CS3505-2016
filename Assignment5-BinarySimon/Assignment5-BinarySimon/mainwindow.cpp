@@ -75,8 +75,6 @@ void MainWindow::pushButton_blue_clicked()
     gm.checkSequence('b');
     ++clickCount;
     ui->progressBar->setValue(clickCount);
-
-    qDebug() << clickCount;
 }
 
 /**
@@ -87,8 +85,6 @@ void MainWindow::pushButton_red_clicked()
     gm.checkSequence('r');
     ++clickCount;
     ui->progressBar->setValue(clickCount);
-
-    qDebug() << clickCount;
 }
 
 /**
@@ -108,23 +104,30 @@ void MainWindow::state_changed(int nextState)
         ui->progressBar->setRange(0, (int) gm.getSequence().size());
         ui->progressBar->setValue(0);
 
+        // Initialize the player label.
+        ui->label_currentPlayer->setText(QString("Computer"));
+
         qDebug() << "Start!";
     }
     // Displaying state
     else if (nextState == game_model::gameState::DisplaySequence)
     {
         ui->pushButton_start->setText("Reset");
-        for (auto const& value : gm.getSequence())
-        {
-            qDebug() << QString(value);
-        }
-        gm.nextState();
+        ui->label_currentPlayer->setText(QString("Computer"));
+
+//        for (auto const& value : gm.getSequence())
+//        {
+//            qDebug() << QString(value);
+//        }
+//        gm.nextState();
     }
     // User input state
     else if (nextState == game_model::gameState::UserInput)
     {
         ui->pushButton_blue->setEnabled(true);
         ui->pushButton_red->setEnabled(true);
+
+        ui->label_currentPlayer->setText(QString("User"));
     }
     // User lost state.
     else if (nextState == game_model::gameState::GameOver)
@@ -144,16 +147,16 @@ void MainWindow::state_changed(int nextState)
         message.setText(tr("Error!"));
         message.addButton(tr("Exit"), QMessageBox::AcceptRole);
         message.exec();
-        // TODO: quit program
+        QCoreApplication::exit();
     }
 }
 
 /**
  * @brief MainWindow::updateProgressBar
  */
-void MainWindow::updateProgressBar()
+void MainWindow::updateProgressBar(int value)
 {
-
+    ui->progressBar->setValue(value);
 }
 
 /**

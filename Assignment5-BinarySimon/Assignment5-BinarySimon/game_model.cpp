@@ -1,16 +1,17 @@
 #include "game_model.h"
 
 game_model::game_model(QObject *parent) :
-    QObject(parent), game_state(gameState::Start), total_number_of_rounds(0), total_moves(0),
-    current_sequence_progress(0)
+    QObject(parent),
+    game_state(gameState::Start),
+    total_number_of_rounds(0),
+    total_moves(0),
+    current_sequence_progress(0),
+    display_sequence_delay(500)
 {
     // Start off with a two patterns.
     srand(10);
     add_to_sequence();
     add_to_sequence();
-
-    // create new timer for incrementing the progress bar
-    timer = new QTimer(this);
 }
 
 /**
@@ -93,11 +94,12 @@ std::vector<char> game_model::getSequence()
 }
 
 /**
- * @brief game_model::startTimer
+ * @brief game_model::getDisplaySequenceDelay
+ * @return
  */
-void game_model::startTimer()
+int game_model::getDisplaySequenceDelay()
 {
-    timer->start(1000);
+    return display_sequence_delay;
 }
 
 /**

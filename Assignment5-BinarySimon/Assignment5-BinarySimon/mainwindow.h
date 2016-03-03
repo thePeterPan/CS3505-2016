@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QProgressBar>
+#include <QLabel>
 #include <QMessageBox>
 
 #include "game_model.h"
@@ -32,6 +33,8 @@ private:
 
     QProgressBar *progressBar;
 
+    QLabel label_currentPlayer;
+
     game_model gm;
 
     // Used to keep track of the progress bar.
@@ -46,7 +49,7 @@ private slots:
 
     void state_changed(int state);
 
-    void updateProgressBar(int);
+    void updateProgressBar(int value);
     void pattern_complete();
 };
 
