@@ -15,6 +15,29 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Tell the model to start the game.
     gm.gameStart();
+
+    testMethod();
+}
+
+void MainWindow::testMethod()
+{
+    // http://stackoverflow.com/questions/10492480/starting-qtimer-in-a-qthread
+    QThread* timer_thread = new QThread(this);
+    QTimer* timer = new QTimer(0); // _not_ 'this'!
+    timer->setInterval(1000);
+    timer->moveToThread(timer_thread);
+    connect(timer, SIGNAL(timeout()), this, SLOT(testMethod2()));
+    // Make sure the timer gets started from timer_thread.
+    QObject::connect(timer_thread, SIGNAL(started()), timer, SLOT(start()));
+    timer_thread->start();
+}
+
+void MainWindow::testMethod2()
+{
+    qDebug() << "test";
+    ui->progressBar->setRange(0,100);
+    ui->progressBar->setValue(testIndex);
+    ++testIndex;
 }
 
 MainWindow::~MainWindow()
@@ -121,16 +144,16 @@ void MainWindow::state_changed(int nextState)
 //        }
 //        gm.nextState();
 
-//        // http://stackoverflow.com/questions/10492480/starting-qtimer-in-a-qthread
-//        QThread* timer_thread = new QThread(this);
-//        QTimer* timer = new QTimer(0); // _not_ 'this'!
-//        timer->setInterval(display_sequence_delay);
-//        timer->moveToThread(timer_thread);
-//        // Use a direct connection to make sure that doIt() is called from m_thread.
-//        connect(timer, SIGNAL(timeout()), this, displayPattern());
-//        // Make sure the timer gets started from m_thread.
-//        QObject::connect(timer_thread, SIGNAL(started()), timer, SLOT(start()));
-//        timer_thread->start();
+        // http://stackoverflow.com/questions/10492480/starting-qtimer-in-a-qthread
+        QThread* timer_thread = new QThread(this);
+        QTimer* timer = new QTimer(0); // _not_ 'this'!
+        timer->setInterval(gm.getDisplaySequenceDelay());
+        timer->moveToThread(timer_thread);
+        // Use a direct connection to make sure that doIt() is called from m_thread.
+        connect(timer, SIGNAL(timeout()), this, SLOT(displayPattern()));
+        // Make sure the timer gets started from m_thread.
+        QObject::connect(timer_thread, SIGNAL(started()), timer, SLOT(start()));
+        timer_thread->start();
     }
     // User input state
     else if (nextState == game_model::gameState::UserInput)
