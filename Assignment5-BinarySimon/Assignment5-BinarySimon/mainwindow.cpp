@@ -33,7 +33,8 @@ void MainWindow::connectSignalsAndSlots()
     // Signal that the state has changed.
     connect(&gm, SIGNAL(signalStateChange(int)), this, SLOT(state_changed(int)));
 
-
+    // Signal that the user has successfully completed the pattern.
+    connect(&gm, SIGNAL(signalPatternComplete()), &gm, SLOT(nextState()));
 }
 
 /**
@@ -142,4 +143,12 @@ void MainWindow::state_changed(int nextState)
         message.exec();
         // TODO: quit program
     }
+}
+
+/**
+ * @brief MainWindow::pattern_complete
+ */
+void MainWindow::pattern_complete()
+{
+
 }

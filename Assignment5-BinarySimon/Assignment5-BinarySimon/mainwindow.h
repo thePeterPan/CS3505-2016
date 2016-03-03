@@ -45,6 +45,8 @@ private slots:
     void pushButton_red_clicked();
 
     void state_changed(int state);
+
+    void pattern_complete();
 };
 
 #endif // MAINWINDOW_H
