@@ -37,7 +37,7 @@ void MainWindow::connectSignalsAndSlots()
     connect(&gm, SIGNAL(signalProgressUpdate(int)), this, SLOT(updateProgressBar(int)));
 
     // Signal that the user has successfully completed the pattern.
-    connect(&gm, SIGNAL(signalPatternComplete()), &gm, SLOT(nextState()));
+    connect(&gm, SIGNAL(signalSequenceComplete()), &gm, SLOT(nextState()));
 }
 
 /**
