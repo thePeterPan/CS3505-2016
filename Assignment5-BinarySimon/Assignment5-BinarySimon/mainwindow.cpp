@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete timer;
     delete timer_thread;
 }
 
@@ -30,6 +31,8 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->pushButton_start, SIGNAL(clicked(bool)), this, SLOT(pushButton_start_clicked()));
     connect(ui->pushButton_blue, SIGNAL(clicked(bool)), this, SLOT(pushButton_blue_clicked()));
     connect(ui->pushButton_red, SIGNAL(clicked(bool)), this, SLOT(pushButton_red_clicked()));
+    connect(ui->pushButton_green, SIGNAL(clicked(bool)), this, SLOT(pushButton_green_clicked()));
+    connect(ui->pushButton_yellow, SIGNAL(clicked(bool)), this, SLOT(pushButton_yellow_clicked()));
 
     // Signal that the state has changed.
     connect(&gm, SIGNAL(signalStateChange(int)), this, SLOT(state_changed(int)));
@@ -53,6 +56,7 @@ void MainWindow::pushButton_start_clicked()
     {
         if (timer_thread->isRunning())
         {
+            // TODO: timers cannot be stopped from another thread
             timer->stop();
         }
         QMessageBox msgBox;
@@ -95,6 +99,22 @@ void MainWindow::pushButton_red_clicked()
 }
 
 /**
+ * @brief MainWindow::pushButton_green_clicked
+ */
+void MainWindow::pushButton_green_clicked()
+{
+    gm.checkSequenceNext("green");
+}
+
+/**
+ * @brief MainWindow::pushButton_yellow_clicked
+ */
+void MainWindow::pushButton_yellow_clicked()
+{
+    gm.checkSequenceNext("yellow");
+}
+
+/**
  * @brief MainWindow::state_changed
  * @param nextState
  */
@@ -103,16 +123,22 @@ void MainWindow::state_changed(int nextState)
     // Start state
     if (nextState == game_model::gameState::Start)
     {
+        // Initialize the buttons
         ui->pushButton_start->setText("Start");
+        ui->pushButton_blue->setText("Blue");
         ui->pushButton_blue->setDisabled(true);
+        ui->pushButton_red->setText("Red");
         ui->pushButton_red->setDisabled(true);
+        ui->pushButton_green->setText("Green");
+        ui->pushButton_green->setDisabled(true);
+        ui->pushButton_yellow->setText("Yellow");
+        ui->pushButton_yellow->setDisabled(true);
 
-        // http://stackoverflow.com/questions/14230265/what-is-the-proper-way-to-set-qprogressbar-to-update-from-the-logic-layer
-        ui->progressBar->setRange(0, gm.getSequence().size());
+        // Initialize the progress bar to 0.
         ui->progressBar->setValue(0);
 
         // Initialize the player label.
-        ui->label_currentPlayer->setText(QString("Computer"));
+        ui->label_currentPlayer->setText(QString(""));
 
         qDebug() << "Start!";
 
@@ -125,8 +151,17 @@ void MainWindow::state_changed(int nextState)
         ui->pushButton_start->setText("Reset");
         ui->label_currentPlayer->setText(QString("Computer"));
 
+        ui->pushButton_blue->setDisabled(true);
+        ui->pushButton_red->setDisabled(true);
+        ui->pushButton_green->setDisabled(true);
+        ui->pushButton_yellow->setDisabled(true);
+
+        ui->progressBar->setRange(0, gm.getSequence().size());
+        ui->progressBar->setValue(0);
+
 //        for (auto const& value : gm.getSequence())
 //            QTimer::singleShot(1000, this, SLOT(displayPattern()));
+
 //        gm.nextState();
 
         // http://stackoverflow.com/questions/10492480/starting-qtimer-in-a-qthread
@@ -148,6 +183,8 @@ void MainWindow::state_changed(int nextState)
     {
         ui->pushButton_blue->setEnabled(true);
         ui->pushButton_red->setEnabled(true);
+        ui->pushButton_green->setEnabled(true);
+        ui->pushButton_yellow->setEnabled(true);
 
         ui->label_currentPlayer->setText(QString("User"));
 
@@ -159,14 +196,18 @@ void MainWindow::state_changed(int nextState)
     {
         ui->pushButton_blue->setDisabled(true);
         ui->pushButton_red->setDisabled(true);
+        ui->pushButton_green->setDisabled(true);
+        ui->pushButton_yellow->setDisabled(true);
 
         QMessageBox message;
         message.setText(tr("Game Over!"));
         message.setInformativeText(
                     QString("Total number of rounds achieved: %1\nTotal number of moves: %2\n").arg(
-                        gm.getTotalNumberOfRounds(), gm.getTotalMoves()));
+                        gm.getTotalNumberOfRounds()).arg(gm.getTotalMoves()));
         message.addButton(tr("Continue..."), QMessageBox::AcceptRole);
         message.exec();
+
+        gm.nextState(true);
     }
     // Error.
     else
@@ -185,6 +226,7 @@ void MainWindow::state_changed(int nextState)
 void MainWindow::displayPattern()
 {
     qDebug() << gm.getSequence()[currentPatternIndex];
+
     ++currentPatternIndex;
     // if we've reached the end of the list
     if (currentPatternIndex == gm.getSequence().size())
@@ -203,10 +245,39 @@ void MainWindow::updateProgressBar(int value)
     ui->progressBar->setValue(value);
 }
 
-/**
- * @brief MainWindow::pattern_complete
- */
-void MainWindow::pattern_complete()
+void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-
+    if (event->key() == Qt::Key_R)
+    {
+        if (ui->pushButton_red->isEnabled())
+        {
+            qDebug() << "red key";
+            pushButton_red_clicked();
+        }
+    }
+    else if (event->key() == Qt::Key_B)
+    {
+        if (ui->pushButton_blue->isEnabled())
+        {
+            qDebug() << "blue key";
+            pushButton_blue_clicked();
+        }
+    }
+    else if (event->key() == Qt::Key_G)
+    {
+        if (ui->pushButton_green->isEnabled())
+        {
+            qDebug() << "green key";
+            pushButton_green_clicked();
+        }
+    }
+    else if (event->key() == Qt::Key_Y)
+    {
+        if (ui->pushButton_yellow->isEnabled())
+        {
+            qDebug() << "yellow key";
+            pushButton_yellow_clicked();
+        }
+    }
 }
+

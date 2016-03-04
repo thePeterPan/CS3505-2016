@@ -6,7 +6,7 @@ game_model::game_model(QObject *parent) :
     total_number_of_rounds(0),
     total_moves(0),
     current_sequence_progress(0),
-    display_sequence_delay(10000)
+    display_sequence_delay(1000)
 {
     // Start off with a two patterns.
     srand(10);
@@ -31,7 +31,6 @@ game_model::~game_model()
  */
 void game_model::gameStart()
 {
-    nextRound();
     // Tell the view to initialize in start mode:
     emit signalStateChange(game_state);
 }
@@ -47,7 +46,7 @@ void game_model::add_color_to_sequence()
 
 //    qDebug() << "test";
 
-    int rnd = rand() % 2;
+    int rnd = rand() % 4;
 
     switch(rnd)
     {
@@ -57,8 +56,14 @@ void game_model::add_color_to_sequence()
     case 1:
         sequence << "red";
         break;
-    default:
+    case 2:
         sequence << "green";
+        break;
+    case 3:
+        sequence << "yellow";
+        break;
+    default:
+        sequence << "error";
     }
 }
 
