@@ -19,6 +19,8 @@ game_model::~game_model() { }
  */
 void game_model::gameStart()
 {
+    srand((unsigned)time(0));
+
     // Reset sequence
     sequence.clear();
     add_color_to_sequence();
@@ -46,7 +48,6 @@ void game_model::add_color_to_sequence()
 
 //    qDebug() << "test";
 
-    srand((unsigned)time(0));
     int rnd = rand() % 4;
 
     switch(rnd)
