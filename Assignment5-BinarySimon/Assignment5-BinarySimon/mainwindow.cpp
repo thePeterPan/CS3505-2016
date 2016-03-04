@@ -4,13 +4,13 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow)
 {
-    // I think this should always be first.
+    // I think this needs to always be first.
     ui->setupUi(this);
 
     // Disallow resizing of the window.
     ui->statusBar->setSizeGripEnabled(false);
 
-    // Connect everything
+    // Connect all slots and signals
     connectSignalsAndSlots();
 
     // Tell the model to start the game.
@@ -40,9 +40,6 @@ void MainWindow::connectSignalsAndSlots()
 
     // Signal that the state has changed.
     connect(&gm, SIGNAL(signalStateChange(int)), this, SLOT(state_changed(int)));
-
-    // Signal for the progress bar to progress.
-    connect(&gm, SIGNAL(signalProgressBarUpdate(int)), this, SLOT(updateProgressBar(int)));
 }
 
 /**
@@ -204,14 +201,6 @@ void MainWindow::unhighlightButtons()
     }
     // Otherwise continue displaying the pattern.
     QTimer::singleShot(300, this, SLOT(highlightNextColorFromPattern()));
-}
-
-/**
- * @brief MainWindow::updateProgressBar
- */
-void MainWindow::updateProgressBar(int value)
-{
-    ui->progressBar->setValue(value);
 }
 
 /**

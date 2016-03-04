@@ -43,10 +43,12 @@ private:
 
     QLabel label_currentPlayer;
 
+    // The game model and logic container.
     game_model gm;
 
     // Used to keep track of the progress bar.
     int currentPatternIndex = 0;
+
     void connectSignalsAndSlots();
 
 protected:
@@ -55,20 +57,21 @@ protected:
 
 private slots:
     void pushButton_start_clicked();
+
     void pushButton_blue_pressed();
     void pushButton_red_pressed();
     void pushButton_green_pressed();
     void pushButton_yellow_pressed();
+
     void pushButton_blue_released();
     void pushButton_red_released();
     void pushButton_green_released();
     void pushButton_yellow_released();
 
-    void state_changed(int state);
-
     void highlightNextColorFromPattern();
     void unhighlightButtons();
-    void updateProgressBar(int value);
+
+    void state_changed(int state);
 };
 
 #endif // MAINWINDOW_H
