@@ -17,11 +17,17 @@ MainWindow::MainWindow(QWidget *parent) :
     gm.gameStart();
 }
 
+/**
+ * @brief MainWindow::~MainWindow
+ */
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+/**
+ * @brief MainWindow::connectSignalsAndSlots
+ */
 void MainWindow::connectSignalsAndSlots()
 {
     // syntax for default slots is on_NAMEOFTHEWIDGET_NAMEOFTHESIGNAL
@@ -64,10 +70,10 @@ void MainWindow::state_changed(int nextState)
         ui->pushButton_red->setDisabled(true);
         ui->pushButton_green->setDisabled(true);
         ui->pushButton_yellow->setDisabled(true);
-        ui->pushButton_blue->setStyleSheet("background-color: #0000CC;");
-        ui->pushButton_red->setStyleSheet("background-color: #CC0000;");
-        ui->pushButton_green->setStyleSheet("background-color: #00CC00;");
-        ui->pushButton_yellow->setStyleSheet("background-color: #CCCC00;");
+        ui->pushButton_blue->setStyleSheet(BUTTON_BLUE_OFF_STYLE);
+        ui->pushButton_red->setStyleSheet(BUTTON_RED_OFF_STYLE);
+        ui->pushButton_green->setStyleSheet(BUTTON_GREEN_OFF_STYLE);
+        ui->pushButton_yellow->setStyleSheet(BUTTON_YELLOW_OFF_STYLE);
 
         // Initialize the progress bar to 0.
         ui->progressBar->setValue(0);
@@ -168,19 +174,19 @@ void MainWindow::highlightNextColorFromPattern()
 
     if (gm.getSequence()[currentPatternIndex] == QString("blue"))
     {
-        ui->pushButton_blue->setStyleSheet("background-color: #0000FF;");
+        ui->pushButton_blue->setStyleSheet(BUTTON_BLUE_LIT_STYLE);
     }
     else if (gm.getSequence()[currentPatternIndex] == QString("red"))
     {
-        ui->pushButton_red->setStyleSheet("background-color: #FF0000;");
+        ui->pushButton_red->setStyleSheet(BUTTON_RED_LIT_STYLE);
     }
     else if (gm.getSequence()[currentPatternIndex] == QString("green"))
     {
-        ui->pushButton_green->setStyleSheet("background-color: #00FF00;");
+        ui->pushButton_green->setStyleSheet(BUTTON_GREEN_LIT_STYLE);
     }
     else if (gm.getSequence()[currentPatternIndex] == QString("yellow"))
     {
-        ui->pushButton_yellow->setStyleSheet("background-color: #FFFF00;");
+        ui->pushButton_yellow->setStyleSheet(BUTTON_YELLOW_LIT_STYLE);
     }
 
     QTimer::singleShot(gm.getDisplaySequenceDelay(), this, SLOT(unhighlightButtons()));
@@ -204,10 +210,10 @@ void MainWindow::updateProgressBar(int value)
  */
 void MainWindow::unhighlightButtons()
 {
-    ui->pushButton_blue->setStyleSheet("background-color: #0000CC;");
-    ui->pushButton_red->setStyleSheet("background-color: #CC0000;");
-    ui->pushButton_green->setStyleSheet("background-color: #00CC00;");
-    ui->pushButton_yellow->setStyleSheet("background-color: #CCCC00;");
+    ui->pushButton_blue->setStyleSheet(BUTTON_BLUE_OFF_STYLE);
+    ui->pushButton_red->setStyleSheet(BUTTON_RED_OFF_STYLE);
+    ui->pushButton_green->setStyleSheet(BUTTON_GREEN_OFF_STYLE);
+    ui->pushButton_yellow->setStyleSheet(BUTTON_YELLOW_OFF_STYLE);
 
     ++currentPatternIndex;
     // if we've reached the end of the list
@@ -252,7 +258,7 @@ void MainWindow::pushButton_start_clicked()
  */
 void MainWindow::pushButton_blue_pressed()
 {
-    ui->pushButton_blue->setStyleSheet("background-color: #0000FF;");
+    ui->pushButton_blue->setStyleSheet(BUTTON_BLUE_LIT_STYLE);
 }
 
 /**
@@ -260,7 +266,7 @@ void MainWindow::pushButton_blue_pressed()
  */
 void MainWindow::pushButton_red_pressed()
 {
-    ui->pushButton_red->setStyleSheet("background-color: #FF0000;");
+    ui->pushButton_red->setStyleSheet(BUTTON_RED_LIT_STYLE);
 }
 
 /**
@@ -268,7 +274,7 @@ void MainWindow::pushButton_red_pressed()
  */
 void MainWindow::pushButton_green_pressed()
 {
-    ui->pushButton_green->setStyleSheet("background-color: #00FF00;");
+    ui->pushButton_green->setStyleSheet(BUTTON_GREEN_LIT_STYLE);
 }
 
 /**
@@ -276,7 +282,7 @@ void MainWindow::pushButton_green_pressed()
  */
 void MainWindow::pushButton_yellow_pressed()
 {
-    ui->pushButton_yellow->setStyleSheet("background-color: #FFFF00;");
+    ui->pushButton_yellow->setStyleSheet(BUTTON_YELLOW_LIT_STYLE);
 }
 
 /**
@@ -284,7 +290,7 @@ void MainWindow::pushButton_yellow_pressed()
  */
 void MainWindow::pushButton_blue_released()
 {
-    ui->pushButton_blue->setStyleSheet("background-color: #0000CC;");
+    ui->pushButton_blue->setStyleSheet(BUTTON_BLUE_OFF_STYLE);
     gm.checkSequenceNext("blue");
 }
 
@@ -293,7 +299,7 @@ void MainWindow::pushButton_blue_released()
  */
 void MainWindow::pushButton_red_released()
 {
-    ui->pushButton_red->setStyleSheet("background-color: #CC0000;");
+    ui->pushButton_red->setStyleSheet(BUTTON_RED_OFF_STYLE);
     gm.checkSequenceNext("red");
 }
 
@@ -302,7 +308,7 @@ void MainWindow::pushButton_red_released()
  */
 void MainWindow::pushButton_green_released()
 {
-    ui->pushButton_green->setStyleSheet("background-color: #00CC00;");
+    ui->pushButton_green->setStyleSheet(BUTTON_GREEN_OFF_STYLE);
     gm.checkSequenceNext("green");
 }
 
@@ -311,7 +317,7 @@ void MainWindow::pushButton_green_released()
  */
 void MainWindow::pushButton_yellow_released()
 {
-    ui->pushButton_yellow->setStyleSheet("background-color: #CCCC00;");
+    ui->pushButton_yellow->setStyleSheet(BUTTON_YELLOW_OFF_STYLE);
     gm.checkSequenceNext("yellow");
 }
 
@@ -330,7 +336,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if (ui->pushButton_blue->isEnabled())
         {
             qDebug() << "blue key";
-            ui->pushButton_blue->setStyleSheet("background-color: #0000FF;");
+            ui->pushButton_blue->setStyleSheet(BUTTON_BLUE_LIT_STYLE);
             gm.checkSequenceNext("blue");
         }
     }
@@ -339,7 +345,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if (ui->pushButton_red->isEnabled())
         {
             qDebug() << "red key";
-            ui->pushButton_red->setStyleSheet("background-color: #FF0000;");
+            ui->pushButton_red->setStyleSheet(BUTTON_RED_LIT_STYLE);
             gm.checkSequenceNext("red");
         }
     }
@@ -348,7 +354,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if (ui->pushButton_green->isEnabled())
         {
             qDebug() << "green key";
-            ui->pushButton_green->setStyleSheet("background-color: #00FF00;");
+            ui->pushButton_green->setStyleSheet(BUTTON_GREEN_LIT_STYLE);
             gm.checkSequenceNext("green");
         }
     }
@@ -357,7 +363,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if (ui->pushButton_yellow->isEnabled())
         {
             qDebug() << "yellow key";
-            ui->pushButton_yellow->setStyleSheet("background-color: #FFFF00;");
+            ui->pushButton_yellow->setStyleSheet(BUTTON_YELLOW_LIT_STYLE);
             gm.checkSequenceNext("yellow");
         }
     }
@@ -375,28 +381,28 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     {
         if (ui->pushButton_blue->isEnabled())
         {
-            ui->pushButton_blue->setStyleSheet("background-color: #0000CC;");
+            ui->pushButton_blue->setStyleSheet(BUTTON_BLUE_OFF_STYLE);
         }
     }
     else if (event->key() == Qt::Key_R)
     {
         if (ui->pushButton_red->isEnabled())
         {
-            ui->pushButton_red->setStyleSheet("background-color: #CC0000;");
+            ui->pushButton_red->setStyleSheet(BUTTON_RED_OFF_STYLE);
         }
     }
     else if (event->key() == Qt::Key_G)
     {
         if (ui->pushButton_green->isEnabled())
         {
-            ui->pushButton_green->setStyleSheet("background-color: #00CC00;");
+            ui->pushButton_green->setStyleSheet(BUTTON_GREEN_OFF_STYLE);
         }
     }
     else if (event->key() == Qt::Key_Y)
     {
         if (ui->pushButton_yellow->isEnabled())
         {
-            ui->pushButton_yellow->setStyleSheet("background-color: #CCCC00;");
+            ui->pushButton_yellow->setStyleSheet(BUTTON_YELLOW_OFF_STYLE);
         }
     }
 }

@@ -2,37 +2,15 @@
 #define GAME_MODEL_H
 
 #include <QMainWindow>
+
 #include <QObject>      // QObject
 #include <QDebug>       // qDebug()
-#include <QString>      // QString
-#include <QStringList>  // QStringList
+#include <QStringList>  // QString, QStringList
 #include <QTimer>       // QTimer
 
 class game_model : public QObject
 {
     Q_OBJECT
-
-private:
-    QTimer *timer;
-
-    int game_state;
-
-    // Sequence:
-    QStringList sequence;
-    // the currrent progression of the pattern
-    int current_sequence_progress;
-    // the delay between the flashing of the pattern
-    int display_sequence_delay;
-    // add another move to the sequence
-    void add_color_to_sequence();
-
-    // Stats:
-    int total_number_of_rounds;
-    int total_moves;
-
-private slots:
-
-protected:
 
 public:
     explicit game_model(QObject *parent = 0);
@@ -57,6 +35,28 @@ public:
 public slots:
     void nextRound();
     void nextState(bool restartGame = false);
+
+private:
+    QTimer *timer;
+
+    int game_state;
+
+    // Sequence:
+    QStringList sequence;
+    // the currrent progression of the pattern
+    int current_sequence_progress;
+    // the delay between the flashing of the pattern
+    int display_sequence_delay;
+    // add another move to the sequence
+    void add_color_to_sequence();
+
+    // Stats:
+    int total_number_of_rounds;
+    int total_moves;
+
+private slots:
+
+protected:
 
 signals:
     void signalStateChange(int);

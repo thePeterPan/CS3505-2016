@@ -7,11 +7,10 @@
 #include <QLabel>
 #include <QMessageBox>
 
-#include <QStringList>
-#include <QThread>
-#include <QTimer>
-#include <QDebug>
-#include <QKeyEvent>
+#include <QStringList>      // QString, QStringList
+#include <QTimer>           // QTimer
+#include <QDebug>           // qDebug()
+#include <QKeyEvent>        // QKeyEvent
 
 #include "game_model.h"
 
@@ -51,9 +50,15 @@ private:
 
     void connectSignalsAndSlots();
 
-protected:
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event);
+    const QString BUTTON_BLUE_LIT_STYLE = "background-color: #0000FF;";
+    const QString BUTTON_RED_LIT_STYLE = "background-color: #FF0000;";
+    const QString BUTTON_GREEN_LIT_STYLE = "background-color: #00FF00;";
+    const QString BUTTON_YELLOW_LIT_STYLE = "background-color: #FFFF00;";
+
+    const QString BUTTON_BLUE_OFF_STYLE = "background-color: #0000CC;";
+    const QString BUTTON_RED_OFF_STYLE = "background-color: #CC0000;";
+    const QString BUTTON_GREEN_OFF_STYLE = "background-color: #00CC00;";
+    const QString BUTTON_YELLOW_OFF_STYLE = "background-color: #CCCC00;";
 
 private slots:
     void pushButton_start_clicked();
@@ -73,6 +78,10 @@ private slots:
     void unhighlightButtons();
 
     void state_changed(int state);
+
+protected:
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
 };
 
 #endif // MAINWINDOW_H
