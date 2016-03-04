@@ -62,7 +62,6 @@ signals:
     void signalStateChange(int);
     void signalProgressBarUpdate(int);
     void signalSequenceComplete();
-//    void signalGameOver();
 };
 
 #endif // GAME_MODEL_H

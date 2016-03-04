@@ -39,12 +39,6 @@ void MainWindow::connectSignalsAndSlots()
 
     // Signal for the progress bar to progress.
     connect(&gm, SIGNAL(signalProgressBarUpdate(int)), this, SLOT(updateProgressBar(int)));
-
-    // Signal that the user has successfully completed the pattern.
-//    connect(&gm, SIGNAL(signalSequenceComplete()), &gm, SLOT(nextRound()));
-
-    // Signal that the player has made a mistake, game over
-//    connect(&gm, SIGNAL(signalGameOver()), &gm, SLOT(nextState(bool)));
 }
 
 /**
@@ -54,11 +48,6 @@ void MainWindow::pushButton_start_clicked()
 {
     if (ui->pushButton_start->text() == "Reset")
     {
-//        if (timer_thread->isRunning())
-//        {
-//            // TODO: timers cannot be stopped from another thread
-//            timer->stop();
-//        }
         QMessageBox msgBox;
         msgBox.setText("Are you sure you want to restart?");
         msgBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
@@ -67,15 +56,11 @@ void MainWindow::pushButton_start_clicked()
 
         if (selection == QMessageBox::Ok)
         {   // Restart the game.
-            // kill the thread if it's running the timer.
-//            timer_thread->exit(0);
             gm.nextState(true);
             return;
         }
         else
         {   // Resume the game
-            // this resets the timer, but whatever.
-//            timer->start();
             return;
         }
     }
@@ -151,11 +136,15 @@ void MainWindow::state_changed(int nextState)
         ui->pushButton_start->setText("Reset");
         ui->label_currentPlayer->setText(QString("Computer"));
 
+        // Disable all the buttons
         ui->pushButton_blue->setDisabled(true);
         ui->pushButton_red->setDisabled(true);
         ui->pushButton_green->setDisabled(true);
         ui->pushButton_yellow->setDisabled(true);
+        // TODO: This because we can't interrupt the timer
+        ui->pushButton_start->setDisabled(true);
 
+        // Reset the progress bar for this round.
         ui->progressBar->setRange(0, gm.getSequence().size());
         ui->progressBar->setValue(0);
 
@@ -172,6 +161,8 @@ void MainWindow::state_changed(int nextState)
         ui->pushButton_red->setEnabled(true);
         ui->pushButton_green->setEnabled(true);
         ui->pushButton_yellow->setEnabled(true);
+
+        ui->pushButton_start->setEnabled(true);
 
         ui->label_currentPlayer->setText(QString("User"));
 
@@ -208,6 +199,8 @@ void MainWindow::state_changed(int nextState)
 }
 
 /**
+ * Chain the time delay calls to the display sequence. Essentially recursive calls to
+ * the QTimer::singleShot()
  * @brief MainWindow::highlightNextColorFromPattern
  */
 void MainWindow::highlightNextColorFromPattern()

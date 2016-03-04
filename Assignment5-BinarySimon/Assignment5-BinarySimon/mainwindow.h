@@ -49,10 +49,6 @@ private:
     int currentPatternIndex = 0;
     void connectSignalsAndSlots();
 
-    // Timer functionality
-//    QThread* timer_thread;
-//    QTimer* timer;
-
 protected:
     void keyPressEvent(QKeyEvent *event);
 
