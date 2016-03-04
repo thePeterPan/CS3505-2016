@@ -68,6 +68,7 @@ private slots:
     void pushButton_green_released();
     void pushButton_yellow_released();
 
+    void updateProgressBar(int value);
     void highlightNextColorFromPattern();
     void unhighlightButtons();
 

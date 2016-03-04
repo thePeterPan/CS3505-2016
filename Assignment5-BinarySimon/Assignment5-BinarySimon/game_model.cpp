@@ -75,10 +75,13 @@ void game_model::add_color_to_sequence()
  */
 void game_model::checkSequenceNext(QString color)
 {
+    // If the given color matches the current location of the sequence
     if (sequence[current_sequence_progress] == color)
     {
+        // Add to the stat counters
         ++current_sequence_progress;
         ++total_moves;
+        // Tell the
         emit signalProgressBarUpdate(current_sequence_progress);
 
         if (current_sequence_progress == (int) sequence.size())
@@ -112,6 +115,24 @@ void game_model::nextRound()
 }
 
 /**
+ * @brief game_model::nextState
+ * @param restartGame
+ */
+void game_model::nextState(bool restartGame)
+{
+    if (restartGame || game_state == gameState::GameOver)
+    {
+        // If we receive a command to restart the game, or if the game is over
+        // restart the game.
+        gameStart();
+        return;
+    }
+    // Otherwise, move to the next state of the game and tell the view.
+    ++game_state;
+    emit signalStateChange(game_state);
+}
+
+/**
  * @brief game_model::getSequence
  * @return
  */
@@ -127,23 +148,6 @@ QStringList game_model::getSequence()
 int game_model::getDisplaySequenceDelay()
 {
     return display_sequence_delay;
-}
-
-/**
- * @brief game_model::nextState
- * @param restartGame
- */
-void game_model::nextState(bool restartGame)
-{
-    if (restartGame || game_state == gameState::GameOver)
-    {
-        // If we receive a command to restart the game, or if the game is over
-        // restart the game.
-        gameStart();
-        return;
-    }
-    ++game_state;
-    emit signalStateChange(game_state);
 }
 
 /**

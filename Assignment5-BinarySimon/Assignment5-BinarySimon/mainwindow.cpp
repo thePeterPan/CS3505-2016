@@ -40,6 +40,9 @@ void MainWindow::connectSignalsAndSlots()
 
     // Signal that the state has changed.
     connect(&gm, SIGNAL(signalStateChange(int)), this, SLOT(state_changed(int)));
+
+    // Signal for the progress bar to progress.
+    connect(&gm, SIGNAL(signalProgressBarUpdate(int)), this, SLOT(updateProgressBar(int)));
 }
 
 /**
@@ -90,7 +93,7 @@ void MainWindow::state_changed(int nextState)
         ui->pushButton_red->setDisabled(true);
         ui->pushButton_green->setDisabled(true);
         ui->pushButton_yellow->setDisabled(true);
-        // TODO: This because we can't interrupt the timer
+        // TODO: Have to do this because we can't interrupt the timer
         ui->pushButton_start->setDisabled(true);
 
         // Reset the progress bar for this round.
@@ -130,6 +133,7 @@ void MainWindow::state_changed(int nextState)
         ui->pushButton_green->setDisabled(true);
         ui->pushButton_yellow->setDisabled(true);
 
+        // Display game over message
         QMessageBox message;
         message.setText(tr("Game Over!"));
         message.setInformativeText(
@@ -155,6 +159,7 @@ void MainWindow::state_changed(int nextState)
 /**
  * Chain the time delay calls to the display sequence. Essentially recursive calls to
  * the QTimer::singleShot()
+ *
  * @brief MainWindow::highlightNextColorFromPattern
  */
 void MainWindow::highlightNextColorFromPattern()
@@ -182,6 +187,19 @@ void MainWindow::highlightNextColorFromPattern()
 }
 
 /**
+ * @brief MainWindow::updateProgressBar
+ */
+void MainWindow::updateProgressBar(int value)
+{
+    ui->progressBar->setValue(value);
+}
+
+/**
+ * Second part of the QTimer::singleShot() chain where the buttons are placed back
+ * into the disabled color that way if a color repeats, it's noticable.
+ * This method also checks to see if the program has iterated through the entire
+ * sequence. If so, tell the model to move onto the next state.
+ *
  * @brief MainWindow::unhighlightButtons
  */
 void MainWindow::unhighlightButtons()
@@ -298,6 +316,10 @@ void MainWindow::pushButton_yellow_released()
 }
 
 /**
+ * I chose to put the checkSequenceNext() calls in the press event because it made more
+ * sense to me that keys on the keyboard are registered when they are pressed even when
+ * they are not yet released.
+ *
  * @brief MainWindow::keyPressEvent
  * @param event
  */
@@ -342,6 +364,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 }
 
 /**
+ * Just to reset the color back to an unpressed setting.
+ *
  * @brief MainWindow::keyReleaseEvent
  * @param event
  */
