@@ -6,7 +6,7 @@ game_model::game_model(QObject *parent) :
     total_number_of_rounds(0),
     total_moves(0),
     current_sequence_progress(0),
-    display_sequence_delay(1000)
+    display_sequence_delay(800)
 {
     // Start off with a two patterns.
     srand(10);

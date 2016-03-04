@@ -50,8 +50,8 @@ private:
     void connectSignalsAndSlots();
 
     // Timer functionality
-    QThread* timer_thread;
-    QTimer* timer;
+//    QThread* timer_thread;
+//    QTimer* timer;
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -65,7 +65,8 @@ private slots:
 
     void state_changed(int state);
 
-    void displayPattern();
+    void highlightNextColorFromPattern();
+    void unhighlightButtons();
     void updateProgressBar(int value);
 };
 

@@ -20,8 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete timer;
-    delete timer_thread;
+//    delete timer;
+//    delete timer_thread;
 }
 
 void MainWindow::connectSignalsAndSlots()
@@ -54,11 +54,11 @@ void MainWindow::pushButton_start_clicked()
 {
     if (ui->pushButton_start->text() == "Reset")
     {
-        if (timer_thread->isRunning())
-        {
-            // TODO: timers cannot be stopped from another thread
-            timer->stop();
-        }
+//        if (timer_thread->isRunning())
+//        {
+//            // TODO: timers cannot be stopped from another thread
+//            timer->stop();
+//        }
         QMessageBox msgBox;
         msgBox.setText("Are you sure you want to restart?");
         msgBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
@@ -68,14 +68,14 @@ void MainWindow::pushButton_start_clicked()
         if (selection == QMessageBox::Ok)
         {   // Restart the game.
             // kill the thread if it's running the timer.
-            timer_thread->exit(0);
+//            timer_thread->exit(0);
             gm.nextState(true);
             return;
         }
         else
         {   // Resume the game
             // this resets the timer, but whatever.
-            timer->start();
+//            timer->start();
             return;
         }
     }
@@ -125,13 +125,13 @@ void MainWindow::state_changed(int nextState)
     {
         // Initialize the buttons
         ui->pushButton_start->setText("Start");
-        ui->pushButton_blue->setText("Blue");
+        ui->pushButton_blue->setText("Blue (b)");
         ui->pushButton_blue->setDisabled(true);
-        ui->pushButton_red->setText("Red");
+        ui->pushButton_red->setText("Red (r)");
         ui->pushButton_red->setDisabled(true);
-        ui->pushButton_green->setText("Green");
+        ui->pushButton_green->setText("Green (g)");
         ui->pushButton_green->setDisabled(true);
-        ui->pushButton_yellow->setText("Yellow");
+        ui->pushButton_yellow->setText("Yellow (y)");
         ui->pushButton_yellow->setDisabled(true);
 
         // Initialize the progress bar to 0.
@@ -159,23 +159,10 @@ void MainWindow::state_changed(int nextState)
         ui->progressBar->setRange(0, gm.getSequence().size());
         ui->progressBar->setValue(0);
 
-//        for (auto const& value : gm.getSequence())
-//            QTimer::singleShot(1000, this, SLOT(displayPattern()));
+        // Chain the display of the pattern
+        highlightNextColorFromPattern();
 
-//        gm.nextState();
-
-        // http://stackoverflow.com/questions/10492480/starting-qtimer-in-a-qthread
-        // http://stackoverflow.com/questions/16501284/qt-updating-main-window-with-second-thread
-        timer_thread = new QThread(this);
-        timer = new QTimer(0); // not 'this'!
-        timer->setInterval(gm.getDisplaySequenceDelay());
-        timer->moveToThread(timer_thread);
-        connect(timer, SIGNAL(timeout()), this, SLOT(displayPattern()));
-        // Make sure the timer gets started from timer_thread.
-        QObject::connect(timer_thread, SIGNAL(started()), timer, SLOT(start()));
-        timer_thread->start();
-
-        // Now wait for the timer event to finish
+        // Now wait for the sequence display event to finish
         // see displayPattern()
     }
     // User input state
@@ -221,20 +208,32 @@ void MainWindow::state_changed(int nextState)
 }
 
 /**
- * @brief MainWindow::displayPattern
+ * @brief MainWindow::highlightNextColorFromPattern
  */
-void MainWindow::displayPattern()
+void MainWindow::highlightNextColorFromPattern()
 {
     qDebug() << gm.getSequence()[currentPatternIndex];
+
+    QTimer::singleShot(gm.getDisplaySequenceDelay(), this, SLOT(unhighlightButtons()));
+}
+
+/**
+ * @brief MainWindow::unhighlightButtons
+ */
+void MainWindow::unhighlightButtons()
+{
+    qDebug() << "Unhighlight all buttons.";
 
     ++currentPatternIndex;
     // if we've reached the end of the list
     if (currentPatternIndex == gm.getSequence().size())
     {
         currentPatternIndex = 0;
-        timer_thread->exit(0);
         gm.nextState();
+        return;
     }
+    // Otherwise continue displaying the pattern.
+    QTimer::singleShot(300, this, SLOT(highlightNextColorFromPattern()));
 }
 
 /**

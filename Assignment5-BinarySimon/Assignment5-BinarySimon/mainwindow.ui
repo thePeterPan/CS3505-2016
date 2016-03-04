@@ -92,7 +92,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Green</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_yellow">
@@ -105,7 +105,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Yellow</string>
     </property>
    </widget>
   </widget>
