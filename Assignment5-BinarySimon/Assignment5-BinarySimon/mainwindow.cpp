@@ -314,20 +314,22 @@ void MainWindow::pushButton_yellow_released()
  */
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_R)
-    {
-        if (ui->pushButton_red->isEnabled())
-        {
-            qDebug() << "red key";
-            pushButton_red_pressed();
-        }
-    }
-    else if (event->key() == Qt::Key_B)
+    if (event->key() == Qt::Key_B)
     {
         if (ui->pushButton_blue->isEnabled())
         {
             qDebug() << "blue key";
-            pushButton_blue_pressed();
+            ui->pushButton_blue->setStyleSheet("background-color: #0000FF;");
+            gm.checkSequenceNext("blue");
+        }
+    }
+    else if (event->key() == Qt::Key_R)
+    {
+        if (ui->pushButton_red->isEnabled())
+        {
+            qDebug() << "red key";
+            ui->pushButton_red->setStyleSheet("background-color: #FF0000;");
+            gm.checkSequenceNext("red");
         }
     }
     else if (event->key() == Qt::Key_G)
@@ -335,7 +337,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if (ui->pushButton_green->isEnabled())
         {
             qDebug() << "green key";
-            pushButton_green_pressed();
+            ui->pushButton_green->setStyleSheet("background-color: #00FF00;");
+            gm.checkSequenceNext("green");
         }
     }
     else if (event->key() == Qt::Key_Y)
@@ -343,8 +346,44 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if (ui->pushButton_yellow->isEnabled())
         {
             qDebug() << "yellow key";
-            pushButton_yellow_pressed();
+            ui->pushButton_yellow->setStyleSheet("background-color: #FFFF00;");
+            gm.checkSequenceNext("yellow");
         }
     }
 }
 
+/**
+ * @brief MainWindow::keyReleaseEvent
+ * @param event
+ */
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_B)
+    {
+        if (ui->pushButton_blue->isEnabled())
+        {
+            ui->pushButton_blue->setStyleSheet("background-color: #0000CC;");
+        }
+    }
+    else if (event->key() == Qt::Key_R)
+    {
+        if (ui->pushButton_red->isEnabled())
+        {
+            ui->pushButton_red->setStyleSheet("background-color: #CC0000;");
+        }
+    }
+    else if (event->key() == Qt::Key_G)
+    {
+        if (ui->pushButton_green->isEnabled())
+        {
+            ui->pushButton_green->setStyleSheet("background-color: #00CC00;");
+        }
+    }
+    else if (event->key() == Qt::Key_Y)
+    {
+        if (ui->pushButton_yellow->isEnabled())
+        {
+            ui->pushButton_yellow->setStyleSheet("background-color: #CCCC00;");
+        }
+    }
+}

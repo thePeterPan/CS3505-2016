@@ -51,6 +51,7 @@ private:
 
 protected:
     void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
 
 private slots:
     void pushButton_start_clicked();
