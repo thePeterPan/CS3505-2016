@@ -1,19 +1,12 @@
 #include "game_model.h"
 
 game_model::game_model(QObject *parent) :
-    QObject(parent)
-{
-    // Start off with a two patterns.
-    srand(10);
-}
+    QObject(parent) { }
 
 /**
  * @brief game_model::~game_model
  */
-game_model::~game_model()
-{
-
-}
+game_model::~game_model() { }
 
 /**
  * Tried to put this in the constructor, but I assume that the constructor gets
@@ -30,13 +23,13 @@ void game_model::gameStart()
     add_color_to_sequence();
 
     // Reset all stats.
-    game_state = gameState::Start;
     current_sequence_progress = 0;
     display_sequence_delay = 800;
     total_number_of_rounds = 0;
     total_moves = 0;
 
     // Tell the view to initialize in start mode:
+    game_state = gameState::Start;
     emit signalStateChange(game_state);
 }
 
@@ -109,7 +102,7 @@ void game_model::nextRound()
     ++total_number_of_rounds;
     // Give the player a little bit of time to get ready.
     game_state = gameState::DisplaySequence;
-    QTimer::singleShot(1000, [=]() { emit signalStateChange(game_state); });
+    QTimer::singleShot(1000, this, [=]() { emit signalStateChange(game_state); });
 }
 
 /**
@@ -141,11 +134,9 @@ void game_model::nextState(bool restartGame)
         // If we receive a command to restart the game, or if the game is over
         // restart the game.
         gameStart();
+        return;
     }
-    else
-    {
-        ++game_state;
-    }
+    ++game_state;
     emit signalStateChange(game_state);
 }
 
