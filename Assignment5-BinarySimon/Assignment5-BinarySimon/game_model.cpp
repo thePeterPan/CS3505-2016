@@ -1,5 +1,7 @@
 #include "game_model.h"
 
+#include <ctime>    // time()
+
 game_model::game_model(QObject *parent) :
     QObject(parent) { }
 
@@ -44,6 +46,7 @@ void game_model::add_color_to_sequence()
 
 //    qDebug() << "test";
 
+    srand((unsigned)time(0));
     int rnd = rand() % 4;
 
     switch(rnd)
@@ -96,6 +99,8 @@ void game_model::checkSequenceNext(QString color)
  */
 void game_model::nextRound()
 {
+    qDebug() << "Next Round!";
+
     add_color_to_sequence();
     // speed up the sequence display
     display_sequence_delay -= 50;

@@ -17,7 +17,7 @@ private:
 
     int game_state;
 
-    // Pattern:
+    // Sequence:
     QStringList sequence;
     // the currrent progression of the pattern
     int current_sequence_progress;

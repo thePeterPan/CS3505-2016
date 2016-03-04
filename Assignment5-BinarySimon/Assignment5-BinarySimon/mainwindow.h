@@ -54,10 +54,14 @@ protected:
 
 private slots:
     void pushButton_start_clicked();
-    void pushButton_blue_clicked();
-    void pushButton_red_clicked();
-    void pushButton_green_clicked();
-    void pushButton_yellow_clicked();
+    void pushButton_blue_pressed();
+    void pushButton_red_pressed();
+    void pushButton_green_pressed();
+    void pushButton_yellow_pressed();
+    void pushButton_blue_released();
+    void pushButton_red_released();
+    void pushButton_green_released();
+    void pushButton_yellow_released();
 
     void state_changed(int state);
 
