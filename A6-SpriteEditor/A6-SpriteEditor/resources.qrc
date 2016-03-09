@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/fast-forward.svg</file>
+        <file>icons/fast-rewind.svg</file>
+        <file>icons/pause-circle-outline.svg</file>
+        <file>icons/play-arrow.svg</file>
+        <file>icons/play-circle-fill.svg</file>
+        <file>icons/skip-next.svg</file>
+        <file>icons/skip-previous.svg</file>
+    </qresource>
+</RCC>
