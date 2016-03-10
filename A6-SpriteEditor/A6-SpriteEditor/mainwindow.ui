@@ -108,21 +108,21 @@
        </layout>
       </item>
       <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QVBoxLayout" name="imageView_VLayout">
         <item>
          <widget class="QGraphicsView" name="graphicsView"/>
         </item>
         <item>
-         <widget class="Line" name="line">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="mainEditor_HLayout">
           <item>
-           <widget class="QPushButton" name="prevFram_pushButton">
+           <widget class="QPushButton" name="prevFrame_pushButton">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -242,7 +242,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSprite_Editor">
@@ -302,11 +302,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
-   </property>
-  </action>
-  <action name="actionExport">
-   <property name="text">
-    <string>Export</string>
    </property>
   </action>
   <action name="actionNew_File">
