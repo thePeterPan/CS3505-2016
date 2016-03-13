@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connectSignalsAndSlots();
-
     initializeUIDefaults();
 }
 
@@ -31,10 +30,10 @@ void MainWindow::connectSignalsAndSlots()
 //    connect(ui->actionSave_As, SIGNAL(triggered(bool)), this, SLOT());
 //    connect(ui->actionExport_As, SIGNAL(triggered(bool)), this, SLOT());
 //    connect(ui->actionImport,  SIGNAL(triggered(bool)), this, SLOT());
-    connect(ui->actionQuit, SIGNAL(triggered(bool)), this, SLOT(close()));
+    connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
 
     /// Speed Slider
-    connect(ui->playbackSpeed_horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(playbackSpeed_hSlider_moved(int)));
+    connect(ui->playbackSpeed_horizontalSlider, &QSlider::valueChanged, this, &MainWindow::playbackSpeed_hSlider_moved);
 }
 
 void MainWindow::initializeUIDefaults()
