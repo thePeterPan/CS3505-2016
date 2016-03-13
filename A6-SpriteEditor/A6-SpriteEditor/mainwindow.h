@@ -12,6 +12,7 @@
 #include <QGraphicsView>
 
 #include <QCloseEvent>
+#include <QString>
 
 namespace Ui {
 class MainWindow;
@@ -56,13 +57,13 @@ private:
     // Line line_2;
 
     void connectSignalsAndSlots();
-
-    virtual void closeEvent(QCloseEvent *event);
+    void initializeUIDefaults();
 
 private slots:
-
+    void playbackSpeed_hSlider_moved(int value);
 
 protected:
+    virtual void closeEvent(QCloseEvent *event);
 
 };
 
