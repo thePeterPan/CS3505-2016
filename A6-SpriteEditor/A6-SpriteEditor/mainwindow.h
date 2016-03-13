@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include <QPushButton>
+#include <QToolButton>
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -23,7 +24,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget * parent = 0);
     ~MainWindow();
 
 public slots:
@@ -32,27 +33,27 @@ private:
     Ui::MainWindow *ui;
 
     /// UI Elements
-    QGridLayout *leftSidebar_GLayout;
-	    QPushButton *colorPicker_pushButton;
-        // Line *line_3;
-	    QSlider *playbackSpeed_horizontalSlider;
+    QGridLayout * leftSidebar_GLayout;
+        QPushButton * colorPicker_pushButton;
+        // Line* line_3;
+        QSlider * playbackSpeed_horizontalSlider;
 	    QLabel *playbackSpeed_label;
-	    QGraphicsView *preview_graphicsView;
-	    QPushButton *shapes_pushButton;
-	    QPushButton *tools_pushButton;
-	    // Spacer *verticalSpacer_2;
-    QVBoxLayout *imageView_VLayout;
-    	QHBoxLayout *mainEditor_HLayout;
-    		QPushButton *nextFrame_pushButton;
-    		QPushButton *play_pushButton;
-    		QPushButton *prevFrame_pushButton;
-    	QGraphicsView *graphicsView;
-    QVBoxLayout *rightSidebar_VLayout;
-    	QPushButton *placeholder1;
-    	QPushButton *placeholder2;
-    	QPushButton *placeholder3;
-    	QPushButton *placeholder4;
-    	// Spacer *verticalSpacer;
+        QGraphicsView * preview_graphicsView;
+        QPushButton * shapes_pushButton;
+        QPushButton * tools_pushButton;
+        // Spacer * verticalSpacer_2;
+    QVBoxLayout * imageView_VLayout;
+        QHBoxLayout * mainEditor_HLayout;
+            QPushButton * nextFrame_pushButton;
+            QPushButton * play_pushButton;
+            QPushButton * prevFrame_pushButton;
+        QGraphicsView * graphicsView;
+    QVBoxLayout * rightSidebar_VLayout;
+        QToolButton * placeholder1;
+        QToolButton * placeholder2;
+        QToolButton * placeholder3;
+        QToolButton * placeholder4;
+        // Spacer * verticalSpacer;
     // Line line;
     // Line line_2;
 

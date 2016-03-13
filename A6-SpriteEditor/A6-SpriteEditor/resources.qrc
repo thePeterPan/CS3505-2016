@@ -7,5 +7,13 @@
         <file>icons/play-circle-fill.svg</file>
         <file>icons/skip-next.svg</file>
         <file>icons/skip-previous.svg</file>
+        <file>icons/fast-rewind_white.svg</file>
+        <file>icons/fast-forward_white.svg</file>
+        <file>icons/pause-circle-outline_white.svg</file>
+        <file>icons/play-arrow_white.svg</file>
+        <file>icons/play-circle-fill_white.svg</file>
+        <file>icons/skip-previous_white.svg</file>
+        <file>icons/skip-next_white.svg</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>
