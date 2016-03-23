@@ -20,7 +20,7 @@ public:
     int getFrameHeight();
 
 private:
-    QList<QList<QColor>> frameMatrix;
+    QList<QList<QColor> > frameMatrix;
     int width;
     int height;
 
