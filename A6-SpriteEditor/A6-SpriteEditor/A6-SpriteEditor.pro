@@ -13,9 +13,15 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    editor_model.cpp \
+    sprite.cpp \
+    frame.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    editor_model.h \
+    sprite.h \
+    frame.h
 
 FORMS    += mainwindow.ui
 
