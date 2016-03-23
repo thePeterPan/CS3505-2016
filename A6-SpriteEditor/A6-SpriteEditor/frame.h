@@ -10,8 +10,7 @@ class frame : public QObject
     Q_OBJECT
 public:
     explicit frame(QObject *parent = 0);
-    explicit frame(QObject *parent = 0, int width_, int height_);
-    frame (const frame &other);
+    explicit frame(QObject *parent = 0, int width_ = 0, int height_ = 0);
 
     void setPixelColor(int x, int y, QColor color);
     void setWholeFrameColor(QColor color);

@@ -27,17 +27,6 @@ frame::frame(QObject *parent, int width_, int height_) :
 }
 
 /**
- * Copy Constructor
- *
- * @brief frame::frame
- * @param other
- */
-frame::frame(const frame &other)
-{
-
-}
-
-/**
  * @brief frame::setPixelColor
  * @param x
  * @param y
@@ -65,7 +54,7 @@ void frame::setWholeFrameColor(QColor color)
  */
 QColor frame::getPixelColor(int x, int y)
 {
-    return QColor.black();
+    return frameMatrix[0][0];
 }
 
 /**

@@ -19,49 +19,39 @@ sprite::sprite(QObject *parent) :
  * @param height_
  */
 sprite::sprite(QObject *parent, int width_, int height_) :
-    QObjct(parent), width(width_), height(height_)
+    QObject(parent), width(width_), height(height_)
 {
 
 }
 
-/**
- * Copy Constructor
- *
- * @brief sprite::sprite
- * @param obj
- */
-sprite::sprite(const sprite &obj)
-{
+///**
+// * @brief sprite::getFrames
+// * @return
+// */
+//QList<frame> sprite::getFrames()
+//{
+//    QList<frame> temp;
+//    return temp;
+//}
 
-}
+///**
+// * @brief sprite::getFrame
+// * @param index
+// * @return
+// */
+//frame sprite::getFrame(int index)
+//{
 
-/**
- * @brief sprite::getFrames
- * @return
- */
-QList<frame> sprite::getFrames()
-{
+//}
 
-}
+///**
+// * @brief sprite::addFrame
+// * @return
+// */
+//frame sprite::addFrame()
+//{
 
-/**
- * @brief sprite::getFrame
- * @param index
- * @return
- */
-frame sprite::getFrame(int index)
-{
-
-}
-
-/**
- * @brief sprite::addFrame
- * @return
- */
-frame sprite::addFrame()
-{
-
-}
+//}
 
 /**
  * @brief sprite::removeFrame
