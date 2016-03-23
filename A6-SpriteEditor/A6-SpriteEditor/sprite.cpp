@@ -36,16 +36,6 @@ sprite::sprite(const sprite &obj)
 }
 
 /**
- * Constructor
- *
- * @brief sprite::~sprite
- */
-sprite::~sprite()
-{
-
-}
-
-/**
  * @brief sprite::getFrames
  * @return
  */
