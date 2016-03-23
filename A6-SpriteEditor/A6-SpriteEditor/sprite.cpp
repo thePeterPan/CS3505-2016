@@ -71,3 +71,21 @@ void sprite::removeFrame(int index)
 {
 
 }
+
+/**
+ * @brief sprite::getWidth
+ * @return
+ */
+int sprite::getWidth()
+{
+    return width;
+}
+
+/**
+ * @brief sprite::getHeight
+ * @return
+ */
+int sprite::getHeight()
+{
+    return height;
+}
