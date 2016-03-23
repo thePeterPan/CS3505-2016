@@ -31,3 +31,11 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+
+/**
+ * Random Notes:
+ * QTL vs. STL: http://blog.codeimproved.net/posts/qtl-stl.html
+ *
+ *
+ *
+ * /
