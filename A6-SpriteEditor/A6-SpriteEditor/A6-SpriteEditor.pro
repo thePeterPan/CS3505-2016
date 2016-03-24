@@ -27,3 +27,5 @@ FORMS    += mainwindow.ui
 
 RESOURCES += \
     resources.qrc
+
+include(Qt-Color-Widgets/color_widgets.pri)
