@@ -1,0 +1,3 @@
+[submodule "A6-SpriteEditor/A6-SpriteEditor/Qt-Color-Widgets"]
+	path = A6-SpriteEditor/A6-SpriteEditor/Qt-Color-Widgets
+	url = https://github.com/mbasaglia/Qt-Color-Widgets
