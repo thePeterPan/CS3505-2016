@@ -31,6 +31,8 @@ void MainWindow::connectSignalsAndSlots()
 //    connect(ui->actionExport_As, SIGNAL(triggered(bool)), this, SLOT());
 //    connect(ui->actionImport,  SIGNAL(triggered(bool)), this, SLOT());
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
+    connect(ui->menuEdit, &QMenu::triggered, this, &MainWindow::menuEdit_triggered);
+    connect(ui->menuHelp, &QMenu::triggered, this, &MainWindow::menuHelp_triggered);
 
     /// Speed Slider
     connect(ui->playbackSpeed_horizontalSlider, &QSlider::valueChanged, this, &MainWindow::playbackSpeed_hSlider_moved);
@@ -47,6 +49,16 @@ void MainWindow::initializeUIDefaults()
 void MainWindow::playbackSpeed_hSlider_moved(int value)
 {
     ui->playbackSpeed_label->setText("Playback speed: " + QString::number(value));
+}
+
+void MainWindow::menuEdit_triggered()
+{
+
+}
+
+void MainWindow::menuHelp_triggered()
+{
+
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

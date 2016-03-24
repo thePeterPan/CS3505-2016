@@ -284,7 +284,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>20</height>
+     <height>16</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSprite_Editor">
@@ -306,8 +306,14 @@
      <string>Edit</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+   </widget>
    <addaction name="menuSprite_Editor"/>
    <addaction name="menuEdit"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionQuit">
    <property name="text">

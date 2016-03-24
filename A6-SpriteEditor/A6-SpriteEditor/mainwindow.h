@@ -15,6 +15,8 @@
 #include <QCloseEvent>
 #include <QString>
 
+#include "color_dialog.hpp"
+
 namespace Ui {
 class MainWindow;
 }
@@ -62,6 +64,8 @@ private:
 
 private slots:
     void playbackSpeed_hSlider_moved(int value);
+    void menuEdit_triggered();
+    void menuHelp_triggered();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);
