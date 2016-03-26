@@ -108,6 +108,9 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="1">
+         <widget class="color_widgets::ColorWheel" name="widget" native="true"/>
+        </item>
        </layout>
       </item>
       <item>
@@ -373,6 +376,14 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>color_widgets::ColorWheel</class>
+   <extends>QWidget</extends>
+   <header>color_wheel.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resources.qrc"/>
  </resources>
