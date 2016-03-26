@@ -31,11 +31,13 @@ void MainWindow::connectSignalsAndSlots()
 //    connect(ui->actionExport_As, SIGNAL(triggered(bool)), this, SLOT());
 //    connect(ui->actionImport,  SIGNAL(triggered(bool)), this, SLOT());
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
-    connect(ui->actionChange_Color, &QAction::triggered, this, &MainWindow::actionChange_Color_triggered);
     connect(ui->menuHelp, &QMenu::triggered, this, &MainWindow::menuHelp_triggered);
 
     /// Speed Slider
     connect(ui->playbackSpeed_horizontalSlider, &QSlider::valueChanged, this, &MainWindow::playbackSpeed_hSlider_moved);
+
+    /// Color Wheel
+    connect(ui->colorWheel_widget, &color_widgets::ColorWheel::colorChanged, this, &MainWindow::colorWheel_colorChanged);
 }
 
 void MainWindow::initializeUIDefaults()
@@ -44,6 +46,9 @@ void MainWindow::initializeUIDefaults()
     ui->playbackSpeed_horizontalSlider->setMinimum(1);
     ui->playbackSpeed_horizontalSlider->setMaximum(10);
     ui->playbackSpeed_label->setText("Playback speed: " + QString::number(ui->playbackSpeed_horizontalSlider->value()));
+
+    /// Color Preview
+    ui->colorPreview_widget->setColor(QColor::fromRgb(0,0,0));
 }
 
 void MainWindow::playbackSpeed_hSlider_moved(int value)
@@ -51,15 +56,14 @@ void MainWindow::playbackSpeed_hSlider_moved(int value)
     ui->playbackSpeed_label->setText("Playback speed: " + QString::number(value));
 }
 
-void MainWindow::actionChange_Color_triggered()
-{
-    color_widgets::ColorDialog dialog;
-    dialog.exec();
-}
-
 void MainWindow::menuHelp_triggered()
 {
 
+}
+
+void MainWindow::colorWheel_colorChanged(QColor color)
+{
+    ui->colorPreview_widget->setColor(color);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

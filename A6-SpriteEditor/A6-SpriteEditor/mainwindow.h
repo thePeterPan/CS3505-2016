@@ -65,8 +65,8 @@ private:
 
 private slots:
     void playbackSpeed_hSlider_moved(int value);
-    void actionChange_Color_triggered();
     void menuHelp_triggered();
+    void colorWheel_colorChanged(QColor color);
 
 protected:
     virtual void closeEvent(QCloseEvent *event);
