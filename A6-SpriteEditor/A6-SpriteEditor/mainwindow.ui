@@ -28,39 +28,60 @@
         <property name="sizeConstraint">
          <enum>QLayout::SetFixedSize</enum>
         </property>
-        <item row="5" column="1">
-         <widget class="QPushButton" name="shapes_pushButton">
+        <item row="7" column="0">
+         <widget class="QPushButton" name="eraserToolButton">
+          <property name="text">
+           <string>Eraser</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QPushButton" name="shapesToolButton">
           <property name="text">
            <string>Shapes</string>
           </property>
          </widget>
         </item>
-        <item row="8" column="0" colspan="2">
-         <widget class="QSlider" name="playbackSpeed_horizontalSlider">
-          <property name="pageStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+        <item row="9" column="1">
+         <widget class="QPushButton" name="shapes_pushButton">
+          <property name="text">
+           <string>Invert Colors</string>
           </property>
          </widget>
         </item>
-        <item row="7" column="0">
+        <item row="5" column="0">
+         <widget class="QPushButton" name="symToolButton">
+          <property name="text">
+           <string>Symmetrical</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QPushButton" name="rotateToolButton">
+          <property name="text">
+           <string>Rotate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="0">
          <widget class="QLabel" name="playbackSpeed_label">
           <property name="text">
            <string>Playback Speed:</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
+        <item row="9" column="0">
          <widget class="QPushButton" name="colorPicker_pushButton">
           <property name="text">
            <string>Color Picker</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="0" colspan="2">
-         <widget class="Line" name="line_3">
+        <item row="12" column="0" colspan="2">
+         <widget class="QSlider" name="playbackSpeed_horizontalSlider">
+          <property name="pageStep">
+           <number>1</number>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -79,10 +100,10 @@
           </property>
          </spacer>
         </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="QPushButton" name="tools_pushButton">
-          <property name="text">
-           <string>Tools</string>
+        <item row="10" column="0" colspan="2">
+         <widget class="Line" name="line_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -122,7 +143,6 @@
             <height>40</height>
            </size>
           </property>
-          <zorder>colorWheel_widget</zorder>
          </widget>
         </item>
         <item row="2" column="0" colspan="2">
@@ -138,6 +158,34 @@
             <width>0</width>
             <height>191</height>
            </size>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QPushButton" name="brushToolButton">
+          <property name="text">
+           <string>Brush</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QPushButton" name="bucketToolButton">
+          <property name="text">
+           <string>Bucket</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QPushButton" name="vertToolButton">
+          <property name="text">
+           <string>Flip Vertical</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QPushButton" name="horizToolButton">
+          <property name="text">
+           <string>Flip Horizontal</string>
           </property>
          </widget>
         </item>
@@ -317,7 +365,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>16</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSprite_Editor">
