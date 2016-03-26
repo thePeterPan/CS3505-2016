@@ -15,7 +15,7 @@
 #include <QCloseEvent>
 #include <QString>
 
-#include "color_dialog.hpp"
+#include <ColorDialog>
 
 namespace Ui {
 class MainWindow;

@@ -31,7 +31,7 @@ void MainWindow::connectSignalsAndSlots()
 //    connect(ui->actionExport_As, SIGNAL(triggered(bool)), this, SLOT());
 //    connect(ui->actionImport,  SIGNAL(triggered(bool)), this, SLOT());
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
-    connect(ui->menuEdit, &QMenu::triggered, this, &MainWindow::menuEdit_triggered);
+    connect(ui->actionChange_Color, &QAction::triggered, this, &MainWindow::actionChange_Color_triggered);
     connect(ui->menuHelp, &QMenu::triggered, this, &MainWindow::menuHelp_triggered);
 
     /// Speed Slider
@@ -51,9 +51,10 @@ void MainWindow::playbackSpeed_hSlider_moved(int value)
     ui->playbackSpeed_label->setText("Playback speed: " + QString::number(value));
 }
 
-void MainWindow::menuEdit_triggered()
+void MainWindow::actionChange_Color_triggered()
 {
-
+    color_widgets::ColorDialog dialog;
+    dialog.exec();
 }
 
 void MainWindow::menuHelp_triggered()
