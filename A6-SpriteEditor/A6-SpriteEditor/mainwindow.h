@@ -16,6 +16,7 @@
 #include <QString>
 
 #include <ColorDialog>
+#include <ColorWheel>
 
 namespace Ui {
 class MainWindow;
@@ -64,7 +65,7 @@ private:
 
 private slots:
     void playbackSpeed_hSlider_moved(int value);
-    void menuEdit_triggered();
+    void actionChange_Color_triggered();
     void menuHelp_triggered();
 
 protected:
