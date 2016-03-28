@@ -11,12 +11,11 @@ class sprite : public QObject
     Q_OBJECT
 public:
     explicit sprite(QObject *parent = 0);
-    explicit sprite(QObject *parent = 0, int width_ = 0, int height_ = 0);
 
-//    QList<frame> getFrames();
+    int getAnimationLength();
 //    frame getFrame(int index);
 //    frame addFrame();
-    void removeFrame(int index);
+    void removeFrameAt(int index);
     int getWidth();
     int getHeight();
 

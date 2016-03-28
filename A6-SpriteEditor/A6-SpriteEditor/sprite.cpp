@@ -13,26 +13,15 @@ sprite::sprite(QObject *parent) :
 }
 
 /**
- * @brief sprite::sprite
- * @param parent
- * @param width_
- * @param height_
+ * Returns the number of frames in the sprite.
+ *
+ * @brief sprite::getAnimationLength
+ * @return
  */
-sprite::sprite(QObject *parent, int width_, int height_) :
-    QObject(parent), width(width_), height(height_)
+int sprite::getAnimationLength()
 {
-
+    return frames.length();
 }
-
-///**
-// * @brief sprite::getFrames
-// * @return
-// */
-//QList<frame> sprite::getFrames()
-//{
-//    QList<frame> temp;
-//    return temp;
-//}
 
 ///**
 // * @brief sprite::getFrame
@@ -57,9 +46,9 @@ sprite::sprite(QObject *parent, int width_, int height_) :
  * @brief sprite::removeFrame
  * @param index
  */
-void sprite::removeFrame(int index)
+void sprite::removeFrameAt(int index)
 {
-
+//    frames.removeAt(index);
 }
 
 /**

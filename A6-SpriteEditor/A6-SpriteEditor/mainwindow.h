@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+// Graphics objects
 #include <QPushButton>
 #include <QToolButton>
 #include <QGridLayout>
@@ -11,12 +11,14 @@
 #include <QSlider>
 #include <QLabel>
 #include <QGraphicsView>
-
+// Other Qt Objects
 #include <QCloseEvent>
 #include <QString>
-
+// from Qt-Color-Widgets library
 #include <ColorDialog>
 #include <ColorWheel>
+
+#include "editor_model.h"
 
 namespace Ui {
 class MainWindow;
@@ -35,30 +37,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
 
-    /// UI Elements
-    QGridLayout * leftSidebar_GLayout;
-        QPushButton * colorPicker_pushButton;
-        // Line* line_3;
-        QSlider * playbackSpeed_horizontalSlider;
-	    QLabel *playbackSpeed_label;
-        QGraphicsView * preview_graphicsView;
-        QPushButton * shapes_pushButton;
-        QPushButton * tools_pushButton;
-        // Spacer * verticalSpacer_2;
-    QVBoxLayout * imageView_VLayout;
-        QHBoxLayout * mainEditor_HLayout;
-            QPushButton * nextFrame_pushButton;
-            QPushButton * play_pushButton;
-            QPushButton * prevFrame_pushButton;
-        QGraphicsView * graphicsView;
-    QVBoxLayout * rightSidebar_VLayout;
-        QToolButton * placeholder1;
-        QToolButton * placeholder2;
-        QToolButton * placeholder3;
-        QToolButton * placeholder4;
-        // Spacer * verticalSpacer;
-    // Line line;
-    // Line line_2;
+    editor_model model;
 
     void connectSignalsAndSlots();
     void initializeUIDefaults();
