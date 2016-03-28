@@ -14,6 +14,16 @@
         <file>icons/play-circle-fill_white.svg</file>
         <file>icons/skip-previous_white.svg</file>
         <file>icons/skip-next_white.svg</file>
+        <file>icons/replay_icon.svg</file>
+        <file>icons/color_fill_format_icon.svg</file>
+        <file>icons/art_brush_paint_tool_icon_white.svg</file>
+        <file>icons/art_brush_paint_tool_icon.svg</file>
+        <file>icons/color_fill_format_icon_white.svg</file>
+        <file>icons/palette_icon_white.svg</file>
+        <file>icons/palette_icon.svg</file>
+        <file>icons/replay_icon_white.svg</file>
+        <file>icons/eraser.svg</file>
+        <file>icons/eraser_white.svg</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
