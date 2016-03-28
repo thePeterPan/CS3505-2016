@@ -11,12 +11,14 @@
 #include <QSlider>
 #include <QLabel>
 #include <QGraphicsView>
+#include <QGraphicsScene>
 // Other Qt Objects
 #include <QCloseEvent>
 #include <QString>
 // from Qt-Color-Widgets library
 #include <ColorDialog>
 #include <ColorWheel>
+#include "graphicsscene.h"
 
 #include "editor_model.h"
 
@@ -36,7 +38,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-
+    GraphicsScene* scene;
     editor_model model;
 
     void connectSignalsAndSlots();
