@@ -7,13 +7,13 @@
  * @param parent
  */
 sprite::sprite(QObject *parent) :
-    QObject(parent), width(0), height(0)
+    QObject(parent), width_(0), height_(0)
 {
 
 }
 
-sprite::sprite(int width_, int height_, QObject *parent) :
-    QObject(parent), width(width_), height(height_)
+sprite::sprite(int width, int height, QObject *parent) :
+    QObject(parent), width_(width), height_(height)
 {
 
 }
@@ -63,7 +63,7 @@ void sprite::removeFrameAt(int index)
  */
 int sprite::getWidth()
 {
-    return width;
+    return width_;
 }
 
 /**
@@ -72,5 +72,5 @@ int sprite::getWidth()
  */
 int sprite::getHeight()
 {
-    return height;
+    return height_;
 }

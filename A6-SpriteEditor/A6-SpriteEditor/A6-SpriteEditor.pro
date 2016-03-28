@@ -21,7 +21,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     editor_model.h \
     sprite.h \
-    frame.h
+    frame.h \
+    widget.h
 
 FORMS    += mainwindow.ui
 

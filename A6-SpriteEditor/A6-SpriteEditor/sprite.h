@@ -11,7 +11,7 @@ class sprite : public QObject
     Q_OBJECT
 public:
     explicit sprite(QObject *parent = 0);
-    explicit sprite(int width_, int height_, QObject * parent = 0);
+    explicit sprite(int width, int height, QObject * parent = 0);
 
     int getAnimationLength();
 //    frame getFrame(int index);
@@ -22,8 +22,8 @@ public:
 
 private:
     QList<frame> frames;
-    int width;
-    int height;
+    int width_;
+    int height_;
 
 signals:
 

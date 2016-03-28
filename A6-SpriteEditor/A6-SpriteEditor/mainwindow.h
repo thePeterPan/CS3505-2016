@@ -18,9 +18,12 @@
 // from Qt-Color-Widgets library
 #include <ColorDialog>
 #include <ColorWheel>
-#include "graphicsscene.h"
+#include <QGraphicsProxyWidget>
+#include <QGraphicsItem>
+#include <QGraphicsScene>
 
 #include "editor_model.h"
+#include "widget.h"
 
 namespace Ui {
 class MainWindow;
@@ -38,9 +41,8 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    GraphicsScene* scene;
     editor_model model;
-
+    Widget* widget;
     void connectSignalsAndSlots();
     void initializeUIDefaults();
 

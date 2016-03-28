@@ -20,8 +20,8 @@ frame::frame(QObject *parent) :
  * @param width_
  * @param height_
  */
-frame::frame(QObject *parent, int width_, int height_) :
-    QObject(parent), width(width_), height(height_)
+frame::frame(int width, int height, QObject *parent) :
+    QObject(parent), width_(width), height_(height)
 {
 
 }
@@ -63,7 +63,7 @@ QColor frame::getPixelColor(int x, int y)
  */
 int frame::getFrameWidth()
 {
-    return width;
+    return width_;
 }
 
 /**
@@ -72,5 +72,5 @@ int frame::getFrameWidth()
  */
 int frame::getFrameHeight()
 {
-    return height;
+    return height_;
 }
