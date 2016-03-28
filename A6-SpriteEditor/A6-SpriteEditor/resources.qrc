@@ -24,6 +24,8 @@
         <file>icons/replay_icon_white.svg</file>
         <file>icons/eraser.svg</file>
         <file>icons/eraser_white.svg</file>
+        <file>icons/hand.svg</file>
+        <file>icons/hand_white.svg</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
