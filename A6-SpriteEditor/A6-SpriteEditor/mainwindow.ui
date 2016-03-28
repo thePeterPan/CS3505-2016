@@ -183,6 +183,13 @@
           </property>
          </widget>
         </item>
+        <item row="10" column="1">
+         <widget class="QLabel" name="playbackSpeedCurrent_label">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>

@@ -45,7 +45,7 @@ void MainWindow::initializeUIDefaults()
     /// Speed Slider
     ui->playbackSpeed_horizontalSlider->setMinimum(1);
     ui->playbackSpeed_horizontalSlider->setMaximum(10);
-    ui->playbackSpeed_label->setText("Playback speed: " + QString::number(ui->playbackSpeed_horizontalSlider->value()));
+    ui->playbackSpeedCurrent_label->setText(QString::number(ui->playbackSpeed_horizontalSlider->value()));
 
     /// Color Preview
     ui->colorPreview_widget->setColor(QColor::fromRgb(0,0,0));
@@ -53,7 +53,7 @@ void MainWindow::initializeUIDefaults()
 
 void MainWindow::playbackSpeed_hSlider_moved(int value)
 {
-    ui->playbackSpeed_label->setText("Playback speed: " + QString::number(value));
+    ui->playbackSpeedCurrent_label->setText(QString::number(value));
 }
 
 void MainWindow::menuHelp_triggered()
