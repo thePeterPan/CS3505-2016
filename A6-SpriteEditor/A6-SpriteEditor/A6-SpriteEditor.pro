@@ -16,14 +16,12 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     editor_model.cpp \
     sprite.cpp \
-    frame.cpp \
-    graphicsscene.cpp
+    frame.cpp
 
 HEADERS  += mainwindow.h \
     editor_model.h \
     sprite.h \
-    frame.h \
-    graphicsscene.h
+    frame.h
 
 FORMS    += mainwindow.ui
 

@@ -12,6 +12,12 @@ sprite::sprite(QObject *parent) :
 
 }
 
+sprite::sprite(int width_, int height_, QObject *parent) :
+    QObject(parent), width(width_), height(height_)
+{
+
+}
+
 /**
  * Returns the number of frames in the sprite.
  *

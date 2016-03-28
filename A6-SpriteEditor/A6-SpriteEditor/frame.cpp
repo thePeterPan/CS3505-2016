@@ -34,7 +34,7 @@ frame::frame(QObject *parent, int width_, int height_) :
  */
 void frame::setPixelColor(int x, int y, QColor color)
 {
-
+    frameMatrix[x][y] = color;
 }
 
 /**
