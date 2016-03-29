@@ -83,8 +83,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::graphics()
 {
     scene = new GraphicsScene(ui->graphicsView);
-    //scene->setSceneRect(0,0,938,624);
-    scene->addRect(0,0,400,400,QPen(Qt::white),QBrush(Qt::gray));
+    scene->setSceneRect(0,0,500,500);
+    //scene->addRect(0,0,400,400,QPen(Qt::white),QBrush(Qt::gray));
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
 }
