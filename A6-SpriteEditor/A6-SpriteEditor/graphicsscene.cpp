@@ -73,11 +73,13 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
     std::cout << "X " << x << std::endl;
     std::cout << "y " << y << std::endl;
 
-    QRgb value = qRgb(180,20,90);
+    this->addRect(50*(x/50),50*(y/50),50,50,QPen(Qt::white),QBrush(Qt::gray));
+
+    /*QRgb value = qRgb(180,20,90);
 
     image->setColor(1,value);
 
-    image->setPixel(QPoint(x,y),1);
+    image->setPixel(QPoint(x,y),1);*/
 }
 
 void GraphicsScene::update(const QRectF &rect)
