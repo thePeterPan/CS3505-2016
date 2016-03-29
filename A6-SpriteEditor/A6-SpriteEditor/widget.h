@@ -1,8 +1,9 @@
 #ifndef WIDGET_H
 #define WIDGET_H
-
+#include <iostream>
 #include <QWidget>
 #include <QPainter>
+
 
 class Widget : public QWidget
 {
@@ -32,8 +33,18 @@ public:
     }
 
     void paintEvent(QPaintEvent *) {
-        QPainter p(this);
-        p.drawImage(rect(), screen_image_, screen_image_.rect());
+        std::cout << "painting" << std::endl;
+        QImage image = QImage(this->size(),QImage::Format_ARGB32);
+        image.allGray();
+        QPainter p(&image);
+        p.setPen(Qt::green);
+        p.drawText(10,10,"hello tanner");
+/*
+        QImage image = QImage(100,100,QImage::Format_ARGB32);
+        QPainter p(&image);
+        //p.setPen(Qt::green);
+        p.drawText(100,100,"hello");
+        //p.drawImage(rect(), screen_image_, screen_image_.rect());*/
     }
 
     QImage screen_image_;
