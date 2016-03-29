@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    scene = new GraphicsScene(3,3);
+    scene = new QGraphicsScene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
     connectSignalsAndSlots();
     initializeUIDefaults();
