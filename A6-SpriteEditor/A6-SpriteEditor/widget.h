@@ -4,10 +4,13 @@
 #include <QWidget>
 #include <QPainter>
 
-class Widget : public QWidget {
-    Q_OBJECT;
+class Widget : public QWidget
+{
+    Q_OBJECT
+
 public:
-    Widget(QWidget *parent = 0, Qt::WindowFlags f = 0) : QWidget(parent, f), screen_image_(256, 240, QImage::Format_RGB32) {
+    Widget(QWidget *parent = 0, Qt::WindowFlags f = 0) :
+        QWidget(parent, f), screen_image_(256, 240, QImage::Format_RGB32) {
 
     }
 
