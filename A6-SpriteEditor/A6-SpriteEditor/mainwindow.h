@@ -19,6 +19,10 @@
 #include <ColorDialog>
 #include <ColorWheel>
 
+#include <QGraphicsSceneMouseEvent>
+#include <iostream>
+
+#include "graphicsscene.h"
 #include "editor_model.h"
 
 namespace Ui {
@@ -37,19 +41,24 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene* scene;
+    GraphicsScene* scene;
     editor_model model;
 
     void connectSignalsAndSlots();
     void initializeUIDefaults();
+
+    void graphics();
 
 private slots:
     void playbackSpeed_hSlider_moved(int value);
     void menuHelp_triggered();
     void colorWheel_colorChanged(QColor color);
 
+
 protected:
     virtual void closeEvent(QCloseEvent *event);
+
+
 
 };
 

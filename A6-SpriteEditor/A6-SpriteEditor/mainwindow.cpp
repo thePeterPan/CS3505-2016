@@ -6,10 +6,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    scene = new QGraphicsScene(ui->graphicsView);
-    ui->graphicsView->setScene(scene);
+
+    graphics();
+
     connectSignalsAndSlots();
     initializeUIDefaults();
+
+
+    std::cout <<"hello world"<<std::endl;
 }
 
 MainWindow::~MainWindow()
@@ -31,6 +35,7 @@ void MainWindow::connectSignalsAndSlots()
 //    connect(ui->actionSave_As, SIGNAL(triggered(bool)), this, SLOT());
 //    connect(ui->actionExport_As, SIGNAL(triggered(bool)), this, SLOT());
 //    connect(ui->actionImport,  SIGNAL(triggered(bool)), this, SLOT());
+
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
     connect(ui->menuHelp, &QMenu::triggered, this, &MainWindow::menuHelp_triggered);
 
@@ -74,3 +79,15 @@ void MainWindow::closeEvent(QCloseEvent *event)
     // Perform checks.
     event->accept();
 }
+
+void MainWindow::graphics()
+{
+    scene = new GraphicsScene(ui->graphicsView);
+    //scene->setSceneRect(0,0,938,624);
+    scene->addRect(0,0,400,400,QPen(Qt::white),QBrush(Qt::gray));
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
+}
+
+
+
