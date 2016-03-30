@@ -20,14 +20,10 @@ GraphicsScene::GraphicsScene(editor_model* editor, QObject *parent, int width, i
 {
     this->setSceneRect(0,0,width*pixelSize,height*pixelSize);
 
+    this->prepareBackground();
+
     //Frame: the object that the colors are stored in inside of a matrix.
     frame = new Frame(this,width,height);
-
-    //Image: does nothing but give a nice background so far.
-    //We could make a nice backdrop that shows that nothing has been drawn on this section?
-    image = new QImage(width*pixelSize,height*pixelSize,QImage::Format_ARGB32);
-    image->fill(Qt::white);
-    this->addPixmap(QPixmap::fromImage(*image));
 
     //Initialize the brush to a value.
     brush = new QBrush(QColor(0,0,0,0));
@@ -40,7 +36,32 @@ GraphicsScene::GraphicsScene(editor_model* editor, QObject *parent, int width, i
             pixels[i][j] = this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(Qt::white),*brush);
         }
     }
+}
 
+/**
+ * @brief GraphicsScene::prepareBackground
+ * Creates a nice, checkered background to draw on.
+ */
+void GraphicsScene::prepareBackground()
+{
+    image = new QImage(width*pixelSize,height*pixelSize,QImage::Format_ARGB32);
+    QPainter painter(image);
+    painter.setPen(Qt::white);
+
+    for(int i = 0; i < width * 2; i++)
+    {
+        for(int j = 0; j < height * 2; j++)
+        {
+            if((i + j)%2 == 0)
+                painter.setBrush(QBrush(Qt::lightGray));
+            else
+                painter.setBrush(QBrush(Qt::white));
+            painter.drawRect(i*pixelSize/2,j*pixelSize/2,pixelSize/2,pixelSize/2);
+        }
+    }
+
+    painter.end();
+    this->addPixmap(QPixmap::fromImage(*image));
 }
 
 /**
@@ -134,15 +155,6 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int y = mouseEvent->scenePos().y()/pixelSize;
 
     paintCommand(x,y);
-
-
-
-
-    /*QRgb value = qRgb(180,20,90);
-
-    image->setColor(1,value);
-
-    image->setPixel(QPoint(x,y),1);*/
 }
 
 /**

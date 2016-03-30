@@ -26,6 +26,10 @@ Frame::Frame(QObject *parent, int width_, int height_) :
     for(int i = 0; i < width; i++)
     {
         frameMatrix.append(QVector<QColor>(height));
+        for(int j = 0; j < height; j++)
+        {
+            frameMatrix[i][j] = QColor(0,0,0,0);
+        }
     }
 }
 

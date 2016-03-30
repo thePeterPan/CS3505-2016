@@ -10,6 +10,7 @@
 #include "frame.h"
 #include "editor_model.h"
 #include <QGraphicsItem>
+#include <QPainter>
 
 
 class GraphicsScene : public QGraphicsScene
@@ -26,6 +27,7 @@ class GraphicsScene : public QGraphicsScene
     void fillBucket(QColor color);
     void paintEntireFrame();
     void drawMirror(int x, int y, QColor color);
+    void prepareBackground();
 
     //Q_OBJECT
 public:
