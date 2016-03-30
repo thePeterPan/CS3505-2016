@@ -25,10 +25,10 @@ MainWindow::~MainWindow()
 void MainWindow::connectSignalsAndSlots()
 {
     /// Menubar:
-//    connect(ui->actionNew_File, SIGNAL(triggered(bool)), this, SLOT());
-//    connect(ui->actionOpen, SIGNAL(triggered(bool)), this, SLOT());
+    connect(ui->actionNew_File, &QAction::triggered, this, &MainWindow::menuNewFile_triggered);
+    connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::menuOpen_triggered);
 //    connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT());
-//    connect(ui->actionSave_As, SIGNAL(triggered(bool)), this, SLOT());
+    connect(ui->actionSave_As, &QAction::triggered, this, &MainWindow::menuSaveAs_triggered);
 //    connect(ui->actionExport_As, SIGNAL(triggered(bool)), this, SLOT());
 //    connect(ui->actionImport,  SIGNAL(triggered(bool)), this, SLOT());
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
@@ -55,6 +55,35 @@ void MainWindow::initializeUIDefaults()
 void MainWindow::playbackSpeed_hSlider_moved(int value)
 {
     ui->playbackSpeedCurrent_label->setText(QString::number(value));
+}
+
+void MainWindow::menuNewFile_triggered()
+{
+    NewFileDialog dialog;
+    dialog.exec();
+}
+
+void MainWindow::menuOpen_triggered()
+{
+    QFileDialog dialog;
+    dialog.exec();
+}
+
+void MainWindow::menuSave_triggered()
+{
+
+}
+
+void MainWindow::menuSaveAs_triggered()
+{
+    QFileDialog dialog;
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.exec();
+}
+
+void MainWindow::menuExportAs_triggered()
+{
+
 }
 
 void MainWindow::menuHelp_triggered()

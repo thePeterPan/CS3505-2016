@@ -12,6 +12,7 @@
 #include <QLabel>
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include <QFileDialog>
 // Other Qt Objects
 #include <QCloseEvent>
 #include <QString>
@@ -20,6 +21,7 @@
 #include <ColorWheel>
 
 #include "editor_model.h"
+#include "newfiledialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -45,6 +47,11 @@ private:
 
 private slots:
     void playbackSpeed_hSlider_moved(int value);
+    void menuNewFile_triggered();
+    void menuOpen_triggered();
+    void menuSave_triggered();
+    void menuSaveAs_triggered();
+    void menuExportAs_triggered();
     void menuHelp_triggered();
     void colorWheel_colorChanged(QColor color);
 
