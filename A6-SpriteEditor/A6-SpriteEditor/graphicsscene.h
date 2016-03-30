@@ -19,9 +19,11 @@ class GraphicsScene : public QGraphicsScene
     editor_model* editor;
     int width, height, pixelSize;
 
-
+    void paintCommand(int x, int y);
     void drawSquare(int x, int y, QColor color);
+    void fillBucket(QColor color);
     void paintEntireFrame();
+    void drawMirror(int x, int y, QColor color);
 
     //Q_OBJECT
 public:

@@ -123,19 +123,9 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
 
-    if(editor->current_tool == editor->BRUSH){
-        drawSquare(x,y,brush->color());
-    }else if(editor->current_tool == editor->FILL_BUCKET){
-        for(int i = 0; i < width; i++){
-            for(int j = 0; j < height; j++){
+    paintCommand(x,y);
 
-            }
-        }
-    }else if(editor->current_tool == editor->MIRROR){
 
-    }else if(editor->current_tool == editor->ERASER){
-
-    }
 
 
     /*QRgb value = qRgb(180,20,90);
@@ -155,7 +145,19 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
 
-    drawSquare(x,y,brush->color());
+    paintCommand(x,y);
+}
+
+void GraphicsScene::paintCommand(int x, int y){
+    if(editor->current_tool == editor->BRUSH){
+        drawSquare(x,y,brush->color());
+    }else if(editor->current_tool == editor->FILL_BUCKET){
+        fillBucket(brush->color());
+    }else if(editor->current_tool == editor->MIRROR){
+        drawMirror(x,y,brush->color());
+    }else if(editor->current_tool == editor->ERASER){
+
+    }
 }
 
 /**
@@ -173,6 +175,19 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
 
 
     this->addRect(pixelSize*x,pixelSize*y,pixelSize,pixelSize,QPen(),*brush);
+}
+
+void GraphicsScene::fillBucket(QColor color){
+    for(int i = 0; i < width; i++){
+        for(int j = 0; j < height; j++){
+            drawSquare(i,j,color);
+        }
+    }
+}
+
+void GraphicsScene::drawMirror(int x, int y, QColor color){
+    drawSquare(x,y,color);
+    drawSquare(width - 1 - x, y,color);
 }
 
 /**

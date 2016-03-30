@@ -117,3 +117,8 @@ void MainWindow::on_pushButton_clicked()
 {
     model.setTool(model.PAN);
 }
+
+void MainWindow::on_symmetricalTool_pushButton_clicked()
+{
+    model.setTool(model.MIRROR);
+}

@@ -65,6 +65,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_symmetricalTool_pushButton_clicked();
+
 protected:
     virtual void closeEvent(QCloseEvent *event);
 
