@@ -22,7 +22,7 @@ public:
     int getWidth();
     int getHeight();
     void save(QString path);
-    QString toString();
+    string toString();
 
 private:
     QList<Frame*> frames;

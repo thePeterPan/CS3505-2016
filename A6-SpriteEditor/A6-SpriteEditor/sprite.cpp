@@ -75,8 +75,8 @@ int sprite::getHeight()
     return height;
 }
 
-QString sprite::toString(){
-    QString result;
+string sprite::toString(){
+    string result;
 
     result += "Sprite:";
     result += width;
