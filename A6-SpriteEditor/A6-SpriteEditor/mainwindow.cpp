@@ -83,10 +83,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::graphics()
 {
-    scene = new GraphicsScene(ui->graphicsView,15,10,50);
-    //scene->setSceneRect(0,0,500,500);
-    //scene->setColor(ui->colorWheel_widget->color());
-    //scene->addRect(0,0,400,400,QPen(Qt::white),QBrush(Qt::gray));
+    //scene = new GraphicsScene(ui->graphicsView);
+    scene = new GraphicsScene(ui->graphicsView,10,10,50);
+    scene->setColor(ui->colorWheel_widget->color());
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
 }

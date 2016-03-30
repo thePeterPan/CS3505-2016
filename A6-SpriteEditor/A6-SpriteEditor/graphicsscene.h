@@ -16,9 +16,14 @@ class GraphicsScene : public QGraphicsScene
     QBrush * brush;
     Frame * frame;
     int width, height, pixelSize;
+
+
+    void drawSquare(int x, int y);
+    void paintEntireFrame();
+
     //Q_OBJECT
 public:
-    GraphicsScene(QObject *parent = 0);
+    //GraphicsScene(QObject *parent); // Not needed.
     GraphicsScene(QObject *parent = 0, int width = 10, int height = 10, int pixelSize = 50);
     ~GraphicsScene();
 
@@ -30,7 +35,7 @@ signals:
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    //void wheelEvent(QGraphicsSceneWheelEvent *wheelEvent);
+    void wheelEvent(QGraphicsSceneWheelEvent *wheelEvent);
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);

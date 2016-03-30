@@ -51,7 +51,9 @@ void Frame::setPixelColor(int x, int y, QColor color)
  */
 void Frame::setWholeFrameColor(QColor color)
 {
-
+    for(int i = 0; i < width; i++)
+        for(int j=0; j < height; j++)
+            frameMatrix[i][j] = color;
 }
 
 /**
@@ -62,7 +64,7 @@ void Frame::setWholeFrameColor(QColor color)
  */
 QColor Frame::getPixelColor(int x, int y)
 {
-    return frameMatrix[0][0];
+    return frameMatrix[x][y];
 }
 
 /**
@@ -81,4 +83,30 @@ int Frame::getFrameWidth()
 int Frame::getFrameHeight()
 {
     return height;
+}
+
+/**
+ * @brief Frame::rotate
+ * Rotates the vector of colors in the frame
+ * @param direction
+ * True: rotates clockwise
+ * False: rotates counterclockwise
+ */
+void Frame::rotate(bool direction)
+{
+    //Should rotate to the right.
+    //Needs more work.
+    //There's probably a function that does this already.
+    //Oh well. I like a good challenge.
+    if(direction)
+    {
+        if(width == height)
+        {
+            QVector<QVector<QColor>> temp(frameMatrix);
+            for(int i = 0; i < width; i++)
+                for(int j = 0; j < height; j++)
+                    frameMatrix[i][j] = temp[width-1 - i][height -1 - j];
+        }
+    }
+
 }

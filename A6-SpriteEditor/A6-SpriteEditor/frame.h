@@ -19,6 +19,7 @@ public:
     QColor getPixelColor(int x, int y);
     int getFrameWidth();
     int getFrameHeight();
+    void rotate(bool direction);
 
 private:
     QVector<QVector<QColor>> frameMatrix;
