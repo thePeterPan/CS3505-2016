@@ -73,8 +73,14 @@ void MainWindow::menuNewFile_triggered()
 
 void MainWindow::menuOpen_triggered()
 {
-    QFileDialog dialog;
-    dialog.exec();
+    QString selfilter = tr("Sprite (*.ssp)");
+    QString filename = QFileDialog::getOpenFileName(
+                this,
+                tr("Open Sprite File"),
+                QDir::homePath(),
+                tr("All files (*.*);;Sprite (*.ssp)"),
+                &selfilter);
+    qDebug() << filename;
 }
 
 void MainWindow::menuSave_triggered()
@@ -84,9 +90,18 @@ void MainWindow::menuSave_triggered()
 
 void MainWindow::menuSaveAs_triggered()
 {
-    QFileDialog dialog;
-    dialog.setAcceptMode(QFileDialog::AcceptSave);
-    dialog.exec();
+//    QFileDialog dialog;
+//    dialog.setAcceptMode(QFileDialog::AcceptSave);
+//    dialog.exec();
+    QString selfilter = tr("Sprite (*.ssp)");
+    QString filename = QFileDialog::getSaveFileName(
+                this,
+                tr("Save File As..."),
+                QDir::homePath(),
+                tr("All files (*.*);;Sprite (*.ssp)"),
+                &selfilter);
+    filename += ".ssp";
+    qDebug() << filename;
 }
 
 void MainWindow::menuExportAs_triggered()
