@@ -87,6 +87,8 @@ QString sprite::toString(){
     foreach(Frame* f, frames){
         result += f->toString();
     }
+
+    return result;
 }
 
 void sprite::save(QString path)
