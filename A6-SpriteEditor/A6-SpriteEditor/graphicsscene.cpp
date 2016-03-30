@@ -231,7 +231,7 @@ void GraphicsScene::paintEntireFrame()
 {
     for(int i = 0; i < frame->getFrameWidth(); i++)
         for(int j = 0; j < frame->getFrameHeight(); j++)
-            pixels[i][j]->setBrush(frame->getPixelColor(i,j));//this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(),QBrush(frame->getPixelColor(i,j)));
+            pixels[i][j]->setBrush(frame->getPixelColor(i,j));
 }
 
 
