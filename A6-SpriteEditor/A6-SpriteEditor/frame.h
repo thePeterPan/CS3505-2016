@@ -22,6 +22,7 @@ public:
     void rotate(bool direction);
     void flip(bool vertical);
     QString toString();
+    void invert();
 
 private:
     QVector<QVector<QColor>> frameMatrix;

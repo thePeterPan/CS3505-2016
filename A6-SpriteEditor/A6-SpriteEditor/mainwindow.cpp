@@ -132,3 +132,8 @@ void MainWindow::on_flipH_pushButton_clicked()
 {
     scene->flip(false);
 }
+
+void MainWindow::on_invertColors_pushButton_clicked()
+{
+    scene->invert();
+}
