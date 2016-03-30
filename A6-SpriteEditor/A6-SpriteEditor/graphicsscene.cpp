@@ -170,7 +170,8 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
 
-    paintCommand(x,y);
+    if(x > 0 && x < currentFrame->getFrameWidth() && y > 0 && y < currentFrame->getFrameWidth())
+        paintCommand(x,y);
 }
 
 void GraphicsScene::paintCommand(int x, int y){
@@ -202,16 +203,26 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
 }
 
 void GraphicsScene::fillBucket(int x, int y, QColor color){
-    //qDebug() << frame->toString();
+
     QColor prev = currentFrame->getPixelColor(x,y);
+
+    if(colorEquals(prev,color))
+        return;
+
     drawSquare(x,y,color);
-    for(int i = 0; i < width; i++){
-        for(int j = 0; j < height; j++){
-            if(colorEquals(prev,currentFrame->getPixelColor(i,j)))
-                drawSquare(i,j,color);
-        }
-    }
-    //qDebug() << frame->toString();
+
+    int x1 = x - 1;
+    int x2 = x + 1;
+    int y1 = y - 1;
+    int y2 = y + 1;
+    if(x1 >= 0 && colorEquals(currentFrame->getPixelColor(x1,y), prev))
+            fillBucket(x1,y,color);
+    if(x2 < width && colorEquals(currentFrame->getPixelColor(x2,y),prev))
+            fillBucket(x2,y,color);
+    if(y1 >= 0 && colorEquals(currentFrame->getPixelColor(x,y1),prev))
+            fillBucket(x,y1,color);
+    if(y2 < height && colorEquals(currentFrame->getPixelColor(x,y2),prev))
+            fillBucket(x,y2,color);
 }
 
 bool GraphicsScene::colorEquals(QColor color1, QColor color2){
