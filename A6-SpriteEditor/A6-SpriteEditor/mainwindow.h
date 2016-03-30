@@ -53,6 +53,7 @@ private slots:
     void menuSave_triggered();
     void menuSaveAs_triggered();
     void menuExportAs_triggered();
+    void menuImport_triggered();
 
     // Edit Menu:
     void menuRotateClockwise_triggered();

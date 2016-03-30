@@ -27,10 +27,10 @@ void MainWindow::connectSignalsAndSlots()
     /// File Menu:
     connect(ui->actionNew_File, &QAction::triggered, this, &MainWindow::menuNewFile_triggered);
     connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::menuOpen_triggered);
-//    connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT());
+    connect(ui->actionSave, &QAction::triggered, this, &MainWindow::menuSave_triggered);
     connect(ui->actionSave_As, &QAction::triggered, this, &MainWindow::menuSaveAs_triggered);
-//    connect(ui->actionExport_As, SIGNAL(triggered(bool)), this, SLOT());
-//    connect(ui->actionImport,  SIGNAL(triggered(bool)), this, SLOT());
+    connect(ui->actionExport_As, &QAction::triggered, this, &MainWindow::menuExportAs_triggered);
+    connect(ui->actionImport,  &QAction::triggered, this, &MainWindow::menuImport_triggered);
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
 
     /// Edit Menu:
@@ -92,6 +92,11 @@ void MainWindow::menuSaveAs_triggered()
 void MainWindow::menuExportAs_triggered()
 {
     qDebug() << "Export As...";
+}
+
+void MainWindow::menuImport_triggered()
+{
+    qDebug() << "Import";
 }
 
 void MainWindow::menuRotateClockwise_triggered()
