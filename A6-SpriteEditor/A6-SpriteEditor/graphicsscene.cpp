@@ -199,16 +199,25 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
 }
 
 void GraphicsScene::fillBucket(int x, int y, QColor color){
-    //qDebug() << frame->toString();
     QColor prev = frame->getPixelColor(x,y);
+
+    if(colorEquals(prev,color))
+        return;
+
     drawSquare(x,y,color);
-    for(int i = 0; i < width; i++){
-        for(int j = 0; j < height; j++){
-            if(colorEquals(prev,frame->getPixelColor(i,j)))
-                drawSquare(i,j,color);
-        }
-    }
-    //qDebug() << frame->toString();
+
+    int x1 = x - 1;
+    int x2 = x + 1;
+    int y1 = y - 1;
+    int y2 = y + 1;
+    if(x1 >= 0 && colorEquals(frame->getPixelColor(x1,y), prev))
+            fillBucket(x1,y,color);
+    if(x2 < width && colorEquals(frame->getPixelColor(x2,y),prev))
+            fillBucket(x2,y,color);
+    if(y1 >= 0 && colorEquals(frame->getPixelColor(x,y1),prev))
+            fillBucket(x,y1,color);
+    if(y2 < height && colorEquals(frame->getPixelColor(x,y2),prev))
+            fillBucket(x,y2,color);
 }
 
 bool GraphicsScene::colorEquals(QColor color1, QColor color2){
