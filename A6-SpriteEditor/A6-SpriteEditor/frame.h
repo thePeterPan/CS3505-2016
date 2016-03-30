@@ -21,6 +21,7 @@ public:
     int getFrameHeight();
     void rotate(bool direction);
     void flip(bool vertical);
+    QString toString();
 
 private:
     QVector<QVector<QColor>> frameMatrix;
