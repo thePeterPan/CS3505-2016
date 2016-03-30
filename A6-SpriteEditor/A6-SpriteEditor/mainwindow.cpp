@@ -6,8 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    scene = new QGraphicsScene(ui->graphicsView);
-    ui->graphicsView->setScene(scene);
+
+    graphics();
+
     connectSignalsAndSlots();
     initializeUIDefaults();
 }
@@ -147,6 +148,7 @@ void MainWindow::menuHelp_triggered()
 void MainWindow::colorWheel_colorChanged(QColor color)
 {
     ui->colorPreview_widget->setColor(color);
+    scene->setColor(color);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -155,4 +157,56 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->ignore();
     // Perform checks.
     event->accept();
+}
+
+void MainWindow::graphics()
+{
+    //scene = new GraphicsScene(ui->graphicsView);
+    scene = new GraphicsScene(&model, ui->graphicsView,20,20,30);
+    scene->setColor(ui->colorWheel_widget->color());
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
+}
+
+
+
+
+void MainWindow::on_brush_pushButton_clicked()
+{
+    model.setTool(model.BRUSH);
+}
+
+void MainWindow::on_fillBucket_pushButton_clicked()
+{
+    model.setTool(model.FILL_BUCKET);
+}
+
+void MainWindow::on_eraser_pushButton_clicked()
+{
+    model.setTool(model.ERASER);
+}
+
+void MainWindow::on_rotate_pushButton_clicked()
+{
+    scene->rotate(true);
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    model.setTool(model.PAN);
+}
+
+void MainWindow::on_symmetricalTool_pushButton_clicked()
+{
+    model.setTool(model.MIRROR);
+}
+
+void MainWindow::on_flipV_pushButton_clicked()
+{
+    scene->flip(true);
+}
+
+void MainWindow::on_flipH_pushButton_clicked()
+{
+    scene->flip(false);
 }

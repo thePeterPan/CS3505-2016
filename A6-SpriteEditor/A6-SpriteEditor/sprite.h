@@ -26,7 +26,7 @@ public:
     void setFileSavedStatus(bool status);
 
 private:
-    QList<frame> frames;
+    QList<Frame> frames;
     int width;
     int height;
 

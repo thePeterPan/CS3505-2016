@@ -21,6 +21,10 @@
 #include <ColorDialog>
 #include <ColorWheel>
 
+#include <QGraphicsSceneMouseEvent>
+#include <iostream>
+
+#include "graphicsscene.h"
 #include "editor_model.h"
 #include "newfiledialog.h"
 
@@ -40,11 +44,13 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene* scene;
+    GraphicsScene* scene;
     editor_model model;
 
     void connectSignalsAndSlots();
     void initializeUIDefaults();
+
+    void graphics();
 
 private slots:
     // File Menu:
@@ -68,8 +74,27 @@ private slots:
 
     void colorWheel_colorChanged(QColor color);
 
+
+    void on_brush_pushButton_clicked();
+
+    void on_fillBucket_pushButton_clicked();
+
+    void on_eraser_pushButton_clicked();
+
+    void on_rotate_pushButton_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_symmetricalTool_pushButton_clicked();
+
+    void on_flipV_pushButton_clicked();
+
+    void on_flipH_pushButton_clicked();
+
 protected:
     virtual void closeEvent(QCloseEvent *event);
+
+
 
 };
 
