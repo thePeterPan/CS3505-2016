@@ -53,7 +53,7 @@ private slots:
     void playbackSpeed_hSlider_moved(int value);
     void menuHelp_triggered();
     void colorWheel_colorChanged(QColor color);
-
+    void alphaSlider_valueChanged(int value);
 
     void on_brush_pushButton_clicked();
 
