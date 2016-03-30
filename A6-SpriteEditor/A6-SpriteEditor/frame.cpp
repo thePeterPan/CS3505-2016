@@ -124,26 +124,32 @@ void Frame::flip(bool vertical)
 
 }
 
-QString Frame::toString(){
-    QString result;
+string Frame::toString(){
+    string result;
     result += "Frame\n";
     for(int i = 0; i < width; i++){
         for(int j = 0; j < height; j++){
             QColor color = getPixelColor(i,j);
-            result += "(";
-            result += color.red();
-            result += ",";
-            result += color.green();
-            result += ",";
-            result += color.blue();
-            result += ",";
-            result += color.alpha();
-            result += ")\t";
+            result += toRgbaString(color);
+            result += "\t";
         }
         result += "\n";
     }
     return result;
 }
+
+string Frame::toRgbaString(QColor color){
+    stringstream ss;
+    ss << color.red();
+    ss << ",";
+    ss << color.blue();
+    ss << ",";
+    ss << color.green();
+    ss << ",";
+    ss << color.alpha();
+    return ss.str();
+}
+
 void Frame::invert()
 {
     for(int x = 0; x < width; x++)
