@@ -91,7 +91,7 @@ string sprite::toString(){
     return result;
 }
 
-void sprite::save(QString path)
+void sprite::save(string path)
 {
 
 }
