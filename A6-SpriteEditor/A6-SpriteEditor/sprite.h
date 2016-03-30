@@ -10,7 +10,7 @@
 
 class sprite : public QObject
 {
-   // Q_OBJECT
+    Q_OBJECT
 public:
     explicit sprite(QObject *parent = 0);
     explicit sprite(int width_, int height_, QObject * parent = 0);

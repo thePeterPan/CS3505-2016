@@ -9,7 +9,7 @@
 
 class Frame : public QObject
 {
-    //Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit Frame(QObject *parent = 0);
