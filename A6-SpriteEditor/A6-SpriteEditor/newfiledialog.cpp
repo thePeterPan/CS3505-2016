@@ -6,6 +6,8 @@ NewFileDialog::NewFileDialog(QWidget *parent) :
     ui(new Ui::NewFileDialog)
 {
     ui->setupUi(this);
+
+    ui->bgColor_colorLineEdit->setPreviewColor(true);
 }
 
 NewFileDialog::~NewFileDialog()
