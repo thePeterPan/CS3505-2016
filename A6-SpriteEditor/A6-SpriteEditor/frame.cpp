@@ -110,3 +110,24 @@ void Frame::rotate(bool direction)
     }
 
 }
+
+QString Frame::toString(){
+    QString result;
+    result += "Frame\n";
+    for(int i = 0; i < width; i++){
+        for(int j = 0; j < height; j++){
+            QColor color = getPixelColor(i,j);
+            result += "(";
+            result += color.red();
+            result += ",";
+            result += color.green();
+            result += ",";
+            result += color.blue();
+            result += ",";
+            result += color.alpha();
+            result += ")\t";
+        }
+        result += "\n";
+    }
+    return result;
+}
