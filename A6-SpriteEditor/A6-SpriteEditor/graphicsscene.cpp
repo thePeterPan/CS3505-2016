@@ -178,7 +178,7 @@ void GraphicsScene::paintCommand(int x, int y){
     }else if(editor->current_tool == editor->MIRROR){
         drawMirror(x,y,brush->color());
     }else if(editor->current_tool == editor->ERASER){
-
+        erase(x,y);
     }
 }
 
@@ -221,6 +221,10 @@ bool GraphicsScene::colorEquals(QColor color1, QColor color2){
 void GraphicsScene::drawMirror(int x, int y, QColor color){
     drawSquare(x,y,color);
     drawSquare(width - 1 - x, y,color);
+}
+
+void GraphicsScene::erase(int x, int y){
+    drawSquare(x,y,QColor(0,0,0,0));
 }
 
 /**

@@ -27,6 +27,7 @@ class GraphicsScene : public QGraphicsScene
     void fillBucket(int x, int y, QColor color);
     void paintEntireFrame();
     void drawMirror(int x, int y, QColor color);
+    void erase(int x, int y);
     void prepareBackground();
 
     //Q_OBJECT
