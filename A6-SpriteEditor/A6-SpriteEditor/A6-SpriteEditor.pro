@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = A6-SpriteEditor
 TEMPLATE = app
 
+DEFINES += QTCOLORWIDGETS_STATICALLY_LINKED
 
 SOURCES += main.cpp\
         mainwindow.cpp \
