@@ -55,23 +55,16 @@ private slots:
     void colorWheel_colorChanged(QColor color);
     void alphaSlider_valueChanged(int value);
 
-    void on_brush_pushButton_clicked();
-
-    void on_fillBucket_pushButton_clicked();
-
-    void on_eraser_pushButton_clicked();
-
-    void on_rotate_pushButton_clicked();
-
-    void on_pushButton_clicked();
-
-    void on_symmetricalTool_pushButton_clicked();
-
-    void on_flipV_pushButton_clicked();
-
-    void on_flipH_pushButton_clicked();
-
-    void on_invertColors_pushButton_clicked();
+    // Tool buttons:
+    void brush_pushButton_clicked();
+    void fillBucket_pushButton_clicked();
+    void eraser_pushButton_clicked();
+    void rotate_pushButton_clicked();
+    void pushButton_clicked();
+    void symmetricalTool_pushButton_clicked();
+    void flipV_pushButton_clicked();
+    void flipH_pushButton_clicked();
+    void invertColors_pushButton_clicked();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);
