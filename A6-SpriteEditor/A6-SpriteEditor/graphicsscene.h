@@ -17,7 +17,7 @@ class GraphicsScene : public QGraphicsScene
     QImage * image;
     QBrush * brush;
     Frame * frame;
-    QVector<QVector</*QGraphicsObject*/QGraphicsItem*>> pixels;
+    QVector<QVector</*QGraphicsObject*/QGraphicsRectItem*>> pixels;
     editor_model* editor;
     int width, height, pixelSize;
 

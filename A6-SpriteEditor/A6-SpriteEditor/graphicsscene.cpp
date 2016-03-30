@@ -34,7 +34,7 @@ GraphicsScene::GraphicsScene(editor_model* editor, QObject *parent, int width, i
 
     for(int i = 0; i < width; i++)
     {
-        pixels.append(QVector<QGraphicsItem*/*QGraphicsObject*/>(height));
+        pixels.append(QVector<QGraphicsRectItem*/*QGraphicsObject*/>(height));
         for(int j = 0; j < height; j++)
         {
             pixels[i][j] = this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(Qt::white),*brush);
@@ -183,14 +183,7 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
 
     frame->setPixelColor(x,y,color);
 
-
-    this->removeItem(pixels[x][y]);
-
-
-    QGraphicsRectItem * item = this->addRect(pixelSize*x,pixelSize*y,pixelSize,pixelSize,QPen(),*brush);
-
-    pixels[x][y] = item;
-    //pixels[x][y] = item.toGraphicsObject();
+    pixels[x][y]->setBrush(QBrush(color));
 }
 
 void GraphicsScene::fillBucket(QColor color){
@@ -216,7 +209,7 @@ void GraphicsScene::paintEntireFrame()
 {
     for(int i = 0; i < frame->getFrameWidth(); i++)
         for(int j = 0; j < frame->getFrameHeight(); j++)
-            this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(),QBrush(frame->getPixelColor(i,j)));
+            pixels[i][j]->setBrush(frame->getPixelColor(i,j));//this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(),QBrush(frame->getPixelColor(i,j)));
 }
 
 
