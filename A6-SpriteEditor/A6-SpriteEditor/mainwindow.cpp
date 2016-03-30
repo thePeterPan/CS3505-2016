@@ -84,7 +84,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::graphics()
 {
     //scene = new GraphicsScene(ui->graphicsView);
-    scene = new GraphicsScene(&model, ui->graphicsView,10,10,50);
+    scene = new GraphicsScene(&model, ui->graphicsView,20,20,30);
     scene->setColor(ui->colorWheel_widget->color());
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
