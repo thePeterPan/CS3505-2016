@@ -517,6 +517,8 @@
     <addaction name="separator"/>
     <addaction name="actionFlip_Vertically"/>
     <addaction name="actionFlip_Horizontally"/>
+    <addaction name="separator"/>
+    <addaction name="actionResize_Canvas"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -600,6 +602,11 @@
   <action name="actionFlip_Horizontally">
    <property name="text">
     <string>Flip Horizontally</string>
+   </property>
+  </action>
+  <action name="actionResize_Canvas">
+   <property name="text">
+    <string>Resize Canvas</string>
    </property>
   </action>
  </widget>

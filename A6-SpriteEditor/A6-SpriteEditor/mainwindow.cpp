@@ -24,7 +24,7 @@ MainWindow::~MainWindow()
  */
 void MainWindow::connectSignalsAndSlots()
 {
-    /// Menubar:
+    /// File Menu:
     connect(ui->actionNew_File, &QAction::triggered, this, &MainWindow::menuNewFile_triggered);
     connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::menuOpen_triggered);
 //    connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT());
@@ -32,6 +32,14 @@ void MainWindow::connectSignalsAndSlots()
 //    connect(ui->actionExport_As, SIGNAL(triggered(bool)), this, SLOT());
 //    connect(ui->actionImport,  SIGNAL(triggered(bool)), this, SLOT());
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
+
+    /// Edit Menu:
+    connect(ui->actionRotate_Clockwise, &QAction::triggered, this, &MainWindow::menuRotateClockwise_triggered);
+    connect(ui->actionRotate_Counterclockwise, &QAction::triggered, this, &MainWindow::menuRotateCounterClockwise_triggered);
+    connect(ui->actionFlip_Vertically, &QAction::triggered, this, &MainWindow::menuFlipV_triggered);
+    connect(ui->actionFlip_Horizontally, &QAction::triggered, this, &MainWindow::menuFlipH_triggered);
+    connect(ui->actionResize_Canvas, &QAction::triggered, this, &MainWindow::menuResizeCanvas_triggered);
+
     connect(ui->menuHelp, &QMenu::triggered, this, &MainWindow::menuHelp_triggered);
 
     /// Speed Slider
@@ -71,7 +79,7 @@ void MainWindow::menuOpen_triggered()
 
 void MainWindow::menuSave_triggered()
 {
-
+    qDebug() << "Save";
 }
 
 void MainWindow::menuSaveAs_triggered()
@@ -83,12 +91,37 @@ void MainWindow::menuSaveAs_triggered()
 
 void MainWindow::menuExportAs_triggered()
 {
+    qDebug() << "Export As...";
+}
 
+void MainWindow::menuRotateClockwise_triggered()
+{
+    qDebug() << "Rotate Clockwise";
+}
+
+void MainWindow::menuRotateCounterClockwise_triggered()
+{
+    qDebug() << "Rotate Counterclockwise";
+}
+
+void MainWindow::menuFlipV_triggered()
+{
+    qDebug() << "Flip Vertically";
+}
+
+void MainWindow::menuFlipH_triggered()
+{
+    qDebug() << "Flip Horizontally";
+}
+
+void MainWindow::menuResizeCanvas_triggered()
+{
+    qDebug() << "Resize Canvas";
 }
 
 void MainWindow::menuHelp_triggered()
 {
-
+    qDebug() << "Help!";
 }
 
 void MainWindow::colorWheel_colorChanged(QColor color)

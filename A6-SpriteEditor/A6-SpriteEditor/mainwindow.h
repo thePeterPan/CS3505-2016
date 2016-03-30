@@ -16,6 +16,7 @@
 // Other Qt Objects
 #include <QCloseEvent>
 #include <QString>
+#include <QDebug>
 // from Qt-Color-Widgets library
 #include <ColorDialog>
 #include <ColorWheel>
@@ -46,13 +47,24 @@ private:
     void initializeUIDefaults();
 
 private slots:
-    void playbackSpeed_hSlider_moved(int value);
+    // File Menu:
     void menuNewFile_triggered();
     void menuOpen_triggered();
     void menuSave_triggered();
     void menuSaveAs_triggered();
     void menuExportAs_triggered();
+
+    // Edit Menu:
+    void menuRotateClockwise_triggered();
+    void menuRotateCounterClockwise_triggered();
+    void menuFlipV_triggered();
+    void menuFlipH_triggered();
+    void menuResizeCanvas_triggered();
+
     void menuHelp_triggered();
+
+    void playbackSpeed_hSlider_moved(int value);
+
     void colorWheel_colorChanged(QColor color);
 
 protected:
