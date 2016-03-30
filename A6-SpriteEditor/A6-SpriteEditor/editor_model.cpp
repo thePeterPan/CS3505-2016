@@ -2,7 +2,7 @@
 
 editor_model::editor_model(QObject *parent) :
     QObject(parent), brush_color(QColor::fromRgb(255, 255, 255)), current_frame_index(0),
-    current_state(PAUSED), current_tool(BRUSH), playback_speed(1)
+    current_state(PAUSED), current_tool(BRUSH), playback_speed(1), file_path("")
 {
 
 }
@@ -59,4 +59,26 @@ editor_model::Tool editor_model::getTool()
 void editor_model::setPlaybackSpeed(int speed)
 {
     playback_speed = speed;
+}
+
+void editor_model::saveSpriteToFile(QString path)
+{
+    QFile file(path);
+    if (file.open(QIODevice::ReadWrite))
+    {
+        QTextStream stream(&file);
+        stream << sprite_main.toString();
+    }
+
+    file_path = path;
+}
+
+void editor_model::loadSpriteFromFile(QString path)
+{
+
+}
+
+QString editor_model::getFilePath()
+{
+    return file_path;
 }

@@ -5,7 +5,7 @@
 #include <QList>
 #include <QColor>
 #include <QVector>
-#include <sstream>
+#include <QString>
 
 using namespace std;
 
@@ -24,14 +24,14 @@ public:
     int getFrameHeight();
     void rotate(bool direction);
     void flip(bool vertical);
-    string toString();
+    QString toString();
     void invert();
 
 private:
     QVector<QVector<QColor>> frameMatrix;
     int width;
     int height;
-    string toRgbaString(QColor color);
+    QString toRgbaString(QColor color);
 
 signals:
 

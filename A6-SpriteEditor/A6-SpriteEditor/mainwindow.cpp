@@ -11,9 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connectSignalsAndSlots();
     initializeUIDefaults();
-
-
-    std::cout <<"hello world"<<std::endl;
 }
 
 MainWindow::~MainWindow()
@@ -28,15 +25,22 @@ MainWindow::~MainWindow()
  */
 void MainWindow::connectSignalsAndSlots()
 {
-    /// Menubar:
-//    connect(ui->actionNew_File, SIGNAL(triggered(bool)), this, SLOT());
-//    connect(ui->actionOpen, SIGNAL(triggered(bool)), this, SLOT());
-//    connect(ui->actionSave, SIGNAL(triggered(bool)), this, SLOT());
-//    connect(ui->actionSave_As, SIGNAL(triggered(bool)), this, SLOT());
-//    connect(ui->actionExport_As, SIGNAL(triggered(bool)), this, SLOT());
-//    connect(ui->actionImport,  SIGNAL(triggered(bool)), this, SLOT());
-
+    /// File Menu:
+    connect(ui->actionNew_File, &QAction::triggered, this, &MainWindow::menuNewFile_triggered);
+    connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::menuOpen_triggered);
+    connect(ui->actionSave, &QAction::triggered, this, &MainWindow::menuSave_triggered);
+    connect(ui->actionSave_As, &QAction::triggered, this, &MainWindow::menuSaveAs_triggered);
+    connect(ui->actionExport_As, &QAction::triggered, this, &MainWindow::menuExportAs_triggered);
+    connect(ui->actionImport,  &QAction::triggered, this, &MainWindow::menuImport_triggered);
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
+
+    /// Edit Menu:
+    connect(ui->actionRotate_Clockwise, &QAction::triggered, this, &MainWindow::menuRotateClockwise_triggered);
+    connect(ui->actionRotate_Counterclockwise, &QAction::triggered, this, &MainWindow::menuRotateCounterClockwise_triggered);
+    connect(ui->actionFlip_Vertically, &QAction::triggered, this, &MainWindow::menuFlipV_triggered);
+    connect(ui->actionFlip_Horizontally, &QAction::triggered, this, &MainWindow::menuFlipH_triggered);
+    connect(ui->actionResize_Canvas, &QAction::triggered, this, &MainWindow::menuResizeCanvas_triggered);
+
     connect(ui->menuHelp, &QMenu::triggered, this, &MainWindow::menuHelp_triggered);
 
     /// Speed Slider
@@ -70,6 +74,7 @@ void MainWindow::initializeUIDefaults()
     /// Alpha Slider
     ui->alphaSlider_widget->setMinimum(0);
     ui->alphaSlider_widget->setMaximum(255);
+    ui->alphaSlider_widget->setValue(255);
     ui->alphaSlider_widget->setFirstColor(QColor::fromRgba(qRgba(0,0,0,0)));
     ui->alphaSlider_widget->setLastColor(QColor::fromRgba(qRgba(0,0,0,255)));
 }
@@ -79,9 +84,104 @@ void MainWindow::playbackSpeed_hSlider_moved(int value)
     ui->playbackSpeedCurrent_label->setText(QString::number(value));
 }
 
+void MainWindow::menuNewFile_triggered()
+{
+    NewFileDialog dialog;
+    dialog.exec();
+}
+
+void MainWindow::menuOpen_triggered()
+{
+    QString selfilter = tr("Sprite (*.ssp)");
+    QString filename = QFileDialog::getOpenFileName(
+                this,
+                tr("Open Sprite File"),
+                QDir::homePath(),
+                tr("All files (*.*);;Sprite (*.ssp)"),
+                &selfilter);
+    qDebug() << filename;
+}
+
+void MainWindow::menuSave_triggered()
+{
+    if (model.getFilePath() == "")
+    {
+        menuSaveAs_triggered();
+        return;
+    }
+
+    model.saveSpriteToFile(model.getFilePath());
+
+    qDebug() << "Save";
+}
+
+void MainWindow::menuSaveAs_triggered()
+{
+    QString selfilter = tr("Sprite (*.ssp)");
+    QString filename = QFileDialog::getSaveFileName(
+                this,
+                tr("Save File As..."),
+                QDir::homePath(),
+                tr("All files (*.*);;Sprite (*.ssp)"),
+                &selfilter);
+    if (!filename.endsWith(".ssp", Qt::CaseInsensitive))
+    {
+        filename += ".ssp";
+    }
+
+    QFileInfo checkFile(filename);
+    if (checkFile.exists() && checkFile.isFile()) {
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, tr("File Exists."), tr("File already exists. Overwrite?"),
+                                      QMessageBox::Yes|QMessageBox::No);
+        if (reply == QMessageBox::No) {
+            return;
+        }
+    }
+
+    model.saveSpriteToFile(filename);
+
+    qDebug() << filename;
+}
+
+void MainWindow::menuExportAs_triggered()
+{
+    qDebug() << "Export As...";
+}
+
+void MainWindow::menuImport_triggered()
+{
+    qDebug() << "Import";
+}
+
+void MainWindow::menuRotateClockwise_triggered()
+{
+    qDebug() << "Rotate Clockwise";
+}
+
+void MainWindow::menuRotateCounterClockwise_triggered()
+{
+    qDebug() << "Rotate Counterclockwise";
+}
+
+void MainWindow::menuFlipV_triggered()
+{
+    qDebug() << "Flip Vertically";
+}
+
+void MainWindow::menuFlipH_triggered()
+{
+    qDebug() << "Flip Horizontally";
+}
+
+void MainWindow::menuResizeCanvas_triggered()
+{
+    qDebug() << "Resize Canvas";
+}
+
 void MainWindow::menuHelp_triggered()
 {
-
+    qDebug() << "Help!";
 }
 
 void MainWindow::colorWheel_colorChanged(QColor color)
@@ -115,14 +215,11 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::graphics()
 {
-    //scene = new GraphicsScene(ui->graphicsView);
     scene = new GraphicsScene(&model, ui->graphicsView,20,20,30);
     scene->setColor(ui->colorWheel_widget->color());
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
 }
-
-
 
 
 void MainWindow::brush_pushButton_clicked()
