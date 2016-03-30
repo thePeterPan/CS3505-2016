@@ -9,6 +9,7 @@
 #include <QImage>
 #include "frame.h"
 #include "editor_model.h"
+#include <QGraphicsItem>
 
 
 class GraphicsScene : public QGraphicsScene
@@ -16,6 +17,7 @@ class GraphicsScene : public QGraphicsScene
     QImage * image;
     QBrush * brush;
     Frame * frame;
+    QVector<QVector</*QGraphicsObject*/QGraphicsItem*>> pixels;
     editor_model* editor;
     int width, height, pixelSize;
 

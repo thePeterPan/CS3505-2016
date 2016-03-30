@@ -25,12 +25,22 @@ GraphicsScene::GraphicsScene(editor_model* editor, QObject *parent, int width, i
 
     //Image: does nothing but give a nice background so far.
     //We could make a nice backdrop that shows that nothing has been drawn on this section?
-    image = new QImage(width*pixelSize,height*pixelSize,QImage::Format_Alpha8);
-    image->fill(Qt::black);
+    image = new QImage(width*pixelSize,height*pixelSize,QImage::Format_ARGB32);
+    image->fill(Qt::white);
     this->addPixmap(QPixmap::fromImage(*image));
 
     //Initialize the brush to a value.
-    brush = new QBrush(Qt::black);
+    brush = new QBrush(QColor(0,0,0,0));
+
+    for(int i = 0; i < width; i++)
+    {
+        pixels.append(QVector<QGraphicsItem*/*QGraphicsObject*/>(height));
+        for(int j = 0; j < height; j++)
+        {
+            pixels[i][j] = this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(Qt::white),*brush);
+        }
+    }
+
 }
 
 /**
@@ -174,7 +184,13 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
     frame->setPixelColor(x,y,color);
 
 
-    this->addRect(pixelSize*x,pixelSize*y,pixelSize,pixelSize,QPen(),*brush);
+    this->removeItem(pixels[x][y]);
+
+
+    QGraphicsRectItem * item = this->addRect(pixelSize*x,pixelSize*y,pixelSize,pixelSize,QPen(),*brush);
+
+    pixels[x][y] = item;
+    //pixels[x][y] = item.toGraphicsObject();
 }
 
 void GraphicsScene::fillBucket(QColor color){

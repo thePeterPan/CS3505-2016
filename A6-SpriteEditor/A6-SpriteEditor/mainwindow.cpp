@@ -86,6 +86,7 @@ void MainWindow::colorWheel_colorChanged(QColor color)
 void MainWindow::alphaSlider_valueChanged(int value)
 {
     QColor color = ui->colorWheel_widget->value();
+    value = value * 255 / 100;
     color.setAlpha(value);
 
     scene->setColor(color);
