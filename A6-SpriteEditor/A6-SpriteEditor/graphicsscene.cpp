@@ -233,3 +233,7 @@ void GraphicsScene::flip(bool vertical) {
     frame->flip(vertical);
     this->paintEntireFrame();
 }
+void GraphicsScene::invert() {
+    frame->invert();
+    this->paintEntireFrame();
+}

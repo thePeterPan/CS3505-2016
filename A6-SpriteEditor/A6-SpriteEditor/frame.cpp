@@ -123,3 +123,15 @@ void Frame::flip(bool vertical)
     }
 
 }
+void Frame::invert()
+{
+    for(int x = 0; x < width; x++)
+        for(int y = 0; y < height; y++)
+        {
+            QColor invert = frameMatrix[x][y];
+            invert.setBlue(255-invert.blue());
+            invert.setRed(255-invert.red());
+            invert.setGreen(255-invert.green());
+            frameMatrix[x][y] = invert;
+        }
+}

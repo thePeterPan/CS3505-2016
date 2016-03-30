@@ -71,6 +71,8 @@ private slots:
 
     void on_flipH_pushButton_clicked();
 
+    void on_invertColors_pushButton_clicked();
+
 protected:
     virtual void closeEvent(QCloseEvent *event);
 
