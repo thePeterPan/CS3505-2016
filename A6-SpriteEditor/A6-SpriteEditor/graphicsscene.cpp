@@ -174,7 +174,7 @@ void GraphicsScene::paintCommand(int x, int y){
     if(editor->current_tool == editor->BRUSH){
         drawSquare(x,y,brush->color());
     }else if(editor->current_tool == editor->FILL_BUCKET){
-        fillBucket(brush->color());
+        fillBucket(x,y,brush->color());
     }else if(editor->current_tool == editor->MIRROR){
         drawMirror(x,y,brush->color());
     }else if(editor->current_tool == editor->ERASER){
@@ -198,14 +198,24 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
     pixels[x][y]->setBrush(QBrush(color));
 }
 
-void GraphicsScene::fillBucket(QColor color){
-//    std::cout << frame->toString() << std::endl;
-//    for(int i = 0; i < width; i++){
-//        for(int j = 0; j < height; j++){
-//            drawSquare(i,j,color);
-//        }
-//    }
-//    std::cout << frame->toString() << std::endl;
+void GraphicsScene::fillBucket(int x, int y, QColor color){
+    //qDebug() << frame->toString();
+    QColor prev = frame->getPixelColor(x,y);
+    drawSquare(x,y,color);
+    for(int i = 0; i < width; i++){
+        for(int j = 0; j < height; j++){
+            if(colorEquals(prev,frame->getPixelColor(i,j)))
+                drawSquare(i,j,color);
+        }
+    }
+    //qDebug() << frame->toString();
+}
+
+bool GraphicsScene::colorEquals(QColor color1, QColor color2){
+    return color1.red() == color2.red() &&
+            color1.blue() == color2.blue() &&
+            color1.green() == color2.green() &&
+            color1.alpha() == color2.alpha();
 }
 
 void GraphicsScene::drawMirror(int x, int y, QColor color){

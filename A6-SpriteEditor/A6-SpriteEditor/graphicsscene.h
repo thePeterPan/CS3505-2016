@@ -24,7 +24,7 @@ class GraphicsScene : public QGraphicsScene
 
     void paintCommand(int x, int y);
     void drawSquare(int x, int y, QColor color);
-    void fillBucket(QColor color);
+    void fillBucket(int x, int y, QColor color);
     void paintEntireFrame();
     void drawMirror(int x, int y, QColor color);
     void prepareBackground();
@@ -41,6 +41,9 @@ public:
     void rotate(bool direction);
     void flip(bool vertical);
     void invert();
+
+private:
+    bool colorEquals(QColor color1, QColor color2);
 
 signals:
 
