@@ -99,12 +99,7 @@ void MainWindow::colorWheel_colorChanged(QColor color)
 
 void MainWindow::alphaSlider_valueChanged(int value)
 {
-<<<<<<< HEAD
-    QColor color = ui->colorWheel_widget->value();
-    value = value * 255 / 100;
-=======
     QColor color = ui->colorWheel_widget->color();
->>>>>>> origin/neverland-dev
     color.setAlpha(value);
 
     scene->setColor(color);
