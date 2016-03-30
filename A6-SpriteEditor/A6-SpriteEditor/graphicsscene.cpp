@@ -4,6 +4,19 @@ GraphicsScene::GraphicsScene(QObject *parent) : QGraphicsScene(parent)
 {
 
     image = new QImage(500,500,QImage::Format_Alpha8);
+    frame = new Frame(this,10,10);
+    image->fill(Qt::white);
+    this->addPixmap(QPixmap::fromImage(*image));
+    brush = new QBrush(Qt::black);
+}
+
+GraphicsScene::GraphicsScene(QObject *parent, int width, int height, int pixelSize) : QGraphicsScene(parent), width(width), height(height), pixelSize(pixelSize)
+{
+    this->setSceneRect(0,0,width*pixelSize,height*pixelSize);
+
+
+    image = new QImage(width*pixelSize,height*pixelSize,QImage::Format_Alpha8);
+    frame = new Frame(this,width,height);
     image->fill(Qt::white);
     this->addPixmap(QPixmap::fromImage(*image));
     brush = new QBrush(Qt::black);
@@ -12,16 +25,21 @@ GraphicsScene::GraphicsScene(QObject *parent) : QGraphicsScene(parent)
 GraphicsScene::~GraphicsScene()
 {
     delete image;
+    delete brush;
 }
 
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
 
-    int x = mouseEvent->scenePos().x();
-    int y = mouseEvent->scenePos().y();
+    int x = mouseEvent->scenePos().x()/50;
+    int y = mouseEvent->scenePos().y()/50;
 
+    if(x < 0 | y < 0 | x >= this->width | y >= this->height)
+        return;
 
-    this->addRect(50*(x/50),50*(y/50),50,50,QPen(Qt::white),*brush);
+    frame->setPixelColor(x,y,brush->color());
+
+    this->addRect(50*x,50*y,50,50,QPen(),*brush);
 
     std::cout << "X " << x << std::endl;
     std::cout << "Y " << y << std::endl;
@@ -71,13 +89,15 @@ void GraphicsScene::setSceneRect(int x, int y, int width, int height)
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    int x = mouseEvent->scenePos().x();
-    int y = mouseEvent->scenePos().y();
+    int x = mouseEvent->scenePos().x()/50;
+    int y = mouseEvent->scenePos().y()/50;
 
-    std::cout << "X " << x << std::endl;
-    std::cout << "Y " << y << std::endl;
+    if(x < 0 | y < 0 | x >= this->width | y >= this->height)
+        return;
 
-    this->addRect(50*(x/50),50*(y/50),50,50,QPen(Qt::white),*brush);
+    frame->setPixelColor(x,y,brush->color());
+
+    this->addRect(50*x,50*y,50,50,QPen(),*brush);
 
     /*QRgb value = qRgb(180,20,90);
 

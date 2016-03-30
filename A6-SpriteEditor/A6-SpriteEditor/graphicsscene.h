@@ -7,15 +7,19 @@
 #include <QGraphicsSceneMouseEvent>
 #include <iostream>
 #include <QImage>
+#include "frame.h"
 
 
 class GraphicsScene : public QGraphicsScene
 {
     QImage * image;
     QBrush * brush;
+    Frame * frame;
+    int width, height, pixelSize;
     //Q_OBJECT
 public:
     GraphicsScene(QObject *parent = 0);
+    GraphicsScene(QObject *parent = 0, int width = 10, int height = 10, int pixelSize = 50);
     ~GraphicsScene();
 
     void setSceneRect(const QRectF &rect);
