@@ -123,3 +123,42 @@ void Frame::flip(bool vertical)
     }
 
 }
+
+string Frame::toString(){
+    string result;
+    result += "Frame\n";
+    for(int i = 0; i < width; i++){
+        for(int j = 0; j < height; j++){
+            QColor color = getPixelColor(i,j);
+            result += toRgbaString(color);
+            result += "\t";
+        }
+        result += "\n";
+    }
+    return result;
+}
+
+string Frame::toRgbaString(QColor color){
+    stringstream ss;
+    ss << color.red();
+    ss << ",";
+    ss << color.blue();
+    ss << ",";
+    ss << color.green();
+    ss << ",";
+    ss << color.alpha();
+    return ss.str();
+}
+
+void Frame::invert()
+{
+    for(int x = 0; x < width; x++)
+        for(int y = 0; y < height; y++)
+        {
+            QColor invert = frameMatrix[x][y];
+            invert.setBlue(255-invert.blue());
+            invert.setRed(255-invert.red());
+            invert.setGreen(255-invert.green());
+            frameMatrix[x][y] = invert;
+        }
+}

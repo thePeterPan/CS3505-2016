@@ -75,21 +75,3 @@ int sprite::getHeight()
 {
     return height;
 }
-
-/**
- * @brief sprite::getFileSavedStatus
- * @return
- */
-bool sprite::getFileSavedStatus()
-{
-    return file_saved;
-}
-
-/**
- * @brief sprite::setFileSavedStatus
- * @param status
- */
-void sprite::setFileSavedStatus(bool status)
-{
-    file_saved = status;
-}

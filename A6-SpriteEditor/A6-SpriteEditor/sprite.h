@@ -24,9 +24,11 @@ public:
     int getHeight();
     bool getFileSavedStatus();
     void setFileSavedStatus(bool status);
+    void save(QString path);
+    string toString();
 
 private:
-    QList<Frame> frames;
+    QList<Frame*> frames;
     int width;
     int height;
 

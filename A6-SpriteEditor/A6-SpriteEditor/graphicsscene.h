@@ -36,6 +36,7 @@ public:
     void setColor(QColor color);
     void rotate(bool direction);
     void flip(bool vertical);
+    void invert();
 
 signals:
 

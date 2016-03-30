@@ -73,7 +73,7 @@ private slots:
     void playbackSpeed_hSlider_moved(int value);
 
     void colorWheel_colorChanged(QColor color);
-
+    void alphaSlider_valueChanged(int value);
 
     void on_brush_pushButton_clicked();
 
@@ -90,6 +90,8 @@ private slots:
     void on_flipV_pushButton_clicked();
 
     void on_flipH_pushButton_clicked();
+
+    void on_invertColors_pushButton_clicked();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);

@@ -113,7 +113,7 @@
          </widget>
         </item>
         <item row="3" column="0" colspan="2">
-         <widget class="color_widgets::ColorPreview" name="colorPreview_widget" native="true">
+         <widget class="color_widgets::GradientSlider" name="alphaSlider_widget" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -123,7 +123,7 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>40</height>
+            <height>20</height>
            </size>
           </property>
          </widget>
@@ -491,7 +491,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>22</height>
+     <height>16</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSprite_Editor">
@@ -619,9 +619,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>color_widgets::ColorPreview</class>
+   <class>color_widgets::GradientSlider</class>
    <extends>QWidget</extends>
-   <header>color_preview.hpp</header>
+   <header>gradient_slider.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
