@@ -21,7 +21,7 @@ public:
     void removeFrameAt(int index);
     int getWidth();
     int getHeight();
-    void save(QString path);
+    void save(string path);
     string toString();
 
 private:
