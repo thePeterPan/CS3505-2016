@@ -224,3 +224,12 @@ void GraphicsScene::setColor(QColor color)
 {
     this->brush->setColor(color);
 }
+
+void GraphicsScene::rotate(bool direction) {
+    frame->rotate(direction);
+    this->paintEntireFrame();
+}
+void GraphicsScene::flip(bool vertical) {
+    frame->flip(vertical);
+    this->paintEntireFrame();
+}

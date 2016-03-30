@@ -20,6 +20,7 @@ public:
     int getFrameWidth();
     int getFrameHeight();
     void rotate(bool direction);
+    void flip(bool vertical);
 
 private:
     QVector<QVector<QColor>> frameMatrix;

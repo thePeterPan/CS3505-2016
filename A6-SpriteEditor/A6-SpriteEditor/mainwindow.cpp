@@ -110,7 +110,7 @@ void MainWindow::on_eraser_pushButton_clicked()
 
 void MainWindow::on_rotate_pushButton_clicked()
 {
-    //Rotate
+    scene->rotate(true);
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -121,4 +121,14 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_symmetricalTool_pushButton_clicked()
 {
     model.setTool(model.MIRROR);
+}
+
+void MainWindow::on_flipV_pushButton_clicked()
+{
+    scene->flip(true);
+}
+
+void MainWindow::on_flipH_pushButton_clicked()
+{
+    scene->flip(false);
 }

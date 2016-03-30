@@ -34,6 +34,8 @@ public:
     void setSceneRect(const QRectF &rect);
     void setSceneRect(int x, int y, int width, int height);
     void setColor(QColor color);
+    void rotate(bool direction);
+    void flip(bool vertical);
 
 signals:
 
