@@ -24,7 +24,7 @@ public:
     int getHeight();
     bool getFileSavedStatus();
     void setFileSavedStatus(bool status);
-    void save(QString path);
+    void save(string path);
     string toString();
 
 private:

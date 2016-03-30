@@ -50,6 +50,18 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->colorWheel_widget, &color_widgets::ColorWheel::colorChanged, this, &MainWindow::colorWheel_colorChanged);
     /// Alpha Slider
     connect(ui->alphaSlider_widget, &color_widgets::GradientSlider::valueChanged, this, &MainWindow::alphaSlider_valueChanged);
+
+    /// Tool Buttons:
+    connect(ui->brush_pushButton, &QToolButton::clicked, this, &MainWindow::brush_pushButton_clicked);
+    connect(ui->fillBucket_pushButton, &QToolButton::clicked, this, &MainWindow::fillBucket_pushButton_clicked);
+    connect(ui->eraser_pushButton, &QToolButton::clicked, this, &MainWindow::eraser_pushButton_clicked);
+    connect(ui->rotate_pushButton, &QToolButton::clicked, this, &MainWindow::rotate_pushButton_clicked);
+    connect(ui->pushButton, &QToolButton::clicked, this, &MainWindow::pushButton_clicked);
+    connect(ui->symmetricalTool_pushButton, &QToolButton::clicked, this, &MainWindow::symmetricalTool_pushButton_clicked);
+    connect(ui->flipV_pushButton, &QToolButton::clicked, this, &MainWindow::flipV_pushButton_clicked);
+    connect(ui->flipH_pushButton, &QToolButton::clicked, this, &MainWindow::flipH_pushButton_clicked);
+    connect(ui->invertColors_pushButton, &QToolButton::clicked, this, &MainWindow::invertColors_pushButton_clicked);
+
 }
 
 void MainWindow::initializeUIDefaults()
@@ -60,6 +72,8 @@ void MainWindow::initializeUIDefaults()
     ui->playbackSpeedCurrent_label->setText(QString::number(ui->playbackSpeed_horizontalSlider->value()));
 
     /// Alpha Slider
+    ui->alphaSlider_widget->setMinimum(0);
+    ui->alphaSlider_widget->setMaximum(255);
     ui->alphaSlider_widget->setFirstColor(QColor::fromRgba(qRgba(0,0,0,0)));
     ui->alphaSlider_widget->setLastColor(QColor::fromRgba(qRgba(0,0,0,255)));
 }
@@ -163,7 +177,7 @@ void MainWindow::colorWheel_colorChanged(QColor color)
 
 void MainWindow::alphaSlider_valueChanged(int value)
 {
-    QColor color = ui->colorWheel_widget->value();
+    QColor color = ui->colorWheel_widget->color();
     color.setAlpha(value);
 
     scene->setColor(color);
@@ -189,47 +203,47 @@ void MainWindow::graphics()
 
 
 
-void MainWindow::on_brush_pushButton_clicked()
+void MainWindow::brush_pushButton_clicked()
 {
     model.setTool(model.BRUSH);
 }
 
-void MainWindow::on_fillBucket_pushButton_clicked()
+void MainWindow::fillBucket_pushButton_clicked()
 {
     model.setTool(model.FILL_BUCKET);
 }
 
-void MainWindow::on_eraser_pushButton_clicked()
+void MainWindow::eraser_pushButton_clicked()
 {
     model.setTool(model.ERASER);
 }
 
-void MainWindow::on_rotate_pushButton_clicked()
+void MainWindow::rotate_pushButton_clicked()
 {
     scene->rotate(true);
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::pushButton_clicked()
 {
     model.setTool(model.PAN);
 }
 
-void MainWindow::on_symmetricalTool_pushButton_clicked()
+void MainWindow::symmetricalTool_pushButton_clicked()
 {
     model.setTool(model.MIRROR);
 }
 
-void MainWindow::on_flipV_pushButton_clicked()
+void MainWindow::flipV_pushButton_clicked()
 {
     scene->flip(true);
 }
 
-void MainWindow::on_flipH_pushButton_clicked()
+void MainWindow::flipH_pushButton_clicked()
 {
     scene->flip(false);
 }
 
-void MainWindow::on_invertColors_pushButton_clicked()
+void MainWindow::invertColors_pushButton_clicked()
 {
     scene->invert();
 }
