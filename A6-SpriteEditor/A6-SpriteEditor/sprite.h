@@ -21,7 +21,7 @@ public:
     int getHeight();
 
 private:
-    QList<frame> frames;
+    QList<Frame> frames;
     int width;
     int height;
 

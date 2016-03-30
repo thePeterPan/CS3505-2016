@@ -12,19 +12,27 @@ TARGET = A6-SpriteEditor
 TEMPLATE = app
 
 DEFINES += QTCOLORWIDGETS_STATICALLY_LINKED
+<<<<<<< HEAD
+=======
 
+>>>>>>> refs/remotes/origin/neverland-dev
 
 SOURCES += main.cpp\
         mainwindow.cpp \
     editor_model.cpp \
     sprite.cpp \
-    frame.cpp
+    frame.cpp \
+    graphicsscene.cpp
 
 HEADERS  += mainwindow.h \
     editor_model.h \
     sprite.h \
     frame.h \
+<<<<<<< HEAD
+    graphicsscene.h
+=======
     widget.h
+>>>>>>> refs/remotes/origin/neverland-dev
 
 FORMS    += mainwindow.ui
 

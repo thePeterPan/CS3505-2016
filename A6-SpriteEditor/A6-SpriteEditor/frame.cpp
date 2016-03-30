@@ -3,10 +3,10 @@
 /**
  * Constructor
  *
- * @brief frame::frame
+ * @brief Frame::Frame
  * @param parent
  */
-frame::frame(QObject *parent) :
+Frame::Frame(QObject *parent) :
     QObject(parent)
 {
 
@@ -15,62 +15,98 @@ frame::frame(QObject *parent) :
 /**
  * Constructor
  *
- * @brief frame::frame
+ * @brief Frame::Frame
  * @param parent
  * @param width_
  * @param height_
  */
-frame::frame(QObject *parent, int width_, int height_) :
+Frame::Frame(QObject *parent, int width_, int height_) :
     QObject(parent), width(width_), height(height_)
+{
+    for(int i = 0; i < width; i++)
+    {
+        frameMatrix.append(QVector<QColor>(height));
+    }
+}
+
+Frame::~Frame()
 {
 
 }
 
 /**
- * @brief frame::setPixelColor
+ * @brief Frame::setPixelColor
  * @param x
  * @param y
  * @param color
  */
-void frame::setPixelColor(int x, int y, QColor color)
+void Frame::setPixelColor(int x, int y, QColor color)
 {
     frameMatrix[x][y] = color;
 }
 
 /**
- * @brief frame::setWholeFrameColor
+ * @brief Frame::setWholeFrameColor
  * @param color
  */
-void frame::setWholeFrameColor(QColor color)
+void Frame::setWholeFrameColor(QColor color)
 {
-
+    for(int i = 0; i < width; i++)
+        for(int j=0; j < height; j++)
+            frameMatrix[i][j] = color;
 }
 
 /**
- * @brief frame::getPixelColor
+ * @brief Frame::getPixelColor
  * @param x
  * @param y
  * @return
  */
-QColor frame::getPixelColor(int x, int y)
+QColor Frame::getPixelColor(int x, int y)
 {
-    return frameMatrix[0][0];
+    return frameMatrix[x][y];
 }
 
 /**
- * @brief frame::getFrameWidth
+ * @brief Frame::getFrameWidth
  * @return
  */
-int frame::getFrameWidth()
+int Frame::getFrameWidth()
 {
     return width;
 }
 
 /**
- * @brief frame::getFrameHeight
+ * @brief Frame::getFrameHeight
  * @return
  */
-int frame::getFrameHeight()
+int Frame::getFrameHeight()
 {
     return height;
+}
+
+/**
+ * @brief Frame::rotate
+ * Rotates the vector of colors in the frame
+ * @param direction
+ * True: rotates clockwise
+ * False: rotates counterclockwise
+ */
+void Frame::rotate(bool direction)
+{
+    //Should rotate to the right.
+    //Needs more work.
+    //There's probably a function that does this already.
+    //Oh well. I like a good challenge.
+    if(direction)
+    {
+        if(width == height)
+        {
+            QVector<QVector<QColor>> temp(frameMatrix);
+            for(int i = 0; i < width; i++)
+                for(int j = 0; j < height; j++)
+                    frameMatrix[i][j] = temp[width-1 - i][height -1 - j];
+        }
+    }
+
 }
