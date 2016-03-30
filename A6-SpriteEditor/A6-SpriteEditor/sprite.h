@@ -9,16 +9,15 @@
 
 #include "frame.h"
 
-class sprite : public QObject
+class Sprite : public QObject
 {
     Q_OBJECT
 public:
-    explicit sprite(QObject *parent = 0);
-    explicit sprite(int width_, int height_, QString title, QObject * parent = 0);
-
+    explicit Sprite(QObject *parent = 0);
+    explicit Sprite(int width_, int height_, QString title, QObject * parent = 0);
     int getAnimationLength();
-//    frame getFrame(int index);
-//    frame addFrame();
+    Frame* getFrame(int index);
+    void addFrame(Frame* frame);
     void removeFrameAt(int index);
     int getWidth();
     int getHeight();

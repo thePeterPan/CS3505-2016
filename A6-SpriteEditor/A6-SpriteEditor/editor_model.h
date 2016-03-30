@@ -66,7 +66,7 @@ private:
     QString file_path;
 
     // Sprite object
-    sprite sprite_main;
+    Sprite sprite_main;
 
 signals:
 

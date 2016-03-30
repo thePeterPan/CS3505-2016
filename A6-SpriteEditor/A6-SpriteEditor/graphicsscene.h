@@ -8,6 +8,7 @@
 #include <iostream>
 #include <QImage>
 #include "frame.h"
+#include "sprite.h"
 #include "editor_model.h"
 #include <QGraphicsItem>
 #include <QPainter>
@@ -17,7 +18,8 @@ class GraphicsScene : public QGraphicsScene
 {
     QImage * image;
     QBrush * brush;
-    Frame * frame;
+    Sprite * sprite;
+    Frame * currentFrame;
     QVector<QVector</*QGraphicsObject*/QGraphicsRectItem*>> pixels;
     editor_model* editor;
     int width, height, pixelSize;

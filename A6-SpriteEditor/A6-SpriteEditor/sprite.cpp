@@ -6,13 +6,13 @@
  * @brief sprite::sprite
  * @param parent
  */
-sprite::sprite(QObject *parent) :
+Sprite::Sprite(QObject *parent) :
     QObject(parent), width(0), height(0), file_saved(false), sprite_title("New Sprite")
 {
 
 }
 
-sprite::sprite(int width_, int height_, QString title_, QObject *parent) :
+Sprite::Sprite(int width_, int height_, QString title_, QObject *parent) :
     QObject(parent), width(width_), height(height_), file_saved(false),
     sprite_title(title_)
 {
@@ -25,35 +25,35 @@ sprite::sprite(int width_, int height_, QString title_, QObject *parent) :
  * @brief sprite::getAnimationLength
  * @return
  */
-int sprite::getAnimationLength()
+int Sprite::getAnimationLength()
 {
     return frames.length();
 }
 
-///**
-// * @brief sprite::getFrame
-// * @param index
-// * @return
-// */
-//frame sprite::getFrame(int index)
-//{
+/**
+ * @brief sprite::getFrame
+ * @param index
+ * @return
+ */
+Frame* Sprite::getFrame(int index)
+{
+    return frames[index];
+}
 
-//}
-
-///**
-// * @brief sprite::addFrame
-// * @return
-// */
-//frame sprite::addFrame()
-//{
-
-//}
+/**
+ * @brief sprite::addFrame
+ * @return
+ */
+void Sprite::addFrame(Frame* f)
+{
+    frames.push_back(f);
+}
 
 /**
  * @brief sprite::removeFrame
  * @param index
  */
-void sprite::removeFrameAt(int index)
+void Sprite::removeFrameAt(int index)
 {
 //    frames.removeAt(index);
 }
@@ -62,7 +62,7 @@ void sprite::removeFrameAt(int index)
  * @brief sprite::getWidth
  * @return
  */
-int sprite::getWidth()
+int Sprite::getWidth()
 {
     return width;
 }
@@ -71,12 +71,12 @@ int sprite::getWidth()
  * @brief sprite::getHeight
  * @return
  */
-int sprite::getHeight()
+int Sprite::getHeight()
 {
     return height;
 }
 
-QString sprite::toString(){
+QString Sprite::toString(){
     QString result;
 
     result += "Sprite:";

@@ -18,13 +18,16 @@
 GraphicsScene::GraphicsScene(editor_model* editor, QObject *parent, int width, int height, int pixelSize) :
     QGraphicsScene(parent), width(width), height(height), pixelSize(pixelSize), editor(editor)
 {
+
     this->setSceneRect(0,0,width*pixelSize,height*pixelSize);
 
     this->prepareBackground();
 
-    //Frame: the object that the colors are stored in inside of a matrix.
-    frame = new Frame(this,width,height);
+    sprite = new Sprite(width,height,"Title");
 
+    //Frame: the object that the colors are stored in inside of a matrix.
+    currentFrame = new Frame(this,width,height);
+    sprite->addFrame(currentFrame);
     //Initialize the brush to a value.
     brush = new QBrush(QColor(0,0,0,0));
 
@@ -72,7 +75,7 @@ GraphicsScene::~GraphicsScene()
 {
     delete image;
     delete brush;
-    delete frame;
+    delete currentFrame;
 }
 
 /**
@@ -193,18 +196,18 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
     if(x < 0 | y < 0 | x >= this->width | y >= this->height)
         return;
 
-    frame->setPixelColor(x,y,color);
+    currentFrame->setPixelColor(x,y,color);
 
     pixels[x][y]->setBrush(QBrush(color));
 }
 
 void GraphicsScene::fillBucket(int x, int y, QColor color){
     //qDebug() << frame->toString();
-    QColor prev = frame->getPixelColor(x,y);
+    QColor prev = currentFrame->getPixelColor(x,y);
     drawSquare(x,y,color);
     for(int i = 0; i < width; i++){
         for(int j = 0; j < height; j++){
-            if(colorEquals(prev,frame->getPixelColor(i,j)))
+            if(colorEquals(prev,currentFrame->getPixelColor(i,j)))
                 drawSquare(i,j,color);
         }
     }
@@ -233,9 +236,9 @@ void GraphicsScene::erase(int x, int y){
  */
 void GraphicsScene::paintEntireFrame()
 {
-    for(int i = 0; i < frame->getFrameWidth(); i++)
-        for(int j = 0; j < frame->getFrameHeight(); j++)
-            pixels[i][j]->setBrush(frame->getPixelColor(i,j));
+    for(int i = 0; i < currentFrame->getFrameWidth(); i++)
+        for(int j = 0; j < currentFrame->getFrameHeight(); j++)
+            pixels[i][j]->setBrush(currentFrame->getPixelColor(i,j));
 }
 
 
@@ -263,14 +266,14 @@ void GraphicsScene::setColor(QColor color)
 }
 
 void GraphicsScene::rotate(bool direction) {
-    frame->rotate(direction);
+    currentFrame->rotate(direction);
     this->paintEntireFrame();
 }
 void GraphicsScene::flip(bool vertical) {
-    frame->flip(vertical);
+    currentFrame->flip(vertical);
     this->paintEntireFrame();
 }
 void GraphicsScene::invert() {
-    frame->invert();
+    currentFrame->invert();
     this->paintEntireFrame();
 }
