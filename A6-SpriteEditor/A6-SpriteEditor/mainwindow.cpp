@@ -70,6 +70,7 @@ void MainWindow::menuHelp_triggered()
 void MainWindow::colorWheel_colorChanged(QColor color)
 {
     ui->colorPreview_widget->setColor(color);
+    scene->setColor(color);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -84,6 +85,7 @@ void MainWindow::graphics()
 {
     scene = new GraphicsScene(ui->graphicsView);
     scene->setSceneRect(0,0,500,500);
+    //scene->setColor(ui->colorWheel_widget->color());
     //scene->addRect(0,0,400,400,QPen(Qt::white),QBrush(Qt::gray));
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();

@@ -12,6 +12,7 @@
 class GraphicsScene : public QGraphicsScene
 {
     QImage * image;
+    QBrush * brush;
     //Q_OBJECT
 public:
     GraphicsScene(QObject *parent = 0);
@@ -19,6 +20,7 @@ public:
 
     void setSceneRect(const QRectF &rect);
     void setSceneRect(int x, int y, int width, int height);
+    void setColor(QColor color);
 
 signals:
 
