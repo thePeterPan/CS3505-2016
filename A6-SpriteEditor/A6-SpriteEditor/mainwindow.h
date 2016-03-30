@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-// Graphics objects
+// Qt Graphics objects
 #include <QPushButton>
 #include <QToolButton>
 #include <QGridLayout>

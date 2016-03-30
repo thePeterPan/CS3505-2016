@@ -7,13 +7,14 @@
  * @param parent
  */
 sprite::sprite(QObject *parent) :
-    QObject(parent), width(0), height(0)
+    QObject(parent), width(0), height(0), file_saved(false), sprite_title("New Sprite")
 {
 
 }
 
-sprite::sprite(int width_, int height_, QObject *parent) :
-    QObject(parent), width(width_), height(height_)
+sprite::sprite(int width_, int height_, QString title_, QObject *parent) :
+    QObject(parent), width(width_), height(height_), file_saved(false),
+    sprite_title(title_)
 {
 
 }
@@ -73,4 +74,22 @@ int sprite::getWidth()
 int sprite::getHeight()
 {
     return height;
+}
+
+/**
+ * @brief sprite::getFileSavedStatus
+ * @return
+ */
+bool sprite::getFileSavedStatus()
+{
+    return file_saved;
+}
+
+/**
+ * @brief sprite::setFileSavedStatus
+ * @param status
+ */
+void sprite::setFileSavedStatus(bool status)
+{
+    file_saved = status;
 }

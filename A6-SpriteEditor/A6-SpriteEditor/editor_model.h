@@ -1,9 +1,10 @@
 #ifndef EDITOR_MODEL_H
 #define EDITOR_MODEL_H
 
+// Qt Graphics Objects
 #include <QObject>
 #include <QWidget>
-
+// Other Qt Objects
 #include <QColor>
 
 #include "sprite.h"
