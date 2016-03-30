@@ -33,6 +33,9 @@ public:
         MIRROR
     };
 
+    Tool current_tool;
+
+
     void setBrushColor(QColor color);
     void nextFrame();
     void prevFrame();
@@ -50,7 +53,6 @@ private:
     QColor brush_color;
     int current_frame_index;
     AnimatorState current_state;
-    Tool current_tool;
     int playback_speed;
 
     // Sprite object

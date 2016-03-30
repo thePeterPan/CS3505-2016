@@ -57,6 +57,14 @@ private slots:
 
     void on_brush_pushButton_clicked();
 
+    void on_fillBucket_pushButton_clicked();
+
+    void on_eraser_pushButton_clicked();
+
+    void on_rotate_pushButton_clicked();
+
+    void on_pushButton_clicked();
+
 protected:
     virtual void closeEvent(QCloseEvent *event);
 

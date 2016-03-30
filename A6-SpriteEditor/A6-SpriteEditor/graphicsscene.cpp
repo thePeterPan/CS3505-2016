@@ -1,4 +1,5 @@
 #include "graphicsscene.h"
+#include "editor_model.h"
 
 /**
  * @brief GraphicsScene::GraphicsScene
@@ -14,8 +15,8 @@
  * @param height
  * @param pixelSize
  */
-GraphicsScene::GraphicsScene(QObject *parent, int width, int height, int pixelSize) :
-    QGraphicsScene(parent), width(width), height(height), pixelSize(pixelSize)
+GraphicsScene::GraphicsScene(editor_model* editor, QObject *parent, int width, int height, int pixelSize) :
+    QGraphicsScene(parent), width(width), height(height), pixelSize(pixelSize), editor(editor)
 {
     this->setSceneRect(0,0,width*pixelSize,height*pixelSize);
 
@@ -122,7 +123,20 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
 
-    drawSquare(x,y);
+    if(editor->current_tool == editor->BRUSH){
+        drawSquare(x,y,brush->color());
+    }else if(editor->current_tool == editor->FILL_BUCKET){
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
+
+            }
+        }
+    }else if(editor->current_tool == editor->MIRROR){
+
+    }else if(editor->current_tool == editor->ERASER){
+
+    }
+
 
     /*QRgb value = qRgb(180,20,90);
 
@@ -141,7 +155,7 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
 
-    drawSquare(x,y);
+    drawSquare(x,y,brush->color());
 }
 
 /**
@@ -150,12 +164,12 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
  * @param x
  * @param y
  */
-void GraphicsScene::drawSquare(int x, int y)
+void GraphicsScene::drawSquare(int x, int y, QColor color)
 {
     if(x < 0 | y < 0 | x >= this->width | y >= this->height)
         return;
 
-    frame->setPixelColor(x,y,brush->color());
+    frame->setPixelColor(x,y,color);
 
 
     this->addRect(pixelSize*x,pixelSize*y,pixelSize,pixelSize,QPen(),*brush);
