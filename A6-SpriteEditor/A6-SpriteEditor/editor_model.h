@@ -6,6 +6,10 @@
 #include <QWidget>
 // Other Qt Objects
 #include <QColor>
+#include <QString>
+#include <QFile>
+#include <QTextStream>
+#include <QDebug>
 
 #include "sprite.h"
 
@@ -49,12 +53,17 @@ public:
 
     void setPlaybackSpeed(int speed);
 
+    void saveSpriteToFile(QString path);
+    void loadSpriteFromFile(QString path);
+    QString getFilePath();
+
 private:
     // State variables:
     QColor brush_color;
     int current_frame_index;
     AnimatorState current_state;
     int playback_speed;
+    QString file_path;
 
     // Sprite object
     sprite sprite_main;

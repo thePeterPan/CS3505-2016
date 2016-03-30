@@ -76,13 +76,13 @@ int sprite::getHeight()
     return height;
 }
 
-string sprite::toString(){
-    string result;
+QString sprite::toString(){
+    QString result;
 
     result += "Sprite:";
-    result += width;
+    result += QString::number(width);
     result += ",";
-    result += height;
+    result += QString::number(height);
     result += "\n";// + "," + height + "\n";
 
     foreach(Frame* f, frames){
@@ -90,9 +90,4 @@ string sprite::toString(){
     }
 
     return result;
-}
-
-void sprite::save(string path)
-{
-
 }

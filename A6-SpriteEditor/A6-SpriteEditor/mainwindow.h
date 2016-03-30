@@ -13,10 +13,12 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QFileDialog>
+#include <QMessageBox>
 // Other Qt Objects
 #include <QCloseEvent>
 #include <QString>
 #include <QDebug>
+#include <QFileInfo>
 // from Qt-Color-Widgets library
 #include <ColorDialog>
 #include <ColorWheel>

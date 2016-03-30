@@ -74,6 +74,7 @@ void MainWindow::initializeUIDefaults()
     /// Alpha Slider
     ui->alphaSlider_widget->setMinimum(0);
     ui->alphaSlider_widget->setMaximum(255);
+    ui->alphaSlider_widget->setValue(255);
     ui->alphaSlider_widget->setFirstColor(QColor::fromRgba(qRgba(0,0,0,0)));
     ui->alphaSlider_widget->setLastColor(QColor::fromRgba(qRgba(0,0,0,255)));
 }
@@ -103,14 +104,19 @@ void MainWindow::menuOpen_triggered()
 
 void MainWindow::menuSave_triggered()
 {
+    if (model.getFilePath() == "")
+    {
+        menuSaveAs_triggered();
+        return;
+    }
+
+    model.saveSpriteToFile(model.getFilePath());
+
     qDebug() << "Save";
 }
 
 void MainWindow::menuSaveAs_triggered()
 {
-//    QFileDialog dialog;
-//    dialog.setAcceptMode(QFileDialog::AcceptSave);
-//    dialog.exec();
     QString selfilter = tr("Sprite (*.ssp)");
     QString filename = QFileDialog::getSaveFileName(
                 this,
@@ -118,7 +124,23 @@ void MainWindow::menuSaveAs_triggered()
                 QDir::homePath(),
                 tr("All files (*.*);;Sprite (*.ssp)"),
                 &selfilter);
-    filename += ".ssp";
+    if (!filename.endsWith(".ssp", Qt::CaseInsensitive))
+    {
+        filename += ".ssp";
+    }
+
+    QFileInfo checkFile(filename);
+    if (checkFile.exists() && checkFile.isFile()) {
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, tr("File Exists."), tr("File already exists. Overwrite?"),
+                                      QMessageBox::Yes|QMessageBox::No);
+        if (reply == QMessageBox::No) {
+            return;
+        }
+    }
+
+    model.saveSpriteToFile(filename);
+
     qDebug() << filename;
 }
 
@@ -193,14 +215,11 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::graphics()
 {
-    //scene = new GraphicsScene(ui->graphicsView);
     scene = new GraphicsScene(&model, ui->graphicsView,20,20,30);
     scene->setColor(ui->colorWheel_widget->color());
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
 }
-
-
 
 
 void MainWindow::brush_pushButton_clicked()
