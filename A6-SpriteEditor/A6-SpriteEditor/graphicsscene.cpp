@@ -1,4 +1,5 @@
 #include "graphicsscene.h"
+#include "editor_model.h"
 
 /**
  * @brief GraphicsScene::GraphicsScene
@@ -14,8 +15,8 @@
  * @param height
  * @param pixelSize
  */
-GraphicsScene::GraphicsScene(QObject *parent, int width, int height, int pixelSize) :
-    QGraphicsScene(parent), width(width), height(height), pixelSize(pixelSize)
+GraphicsScene::GraphicsScene(editor_model* editor, QObject *parent, int width, int height, int pixelSize) :
+    QGraphicsScene(parent), width(width), height(height), pixelSize(pixelSize), editor(editor)
 {
     this->setSceneRect(0,0,width*pixelSize,height*pixelSize);
 
@@ -122,7 +123,10 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
 
-    drawSquare(x,y);
+    paintCommand(x,y);
+
+
+
 
     /*QRgb value = qRgb(180,20,90);
 
@@ -141,7 +145,19 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
 
-    drawSquare(x,y);
+    paintCommand(x,y);
+}
+
+void GraphicsScene::paintCommand(int x, int y){
+    if(editor->current_tool == editor->BRUSH){
+        drawSquare(x,y,brush->color());
+    }else if(editor->current_tool == editor->FILL_BUCKET){
+        fillBucket(brush->color());
+    }else if(editor->current_tool == editor->MIRROR){
+        drawMirror(x,y,brush->color());
+    }else if(editor->current_tool == editor->ERASER){
+
+    }
 }
 
 /**
@@ -150,15 +166,30 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
  * @param x
  * @param y
  */
-void GraphicsScene::drawSquare(int x, int y)
+void GraphicsScene::drawSquare(int x, int y, QColor color)
 {
     if(x < 0 | y < 0 | x >= this->width | y >= this->height)
         return;
 
-    frame->setPixelColor(x,y,brush->color());
+    frame->setPixelColor(x,y,color);
 
 
     this->addRect(pixelSize*x,pixelSize*y,pixelSize,pixelSize,QPen(),*brush);
+}
+
+void GraphicsScene::fillBucket(QColor color){
+    std::cout << frame->toString() << std::endl;
+    for(int i = 0; i < width; i++){
+        for(int j = 0; j < height; j++){
+            drawSquare(i,j,color);
+        }
+    }
+    std::cout << frame->toString() << std::endl;
+}
+
+void GraphicsScene::drawMirror(int x, int y, QColor color){
+    drawSquare(x,y,color);
+    drawSquare(width - 1 - x, y,color);
 }
 
 /**
@@ -194,4 +225,17 @@ void GraphicsScene::update(const QRectF &rect)
 void GraphicsScene::setColor(QColor color)
 {
     this->brush->setColor(color);
+}
+
+void GraphicsScene::rotate(bool direction) {
+    frame->rotate(direction);
+    this->paintEntireFrame();
+}
+void GraphicsScene::flip(bool vertical) {
+    frame->flip(vertical);
+    this->paintEntireFrame();
+}
+void GraphicsScene::invert() {
+    frame->invert();
+    this->paintEntireFrame();
 }

@@ -5,6 +5,9 @@
 #include <QList>
 #include <QColor>
 #include <QVector>
+#include <sstream>
+
+using namespace std;
 
 class Frame : public QObject
 {
@@ -20,11 +23,15 @@ public:
     int getFrameWidth();
     int getFrameHeight();
     void rotate(bool direction);
+    void flip(bool vertical);
+    string toString();
+    void invert();
 
 private:
     QVector<QVector<QColor>> frameMatrix;
     int width;
     int height;
+    string toRgbaString(QColor color);
 
 signals:
 

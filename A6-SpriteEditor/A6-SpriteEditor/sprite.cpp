@@ -74,3 +74,24 @@ int sprite::getHeight()
 {
     return height;
 }
+
+string sprite::toString(){
+    string result;
+
+    result += "Sprite:";
+    result += width;
+    result += ",";
+    result += height;
+    result += "\n";// + "," + height + "\n";
+
+    foreach(Frame* f, frames){
+        result += f->toString();
+    }
+
+    return result;
+}
+
+void sprite::save(string path)
+{
+
+}

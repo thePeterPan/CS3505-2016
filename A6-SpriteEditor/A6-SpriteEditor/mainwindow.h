@@ -53,7 +53,18 @@ private slots:
     void playbackSpeed_hSlider_moved(int value);
     void menuHelp_triggered();
     void colorWheel_colorChanged(QColor color);
+    void alphaSlider_valueChanged(int value);
 
+    // Tool buttons:
+    void brush_pushButton_clicked();
+    void fillBucket_pushButton_clicked();
+    void eraser_pushButton_clicked();
+    void rotate_pushButton_clicked();
+    void pushButton_clicked();
+    void symmetricalTool_pushButton_clicked();
+    void flipV_pushButton_clicked();
+    void flipH_pushButton_clicked();
+    void invertColors_pushButton_clicked();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);

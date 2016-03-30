@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QList>
+#include <QString>
+
 
 #include "frame.h"
 
@@ -19,9 +21,11 @@ public:
     void removeFrameAt(int index);
     int getWidth();
     int getHeight();
+    void save(string path);
+    string toString();
 
 private:
-    QList<Frame> frames;
+    QList<Frame*> frames;
     int width;
     int height;
 
