@@ -19,15 +19,18 @@ SOURCES += main.cpp\
     editor_model.cpp \
     sprite.cpp \
     frame.cpp \
-    graphicsscene.cpp
+    graphicsscene.cpp \
+    newfiledialog.cpp
 
 HEADERS  += mainwindow.h \
     editor_model.h \
     sprite.h \
-    frame.h \    graphicsscene.h
+    frame.h \
+    graphicsscene.h \
+    newfiledialog.h
 
-
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    newfiledialog.ui
 
 RESOURCES += \
     resources.qrc

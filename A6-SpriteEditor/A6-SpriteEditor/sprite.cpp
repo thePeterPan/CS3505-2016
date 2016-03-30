@@ -7,13 +7,14 @@
  * @param parent
  */
 sprite::sprite(QObject *parent) :
-    QObject(parent), width(0), height(0)
+    QObject(parent), width(0), height(0), file_saved(false), sprite_title("New Sprite")
 {
 
 }
 
-sprite::sprite(int width_, int height_, QObject *parent) :
-    QObject(parent), width(width_), height(height_)
+sprite::sprite(int width_, int height_, QString title_, QObject *parent) :
+    QObject(parent), width(width_), height(height_), file_saved(false),
+    sprite_title(title_)
 {
 
 }
@@ -75,13 +76,13 @@ int sprite::getHeight()
     return height;
 }
 
-string sprite::toString(){
-    string result;
+QString sprite::toString(){
+    QString result;
 
     result += "Sprite:";
-    result += width;
+    result += QString::number(width);
     result += ",";
-    result += height;
+    result += QString::number(height);
     result += "\n";// + "," + height + "\n";
 
     foreach(Frame* f, frames){
@@ -89,9 +90,4 @@ string sprite::toString(){
     }
 
     return result;
-}
-
-void sprite::save(string path)
-{
-
 }

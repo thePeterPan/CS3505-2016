@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-// Graphics objects
+// Qt Graphics objects
 #include <QPushButton>
 #include <QToolButton>
 #include <QGridLayout>
@@ -12,9 +12,13 @@
 #include <QLabel>
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include <QFileDialog>
+#include <QMessageBox>
 // Other Qt Objects
 #include <QCloseEvent>
 #include <QString>
+#include <QDebug>
+#include <QFileInfo>
 // from Qt-Color-Widgets library
 #include <ColorDialog>
 #include <ColorWheel>
@@ -24,6 +28,7 @@
 
 #include "graphicsscene.h"
 #include "editor_model.h"
+#include "newfiledialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -50,8 +55,25 @@ private:
     void graphics();
 
 private slots:
-    void playbackSpeed_hSlider_moved(int value);
+    // File Menu:
+    void menuNewFile_triggered();
+    void menuOpen_triggered();
+    void menuSave_triggered();
+    void menuSaveAs_triggered();
+    void menuExportAs_triggered();
+    void menuImport_triggered();
+
+    // Edit Menu:
+    void menuRotateClockwise_triggered();
+    void menuRotateCounterClockwise_triggered();
+    void menuFlipV_triggered();
+    void menuFlipH_triggered();
+    void menuResizeCanvas_triggered();
+
     void menuHelp_triggered();
+
+    void playbackSpeed_hSlider_moved(int value);
+
     void colorWheel_colorChanged(QColor color);
     void alphaSlider_valueChanged(int value);
 

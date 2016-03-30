@@ -194,13 +194,13 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
 }
 
 void GraphicsScene::fillBucket(QColor color){
-    std::cout << frame->toString() << std::endl;
-    for(int i = 0; i < width; i++){
-        for(int j = 0; j < height; j++){
-            drawSquare(i,j,color);
-        }
-    }
-    std::cout << frame->toString() << std::endl;
+//    std::cout << frame->toString() << std::endl;
+//    for(int i = 0; i < width; i++){
+//        for(int j = 0; j < height; j++){
+//            drawSquare(i,j,color);
+//        }
+//    }
+//    std::cout << frame->toString() << std::endl;
 }
 
 void GraphicsScene::drawMirror(int x, int y, QColor color){
