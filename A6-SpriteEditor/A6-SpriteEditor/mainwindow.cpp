@@ -92,3 +92,28 @@ void MainWindow::graphics()
 
 
 
+
+void MainWindow::on_brush_pushButton_clicked()
+{
+    model.setTool(model.BRUSH);
+}
+
+void MainWindow::on_fillBucket_pushButton_clicked()
+{
+    model.setTool(model.FILL_BUCKET);
+}
+
+void MainWindow::on_eraser_pushButton_clicked()
+{
+    model.setTool(model.ERASER);
+}
+
+void MainWindow::on_rotate_pushButton_clicked()
+{
+    //Rotate
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    model.setTool(model.PAN);
+}

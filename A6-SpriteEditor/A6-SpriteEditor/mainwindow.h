@@ -55,6 +55,8 @@ private slots:
     void colorWheel_colorChanged(QColor color);
 
 
+    void on_brush_pushButton_clicked();
+
 protected:
     virtual void closeEvent(QCloseEvent *event);
 
