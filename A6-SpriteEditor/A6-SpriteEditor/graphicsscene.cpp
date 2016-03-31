@@ -67,6 +67,7 @@ void GraphicsScene::prepareBackground()
 
     painter.end();
     this->addPixmap(QPixmap::fromImage(*image));
+    currentFrame->convertToQImage();
 }
 
 /**
@@ -160,6 +161,7 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int y = mouseEvent->scenePos().y()/pixelSize;
     if(x >= 0 && x < currentFrame->getFrameWidth() && y > 0 && y < currentFrame->getFrameHeight())
         paintCommand(x,y);
+
 }
 
 /**
@@ -200,8 +202,10 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
         return;
 
     currentFrame->setPixelColor(x,y,color);
+    currentFrame->convertToQImage();
 
     pixels[x][y]->setBrush(QBrush(color));
+    qDebug() << "new sqare" << endl;
 }
 
 void GraphicsScene::fillBucket(int x, int y, QColor color){
@@ -252,6 +256,7 @@ void GraphicsScene::paintEntireFrame()
     for(int i = 0; i < currentFrame->getFrameWidth(); i++)
         for(int j = 0; j < currentFrame->getFrameHeight(); j++)
             pixels[i][j]->setBrush(currentFrame->getPixelColor(i,j));
+    currentFrame->convertToQImage();
 }
 
 

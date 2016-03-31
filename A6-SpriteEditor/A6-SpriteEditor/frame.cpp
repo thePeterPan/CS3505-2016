@@ -177,4 +177,6 @@ void Frame::convertToQImage() {
             newImage->setPixel(i,j,tempColor.rgba());
         }
     }
+    qDebug() << newImage->colorCount() << endl;
+
 }

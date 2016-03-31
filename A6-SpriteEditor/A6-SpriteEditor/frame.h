@@ -7,6 +7,7 @@
 #include <QVector>
 #include <QString>
 #include <QImage>
+#include <QDebug>
 
 using namespace std;
 
