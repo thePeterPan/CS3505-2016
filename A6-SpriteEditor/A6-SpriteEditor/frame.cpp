@@ -144,9 +144,9 @@ QString Frame::toRgbaString(QColor color){
     QString result;
     result += QString::number(color.red());
     result += " ";
-    result += QString::number(color.blue());
-    result += " ";
     result += QString::number(color.green());
+    result += " ";
+    result += QString::number(color.blue());
     result += " ";
     result += QString::number(color.alpha());
     result += " ";

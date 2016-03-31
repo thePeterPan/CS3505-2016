@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
+#include <QException>
 
 #include "sprite.h"
 

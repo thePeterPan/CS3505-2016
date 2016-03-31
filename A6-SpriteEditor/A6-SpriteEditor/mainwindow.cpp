@@ -99,6 +99,7 @@ void MainWindow::menuOpen_triggered()
                 QDir::homePath(),
                 tr("All files (*.*);;Sprite (*.ssp)"),
                 &selfilter);
+    model.loadSpriteFromFile(filename);
     qDebug() << filename;
 }
 
@@ -215,7 +216,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::graphics()
 {
-    scene = new GraphicsScene(&model, ui->graphicsView,20,20,30);
+    scene = new GraphicsScene(&model, ui->graphicsView,2,2,60);
     scene->setColor(ui->colorWheel_widget->color());
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
