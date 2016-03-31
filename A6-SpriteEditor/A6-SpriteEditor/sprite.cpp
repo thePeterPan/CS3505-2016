@@ -78,13 +78,12 @@ int Sprite::getHeight()
 
 QString Sprite::toString(){
     QString result;
-
-    result += "Sprite:";
     result += QString::number(width);
-    result += ",";
+    result += " ";
     result += QString::number(height);
-    result += "\n";// + "," + height + "\n";
-
+    result += "\n";
+    result += QString::number(frames.size());
+    result += "\n";
     foreach(Frame* f, frames){
         result += f->toString();
     }

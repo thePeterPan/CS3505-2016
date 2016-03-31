@@ -56,6 +56,7 @@ public:
     void saveSpriteToFile(QString path);
     void loadSpriteFromFile(QString path);
     QString getFilePath();
+    void setSprite(Sprite* sprite);
 
 private:
     // State variables:
@@ -64,9 +65,8 @@ private:
     AnimatorState current_state;
     int playback_speed;
     QString file_path;
-
     // Sprite object
-    Sprite sprite_main;
+    Sprite* sprite_main;
 
 signals:
 

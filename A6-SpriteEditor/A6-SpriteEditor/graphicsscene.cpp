@@ -25,6 +25,8 @@ GraphicsScene::GraphicsScene(editor_model* editor, QObject *parent, int width, i
 
     sprite = new Sprite(width,height,"Title");
 
+    editor->setSprite(sprite);
+
     //Frame: the object that the colors are stored in inside of a matrix.
     currentFrame = new Frame(this,width,height);
     sprite->addFrame(currentFrame);

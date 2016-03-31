@@ -4,12 +4,16 @@ editor_model::editor_model(QObject *parent) :
     QObject(parent), brush_color(QColor::fromRgb(255, 255, 255)), current_frame_index(0),
     current_state(PAUSED), current_tool(BRUSH), playback_speed(1), file_path("")
 {
-
 }
 
 void editor_model::setBrushColor(QColor color)
 {
     brush_color = color;
+}
+
+void editor_model::setSprite(Sprite *sprite)
+{
+    this->sprite_main = sprite;
 }
 
 /**
@@ -21,7 +25,7 @@ void editor_model::setBrushColor(QColor color)
  */
 void editor_model::nextFrame()
 {
-    if (++current_frame_index >= sprite_main.getAnimationLength())
+    if (++current_frame_index >= sprite_main->getAnimationLength())
         current_frame_index = 0;
 }
 
@@ -33,7 +37,7 @@ void editor_model::nextFrame()
 void editor_model::prevFrame()
 {
     if (--current_frame_index < 0)
-        current_frame_index = sprite_main.getAnimationLength() - 1;
+        current_frame_index = sprite_main->getAnimationLength() - 1;
 }
 
 void editor_model::setAnimatorState(AnimatorState state)
@@ -67,7 +71,9 @@ void editor_model::saveSpriteToFile(QString path)
     if (file.open(QIODevice::ReadWrite))
     {
         QTextStream stream(&file);
-        stream << sprite_main.toString();
+        qDebug() << sprite_main->getFrames().size();
+        qDebug() << sprite_main->toString();
+        stream << sprite_main->toString();
     }
 
     file_path = path;
