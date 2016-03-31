@@ -24,6 +24,7 @@ public:
     bool getFileSavedStatus();
     void setFileSavedStatus(bool status);
     QString toString();
+    QList<Frame*> getFrames();
 
 private:
     QList<Frame*> frames;

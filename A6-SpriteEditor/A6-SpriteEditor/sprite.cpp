@@ -91,3 +91,8 @@ QString Sprite::toString(){
 
     return result;
 }
+
+
+QList<Frame*> Sprite::getFrames(){
+    return frames;
+}
