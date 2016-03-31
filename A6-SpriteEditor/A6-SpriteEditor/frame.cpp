@@ -165,3 +165,16 @@ void Frame::invert()
             frameMatrix[x][y] = invert;
         }
 }
+
+void Frame::convertToQImage() {
+    QImage* newImage = new QImage(width,height,QImage::Format_ARGB32);
+    for (int i = 0; i < width; i ++)
+    {
+        for (int j = 0; j < height; j++)
+        {
+            QColor tempColor = this->getPixelColor(i,j);
+
+            newImage->setPixel(i,j,tempColor.rgba());
+        }
+    }
+}

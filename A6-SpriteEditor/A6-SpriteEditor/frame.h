@@ -6,6 +6,7 @@
 #include <QColor>
 #include <QVector>
 #include <QString>
+#include <QImage>
 
 using namespace std;
 
@@ -26,6 +27,8 @@ public:
     void flip(bool vertical);
     QString toString();
     void invert();
+    void convertToQImage();
+
 
 private:
     QVector<QVector<QColor>> frameMatrix;
