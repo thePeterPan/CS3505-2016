@@ -156,8 +156,8 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
-
-    paintCommand(x,y);
+    if(x > 0 && x < currentFrame->getFrameWidth() && y > 0 && y < currentFrame->getFrameHeight())
+        paintCommand(x,y);
 }
 
 /**
