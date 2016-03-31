@@ -290,3 +290,16 @@ void GraphicsScene::invert() {
     currentFrame->invert();
     this->paintEntireFrame();
 }
+
+void GraphicsScene::convertToQImage(Frame currFrame) {
+    QImage* newImage = new QImage(width*pixelSize,height*pixelSize,QImage::Format_ARGB32);
+    for (int i = 0; i < width; i ++)
+    {
+        for (int j = 0; j < height; j++)
+        {
+            QColor tempColor = currFrame.getPixelColor(i,j);
+
+            newImage->setPixel(i,j,tempColor.rgba());
+        }
+    }
+}

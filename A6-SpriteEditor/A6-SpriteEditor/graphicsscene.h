@@ -44,6 +44,7 @@ public:
     void rotate(bool direction);
     void flip(bool vertical);
     void invert();
+    void convertToQImage(Frame currFrame);
 
 private:
     bool colorEquals(QColor color1, QColor color2);
