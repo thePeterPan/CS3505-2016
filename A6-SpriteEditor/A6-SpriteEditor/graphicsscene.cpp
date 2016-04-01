@@ -158,14 +158,20 @@ void GraphicsScene::setSceneRect(const QRectF &rect)
 
 void GraphicsScene::zoomIn()
 {
-    pixelSize += 10;
-    redrawScene(sprite);
+    if(pixelSize + pixelInterval <= maxPixelSize)
+    {
+        pixelSize += pixelInterval;
+        redrawScene(sprite);
+    }
 }
 
 void GraphicsScene::zoomOut()
 {
-    pixelSize -= 10;
-    redrawScene(sprite);
+    if(pixelSize - pixelInterval >= minPixelSize)
+    {
+        pixelSize -= pixelInterval;
+        redrawScene(sprite);
+    }
 }
 
 /**

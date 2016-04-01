@@ -24,6 +24,10 @@ class GraphicsScene : public QGraphicsScene
     editor_model* editor;
     int width, height, pixelSize;
 
+    int minPixelSize = 5;
+    int maxPixelSize = 100;
+    int pixelInterval = 5;
+
     void paintCommand(int x, int y);
     void drawSquare(int x, int y, QColor color);
     void fillBucket(int x, int y, QColor color);
