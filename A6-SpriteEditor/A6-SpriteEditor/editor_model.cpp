@@ -99,22 +99,27 @@ void editor_model::loadSpriteFromFile(QString path)
     numberOfFrames = num_frames.toInt();
 
     while(!in.atEnd()){
-        currentX = 0;
+        int lineCount = 0;
         Frame* f = new Frame(this,width,height);
         sprite_main->addFrame(f);
-        qDebug() << "Number of frames: " << sprite_main->getFrames().size();
-        QString line = in.readLine();
-        QStringList numbers = line.split(" ");
-        for(int i = 0; i < numbers.size() - 4; i += 4){
-            int red = numbers[i].toInt();
-            int green = numbers[i+1].toInt();
-            int blue = numbers[i+2].toInt();
-            int alpha = numbers[i+3].toInt();
-            QColor color(red,green,blue,alpha);
-            f->setPixelColor(currentX,currentY,color);
-            currentX++;
+        while(lineCount < height){
+            currentX = 0;
+            qDebug() << "Number of frames: " << sprite_main->getFrames().size();
+            QString line = in.readLine();
+            QStringList numbers = line.split(" ");
+            for(int i = 0; i < numbers.size() - 4; i += 4){
+                int red = numbers[i].toInt();
+                int green = numbers[i+1].toInt();
+                int blue = numbers[i+2].toInt();
+                int alpha = numbers[i+3].toInt();
+                QColor color(red,green,blue,alpha);
+                f->setPixelColor(currentX,currentY,color);
+                currentX++;
+            }
+            currentY++;
+            lineCount++;
         }
-        currentY++;
+
     }
     emit modelUpdated(sprite_main);
 }

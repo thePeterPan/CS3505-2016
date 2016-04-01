@@ -21,7 +21,7 @@ GraphicsScene::GraphicsScene(editor_model* editor, int width, int height, int pi
 
     this->setSceneRect(0,0,width*pixelSize,height*pixelSize);
 
-    this->prepareBackground();
+    this->prepareBackground(false);
 
     sprite = new Sprite(width,height,"Title");
 
@@ -43,20 +43,14 @@ GraphicsScene::GraphicsScene(editor_model* editor, int width, int height, int pi
     }
 }
 
-GraphicsScene::GraphicsScene(editor_model *editor, Sprite *sprite, int pixelSize, QObject *parent) :
-    QGraphicsScene(parent), width(sprite->getWidth()), height(sprite->getHeight()), editor(editor),
-    sprite(sprite)
-{
+void GraphicsScene::redrawScene(Sprite *sprite){
+    pixels.clear();
+    this->width = sprite->getWidth();
+    this->height = sprite->getHeight();
     this->setSceneRect(0,0,width*pixelSize,height*pixelSize);
-
-    this->prepareBackground();
-
+    this->prepareBackground(true);
     editor->setSprite(sprite);
-
     currentFrame = sprite->getFrame(0);
-
-    //Frame: the object that the colors are stored in inside of a matrix.
-    //Initialize the brush to a value.
     brush = new QBrush(QColor(0,0,0,0));
 
     for(int i = 0; i < width; i++)
@@ -67,15 +61,44 @@ GraphicsScene::GraphicsScene(editor_model *editor, Sprite *sprite, int pixelSize
             pixels[i][j] = this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(Qt::white),*brush);
         }
     }
-
+    paintEntireFrame();
 }
+
+//GraphicsScene::GraphicsScene(editor_model *editor, Sprite *sprite, int pixelSize, QObject *parent) :
+//    QGraphicsScene(parent), width(sprite->getWidth()), height(sprite->getHeight()), editor(editor),
+//    sprite(sprite)
+//{
+//    this->setSceneRect(0,0,width*pixelSize,height*pixelSize);
+
+//    this->prepareBackground();
+
+//    editor->setSprite(sprite);
+
+//    currentFrame = sprite->getFrame(0);
+
+//    //Frame: the object that the colors are stored in inside of a matrix.
+//    //Initialize the brush to a value.
+//    brush = new QBrush(QColor(0,0,0,0));
+
+//    for(int i = 0; i < width; i++)
+//    {
+//        pixels.append(QVector<QGraphicsRectItem*/*QGraphicsObject*/>(height));
+//        for(int j = 0; j < height; j++)
+//        {
+//            pixels[i][j] = this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(Qt::white),*brush);
+//        }
+//    }
+
+//}
 
 /**
  * @brief GraphicsScene::prepareBackground
  * Creates a nice, checkered background to draw on.
  */
-void GraphicsScene::prepareBackground()
+void GraphicsScene::prepareBackground(bool replace)
 {
+    if(replace)
+        this->clear();
     image = new QImage(width*pixelSize,height*pixelSize,QImage::Format_ARGB32);
     QPainter painter(image);
     painter.setPen(Qt::white);
@@ -278,8 +301,12 @@ void GraphicsScene::erase(int x, int y){
 void GraphicsScene::paintEntireFrame()
 {
     for(int i = 0; i < currentFrame->getFrameWidth(); i++)
-        for(int j = 0; j < currentFrame->getFrameHeight(); j++)
+        for(int j = 0; j < currentFrame->getFrameHeight(); j++){
+            QColor color = currentFrame->getPixelColor(i,j);
+            qDebug() << color.toRgb();
+            qDebug() << "Pixel: " << i << " " << j;
             pixels[i][j]->setBrush(currentFrame->getPixelColor(i,j));
+        }
 }
 
 

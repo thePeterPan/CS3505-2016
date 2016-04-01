@@ -30,13 +30,13 @@ class GraphicsScene : public QGraphicsScene
     void paintEntireFrame();
     void drawMirror(int x, int y, QColor color);
     void erase(int x, int y);
-    void prepareBackground();
+    void prepareBackground(bool replace);
 
     //Q_OBJECT
 public:
     //GraphicsScene(QObject *parent); // Not needed.
     GraphicsScene(editor_model* editor, int width, int height, int pixelSize, QObject *parent = 0);
-    GraphicsScene(editor_model *editor, Sprite* sprite, int pixelSize, QObject *parent = 0);
+    //GraphicsScene(editor_model *editor, Sprite* sprite, int pixelSize, QObject *parent = 0);
     ~GraphicsScene();
 
     void setSceneRect(const QRectF &rect);
@@ -45,6 +45,7 @@ public:
     void rotate(bool direction);
     void flip(bool vertical);
     void invert();
+    void redrawScene(Sprite* sprite);
 
 private:
     bool colorEquals(QColor color1, QColor color2);
