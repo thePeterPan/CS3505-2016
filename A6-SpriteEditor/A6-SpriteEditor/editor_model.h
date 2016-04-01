@@ -70,6 +70,7 @@ private:
     Sprite* sprite_main;
 
 signals:
+    void modelUpdated(Sprite* sprite);
 
 public slots:
 };

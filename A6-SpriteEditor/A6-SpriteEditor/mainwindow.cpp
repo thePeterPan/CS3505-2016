@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    model = new editor_model();
 
     graphics();
 
@@ -61,7 +62,7 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->flipV_pushButton, &QToolButton::clicked, this, &MainWindow::flipV_pushButton_clicked);
     connect(ui->flipH_pushButton, &QToolButton::clicked, this, &MainWindow::flipH_pushButton_clicked);
     connect(ui->invertColors_pushButton, &QToolButton::clicked, this, &MainWindow::invertColors_pushButton_clicked);
-
+    connect(this->model,&editor_model::modelUpdated,this,&MainWindow::updateModel);
 }
 
 void MainWindow::initializeUIDefaults()
@@ -77,6 +78,12 @@ void MainWindow::initializeUIDefaults()
     ui->alphaSlider_widget->setValue(255);
     ui->alphaSlider_widget->setFirstColor(QColor::fromRgba(qRgba(0,0,0,0)));
     ui->alphaSlider_widget->setLastColor(QColor::fromRgba(qRgba(0,0,0,255)));
+}
+
+void MainWindow::updateModel(Sprite* sprite){
+
+    scene = new GraphicsScene(model, sprite, 60, ui->graphicsView);
+
 }
 
 void MainWindow::playbackSpeed_hSlider_moved(int value)
@@ -99,19 +106,19 @@ void MainWindow::menuOpen_triggered()
                 QDir::homePath(),
                 tr("All files (*.*);;Sprite (*.ssp)"),
                 &selfilter);
-    model.loadSpriteFromFile(filename);
+    model->loadSpriteFromFile(filename);
     qDebug() << filename;
 }
 
 void MainWindow::menuSave_triggered()
 {
-    if (model.getFilePath() == "")
+    if (model->getFilePath() == "")
     {
         menuSaveAs_triggered();
         return;
     }
 
-    model.saveSpriteToFile(model.getFilePath());
+    model->saveSpriteToFile(model->getFilePath());
 
     qDebug() << "Save";
 }
@@ -140,7 +147,7 @@ void MainWindow::menuSaveAs_triggered()
         }
     }
 
-    model.saveSpriteToFile(filename);
+    model->saveSpriteToFile(filename);
 
     qDebug() << filename;
 }
@@ -216,7 +223,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::graphics()
 {
-    scene = new GraphicsScene(&model, ui->graphicsView,2,2,60);
+    scene = new GraphicsScene(model, 20,20,20, ui->graphicsView);
     scene->setColor(ui->colorWheel_widget->color());
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
@@ -225,17 +232,17 @@ void MainWindow::graphics()
 
 void MainWindow::brush_pushButton_clicked()
 {
-    model.setTool(model.BRUSH);
+    model->setTool(model->BRUSH);
 }
 
 void MainWindow::fillBucket_pushButton_clicked()
 {
-    model.setTool(model.FILL_BUCKET);
+    model->setTool(model->FILL_BUCKET);
 }
 
 void MainWindow::eraser_pushButton_clicked()
 {
-    model.setTool(model.ERASER);
+    model->setTool(model->ERASER);
 }
 
 void MainWindow::rotate_pushButton_clicked()
@@ -245,12 +252,12 @@ void MainWindow::rotate_pushButton_clicked()
 
 void MainWindow::pushButton_clicked()
 {
-    model.setTool(model.PAN);
+    model->setTool(model->PAN);
 }
 
 void MainWindow::symmetricalTool_pushButton_clicked()
 {
-    model.setTool(model.MIRROR);
+    model->setTool(model->MIRROR);
 }
 
 void MainWindow::flipV_pushButton_clicked()

@@ -91,8 +91,8 @@ void editor_model::loadSpriteFromFile(QString path)
     int currentY = 0;
     QString size = in.readLine();
     QStringList sizes = size.split(" ");
-    width = numbers[0].toInt();
-    height = numbers[1].toInt();
+    width = sizes[0].toInt();
+    height = sizes[1].toInt();
     sprite_main = new Sprite(width,height,"Sprite");
 
     QString num_frames = in.readLine();
@@ -100,10 +100,11 @@ void editor_model::loadSpriteFromFile(QString path)
 
     while(!in.atEnd()){
         currentX = 0;
-
         Frame* f = new Frame(this,width,height);
         sprite_main->addFrame(f);
         qDebug() << "Number of frames: " << sprite_main->getFrames().size();
+        QString line = in.readLine();
+        QStringList numbers = line.split(" ");
         for(int i = 0; i < numbers.size() - 4; i += 4){
             int red = numbers[i].toInt();
             int green = numbers[i+1].toInt();
@@ -115,6 +116,7 @@ void editor_model::loadSpriteFromFile(QString path)
         }
         currentY++;
     }
+    emit modelUpdated(sprite_main);
 }
 
 QString editor_model::getFilePath()
