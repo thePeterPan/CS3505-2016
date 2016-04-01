@@ -88,7 +88,8 @@ private slots:
     void brush_pushButton_clicked();
     void fillBucket_pushButton_clicked();
     void eraser_pushButton_clicked();
-    void rotate_pushButton_clicked();
+    void rotateCCW_pushButton_clicked();
+    void rotateCW_pushButton_clicked();
     void pushButton_clicked();
     void symmetricalTool_pushButton_clicked();
     void flipV_pushButton_clicked();

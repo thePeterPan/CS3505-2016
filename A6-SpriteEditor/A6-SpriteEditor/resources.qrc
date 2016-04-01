@@ -30,6 +30,10 @@
         <file>icons/zoom-out.svg</file>
         <file>icons/zoom-in_white.svg</file>
         <file>icons/zoom-out_white.svg</file>
+        <file>icons/rotate-forward-80px.svg</file>
+        <file>icons/rotate-backward-80px.svg</file>
+        <file>icons/rotate-forward-80px_white.svg</file>
+        <file>icons/rotate-backward-80px_white.svg</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

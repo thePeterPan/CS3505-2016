@@ -56,7 +56,8 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->brush_pushButton, &QToolButton::clicked, this, &MainWindow::brush_pushButton_clicked);
     connect(ui->fillBucket_pushButton, &QToolButton::clicked, this, &MainWindow::fillBucket_pushButton_clicked);
     connect(ui->eraser_pushButton, &QToolButton::clicked, this, &MainWindow::eraser_pushButton_clicked);
-    connect(ui->rotate_pushButton, &QToolButton::clicked, this, &MainWindow::rotate_pushButton_clicked);
+    connect(ui->rotateCCW_pushButton, &QToolButton::clicked, this, &MainWindow::rotateCCW_pushButton_clicked);
+    connect(ui->rotateCW_pushButton, &QToolButton::clicked, this, &MainWindow::rotateCW_pushButton_clicked);
     connect(ui->pan_pushButton, &QToolButton::clicked, this, &MainWindow::pushButton_clicked);
     connect(ui->symmetricalTool_pushButton, &QToolButton::clicked, this, &MainWindow::symmetricalTool_pushButton_clicked);
     connect(ui->flipV_pushButton, &QToolButton::clicked, this, &MainWindow::flipV_pushButton_clicked);
@@ -192,11 +193,13 @@ void MainWindow::menuImport_triggered()
 void MainWindow::menuRotateClockwise_triggered()
 {
     qDebug() << "Rotate Clockwise";
+    scene->rotate(false);
 }
 
 void MainWindow::menuRotateCounterClockwise_triggered()
 {
     qDebug() << "Rotate Counterclockwise";
+    scene->rotate(true);
 }
 
 void MainWindow::menuFlipV_triggered()
@@ -279,9 +282,14 @@ void MainWindow::eraser_pushButton_clicked()
     model->setTool(editor_model::ERASER);
 }
 
-void MainWindow::rotate_pushButton_clicked()
+void MainWindow::rotateCCW_pushButton_clicked()
 {
     scene->rotate(true);
+}
+
+void MainWindow::rotateCW_pushButton_clicked()
+{
+    scene->rotate(false);
 }
 
 void MainWindow::pushButton_clicked()

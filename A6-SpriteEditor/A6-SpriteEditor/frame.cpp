@@ -7,10 +7,7 @@
  * @param parent
  */
 Frame::Frame(QObject *parent) :
-    QObject(parent)
-{
-
-}
+    QObject(parent) { }
 
 /**
  * Constructor
@@ -23,20 +20,20 @@ Frame::Frame(QObject *parent) :
 Frame::Frame(int width_, int height_,QObject *parent) :
     QObject(parent), width(width_), height(height_)
 {
-    for(int i = 0; i < width; i++)
+    for(int i = 0; i < width; ++i)
     {
         frameMatrix.append(QVector<QColor>(height));
-        for(int j = 0; j < height; j++)
+        for(int j = 0; j < height; ++j)
         {
-            frameMatrix[i][j] = QColor(0,0,0,0);
+            frameMatrix[i][j] = QColor(0, 0, 0, 0);
         }
     }
 }
 
-Frame::~Frame()
-{
-
-}
+/**
+ * @brief Frame::~Frame
+ */
+Frame::~Frame() { }
 
 /**
  * @brief Frame::setPixelColor
@@ -55,8 +52,8 @@ void Frame::setPixelColor(int x, int y, QColor color)
  */
 void Frame::setWholeFrameColor(QColor color)
 {
-    for(int i = 0; i < width; i++)
-        for(int j=0; j < height; j++)
+    for(int i = 0; i < width; ++i)
+        for(int j=0; j < height; ++j)
             frameMatrix[i][j] = color;
 }
 
@@ -93,36 +90,44 @@ int Frame::getFrameHeight()
  * @brief Frame::rotate
  * Rotates the vector of colors in the frame
  * @param direction
- * True: rotates clockwise
- * False: rotates counterclockwise
+ * True: rotates counterclockwise
+ * False: rotates clockwise
  */
 void Frame::rotate(bool direction)
 {
-
     if(direction)
     {
         if(width == height)
         {
             QVector<QVector<QColor>> temp(frameMatrix);
-            for(int x = 0; x < width; x++)
-                for(int y = 0; y < height; y++)
-                    frameMatrix[x][y] = temp[width-1 - y][x];
+            for(int x = 0; x < width; ++x)
+                for(int y = 0; y < height; ++y)
+                    frameMatrix[x][y] = temp[width - 1 - y][x];
+        }
+    } else {
+        if (width == height)
+        {
+            QVector<QVector<QColor>> temp(frameMatrix);
+            for(int x = 0; x < width; ++x)
+                for(int y = 0; y < height; ++y)
+                    frameMatrix[x][y] = temp[y][height - 1 - x];
         }
     }
 }
+
 void Frame::flip(bool vertical)
 {
     QVector<QVector<QColor>> temp(frameMatrix);
     if (vertical)
     {
-        for(int x = 0; x < width; x++)
-            for(int y = 0; y < height; y++)
+        for(int x = 0; x < width; ++x)
+            for(int y = 0; y < height; ++y)
                 frameMatrix[x][y] = temp[x][width - 1 - y];
     }
     else
     {
-        for(int x = 0; x < width; x++)
-            for(int y = 0; y < height; y++)
+        for(int x = 0; x < width; ++x)
+            for(int y = 0; y < height; ++y)
                 frameMatrix[x][y] = temp[width - x - 1][y];
     }
 
@@ -130,8 +135,8 @@ void Frame::flip(bool vertical)
 
 QString Frame::toString(){
     QString result;
-    for(int i = 0; i < height; i++){
-        for(int j = 0; j < width; j++){
+    for(int i = 0; i < height; ++i){
+        for(int j = 0; j < width; ++j){
             QColor color = getPixelColor(j,i);
             result += toRgbaString(color);
         }
@@ -141,27 +146,23 @@ QString Frame::toString(){
 }
 
 QString Frame::toRgbaString(QColor color){
-    QString result;
-    result += QString::number(color.red());
-    result += " ";
-    result += QString::number(color.green());
-    result += " ";
-    result += QString::number(color.blue());
-    result += " ";
-    result += QString::number(color.alpha());
-    result += " ";
-    return result;
+
+    return QString::number(color.red())   + " " +
+            QString::number(color.green()) + " " +
+            QString::number(color.blue())  + " " +
+            QString::number(color.alpha()) + " ";
+
 }
 
 void Frame::invert()
 {
-    for(int x = 0; x < width; x++)
-        for(int y = 0; y < height; y++)
+    for(int x = 0; x < width; ++x)
+        for(int y = 0; y < height; ++y)
         {
             QColor invert = frameMatrix[x][y];
-            invert.setBlue(255-invert.blue());
-            invert.setRed(255-invert.red());
-            invert.setGreen(255-invert.green());
+            invert.setBlue (255 - invert.blue());
+            invert.setRed  (255 - invert.red());
+            invert.setGreen(255 - invert.green());
             frameMatrix[x][y] = invert;
         }
 }
