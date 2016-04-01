@@ -84,7 +84,9 @@ void editor_model::loadSpriteFromFile(QString path)
     QFile file(path);
     if(!file.open(QIODevice::ReadOnly)) {
         //error
+        return;
     }
+    file_path = path;
     QTextStream in(&file);
     int numberOfFrames, width, height;
     int currentX = 0;
