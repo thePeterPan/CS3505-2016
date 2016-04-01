@@ -52,6 +52,10 @@ private:
 
 signals:
 
+public slots:
+    void zoomIn();
+    void zoomOut();
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void wheelEvent(QGraphicsSceneWheelEvent *wheelEvent);

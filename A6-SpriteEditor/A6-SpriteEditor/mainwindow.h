@@ -54,6 +54,10 @@ private:
 
     void graphics();
 
+signals:
+    void zoomIn();
+    void zoomOut();
+
 public slots:
     void updateModel(Sprite* sprite);
 
@@ -90,6 +94,10 @@ private slots:
     void flipV_pushButton_clicked();
     void flipH_pushButton_clicked();
     void invertColors_pushButton_clicked();
+
+    void on_zoomInButton_clicked();
+
+    void on_zoomOutButton_clicked();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);

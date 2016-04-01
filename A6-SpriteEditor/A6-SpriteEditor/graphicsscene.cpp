@@ -182,6 +182,18 @@ void GraphicsScene::setSceneRect(const QRectF &rect)
     QGraphicsScene::setSceneRect(rect);
 }
 
+void GraphicsScene::zoomIn()
+{
+    pixelSize += 10;
+    redrawScene(sprite);
+}
+
+void GraphicsScene::zoomOut()
+{
+    pixelSize -= 10;
+    redrawScene(sprite);
+}
+
 /**
  * @brief GraphicsScene::setSceneRect
  * Resizes the scene.
