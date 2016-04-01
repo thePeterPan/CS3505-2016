@@ -15,7 +15,7 @@
  * @param height
  * @param pixelSize
  */
-GraphicsScene::GraphicsScene(editor_model* editor, QObject *parent, int width, int height, int pixelSize) :
+GraphicsScene::GraphicsScene(editor_model* editor, int width, int height, int pixelSize, QObject *parent) :
     QGraphicsScene(parent), width(width), height(height), pixelSize(pixelSize), editor(editor)
 {
 
@@ -41,6 +41,33 @@ GraphicsScene::GraphicsScene(editor_model* editor, QObject *parent, int width, i
             pixels[i][j] = this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(Qt::white),*brush);
         }
     }
+}
+
+GraphicsScene::GraphicsScene(editor_model *editor, Sprite *sprite, int pixelSize, QObject *parent) :
+    QGraphicsScene(parent), width(sprite->getWidth()), height(sprite->getHeight()), editor(editor),
+    sprite(sprite)
+{
+    this->setSceneRect(0,0,width*pixelSize,height*pixelSize);
+
+    this->prepareBackground();
+
+    editor->setSprite(sprite);
+
+    currentFrame = sprite->getFrame(0);
+
+    //Frame: the object that the colors are stored in inside of a matrix.
+    //Initialize the brush to a value.
+    brush = new QBrush(QColor(0,0,0,0));
+
+    for(int i = 0; i < width; i++)
+    {
+        pixels.append(QVector<QGraphicsRectItem*/*QGraphicsObject*/>(height));
+        for(int j = 0; j < height; j++)
+        {
+            pixels[i][j] = this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(Qt::white),*brush);
+        }
+    }
+
 }
 
 /**
@@ -158,7 +185,7 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
-    if(x >= 0 && x < currentFrame->getFrameWidth() && y > 0 && y < currentFrame->getFrameHeight())
+    if(x >= 0 && x < currentFrame->getFrameWidth() && y >= 0 && y < currentFrame->getFrameHeight())
         paintCommand(x,y);
 }
 
@@ -172,11 +199,12 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
 
-    if(x >= 0 && x < currentFrame->getFrameWidth() && y > 0 && y < currentFrame->getFrameHeight())
+    if(x >= 0 && x < currentFrame->getFrameWidth() && y >= 0 && y < currentFrame->getFrameHeight())
         paintCommand(x,y);
 }
 
 void GraphicsScene::paintCommand(int x, int y){
+    //qDebug() << currentFrame->toString();
     if(editor->current_tool == editor->BRUSH){
         drawSquare(x,y,brush->color());
     }else if(editor->current_tool == editor->FILL_BUCKET){

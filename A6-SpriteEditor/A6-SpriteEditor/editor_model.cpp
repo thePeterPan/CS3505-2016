@@ -81,7 +81,42 @@ void editor_model::saveSpriteToFile(QString path)
 
 void editor_model::loadSpriteFromFile(QString path)
 {
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly)) {
+        //error
+    }
+    QTextStream in(&file);
+    int numberOfFrames, width, height;
+    int currentX = 0;
+    int currentY = 0;
+    QString size = in.readLine();
+    QStringList sizes = size.split(" ");
+    width = sizes[0].toInt();
+    height = sizes[1].toInt();
+    sprite_main = new Sprite(width,height,"Sprite");
 
+    QString num_frames = in.readLine();
+    numberOfFrames = num_frames.toInt();
+
+    while(!in.atEnd()){
+        currentX = 0;
+        Frame* f = new Frame(this,width,height);
+        sprite_main->addFrame(f);
+        qDebug() << "Number of frames: " << sprite_main->getFrames().size();
+        QString line = in.readLine();
+        QStringList numbers = line.split(" ");
+        for(int i = 0; i < numbers.size() - 4; i += 4){
+            int red = numbers[i].toInt();
+            int green = numbers[i+1].toInt();
+            int blue = numbers[i+2].toInt();
+            int alpha = numbers[i+3].toInt();
+            QColor color(red,green,blue,alpha);
+            f->setPixelColor(currentX,currentY,color);
+            currentX++;
+        }
+        currentY++;
+    }
+    emit modelUpdated(sprite_main);
 }
 
 QString editor_model::getFilePath()

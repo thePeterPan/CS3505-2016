@@ -35,7 +35,8 @@ class GraphicsScene : public QGraphicsScene
     //Q_OBJECT
 public:
     //GraphicsScene(QObject *parent); // Not needed.
-    GraphicsScene(editor_model* editor, QObject *parent = 0, int width = 10, int height = 10, int pixelSize = 50);
+    GraphicsScene(editor_model* editor, int width, int height, int pixelSize, QObject *parent = 0);
+    GraphicsScene(editor_model *editor, Sprite* sprite, int pixelSize, QObject *parent = 0);
     ~GraphicsScene();
 
     void setSceneRect(const QRectF &rect);

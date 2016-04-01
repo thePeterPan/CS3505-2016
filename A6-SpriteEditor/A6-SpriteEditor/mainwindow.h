@@ -47,12 +47,15 @@ public slots:
 private:
     Ui::MainWindow *ui;
     GraphicsScene* scene;
-    editor_model model;
+    editor_model* model;
 
     void connectSignalsAndSlots();
     void initializeUIDefaults();
 
     void graphics();
+
+public slots:
+    void updateModel(Sprite* sprite);
 
 private slots:
     // File Menu:

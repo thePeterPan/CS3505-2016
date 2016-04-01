@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
+#include <QException>
 
 #include "sprite.h"
 
@@ -69,6 +70,7 @@ private:
     Sprite* sprite_main;
 
 signals:
+    void modelUpdated(Sprite* sprite);
 
 public slots:
 };
