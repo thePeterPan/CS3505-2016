@@ -220,13 +220,6 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="zoomOutButton">
-            <property name="text">
-             <string>Zoom Out</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="prevFrame_pushButton">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -317,13 +310,6 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="zoomInButton">
-            <property name="text">
-             <string>Zoom In</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -363,6 +349,12 @@
             <height>50</height>
            </size>
           </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -386,6 +378,12 @@
             <height>50</height>
            </size>
           </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -404,6 +402,12 @@
         <item>
          <widget class="QToolButton" name="eraser_pushButton">
           <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
            <size>
             <width>60</width>
             <height>50</height>
@@ -441,6 +445,12 @@
             <height>50</height>
            </size>
           </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -457,8 +467,20 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="pan_pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
            <size>
             <width>60</width>
             <height>50</height>
@@ -475,6 +497,76 @@
            <size>
             <width>30</width>
             <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="zoomIn_pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icons/icons/zoom-in_white.svg</normaloff>:/icons/icons/zoom-in_white.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="zoomOut_pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icons/icons/zoom-out_white.svg</normaloff>:/icons/icons/zoom-out_white.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
            </size>
           </property>
          </widget>
@@ -505,7 +597,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSprite_Editor">
@@ -533,6 +625,7 @@
     <addaction name="actionFlip_Horizontally"/>
     <addaction name="separator"/>
     <addaction name="actionResize_Canvas"/>
+    <addaction name="actionZoom_to_Fit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -621,6 +714,11 @@
   <action name="actionResize_Canvas">
    <property name="text">
     <string>Resize Canvas</string>
+   </property>
+  </action>
+  <action name="actionZoom_to_Fit">
+   <property name="text">
+    <string>Zoom to Fit</string>
    </property>
   </action>
  </widget>

@@ -55,8 +55,6 @@ private:
     void graphics();
 
 signals:
-    void zoomIn();
-    void zoomOut();
 
 public slots:
     void updateModel(Sprite* sprite);
@@ -76,11 +74,13 @@ private slots:
     void menuFlipV_triggered();
     void menuFlipH_triggered();
     void menuResizeCanvas_triggered();
+    void zoomToFit_triggered();
 
+    // Help Menu:
     void menuHelp_triggered();
 
+    // State properties:
     void playbackSpeed_hSlider_moved(int value);
-
     void colorWheel_colorChanged(QColor color);
     void alphaSlider_valueChanged(int value);
 
@@ -94,10 +94,6 @@ private slots:
     void flipV_pushButton_clicked();
     void flipH_pushButton_clicked();
     void invertColors_pushButton_clicked();
-
-    void on_zoomInButton_clicked();
-
-    void on_zoomOutButton_clicked();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);

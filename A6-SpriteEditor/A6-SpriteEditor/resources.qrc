@@ -26,6 +26,10 @@
         <file>icons/eraser_white.svg</file>
         <file>icons/hand.svg</file>
         <file>icons/hand_white.svg</file>
+        <file>icons/zoom-in.svg</file>
+        <file>icons/zoom-out.svg</file>
+        <file>icons/zoom-in_white.svg</file>
+        <file>icons/zoom-out_white.svg</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

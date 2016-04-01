@@ -57,16 +57,16 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->fillBucket_pushButton, &QToolButton::clicked, this, &MainWindow::fillBucket_pushButton_clicked);
     connect(ui->eraser_pushButton, &QToolButton::clicked, this, &MainWindow::eraser_pushButton_clicked);
     connect(ui->rotate_pushButton, &QToolButton::clicked, this, &MainWindow::rotate_pushButton_clicked);
-    connect(ui->pushButton, &QToolButton::clicked, this, &MainWindow::pushButton_clicked);
+    connect(ui->pan_pushButton, &QToolButton::clicked, this, &MainWindow::pushButton_clicked);
     connect(ui->symmetricalTool_pushButton, &QToolButton::clicked, this, &MainWindow::symmetricalTool_pushButton_clicked);
     connect(ui->flipV_pushButton, &QToolButton::clicked, this, &MainWindow::flipV_pushButton_clicked);
     connect(ui->flipH_pushButton, &QToolButton::clicked, this, &MainWindow::flipH_pushButton_clicked);
     connect(ui->invertColors_pushButton, &QToolButton::clicked, this, &MainWindow::invertColors_pushButton_clicked);
+    connect(ui->zoomIn_pushButton, &QPushButton::clicked, this->scene, &GraphicsScene::zoomIn);
+    connect(ui->zoomOut_pushButton, &QPushButton::clicked, this->scene, &GraphicsScene::zoomOut);
+
+    /// Open file:
     connect(this->model,&editor_model::modelUpdated,this,&MainWindow::updateModel);
-    connect(this, &MainWindow::zoomIn,this->scene,&GraphicsScene::zoomIn);
-    connect(this, &MainWindow::zoomOut,this->scene,&GraphicsScene::zoomOut);
-
-
 }
 
 void MainWindow::initializeUIDefaults()
@@ -111,19 +111,30 @@ void MainWindow::menuNewFile_triggered()
 
 void MainWindow::menuOpen_triggered()
 {
-    QString selfilter = tr("Sprite (*.ssp)");
-    QString filename = QFileDialog::getOpenFileName(
-                this,
-                tr("Open Sprite File"),
-                QDir::homePath(),
-                tr("All files (*.*);;Sprite (*.ssp)"),
-                &selfilter);
-    model->loadSpriteFromFile(filename);
-    qDebug() << filename;
+    qDebug() << "Open:";
+    QFileDialog openDialog(this,
+                           tr("Open File..."),
+                           QDir::homePath(),
+                           tr("Sprite (*.ssp);;All files (*.*)"));
+    openDialog.setAcceptMode(QFileDialog::AcceptOpen);
+    openDialog.setFileMode(QFileDialog::ExistingFile);
+
+    if (openDialog.exec())
+    {
+        // Get the selected file
+        QString filename = openDialog.selectedFiles().at(0);
+
+        // Load and open the selected file
+        model->loadSpriteFromFile(filename);
+
+        qDebug() << filename;
+    }
 }
 
 void MainWindow::menuSave_triggered()
 {
+    qDebug() << "Save:";
+
     if (model->getFilePath() == "")
     {
         menuSaveAs_triggered();
@@ -131,43 +142,40 @@ void MainWindow::menuSave_triggered()
     }
 
     model->saveSpriteToFile(model->getFilePath());
-
-    qDebug() << "Save";
 }
 
 void MainWindow::menuSaveAs_triggered()
 {
-    QString selfilter = tr("Sprite (*.ssp)");
-    QString filename = QFileDialog::getSaveFileName(
-                this,
-                tr("Save File As..."),
-                QDir::homePath(),
-                tr("All files (*.*);;Sprite (*.ssp)"),
-                &selfilter);
+    qDebug() << "Save As...";
 
-    if (filename == "")
+    QFileDialog saveAsDialog(this,
+                             tr("Save File As..."),
+                             QDir::homePath(),
+                             tr("Sprite (*.ssp);;All files (*.*)"));
+    saveAsDialog.setAcceptMode(QFileDialog::AcceptSave);
+    if (saveAsDialog.exec())
     {
-        return;
-    }
+        // Get the file name input by the user
+        QString filename = saveAsDialog.selectedFiles().at(0);
 
-    if (!filename.endsWith(".ssp", Qt::CaseInsensitive))
-    {
-        filename += ".ssp";
-    }
+        // Check to see if the user appended an extension, add if they didn't
+        if (!filename.endsWith(".ssp", Qt::CaseInsensitive))
+            filename += ".ssp";
 
-    QFileInfo checkFile(filename);
-    if (checkFile.exists() && checkFile.isFile()) {
-        QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this, tr("File Exists."), tr("File already exists. Overwrite?"),
-                                      QMessageBox::Yes|QMessageBox::No);
-        if (reply == QMessageBox::No) {
-            return;
+        // Check to see if the file already exists, if so ask if they want to overwrite.
+        QFileInfo checkFile(filename);
+        if (checkFile.exists() && checkFile.isFile()) {
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this,
+                                          tr("File Exists."),
+                                          tr("File already exists. Overwrite?"),
+                                          QMessageBox::Yes|QMessageBox::No);
+            if (reply == QMessageBox::No) return;
         }
+
+        model->saveSpriteToFile(filename);
+        qDebug() << filename;
     }
-
-    model->saveSpriteToFile(filename);
-
-    qDebug() << filename;
 }
 
 void MainWindow::menuExportAs_triggered()
@@ -203,6 +211,11 @@ void MainWindow::menuFlipH_triggered()
 void MainWindow::menuResizeCanvas_triggered()
 {
     qDebug() << "Resize Canvas";
+}
+
+void MainWindow::zoomToFit_triggered()
+{
+    qDebug() << "Zoom To Fit";
 }
 
 void MainWindow::menuHelp_triggered()
@@ -291,14 +304,4 @@ void MainWindow::flipH_pushButton_clicked()
 void MainWindow::invertColors_pushButton_clicked()
 {
     scene->invert();
-}
-
-void MainWindow::on_zoomInButton_clicked()
-{
-    emit zoomIn();
-}
-
-void MainWindow::on_zoomOutButton_clicked()
-{
-    emit zoomOut();
 }
