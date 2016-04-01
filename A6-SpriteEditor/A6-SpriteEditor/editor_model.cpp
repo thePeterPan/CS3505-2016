@@ -100,7 +100,7 @@ void editor_model::loadSpriteFromFile(QString path)
 
     while(!in.atEnd()){
         int lineCount = 0;
-        Frame* f = new Frame(this,width,height);
+        Frame* f = new Frame(width,height);
         sprite_main->addFrame(f);
         while(lineCount < height){
             currentX = 0;

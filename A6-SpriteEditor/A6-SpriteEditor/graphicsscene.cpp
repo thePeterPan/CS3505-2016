@@ -28,7 +28,7 @@ GraphicsScene::GraphicsScene(editor_model* editor, int width, int height, int pi
     editor->setSprite(sprite);
 
     //Frame: the object that the colors are stored in inside of a matrix.
-    currentFrame = new Frame(this,width,height);
+    currentFrame = new Frame(width,height,this);
     sprite->addFrame(currentFrame);
     //Initialize the brush to a value.
     brush = new QBrush(QColor(0,0,0,0));

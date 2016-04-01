@@ -20,7 +20,7 @@ Frame::Frame(QObject *parent) :
  * @param width_
  * @param height_
  */
-Frame::Frame(QObject *parent, int width_, int height_) :
+Frame::Frame(int width_, int height_,QObject *parent) :
     QObject(parent), width(width_), height(height_)
 {
     for(int i = 0; i < width; i++)

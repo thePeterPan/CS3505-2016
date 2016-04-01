@@ -99,10 +99,13 @@ void MainWindow::menuNewFile_triggered()
 
     if(dialog.exec() == QDialog::Accepted)
     {
-        qDebug() << "Title: " + dialog.getTitle();
-        qDebug() << "Widght: " + QString::number(dialog.getWidth());
-        qDebug() << "Height: " + QString::number(dialog.getHeight());
-        qDebug() << "Color: " + QString::number(dialog.getBgColor().blue());
+        int width = dialog.getWidth();
+        int height = dialog.getHeight();
+        Sprite* s = new Sprite(width,height,dialog.getTitle());
+        Frame* f = new Frame(width,height);
+        s->addFrame(f);
+        model->setSprite(s);
+        scene->redrawScene(s);
     }
 }
 
