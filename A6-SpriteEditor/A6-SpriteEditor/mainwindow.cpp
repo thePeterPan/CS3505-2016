@@ -84,7 +84,8 @@ void MainWindow::initializeUIDefaults()
     ui->alphaSlider_widget->setLastColor(QColor::fromRgba(qRgba(0,0,0,255)));
 }
 
-void MainWindow::updateModel(Sprite* sprite){
+void MainWindow::updateModel(Sprite* sprite)
+{
     scene->redrawScene(sprite);
 }
 
@@ -201,11 +202,13 @@ void MainWindow::menuRotateCounterClockwise_triggered()
 void MainWindow::menuFlipV_triggered()
 {
     qDebug() << "Flip Vertically";
+    scene->flip(true);
 }
 
 void MainWindow::menuFlipH_triggered()
 {
     qDebug() << "Flip Horizontally";
+    scene->flip(false);
 }
 
 void MainWindow::menuResizeCanvas_triggered()
