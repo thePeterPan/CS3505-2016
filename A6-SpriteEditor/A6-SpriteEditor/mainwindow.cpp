@@ -263,17 +263,17 @@ void MainWindow::graphics()
 
 void MainWindow::brush_pushButton_clicked()
 {
-    model->setTool(model->BRUSH);
+    model->setTool(editor_model::BRUSH);
 }
 
 void MainWindow::fillBucket_pushButton_clicked()
 {
-    model->setTool(model->FILL_BUCKET);
+    model->setTool(editor_model::FILL_BUCKET);
 }
 
 void MainWindow::eraser_pushButton_clicked()
 {
-    model->setTool(model->ERASER);
+    model->setTool(editor_model::ERASER);
 }
 
 void MainWindow::rotate_pushButton_clicked()
@@ -283,12 +283,12 @@ void MainWindow::rotate_pushButton_clicked()
 
 void MainWindow::pushButton_clicked()
 {
-    model->setTool(model->PAN);
+    model->setTool(editor_model::PAN);
 }
 
 void MainWindow::symmetricalTool_pushButton_clicked()
 {
-    model->setTool(model->MIRROR);
+    model->setTool(editor_model::MIRROR);
 }
 
 void MainWindow::flipV_pushButton_clicked()

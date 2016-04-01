@@ -220,13 +220,13 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
 void GraphicsScene::paintCommand(int x, int y){
     //qDebug() << currentFrame->toString();
-    if(editor->current_tool == editor->BRUSH){
+    if(editor->current_tool == editor_model::BRUSH){
         drawSquare(x,y,brush->color());
-    }else if(editor->current_tool == editor->FILL_BUCKET){
+    }else if(editor->current_tool == editor_model::FILL_BUCKET){
         fillBucket(x,y,brush->color());
-    }else if(editor->current_tool == editor->MIRROR){
+    }else if(editor->current_tool == editor_model::MIRROR){
         drawMirror(x,y,brush->color());
-    }else if(editor->current_tool == editor->ERASER){
+    }else if(editor->current_tool == editor_model::ERASER){
         erase(x,y);
     }
 }
