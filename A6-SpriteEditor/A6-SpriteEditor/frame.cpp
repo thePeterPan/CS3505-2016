@@ -1,5 +1,6 @@
 #include "frame.h"
 
+
 /**
  * Constructor
  *
@@ -183,7 +184,7 @@ void Frame::convertToQImage() {
 
 }
 
-QImage Frame::getQImage() {
-    return *newImage;
+QImage *Frame::getQImage() {
+    return newImage;
 }
 

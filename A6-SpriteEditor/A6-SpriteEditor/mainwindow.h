@@ -50,8 +50,9 @@ private:
     editor_model model;
 
     GraphicsScene* previewScene;
-    QPixmap image;
+    QPixmap pixImage;
     QImage *imageObject;
+    //Frame currFrame;
 
 
     void connectSignalsAndSlots();

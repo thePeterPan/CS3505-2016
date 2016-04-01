@@ -29,7 +29,7 @@ public:
     QString toString();
     void invert();
     void convertToQImage();
-    QImage getQImage();
+    QImage* getQImage();
 
 
 private:

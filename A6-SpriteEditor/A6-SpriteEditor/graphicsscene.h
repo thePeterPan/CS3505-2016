@@ -44,7 +44,7 @@ public:
     void rotate(bool direction);
     void flip(bool vertical);
     void invert();
-    Frame getCurrentFrame();
+    Frame* getCurrentFrame();
 
 private:
     bool colorEquals(QColor color1, QColor color2);

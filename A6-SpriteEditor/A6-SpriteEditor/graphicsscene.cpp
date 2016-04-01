@@ -297,7 +297,7 @@ void GraphicsScene::invert() {
     this->paintEntireFrame();
 }
 
-Frame GraphicsScene::getCurrentFrame(){
+Frame* GraphicsScene::getCurrentFrame(){
     return currentFrame;
 }
 

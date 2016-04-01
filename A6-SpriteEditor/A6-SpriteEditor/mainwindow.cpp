@@ -224,13 +224,15 @@ void MainWindow::graphics()
     //previewScene->setColor(ui->colorWheel_widget->color());
     ui->preview_graphicsView->setScene(previewScene);
     ui->preview_graphicsView->show();
-    Frame currFrame = new Frame(this);
-    currFrame = previewScene->getCurrentFrame();
-    imageObject = currFrame.getQImage();
-    image = QPixmap::fromImage(*imageObject);
-    previewScene->addPixmap(image);
-    previewScene->setSceneRect(image.rect());
-    ui->preview_graphicsView->setScene(previewScene);
+    //Frame currFrame = new Frame();
+    //currFrame = previewScene->getCurrentFrame();
+    imageObject = previewScene->getCurrentFrame()->getQImage();
+    //pixImage = QPixmap::fromImage(*imageObject);
+    //QGraphicsPixmapItem item( QPixmap::fromImage(*imageObject));
+    //previewScene->addPixmap(pixImage);
+    //previewScene->setSceneRect(pixImage.rect());
+    //ui->preview_graphicsView->setScene(previewScene);
+
 }
 
 
