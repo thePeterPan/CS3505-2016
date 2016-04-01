@@ -87,7 +87,14 @@ void MainWindow::playbackSpeed_hSlider_moved(int value)
 void MainWindow::menuNewFile_triggered()
 {
     NewFileDialog dialog;
-    dialog.exec();
+
+    if(dialog.exec() == QDialog::Accepted)
+    {
+        qDebug() << "Title: " + dialog.getTitle();
+        qDebug() << "Widght: " + QString::number(dialog.getWidth());
+        qDebug() << "Height: " + QString::number(dialog.getHeight());
+        qDebug() << "Color: " + QString::number(dialog.getBgColor().blue());
+    }
 }
 
 void MainWindow::menuOpen_triggered()
