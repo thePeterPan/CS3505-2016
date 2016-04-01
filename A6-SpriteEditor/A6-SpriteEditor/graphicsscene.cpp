@@ -67,7 +67,6 @@ void GraphicsScene::prepareBackground()
 
     painter.end();
     this->addPixmap(QPixmap::fromImage(*image));
-    currentFrame->convertToQImage();
 }
 
 /**
@@ -188,6 +187,7 @@ void GraphicsScene::paintCommand(int x, int y){
     }else if(editor->current_tool == editor->ERASER){
         erase(x,y);
     }
+    //emit a signal here to show the image in the preview?
 }
 
 /**
@@ -203,6 +203,7 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
 
     currentFrame->setPixelColor(x,y,color);
     currentFrame->convertToQImage();
+
 
     pixels[x][y]->setBrush(QBrush(color));
     qDebug() << "new sqare" << endl;
@@ -296,4 +297,7 @@ void GraphicsScene::invert() {
     this->paintEntireFrame();
 }
 
+Frame GraphicsScene::getCurrentFrame(){
+    return currentFrame;
+}
 

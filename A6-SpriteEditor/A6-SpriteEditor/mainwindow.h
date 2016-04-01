@@ -49,6 +49,11 @@ private:
     GraphicsScene* scene;
     editor_model model;
 
+    GraphicsScene* previewScene;
+    QPixmap image;
+    QImage *imageObject;
+
+
     void connectSignalsAndSlots();
     void initializeUIDefaults();
 

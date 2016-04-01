@@ -44,11 +44,13 @@ public:
     void rotate(bool direction);
     void flip(bool vertical);
     void invert();
+    Frame getCurrentFrame();
 
 private:
     bool colorEquals(QColor color1, QColor color2);
 
 signals:
+    //void imageChanged()
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
