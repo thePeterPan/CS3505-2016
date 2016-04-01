@@ -167,7 +167,7 @@ void Frame::invert()
 }
 
 void Frame::convertToQImage() {
-    QImage* newImage = new QImage(width,height,QImage::Format_ARGB32);
+    newImage = new QImage(width,height,QImage::Format_ARGB32);
     for (int i = 0; i < width; i ++)
     {
         for (int j = 0; j < height; j++)

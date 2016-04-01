@@ -36,6 +36,7 @@ private:
     int width;
     int height;
     QString toRgbaString(QColor color);
+    QImage* newImage;
 
 signals:
 
