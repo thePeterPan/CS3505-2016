@@ -51,7 +51,6 @@ void GraphicsScene::redrawScene(Sprite *sprite){
     this->prepareBackground(true);
     editor->setSprite(sprite);
     currentFrame = sprite->getFrame(0);
-    brush = new QBrush(QColor(0,0,0,0));
 
     for(int i = 0; i < width; i++)
     {

@@ -63,6 +63,10 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->flipH_pushButton, &QToolButton::clicked, this, &MainWindow::flipH_pushButton_clicked);
     connect(ui->invertColors_pushButton, &QToolButton::clicked, this, &MainWindow::invertColors_pushButton_clicked);
     connect(this->model,&editor_model::modelUpdated,this,&MainWindow::updateModel);
+    connect(this, &MainWindow::zoomIn,this->scene,&GraphicsScene::zoomIn);
+    connect(this, &MainWindow::zoomOut,this->scene,&GraphicsScene::zoomOut);
+
+
 }
 
 void MainWindow::initializeUIDefaults()
@@ -81,9 +85,7 @@ void MainWindow::initializeUIDefaults()
 }
 
 void MainWindow::updateModel(Sprite* sprite){
-
-    scene = new GraphicsScene(model, sprite, 60, ui->graphicsView);
-
+    scene->redrawScene(sprite);
 }
 
 void MainWindow::playbackSpeed_hSlider_moved(int value)
@@ -286,4 +288,14 @@ void MainWindow::flipH_pushButton_clicked()
 void MainWindow::invertColors_pushButton_clicked()
 {
     scene->invert();
+}
+
+void MainWindow::on_zoomInButton_clicked()
+{
+    emit zoomIn();
+}
+
+void MainWindow::on_zoomOutButton_clicked()
+{
+    emit zoomOut();
 }
