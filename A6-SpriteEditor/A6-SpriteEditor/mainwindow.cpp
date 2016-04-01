@@ -139,6 +139,12 @@ void MainWindow::menuSaveAs_triggered()
                 QDir::homePath(),
                 tr("All files (*.*);;Sprite (*.ssp)"),
                 &selfilter);
+
+    if (filename == "")
+    {
+        return;
+    }
+
     if (!filename.endsWith(".ssp", Qt::CaseInsensitive))
     {
         filename += ".ssp";
