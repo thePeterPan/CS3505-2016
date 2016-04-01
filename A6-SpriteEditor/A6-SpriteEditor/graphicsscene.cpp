@@ -35,7 +35,7 @@ GraphicsScene::GraphicsScene(editor_model* editor, int width, int height, int pi
 
     for(int i = 0; i < width; i++)
     {
-        pixels.append(QVector<QGraphicsRectItem*/*QGraphicsObject*/>(height));
+        pixels.append(QVector<QGraphicsRectItem*>(height));
         for(int j = 0; j < height; j++)
         {
             pixels[i][j] = this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(Qt::white),*brush);
@@ -44,6 +44,7 @@ GraphicsScene::GraphicsScene(editor_model* editor, int width, int height, int pi
 }
 
 void GraphicsScene::redrawScene(Sprite *sprite){
+    this->sprite = sprite;
     pixels.clear();
     this->width = sprite->getWidth();
     this->height = sprite->getHeight();
@@ -54,7 +55,7 @@ void GraphicsScene::redrawScene(Sprite *sprite){
 
     for(int i = 0; i < width; i++)
     {
-        pixels.append(QVector<QGraphicsRectItem*/*QGraphicsObject*/>(height));
+        pixels.append(QVector<QGraphicsRectItem*>(height));
         for(int j = 0; j < height; j++)
         {
             pixels[i][j] = this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(Qt::white),*brush);
@@ -63,32 +64,6 @@ void GraphicsScene::redrawScene(Sprite *sprite){
     paintEntireFrame();
 }
 
-//GraphicsScene::GraphicsScene(editor_model *editor, Sprite *sprite, int pixelSize, QObject *parent) :
-//    QGraphicsScene(parent), width(sprite->getWidth()), height(sprite->getHeight()), editor(editor),
-//    sprite(sprite)
-//{
-//    this->setSceneRect(0,0,width*pixelSize,height*pixelSize);
-
-//    this->prepareBackground();
-
-//    editor->setSprite(sprite);
-
-//    currentFrame = sprite->getFrame(0);
-
-//    //Frame: the object that the colors are stored in inside of a matrix.
-//    //Initialize the brush to a value.
-//    brush = new QBrush(QColor(0,0,0,0));
-
-//    for(int i = 0; i < width; i++)
-//    {
-//        pixels.append(QVector<QGraphicsRectItem*/*QGraphicsObject*/>(height));
-//        for(int j = 0; j < height; j++)
-//        {
-//            pixels[i][j] = this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(Qt::white),*brush);
-//        }
-//    }
-
-//}
 
 /**
  * @brief GraphicsScene::prepareBackground
