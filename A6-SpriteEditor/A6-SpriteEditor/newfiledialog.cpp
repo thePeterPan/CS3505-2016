@@ -63,12 +63,10 @@ void NewFileDialog::customAccept()
 
 void NewFileDialog::widthSpinBox_changed(int value)
 {
-    ui->height_spinBox->setValue(value);
 }
 
 void NewFileDialog::heightSpinBox_changed(int value)
 {
-    ui->width_spinBox->setValue(value);
 }
 
 void NewFileDialog::bgContentsComboBox_changed(int index)
