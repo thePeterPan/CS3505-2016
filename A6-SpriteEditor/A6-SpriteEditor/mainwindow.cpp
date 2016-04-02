@@ -128,15 +128,11 @@ void MainWindow::menuOpen_triggered()
 
         // Load and open the selected file
         model->loadSpriteFromFile(filename);
-
-        qDebug() << filename;
     }
 }
 
 void MainWindow::menuSave_triggered()
 {
-    qDebug() << "Save:";
-
     if (model->getFilePath() == "")
     {
         menuSaveAs_triggered();
@@ -148,8 +144,6 @@ void MainWindow::menuSave_triggered()
 
 void MainWindow::menuSaveAs_triggered()
 {
-    qDebug() << "Save As...";
-
     QFileDialog saveAsDialog(this,
                              tr("Save File As..."),
                              QDir::homePath(),
@@ -176,7 +170,6 @@ void MainWindow::menuSaveAs_triggered()
         }
 
         model->saveSpriteToFile(filename);
-        qDebug() << filename;
     }
 }
 

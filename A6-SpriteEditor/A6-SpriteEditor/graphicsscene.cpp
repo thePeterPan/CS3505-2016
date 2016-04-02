@@ -219,7 +219,6 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 }
 
 void GraphicsScene::paintCommand(int x, int y){
-    //qDebug() << currentFrame->toString();
     if(editor->current_tool == editor_model::BRUSH){
         drawSquare(x,y,brush->color());
     }else if(editor->current_tool == editor_model::FILL_BUCKET){
@@ -293,12 +292,8 @@ void GraphicsScene::erase(int x, int y){
 void GraphicsScene::paintEntireFrame()
 {
     for(int i = 0; i < currentFrame->getFrameWidth(); i++)
-        for(int j = 0; j < currentFrame->getFrameHeight(); j++){
-            QColor color = currentFrame->getPixelColor(i,j);
-            qDebug() << color.toRgb();
-            qDebug() << "Pixel: " << i << " " << j;
+        for(int j = 0; j < currentFrame->getFrameHeight(); j++)
             pixels[i][j]->setBrush(currentFrame->getPixelColor(i,j));
-        }
 }
 
 

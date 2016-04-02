@@ -71,8 +71,6 @@ void editor_model::saveSpriteToFile(QString path)
     if (file.open(QIODevice::ReadWrite))
     {
         QTextStream stream(&file);
-        qDebug() << sprite_main->getFrames().size();
-        qDebug() << sprite_main->toString();
         stream << sprite_main->toString();
     }
 
@@ -84,7 +82,9 @@ void editor_model::loadSpriteFromFile(QString path)
     QFile file(path);
     if(!file.open(QIODevice::ReadOnly)) {
         //error
+        return;
     }
+    file_path = path;
     QTextStream in(&file);
     int numberOfFrames, width, height;
     int currentX = 0;
@@ -104,7 +104,6 @@ void editor_model::loadSpriteFromFile(QString path)
         sprite_main->addFrame(f);
         while(lineCount < height){
             currentX = 0;
-            qDebug() << "Number of frames: " << sprite_main->getFrames().size();
             QString line = in.readLine();
             QStringList numbers = line.split(" ");
             for(int i = 0; i < numbers.size() - 4; i += 4){
