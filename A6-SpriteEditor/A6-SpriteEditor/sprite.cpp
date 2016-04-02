@@ -19,6 +19,8 @@ Sprite::Sprite(int width_, int height_, QString title_, QObject *parent) :
 
 }
 
+Sprite::~Sprite() { }
+
 /**
  * Returns the number of frames in the sprite.
  *

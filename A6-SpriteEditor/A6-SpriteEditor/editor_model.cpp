@@ -1,8 +1,13 @@
 #include "editor_model.h"
 
 editor_model::editor_model(QObject *parent) :
-    QObject(parent), brush_color(QColor::fromRgb(255, 255, 255)), current_frame_index(0),
-    current_state(PAUSED), current_tool(BRUSH), playback_speed(1), file_path("")
+    QObject(parent),
+    brush_color(QColor::fromRgb(255, 255, 255)),
+    current_state(PAUSED),
+    file_path(""),
+    current_tool(BRUSH),
+    playback_speed(1),
+    current_frame_index(0)
 {
 }
 
@@ -50,12 +55,12 @@ editor_model::AnimatorState editor_model::getAnimatorState()
     return current_state;
 }
 
-void editor_model::setTool(Tool tool)
+void editor_model::setCurrentTool(Tool tool)
 {
     current_tool = tool;
 }
 
-editor_model::Tool editor_model::getTool()
+editor_model::Tool editor_model::getCurrentTool()
 {
     return current_tool;
 }
@@ -63,6 +68,11 @@ editor_model::Tool editor_model::getTool()
 void editor_model::setPlaybackSpeed(int speed)
 {
     playback_speed = speed;
+}
+
+int editor_model::getPlaybackSpeed()
+{
+    return playback_speed;
 }
 
 void editor_model::saveSpriteToFile(QString path)

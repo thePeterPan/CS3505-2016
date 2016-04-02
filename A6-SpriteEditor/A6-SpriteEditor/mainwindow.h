@@ -50,7 +50,7 @@ private:
     void connectSignalsAndSlots();
     void initializeUIDefaults();
 
-    void graphics();
+    void setNewGraphicsScene();
 
 signals:
 

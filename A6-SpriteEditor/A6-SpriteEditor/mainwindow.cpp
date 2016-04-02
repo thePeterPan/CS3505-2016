@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     model = new editor_model();
 
-    graphics();
+    setNewGraphicsScene();
 
     connectSignalsAndSlots();
     initializeUIDefaults();
@@ -256,7 +256,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-void MainWindow::graphics()
+void MainWindow::setNewGraphicsScene()
 {
     scene = new GraphicsScene(model, 20,20,20, ui->graphicsView);
     scene->setBrushColor(ui->colorWheel_widget->color());
@@ -267,17 +267,17 @@ void MainWindow::graphics()
 
 void MainWindow::brush_pushButton_clicked()
 {
-    model->setTool(editor_model::BRUSH);
+    model->setCurrentTool(editor_model::BRUSH);
 }
 
 void MainWindow::fillBucket_pushButton_clicked()
 {
-    model->setTool(editor_model::FILL_BUCKET);
+    model->setCurrentTool(editor_model::FILL_BUCKET);
 }
 
 void MainWindow::eraser_pushButton_clicked()
 {
-    model->setTool(editor_model::ERASER);
+    model->setCurrentTool(editor_model::ERASER);
 }
 
 void MainWindow::rotateCCW_pushButton_clicked()
@@ -292,12 +292,12 @@ void MainWindow::rotateCW_pushButton_clicked()
 
 void MainWindow::pushButton_clicked()
 {
-    model->setTool(editor_model::PAN);
+    model->setCurrentTool(editor_model::PAN);
 }
 
 void MainWindow::symmetricalTool_pushButton_clicked()
 {
-    model->setTool(editor_model::MIRROR);
+    model->setCurrentTool(editor_model::MIRROR);
 }
 
 void MainWindow::flipV_pushButton_clicked()

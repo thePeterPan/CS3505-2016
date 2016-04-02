@@ -20,14 +20,13 @@ public:
     explicit NewFileDialog(QWidget *parent = 0);
     ~NewFileDialog();
 
+    // Accessor methods:
     QString getTitle();
     int getWidth();
     int getHeight();
     QColor getBgColor();
 
 signals:
-//    void accepted();
-//    void rejected();
 
 private:
     Ui::NewFileDialog *ui;

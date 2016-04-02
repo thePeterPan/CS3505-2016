@@ -2,64 +2,71 @@
 #define GRAPHICSSCENE_H
 
 #include <QGraphicsScene>
-#include <QPoint>
-#include <QMouseEvent>
-#include <QGraphicsSceneMouseEvent>
-#include <iostream>
+// Qt Graphics Objects
 #include <QImage>
-#include "frame.h"
-#include "sprite.h"
-#include "editor_model.h"
 #include <QGraphicsItem>
 #include <QPainter>
+// Qt Events
+#include <QMouseEvent>
+#include <QGraphicsSceneMouseEvent>
+// Other Qt Objects
+#include <QPoint>
+
+#include "editor_model.h"
 
 
 class GraphicsScene : public QGraphicsScene
 {
 
 public:
-    QImage * image;
-    QBrush * brush;
-    Sprite * sprite;
-    Frame * currentFrame;
-    int currentFrameIndex;
-    QVector<QVector<QGraphicsRectItem*>> pixels;
-    editor_model* editor;
-    int width, height, pixelSize;
-
-    int minPixelSize = 5;
-    int maxPixelSize = 100;
-    int pixelInterval = 5;
-
-    void paintCommand(int x, int y);
-    void drawSquare(int x, int y, QColor color);
-    void fillBucket(int x, int y, QColor color);
-    void paintEntireFrame();
-    void drawMirror(int x, int y, QColor color);
-    void erase(int x, int y);
-    void prepareBackground(bool replace);
-
 
     GraphicsScene(editor_model* editor, int width, int height, int pixelSize, QObject *parent = 0);
     ~GraphicsScene();
 
+    // Drawing methods:
+    void prepareBackground(bool replace);
+    void setBrushColor(QColor color);
+    void paintCommand(int x, int y);
+    void drawSquare(int x, int y, QColor color);
+    void fillBucket(int x, int y, QColor color);
+    void drawMirror(int x, int y, QColor color);
+    void paintEntireFrame();
+    void erase(int x, int y);
+    void redrawScene(Sprite* sprite);
+
+    // Used to resize the scene (allow for zoom in and out)
     void setSceneRect(const QRectF &rect);
     void setSceneRect(int x, int y, int width, int height);
-    void setBrushColor(QColor color);
+
+    // Scene manipulation
     void rotateScene(bool direction);
     void flipSceneOrientation(bool orientation);
     void invertSceneColors();
+
+    // Move to Model
     void addFrame();
     void removeFrame();
     void previousFrame();
     void nextFrame();
-    void redrawScene(Sprite* sprite);
 
 signals:
     void frameUpdated(int currentFrameIndex, int totalFrames);
 
 private:
+    // Graphics Objects
+    QImage * image;
+    QBrush * brush;
+    QVector<QVector<QGraphicsRectItem*>> pixels;
+    int width, height, pixelSize;
+    int minPixelSize = 5;
+    int maxPixelSize = 100;
+    int pixelInterval = 5;
 
+    // Move to model
+    Sprite * sprite;
+    Frame * currentFrame;
+    int currentFrameIndex;
+    editor_model* editor;
 
 public slots:
     void zoomIn();

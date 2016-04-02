@@ -17,20 +17,28 @@ public:
     explicit Frame(int width_, int height, QObject *parent = 0);
     ~Frame();
 
+
+    // Getters and setters
     void setPixelColor(int x, int y, QColor color);
-    void setWholeFrameColor(QColor color);
     QColor getPixelColor(int x, int y);
     int getFrameWidth();
     int getFrameHeight();
+    void setWholeFrameColor(QColor color);
+
+    // Frame manipulation
     void rotate(bool direction);
     void flip(bool vertical);
-    QString toString();
     void invert();
+
+    // Save to file method
+    QString toString();
 
 private:
     QVector<QVector<QColor>> frameMatrix;
     int width;
     int height;
+
+    // Helper method to save to file
     QString toRgbaString(QColor color);
 
 signals:

@@ -33,11 +33,10 @@ void NewFileDialog::connectSignalsAndSlots()
 }
 
 /**
+ * @brief NewFileDialog::customAccept
  * Normally this is automatically connected to the accept slot, but here we are
  * intercepting it so that we can validate the data before the dialog box is
  * actually accepted.
- *
- * @brief NewFileDialog::customAccept
  */
 void NewFileDialog::customAccept()
 {
@@ -50,16 +49,6 @@ void NewFileDialog::customAccept()
     }
     accept();
 }
-
-//void NewFileDialog::accepted()
-//{
-//    qDebug() << "Accepted";
-//}
-
-//void NewFileDialog::rejected()
-//{
-//    qDebug() << "Rejected";
-//}
 
 void NewFileDialog::widthSpinBox_changed(int value)
 {

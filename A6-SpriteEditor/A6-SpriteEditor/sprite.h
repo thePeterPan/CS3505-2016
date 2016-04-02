@@ -13,17 +13,24 @@ class Sprite : public QObject
 {
     Q_OBJECT
 public:
+
     explicit Sprite(QObject *parent = 0);
     explicit Sprite(int width_, int height_, QString title, QObject * parent = 0);
+    ~Sprite();
+
+    // Accessor methods
     int getAnimationLength();
     Frame* getFrameAt(int index);
     QList<Frame*> getFrames();
-    void addFrame(Frame* frame);
-    void removeFrameAt(int index);
     int getWidth();
     int getHeight();
     bool getFileSavedStatus();
     void setFileSavedStatus(bool status);
+
+    void addFrame(Frame* frame);
+    void removeFrameAt(int index);
+
+    // Save to file method
     QString toString();
 
 private:
@@ -31,8 +38,11 @@ private:
     int width;
     int height;
 
-    bool file_saved;
+    // Unnecessary
     QString sprite_title;
+
+    // Move to model
+    bool file_saved;
 
 signals:
 

@@ -27,6 +27,8 @@ public:
         PLAYING,
         PAUSED
     };
+    void setAnimatorState(AnimatorState state);
+    AnimatorState getAnimatorState();
 
     // Indicates the current tool that the user has selected.
     enum Tool: unsigned int
@@ -38,36 +40,41 @@ public:
         PAN,
         MIRROR
     };
+    void setCurrentTool(Tool tool);
+    Tool getCurrentTool();
 
-    Tool current_tool;
-
-
+    // Unnecessary
     void setBrushColor(QColor color);
+    void setSprite(Sprite* sprite);
+
+    // Frames:
     void nextFrame();
     void prevFrame();
+    // void addFrameAt(int index);
+    // void deleteFrameAt(int index);
 
-    void setAnimatorState(AnimatorState state);
-    AnimatorState getAnimatorState();
-
-    void setTool(Tool tool);
-    Tool getTool();
-
+    // Playback Speed
     void setPlaybackSpeed(int speed);
+    int getPlaybackSpeed();
 
+    // Save/load file methods
+    QString getFilePath();
     void saveSpriteToFile(QString path);
     void loadSpriteFromFile(QString path);
-    QString getFilePath();
-    void setSprite(Sprite* sprite);
 
 private:
     // State variables:
     QColor brush_color;
-    int current_frame_index;
     AnimatorState current_state;
-    int playback_speed;
     QString file_path;
+    Tool current_tool;
+    int playback_speed;
+
     // Sprite object
     Sprite* sprite_main;
+
+    // Move to sprite:
+    int current_frame_index;
 
 signals:
     void modelUpdated(Sprite* sprite);
