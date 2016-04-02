@@ -16,7 +16,8 @@ public:
     explicit Sprite(QObject *parent = 0);
     explicit Sprite(int width_, int height_, QString title, QObject * parent = 0);
     int getAnimationLength();
-    Frame* getFrame(int index);
+    Frame* getFrameAt(int index);
+    QList<Frame*> getFrames();
     void addFrame(Frame* frame);
     void removeFrameAt(int index);
     int getWidth();
@@ -24,7 +25,6 @@ public:
     bool getFileSavedStatus();
     void setFileSavedStatus(bool status);
     QString toString();
-    QList<Frame*> getFrames();
 
 private:
     QList<Frame*> frames;

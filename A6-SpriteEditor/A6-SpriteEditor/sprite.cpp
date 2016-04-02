@@ -35,9 +35,18 @@ int Sprite::getAnimationLength()
  * @param index
  * @return
  */
-Frame* Sprite::getFrame(int index)
+Frame* Sprite::getFrameAt(int index)
 {
     return frames[index];
+}
+
+/**
+ * @brief Sprite::getFrames
+ * @return
+ */
+QList<Frame*> Sprite::getFrames()
+{
+    return frames;
 }
 
 /**
@@ -94,7 +103,3 @@ QString Sprite::toString()
     return result;
 }
 
-
-QList<Frame*> Sprite::getFrames(){
-    return frames;
-}

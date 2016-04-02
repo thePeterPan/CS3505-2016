@@ -191,25 +191,25 @@ void MainWindow::menuImport_triggered()
 void MainWindow::menuRotateClockwise_triggered()
 {
     qDebug() << "Rotate Clockwise";
-    scene->rotate(false);
+    scene->rotateScene(false);
 }
 
 void MainWindow::menuRotateCounterClockwise_triggered()
 {
     qDebug() << "Rotate Counterclockwise";
-    scene->rotate(true);
+    scene->rotateScene(true);
 }
 
 void MainWindow::menuFlipV_triggered()
 {
     qDebug() << "Flip Vertically";
-    scene->flip(true);
+    scene->flipSceneOrientation(true);
 }
 
 void MainWindow::menuFlipH_triggered()
 {
     qDebug() << "Flip Horizontally";
-    scene->flip(false);
+    scene->flipSceneOrientation(false);
 }
 
 void MainWindow::menuResizeCanvas_triggered()
@@ -237,7 +237,7 @@ void MainWindow::colorWheel_colorChanged(QColor color)
 
     alpha_color.setAlpha(ui->alphaSlider_widget->value());
 
-    scene->setColor(alpha_color);
+    scene->setBrushColor(alpha_color);
 }
 
 void MainWindow::alphaSlider_valueChanged(int value)
@@ -245,7 +245,7 @@ void MainWindow::alphaSlider_valueChanged(int value)
     QColor color = ui->colorWheel_widget->color();
     color.setAlpha(value);
 
-    scene->setColor(color);
+    scene->setBrushColor(color);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -259,7 +259,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::graphics()
 {
     scene = new GraphicsScene(model, 20,20,20, ui->graphicsView);
-    scene->setColor(ui->colorWheel_widget->color());
+    scene->setBrushColor(ui->colorWheel_widget->color());
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
 }
@@ -282,12 +282,12 @@ void MainWindow::eraser_pushButton_clicked()
 
 void MainWindow::rotateCCW_pushButton_clicked()
 {
-    scene->rotate(true);
+    scene->rotateScene(true);
 }
 
 void MainWindow::rotateCW_pushButton_clicked()
 {
-    scene->rotate(false);
+    scene->rotateScene(false);
 }
 
 void MainWindow::pushButton_clicked()
@@ -302,17 +302,17 @@ void MainWindow::symmetricalTool_pushButton_clicked()
 
 void MainWindow::flipV_pushButton_clicked()
 {
-    scene->flip(true);
+    scene->flipSceneOrientation(true);
 }
 
 void MainWindow::flipH_pushButton_clicked()
 {
-    scene->flip(false);
+    scene->flipSceneOrientation(false);
 }
 
 void MainWindow::invertColors_pushButton_clicked()
 {
-    scene->invert();
+    scene->invertSceneColors();
 }
 
 void MainWindow::addFrame_pushButton_clicked()
