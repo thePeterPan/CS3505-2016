@@ -66,7 +66,7 @@ private:
     editor_model* model;
 
     // Move to model
-    Frame * currentFrame;
+//    Frame * currentFrame;
     int currentFrameIndex;
 
 

@@ -28,8 +28,8 @@ GraphicsScene::GraphicsScene(editor_model* _model, int _width, int _height, int 
     currentFrameIndex = 0;
 
     // Frame: the object that the colors are stored in inside of a matrix.
-    currentFrame = new Frame(width, height, this);
-    model->getSprite()->addFrame(currentFrame);
+//    currentFrame = new Frame(width, height, this);
+    model->getSprite()->addFrame(new Frame(width, height, this));
 
     // Initialize the brush to a value.
     brush = new QBrush(QColor(0, 0, 0, 0));
@@ -59,7 +59,7 @@ void GraphicsScene::redrawScene(Sprite *sprite)
     this->setSceneRect(0, 0, width * pixelSize, height * pixelSize);
     this->prepareBackground(true);
     model->setSprite(sprite);
-    currentFrame = sprite->getFrameAt(currentFrameIndex);
+//    currentFrame = sprite->getFrameAt(currentFrameIndex);
 
     for(int i = 0; i < width; i++)
     {
@@ -116,7 +116,7 @@ GraphicsScene::~GraphicsScene()
 {
     delete image;
     delete brush;
-    delete currentFrame;
+//    delete currentFrame;
 }
 
 /**
@@ -215,7 +215,7 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
-    if(x >= 0 && x < currentFrame->getFrameWidth() && y >= 0 && y < currentFrame->getFrameHeight())
+    if(x >= 0 && x < model->getSprite()->getWidth() && y >= 0 && y < model->getSprite()->getHeight())
         paintCommand(x,y);
 }
 
@@ -229,7 +229,7 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
 
-    if(x >= 0 && x < currentFrame->getFrameWidth() && y >= 0 && y < currentFrame->getFrameHeight())
+    if(x >= 0 && x < model->getSprite()->getWidth() && y >= 0 && y < model->getSprite()->getHeight())
         paintCommand(x,y);
 }
 
@@ -263,7 +263,7 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
     if((x < 0) | (y < 0) | (x >= this->width) | (y >= this->height))
         return;
 
-    currentFrame->setPixelColor(x,y,color);
+    model->getSprite()->setPixelColorAtCurrentFrame(x, y, color);
 
     pixels[x][y]->setBrush(QBrush(color));
 }
@@ -278,7 +278,7 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
 void GraphicsScene::fillBucket(int x, int y, QColor color)
 {
 
-    QColor prev = currentFrame->getPixelColor(x,y);
+    QColor prev = model->getSprite()->getPixelColorAtCurrentFrame(x, y);
 
     if(prev == color)
         return;
@@ -289,13 +289,13 @@ void GraphicsScene::fillBucket(int x, int y, QColor color)
     int x2 = x + 1;
     int y1 = y - 1;
     int y2 = y + 1;
-    if(x1 >= 0 && currentFrame->getPixelColor(x1,y) == prev)
+    if(x1 >= 0 && model->getSprite()->getPixelColorAtCurrentFrame(x1, y) == prev)
             fillBucket(x1,y,color);
-    if(x2 < width && currentFrame->getPixelColor(x2,y) == prev)
+    if(x2 < width && model->getSprite()->getPixelColorAtCurrentFrame(x2, y) == prev)
             fillBucket(x2,y,color);
-    if(y1 >= 0 && currentFrame->getPixelColor(x,y1) == prev)
+    if(y1 >= 0 && model->getSprite()->getPixelColorAtCurrentFrame(x, y1) == prev)
             fillBucket(x,y1,color);
-    if(y2 < height && currentFrame->getPixelColor(x,y2) == prev)
+    if(y2 < height && model->getSprite()->getPixelColorAtCurrentFrame(x, y2) == prev)
             fillBucket(x,y2,color);
 }
 
@@ -316,9 +316,9 @@ void GraphicsScene::erase(int x, int y)
  */
 void GraphicsScene::paintEntireFrame()
 {
-    for(int i = 0; i < currentFrame->getFrameWidth(); i++)
-        for(int j = 0; j < currentFrame->getFrameHeight(); j++)
-            pixels[i][j]->setBrush(currentFrame->getPixelColor(i,j));
+    for(int i = 0; i < model->getSprite()->getWidth(); i++)
+        for(int j = 0; j < model->getSprite()->getHeight(); j++)
+            pixels[i][j]->setBrush(model->getSprite()->getPixelColorAtCurrentFrame(i, j));
 }
 
 /**
@@ -348,7 +348,7 @@ void GraphicsScene::setBrushColor(QColor color)
  */
 void GraphicsScene::rotateScene(bool direction)
 {
-    currentFrame->rotate(direction);
+    model->getSprite()->rotateCurrentFrame(direction);
     this->paintEntireFrame();
 }
 
@@ -358,7 +358,7 @@ void GraphicsScene::rotateScene(bool direction)
  */
 void GraphicsScene::flipSceneOrientation(bool orientation)
 {
-    currentFrame->flip(orientation);
+    model->getSprite()->flipCurrentFrameOrientation(orientation);
     this->paintEntireFrame();
 }
 
@@ -367,7 +367,7 @@ void GraphicsScene::flipSceneOrientation(bool orientation)
  */
 void GraphicsScene::invertSceneColors()
 {
-    currentFrame->invert();
+    model->getSprite()->invertCurrentFrameColor();
     this->paintEntireFrame();
 }
 
@@ -378,7 +378,7 @@ void GraphicsScene::addFrame()
 {
     model->getSprite()->addFrame(new Frame(width, height, this));
     currentFrameIndex = model->getSprite()->getFrames().size() - 1;
-    currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
+//    currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
     this->paintEntireFrame();
 }
 
@@ -393,7 +393,7 @@ void GraphicsScene::removeFrame()
         model->getSprite()->removeFrameAt(currentFrameIndex);
         if (currentFrameIndex == model->getSprite()->getFrames().size())
             currentFrameIndex--;
-        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
+//        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
         this->paintEntireFrame();
         //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
     }
@@ -407,7 +407,7 @@ void GraphicsScene::previousFrame()
     if (currentFrameIndex > 0)
     {
         currentFrameIndex--;
-        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
+//        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
         //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
     }
     this->paintEntireFrame();
@@ -422,7 +422,7 @@ void GraphicsScene::nextFrame()
     if (currentFrameIndex < model->getSprite()->getFrames().size() - 1)
     {
         currentFrameIndex++;
-        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
+//        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
         //emit frameUpdated(currentFrameIndex - 1, sprite->getFrames().size());
     }
     this->paintEntireFrame();

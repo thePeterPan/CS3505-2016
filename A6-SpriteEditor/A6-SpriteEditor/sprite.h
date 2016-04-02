@@ -29,12 +29,20 @@ public:
 
     void addFrame(Frame* frame);
     void removeFrameAt(int index);
+    void setCurrentFrame(int index);
+    int getCurrentFrame();
+    void setPixelColorAtCurrentFrame(int x, int y, QColor color);
+    QColor getPixelColorAtCurrentFrame(int x, int y);
+    void rotateCurrentFrame(bool direction);
+    void flipCurrentFrameOrientation(bool orientation);
+    void invertCurrentFrameColor();
 
     // Save to file method
     QString toString();
 
 private:
     QList<Frame*> frames;
+    int currentFrame;
     int width;
     int height;
 

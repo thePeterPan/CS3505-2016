@@ -7,13 +7,13 @@
  * @param parent
  */
 Sprite::Sprite(QObject *parent) :
-    QObject(parent), width(0), height(0), file_saved(false)
+    QObject(parent), currentFrame(0), width(0), height(0), file_saved(false)
 {
 
 }
 
 Sprite::Sprite(int width_, int height_, QObject *parent) :
-    QObject(parent), width(width_), height(height_), file_saved(false)
+    QObject(parent), currentFrame(0), width(width_), height(height_), file_saved(false)
 {
 
 }
@@ -71,6 +71,41 @@ void Sprite::removeFrameAt(int index)
 
 }
 
+void Sprite::setCurrentFrame(int index)
+{
+    currentFrame = index;
+}
+
+int Sprite::getCurrentFrame()
+{
+    return currentFrame;
+}
+
+void Sprite::setPixelColorAtCurrentFrame(int x, int y, QColor color)
+{
+    frames.at(currentFrame)->setPixelColor(x, y, color);
+}
+
+QColor Sprite::getPixelColorAtCurrentFrame(int x, int y)
+{
+    return frames.at(currentFrame)->getPixelColor(x, y);
+}
+
+void Sprite::rotateCurrentFrame(bool direction)
+{
+    frames.at(currentFrame)->rotate(direction);
+}
+
+void Sprite::flipCurrentFrameOrientation(bool orientation)
+{
+    frames.at(currentFrame)->flip(orientation);
+}
+
+void Sprite::invertCurrentFrameColor()
+{
+    frames.at(currentFrame)->invert();
+}
+
 /**
  * @brief sprite::getWidth
  * @return
@@ -89,6 +124,11 @@ int Sprite::getHeight()
     return height;
 }
 
+/**
+ * @brief Sprite::toString
+ * Used to output the sprite to a file
+ * @return
+ */
 QString Sprite::toString()
 {
     QString result;
