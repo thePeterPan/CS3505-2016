@@ -205,9 +205,6 @@ void GraphicsScene::drawSquare(int x, int y, QColor color)
 
 
     pixels[x][y]->setBrush(QBrush(color));
-    QImage *temp = currentFrame->getQImage();
-    qDebug() << temp << endl;
-    delete temp;
 }
 
 void GraphicsScene::fillBucket(int x, int y, QColor color){
