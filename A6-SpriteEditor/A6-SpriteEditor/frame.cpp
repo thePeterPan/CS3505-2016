@@ -93,36 +93,31 @@ int Frame::getFrameHeight()
  * True: rotates counterclockwise
  * False: rotates clockwise
  */
-void Frame::rotate(bool direction)
+void Frame::rotate(bool clockwise)
 {
-    if(direction)
+    QVector<QVector<QColor>> flipped;
+    for(int i = 0; i < width; ++i)
     {
-        if(width == height)
+        flipped.append(QVector<QColor>(height));
+        for(int j = 0; j < height; ++j)
         {
-            QVector<QVector<QColor>> temp(frameMatrix);
-            for(int x = 0; x < width; ++x)
-                for(int y = 0; y < height; ++y)
-                    frameMatrix[x][y] = temp[width - 1 - y][x];
-        }
-    } else {
-        if (width == height)
-        {
-            QVector<QVector<QColor>> temp(frameMatrix);
-            for(int x = 0; x < width; ++x)
-                for(int y = 0; y < height; ++y)
-                    frameMatrix[x][y] = temp[y][height - 1 - x];
+            if (clockwise)
+                flipped[i][j] = frameMatrix[width - 1 - j][i];
+            else
+                flipped[i][j] = frameMatrix[j][height - 1 - i];
         }
     }
+    frameMatrix = flipped;
 }
 
 void Frame::flip(bool vertical)
 {
     QVector<QVector<QColor>> temp(frameMatrix);
     if (vertical)
-    {
+    {       
         for(int x = 0; x < width; ++x)
             for(int y = 0; y < height; ++y)
-                frameMatrix[x][y] = temp[x][width - 1 - y];
+                frameMatrix[x][y] = temp[x][height - 1 - y];
     }
     else
     {
