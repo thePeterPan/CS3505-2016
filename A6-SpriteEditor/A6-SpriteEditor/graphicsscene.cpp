@@ -18,12 +18,12 @@
 GraphicsScene::GraphicsScene(editor_model* editor, int width, int height, int pixelSize, QObject *parent) :
     QGraphicsScene(parent), width(width), height(height), pixelSize(pixelSize), editor(editor)
 {
-
-    this->setSceneRect(0, 0, width * pixelSize, height * pixelSize);
-
+    // Set the size of the drawing area
+    this->setSceneRect(0, 0, width*pixelSize, height*pixelSize);
+    // Setup the checkered background
     this->prepareBackground(false);
 
-    sprite = new Sprite(width, height, "Title");
+    sprite = new Sprite(width, height);
 
     currentFrameIndex = 0;
 
@@ -83,6 +83,7 @@ void GraphicsScene::redrawScene(Sprite *sprite)
 /**
  * @brief GraphicsScene::prepareBackground
  * Creates a nice, checkered background to draw on.
+ * @param replace - if true clears the scene first.
  */
 void GraphicsScene::prepareBackground(bool replace)
 {

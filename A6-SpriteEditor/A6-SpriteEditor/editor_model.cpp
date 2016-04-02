@@ -103,7 +103,7 @@ void editor_model::loadSpriteFromFile(QString path)
     QStringList sizes = size.split(" ");
     width = sizes[0].toInt();
     height = sizes[1].toInt();
-    sprite_main = new Sprite(width,height,"Sprite");
+    sprite_main = new Sprite(width,height);
 
     QString num_frames = in.readLine();
     numberOfFrames = num_frames.toInt();

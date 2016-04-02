@@ -15,7 +15,7 @@ class Sprite : public QObject
 public:
 
     explicit Sprite(QObject *parent = 0);
-    explicit Sprite(int width_, int height_, QString title, QObject * parent = 0);
+    explicit Sprite(int width_, int height_, QObject * parent = 0);
     ~Sprite();
 
     // Accessor methods
@@ -37,9 +37,6 @@ private:
     QList<Frame*> frames;
     int width;
     int height;
-
-    // Unnecessary
-    QString sprite_title;
 
     // Move to model
     bool file_saved;

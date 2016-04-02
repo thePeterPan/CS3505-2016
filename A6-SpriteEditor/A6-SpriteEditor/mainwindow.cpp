@@ -119,7 +119,7 @@ void MainWindow::menuNewFile_triggered()
     {
         int width = dialog.getWidth();
         int height = dialog.getHeight();
-        Sprite* s = new Sprite(width,height,dialog.getTitle());
+        Sprite* s = new Sprite(width,height);
         Frame* f = new Frame(width,height);
         s->addFrame(f);
         model->setSprite(s);

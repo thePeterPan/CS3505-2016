@@ -7,14 +7,13 @@
  * @param parent
  */
 Sprite::Sprite(QObject *parent) :
-    QObject(parent), width(0), height(0), file_saved(false), sprite_title("New Sprite")
+    QObject(parent), width(0), height(0), file_saved(false)
 {
 
 }
 
-Sprite::Sprite(int width_, int height_, QString title_, QObject *parent) :
-    QObject(parent), width(width_), height(height_), file_saved(false),
-    sprite_title(title_)
+Sprite::Sprite(int width_, int height_, QObject *parent) :
+    QObject(parent), width(width_), height(height_), file_saved(false)
 {
 
 }
