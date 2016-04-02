@@ -167,10 +167,9 @@ void Frame::invert()
         }
 }
 
-void Frame::convertToQImage() {
+QImage *Frame::getQImage() {
 
-    //maybe I need to loop through the framematrix.
-    newImage = new QImage(width,height,QImage::Format_ARGB32);
+    QImage *newImage = new QImage(width,height,QImage::Format_ARGB32);
     for (int i = 0; i < width; i ++)
     {
         for (int j = 0; j < height; j++)
@@ -180,11 +179,7 @@ void Frame::convertToQImage() {
             newImage->setPixel(i,j,tempColor.rgba());
         }
     }
-    //qDebug() << newI << endl;
 
-}
-
-QImage *Frame::getQImage() {
     return newImage;
 }
 

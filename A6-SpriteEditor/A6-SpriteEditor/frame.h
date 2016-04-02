@@ -28,7 +28,6 @@ public:
     void flip(bool vertical);
     QString toString();
     void invert();
-    void convertToQImage();
     QImage* getQImage();
 
 
@@ -37,7 +36,6 @@ private:
     int width;
     int height;
     QString toRgbaString(QColor color);
-    QImage* newImage;
 
 signals:
 
