@@ -20,17 +20,20 @@ SOURCES += main.cpp\
     sprite.cpp \
     frame.cpp \
     graphicsscene.cpp \
-    newfiledialog.cpp
+    newfiledialog.cpp \
+    helpdialog.cpp
 
 HEADERS  += mainwindow.h \
     editor_model.h \
     sprite.h \
     frame.h \
     graphicsscene.h \
-    newfiledialog.h
+    newfiledialog.h \
+    helpdialog.h
 
 FORMS    += mainwindow.ui \
-    newfiledialog.ui
+    newfiledialog.ui \
+    helpdialog.ui
 
 RESOURCES += \
     resources.qrc
