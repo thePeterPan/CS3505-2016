@@ -174,17 +174,6 @@ void MainWindow::menuSaveAs_triggered()
         if (!filename.endsWith(".ssp", Qt::CaseInsensitive))
             filename += ".ssp";
 
-        // Check to see if the file already exists, if so ask if they want to overwrite.
-        QFileInfo checkFile(filename);
-        if (checkFile.exists() && checkFile.isFile()) {
-            QMessageBox::StandardButton reply;
-            reply = QMessageBox::question(this,
-                                          tr("File Exists."),
-                                          tr("File already exists. Overwrite?"),
-                                          QMessageBox::Yes|QMessageBox::No);
-            if (reply == QMessageBox::No) return;
-        }
-
         model->saveSpriteToFile(filename);
     }
 }
