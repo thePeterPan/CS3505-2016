@@ -25,6 +25,8 @@ GraphicsScene::GraphicsScene(editor_model* editor, int width, int height, int pi
 
     sprite = new Sprite(width,height,"Title");
 
+    currentFrameIndex = 0;
+
     editor->setSprite(sprite);
 
     //Frame: the object that the colors are stored in inside of a matrix.
@@ -51,7 +53,7 @@ void GraphicsScene::redrawScene(Sprite *sprite){
     this->setSceneRect(0,0,width*pixelSize,height*pixelSize);
     this->prepareBackground(true);
     editor->setSprite(sprite);
-    currentFrame = sprite->getFrame(0);
+    currentFrame = sprite->getFrame(currentFrameIndex);
 
     for(int i = 0; i < width; i++)
     {
@@ -330,5 +332,44 @@ void GraphicsScene::flip(bool vertical) {
 }
 void GraphicsScene::invert() {
     currentFrame->invert();
+    this->paintEntireFrame();
+}
+
+void GraphicsScene::addFrame() {
+    sprite->addFrame(new Frame(width,height,this));
+    currentFrameIndex = sprite->getFrames().size() - 1;
+    currentFrame = sprite->getFrame(currentFrameIndex);
+    this->paintEntireFrame();
+}
+
+void GraphicsScene::removeFrame() {
+
+    if (sprite->getFrames().size() > 1)
+    {
+        sprite->removeFrameAt(currentFrameIndex);
+        if (currentFrameIndex == sprite->getFrames().size())
+            currentFrameIndex--;
+        currentFrame = sprite->getFrame(currentFrameIndex);
+        this->paintEntireFrame();
+        //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
+    }
+}
+
+void GraphicsScene::previousFrame() {
+    if (currentFrameIndex > 0) {
+        currentFrameIndex--;
+        currentFrame = sprite->getFrame(currentFrameIndex);
+        //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
+    }
+    this->paintEntireFrame();
+
+}
+
+void GraphicsScene::nextFrame() {
+    if (currentFrameIndex < sprite->getFrames().size() - 1) {
+        currentFrameIndex++;
+        currentFrame = sprite->getFrame(currentFrameIndex);
+        //emit frameUpdated(currentFrameIndex - 1, sprite->getFrames().size());
+    }
     this->paintEntireFrame();
 }

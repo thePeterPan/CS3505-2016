@@ -55,7 +55,10 @@ void Sprite::addFrame(Frame* f)
  */
 void Sprite::removeFrameAt(int index)
 {
-//    frames.removeAt(index);
+    if (frames.size() > 1) {
+        frames.removeAt(index);
+    }
+
 }
 
 /**

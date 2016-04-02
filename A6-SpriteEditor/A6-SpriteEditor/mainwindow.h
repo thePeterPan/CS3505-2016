@@ -58,6 +58,7 @@ signals:
 
 public slots:
     void updateModel(Sprite* sprite);
+    void updateFrame(int currentFrameIndex,int totalFrames);
 
 private slots:
     // File Menu:
@@ -95,6 +96,10 @@ private slots:
     void flipV_pushButton_clicked();
     void flipH_pushButton_clicked();
     void invertColors_pushButton_clicked();
+    void on_addFrame_pushButton_clicked();
+    void on_removeFrame_pushButton_clicked();
+    void on_prevFrame_pushButton_clicked();
+    void on_nextFrame_pushButton_clicked();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);

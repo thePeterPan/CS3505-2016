@@ -220,6 +220,13 @@
            </spacer>
           </item>
           <item>
+           <widget class="QPushButton" name="addFrame_pushButton">
+            <property name="text">
+             <string>New Frame</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="prevFrame_pushButton">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -310,6 +317,13 @@
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="removeFrame_pushButton">
+            <property name="text">
+             <string>Remove Frame</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -321,6 +335,13 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="frameIndexLabel">
+            <property name="text">
+             <string>Frame 0 of 0</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>

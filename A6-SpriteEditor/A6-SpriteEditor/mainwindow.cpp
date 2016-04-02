@@ -68,6 +68,10 @@ void MainWindow::connectSignalsAndSlots()
 
     /// Open file:
     connect(this->model,&editor_model::modelUpdated,this,&MainWindow::updateModel);
+
+    /// Frame Index Label
+    //connect(this->scene,&GraphicsScene::frameUpdated,this,&MainWindow::updateFrame);
+    //connect(this->scene,SIGNAL(frameUpdated(int, int)),this,SLOT(updateFrame(int, int)));
 }
 
 void MainWindow::initializeUIDefaults()
@@ -88,6 +92,13 @@ void MainWindow::initializeUIDefaults()
 void MainWindow::updateModel(Sprite* sprite)
 {
     scene->redrawScene(sprite);
+}
+
+void MainWindow::updateFrame(int currentFrame, int totalFrames)
+{
+    QString current = QString::number(currentFrame);
+    QString total = QString::number(totalFrames);
+    ui->frameIndexLabel->setText("Frame " + current + " of " + total);
 }
 
 void MainWindow::playbackSpeed_hSlider_moved(int value)
@@ -308,4 +319,24 @@ void MainWindow::flipH_pushButton_clicked()
 void MainWindow::invertColors_pushButton_clicked()
 {
     scene->invert();
+}
+
+void MainWindow::on_addFrame_pushButton_clicked()
+{
+    scene->addFrame();
+}
+
+void MainWindow::on_removeFrame_pushButton_clicked()
+{
+    scene->removeFrame();
+}
+
+void MainWindow::on_prevFrame_pushButton_clicked()
+{
+    scene->previousFrame();
+}
+
+void MainWindow::on_nextFrame_pushButton_clicked()
+{
+    scene->nextFrame();
 }

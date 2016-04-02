@@ -16,10 +16,14 @@
 
 class GraphicsScene : public QGraphicsScene
 {
+    //Q_OBJECT
+
+public:
     QImage * image;
     QBrush * brush;
     Sprite * sprite;
     Frame * currentFrame;
+    int currentFrameIndex;
     QVector<QVector</*QGraphicsObject*/QGraphicsRectItem*>> pixels;
     editor_model* editor;
     int width, height, pixelSize;
@@ -36,8 +40,7 @@ class GraphicsScene : public QGraphicsScene
     void erase(int x, int y);
     void prepareBackground(bool replace);
 
-    //Q_OBJECT
-public:
+
     //GraphicsScene(QObject *parent); // Not needed.
     GraphicsScene(editor_model* editor, int width, int height, int pixelSize, QObject *parent = 0);
     //GraphicsScene(editor_model *editor, Sprite* sprite, int pixelSize, QObject *parent = 0);
@@ -49,12 +52,17 @@ public:
     void rotate(bool direction);
     void flip(bool vertical);
     void invert();
+    void addFrame();
+    void removeFrame();
+    void previousFrame();
+    void nextFrame();
     void redrawScene(Sprite* sprite);
+
+signals:
+    void frameUpdated(int currentFrameIndex, int totalFrames);
 
 private:
     bool colorEquals(QColor color1, QColor color2);
-
-signals:
 
 public slots:
     void zoomIn();
