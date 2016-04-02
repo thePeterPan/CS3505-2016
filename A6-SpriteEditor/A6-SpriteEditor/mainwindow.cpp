@@ -52,7 +52,7 @@ void MainWindow::connectSignalsAndSlots()
     /// Alpha Slider
     connect(ui->alphaSlider_widget, &color_widgets::GradientSlider::valueChanged, this, &MainWindow::alphaSlider_valueChanged);
 
-    /// Tool Buttons:
+    /// Toolbar Buttons:
     connect(ui->brush_pushButton, &QToolButton::clicked, this, &MainWindow::brush_pushButton_clicked);
     connect(ui->fillBucket_pushButton, &QToolButton::clicked, this, &MainWindow::fillBucket_pushButton_clicked);
     connect(ui->eraser_pushButton, &QToolButton::clicked, this, &MainWindow::eraser_pushButton_clicked);
@@ -65,6 +65,13 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->invertColors_pushButton, &QToolButton::clicked, this, &MainWindow::invertColors_pushButton_clicked);
     connect(ui->zoomIn_pushButton, &QPushButton::clicked, this->scene, &GraphicsScene::zoomIn);
     connect(ui->zoomOut_pushButton, &QPushButton::clicked, this->scene, &GraphicsScene::zoomOut);
+    connect(ui->addFrame_pushButton, &QPushButton::clicked, this, &MainWindow::addFrame_pushButton_clicked);
+    connect(ui->removeFrame_pushButton, &QPushButton::clicked, this, &MainWindow::removeFrame_pushButton_clicked);
+
+    /// Playback buttons:
+    connect(ui->prevFrame_pushButton, &QPushButton::clicked, this, &MainWindow::prevFrame_pushButton_clicked);
+    connect(ui->nextFrame_pushButton, &QPushButton::clicked, this, &MainWindow::nextFrame_pushButton_clicked);
+    connect(ui->play_pushButton, &QPushButton::clicked, this, &MainWindow::play_pushButton_clicked);
 
     /// Open file:
     connect(this->model,&editor_model::modelUpdated,this,&MainWindow::updateModel);
@@ -94,11 +101,9 @@ void MainWindow::updateModel(Sprite* sprite)
     scene->redrawScene(sprite);
 }
 
-void MainWindow::updateFrame(int currentFrame, int totalFrames)
+void MainWindow::updateCurrentFrameIndex(int currentFrame, int totalFrames)
 {
-    QString current = QString::number(currentFrame);
-    QString total = QString::number(totalFrames);
-    ui->frameIndexLabel->setText("Frame " + current + " of " + total);
+    ui->currentFrameIndex_label->setText(QString::number(currentFrame) + " / " + QString::number(totalFrames));
 }
 
 void MainWindow::playbackSpeed_hSlider_moved(int value)
@@ -321,22 +326,27 @@ void MainWindow::invertColors_pushButton_clicked()
     scene->invert();
 }
 
-void MainWindow::on_addFrame_pushButton_clicked()
+void MainWindow::addFrame_pushButton_clicked()
 {
     scene->addFrame();
 }
 
-void MainWindow::on_removeFrame_pushButton_clicked()
+void MainWindow::removeFrame_pushButton_clicked()
 {
     scene->removeFrame();
 }
 
-void MainWindow::on_prevFrame_pushButton_clicked()
+void MainWindow::prevFrame_pushButton_clicked()
 {
     scene->previousFrame();
 }
 
-void MainWindow::on_nextFrame_pushButton_clicked()
+void MainWindow::nextFrame_pushButton_clicked()
 {
     scene->nextFrame();
+}
+
+void MainWindow::play_pushButton_clicked()
+{
+
 }

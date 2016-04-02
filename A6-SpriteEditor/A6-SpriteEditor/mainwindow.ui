@@ -13,7 +13,7 @@
   <property name="minimumSize">
    <size>
     <width>835</width>
-    <height>500</height>
+    <height>720</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -40,6 +40,13 @@
         <property name="bottomMargin">
          <number>2</number>
         </property>
+        <item row="12" column="0" colspan="2">
+         <widget class="Line" name="line_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
         <item row="8" column="1">
          <widget class="QPushButton" name="invertColors_pushButton">
           <property name="minimumSize">
@@ -190,6 +197,42 @@
           </property>
          </widget>
         </item>
+        <item row="13" column="0">
+         <widget class="QLabel" name="currentFrame_label">
+          <property name="text">
+           <string>Current Frame:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="0" colspan="2">
+         <widget class="QSlider" name="currentFrame_horizontalSlider">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="1">
+         <widget class="QLabel" name="currentFrameIndex_label">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="lineWidth">
+           <number>1</number>
+          </property>
+          <property name="text">
+           <string>0 / 0</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -220,13 +263,6 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="addFrame_pushButton">
-            <property name="text">
-             <string>New Frame</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="prevFrame_pushButton">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -239,6 +275,9 @@
               <width>90</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>Previous Frame</string>
             </property>
             <property name="text">
              <string/>
@@ -268,6 +307,9 @@
               <width>90</width>
               <height>40</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>Play</string>
             </property>
             <property name="text">
              <string/>
@@ -301,6 +343,9 @@
             <property name="focusPolicy">
              <enum>Qt::WheelFocus</enum>
             </property>
+            <property name="toolTip">
+             <string>Next Frame</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -317,13 +362,6 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="removeFrame_pushButton">
-            <property name="text">
-             <string>Remove Frame</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -335,13 +373,6 @@
              </size>
             </property>
            </spacer>
-          </item>
-          <item>
-           <widget class="QLabel" name="frameIndexLabel">
-            <property name="text">
-             <string>Frame 0 of 0</string>
-            </property>
-           </widget>
           </item>
          </layout>
         </item>
@@ -376,6 +407,9 @@
             <height>50</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>Paint Brush</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -405,6 +439,9 @@
             <height>50</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>Fill Bucket</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -433,6 +470,9 @@
             <width>60</width>
             <height>50</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>Eraser Tool</string>
           </property>
           <property name="text">
            <string/>
@@ -472,6 +512,9 @@
             <height>50</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>Rotate Counterclockwise</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -506,6 +549,9 @@
             <width>60</width>
             <height>50</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>Rotate Clockwise</string>
           </property>
           <property name="text">
            <string/>
@@ -542,6 +588,9 @@
             <height>50</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>Pan Tool</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -576,6 +625,9 @@
             <width>60</width>
             <height>50</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>Zoom In</string>
           </property>
           <property name="text">
            <string/>
@@ -612,6 +664,9 @@
             <height>50</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>Zoom Out</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -640,13 +695,88 @@
           </property>
          </spacer>
         </item>
+        <item>
+         <widget class="QPushButton" name="addFrame_pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Add New Frame</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icons/icons/square-add_white.svg</normaloff>:/icons/icons/square-add_white.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeFrame_pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Delete Frame</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icons/icons/trash_white.svg</normaloff>:/icons/icons/trash_white.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>

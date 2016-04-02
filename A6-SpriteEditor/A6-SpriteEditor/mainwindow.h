@@ -58,7 +58,7 @@ signals:
 
 public slots:
     void updateModel(Sprite* sprite);
-    void updateFrame(int currentFrameIndex,int totalFrames);
+    void updateCurrentFrameIndex(int currentFrameIndex,int totalFrames);
 
 private slots:
     // File Menu:
@@ -85,7 +85,7 @@ private slots:
     void colorWheel_colorChanged(QColor color);
     void alphaSlider_valueChanged(int value);
 
-    // Tool buttons:
+    // Toolbar buttons:
     void brush_pushButton_clicked();
     void fillBucket_pushButton_clicked();
     void eraser_pushButton_clicked();
@@ -96,10 +96,13 @@ private slots:
     void flipV_pushButton_clicked();
     void flipH_pushButton_clicked();
     void invertColors_pushButton_clicked();
-    void on_addFrame_pushButton_clicked();
-    void on_removeFrame_pushButton_clicked();
-    void on_prevFrame_pushButton_clicked();
-    void on_nextFrame_pushButton_clicked();
+    void addFrame_pushButton_clicked();
+    void removeFrame_pushButton_clicked();
+
+    // Playback buttons:
+    void prevFrame_pushButton_clicked();
+    void nextFrame_pushButton_clicked();
+    void play_pushButton_clicked();
 
 protected:
     virtual void closeEvent(QCloseEvent *event);
