@@ -2,23 +2,20 @@
 
 editor_model::editor_model(QObject *parent) :
     QObject(parent),
-    brush_color(QColor::fromRgb(255, 255, 255)),
     current_state(PAUSED),
     file_path(""),
     current_tool(BRUSH),
     playback_speed(1),
-    current_frame_index(0)
-{
-}
-
-void editor_model::setBrushColor(QColor color)
-{
-    brush_color = color;
-}
+    current_frame_index(0) { }
 
 void editor_model::setSprite(Sprite *sprite)
 {
     this->sprite_main = sprite;
+}
+
+Sprite* editor_model::getSprite()
+{
+    return sprite_main;
 }
 
 /**

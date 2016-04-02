@@ -43,9 +43,9 @@ public:
     void setCurrentTool(Tool tool);
     Tool getCurrentTool();
 
-    // Unnecessary
-    void setBrushColor(QColor color);
+    // Unnecessary (maybe)
     void setSprite(Sprite* sprite);
+    Sprite* getSprite();
 
     // Frames:
     void nextFrame();
@@ -64,7 +64,6 @@ public:
 
 private:
     // State variables:
-    QColor brush_color;
     AnimatorState current_state;
     QString file_path;
     Tool current_tool;

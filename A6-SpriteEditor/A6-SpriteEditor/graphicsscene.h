@@ -20,7 +20,7 @@ class GraphicsScene : public QGraphicsScene
 
 public:
 
-    GraphicsScene(editor_model* editor, int width, int height, int pixelSize, QObject *parent = 0);
+    GraphicsScene(editor_model* model, int width, int height, int pixelSize, QObject *parent = 0);
     ~GraphicsScene();
 
     // Drawing methods:
@@ -62,11 +62,13 @@ private:
     int maxPixelSize = 100;
     int pixelInterval = 5;
 
+    // Model
+    editor_model* model;
+
     // Move to model
-    Sprite * sprite;
     Frame * currentFrame;
     int currentFrameIndex;
-    editor_model* editor;
+
 
 public slots:
     void zoomIn();

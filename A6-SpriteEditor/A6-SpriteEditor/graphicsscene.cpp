@@ -15,32 +15,32 @@
  * @param height
  * @param pixelSize
  */
-GraphicsScene::GraphicsScene(editor_model* editor, int width, int height, int pixelSize, QObject *parent) :
-    QGraphicsScene(parent), width(width), height(height), pixelSize(pixelSize), editor(editor)
+GraphicsScene::GraphicsScene(editor_model* _model, int _width, int _height, int _pixelSize, QObject *parent) :
+    QGraphicsScene(parent), width(_width), height(_height), pixelSize(_pixelSize), model(_model)
 {
     // Set the size of the drawing area
     this->setSceneRect(0, 0, width*pixelSize, height*pixelSize);
     // Setup the checkered background
     this->prepareBackground(false);
 
-    sprite = new Sprite(width, height);
+    model->setSprite(new Sprite(width, height));
 
     currentFrameIndex = 0;
 
-    editor->setSprite(sprite);
-
     // Frame: the object that the colors are stored in inside of a matrix.
     currentFrame = new Frame(width, height, this);
-    sprite->addFrame(currentFrame);
+    model->getSprite()->addFrame(currentFrame);
+
     // Initialize the brush to a value.
     brush = new QBrush(QColor(0, 0, 0, 0));
 
+    // Create the scene with a bunch of "pixels" to draw on.
     for(int i = 0; i < width; i++)
     {
         pixels.append(QVector<QGraphicsRectItem*>(height));
         for(int j = 0; j < height; j++)
         {
-            pixels[i][j] = this->addRect(pixelSize*i,pixelSize*j,pixelSize,pixelSize,QPen(Qt::white),*brush);
+            pixels[i][j] = this->addRect(pixelSize*i, pixelSize*j, pixelSize, pixelSize, QPen(Qt::white), *brush);
         }
     }
 }
@@ -53,13 +53,12 @@ void GraphicsScene::redrawScene(Sprite *sprite)
 {
     pixels.clear();
 
-    this->sprite = sprite;
     this->width = sprite->getWidth();
     this->height = sprite->getHeight();
 
     this->setSceneRect(0, 0, width * pixelSize, height * pixelSize);
     this->prepareBackground(true);
-    editor->setSprite(sprite);
+    model->setSprite(sprite);
     currentFrame = sprite->getFrameAt(currentFrameIndex);
 
     for(int i = 0; i < width; i++)
@@ -177,7 +176,7 @@ void GraphicsScene::zoomIn()
     if(pixelSize + pixelInterval <= maxPixelSize)
     {
         pixelSize += pixelInterval;
-        redrawScene(sprite);
+        redrawScene(model->getSprite());
     }
 }
 
@@ -186,7 +185,7 @@ void GraphicsScene::zoomOut()
     if(pixelSize - pixelInterval >= minPixelSize)
     {
         pixelSize -= pixelInterval;
-        redrawScene(sprite);
+        redrawScene(model->getSprite());
     }
 }
 
@@ -241,13 +240,13 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
  */
 void GraphicsScene::paintCommand(int x, int y)
 {
-    if(editor->getCurrentTool() == editor_model::BRUSH) {
+    if(model->getCurrentTool() == editor_model::BRUSH) {
         drawSquare(x,y,brush->color());
-    } else if (editor->getCurrentTool() == editor_model::FILL_BUCKET) {
+    } else if (model->getCurrentTool() == editor_model::FILL_BUCKET) {
         fillBucket(x,y,brush->color());
-    } else if (editor->getCurrentTool() == editor_model::MIRROR) {
+    } else if (model->getCurrentTool() == editor_model::MIRROR) {
         drawMirror(x,y,brush->color());
-    } else if (editor->getCurrentTool() == editor_model::ERASER) {
+    } else if (model->getCurrentTool() == editor_model::ERASER) {
         erase(x,y);
     }
 }
@@ -377,9 +376,9 @@ void GraphicsScene::invertSceneColors()
  */
 void GraphicsScene::addFrame()
 {
-    sprite->addFrame(new Frame(width, height, this));
-    currentFrameIndex = sprite->getFrames().size() - 1;
-    currentFrame = sprite->getFrameAt(currentFrameIndex);
+    model->getSprite()->addFrame(new Frame(width, height, this));
+    currentFrameIndex = model->getSprite()->getFrames().size() - 1;
+    currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
     this->paintEntireFrame();
 }
 
@@ -389,12 +388,12 @@ void GraphicsScene::addFrame()
 void GraphicsScene::removeFrame()
 {
 
-    if (sprite->getFrames().size() > 1)
+    if (model->getSprite()->getFrames().size() > 1)
     {
-        sprite->removeFrameAt(currentFrameIndex);
-        if (currentFrameIndex == sprite->getFrames().size())
+        model->getSprite()->removeFrameAt(currentFrameIndex);
+        if (currentFrameIndex == model->getSprite()->getFrames().size())
             currentFrameIndex--;
-        currentFrame = sprite->getFrameAt(currentFrameIndex);
+        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
         this->paintEntireFrame();
         //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
     }
@@ -408,7 +407,7 @@ void GraphicsScene::previousFrame()
     if (currentFrameIndex > 0)
     {
         currentFrameIndex--;
-        currentFrame = sprite->getFrameAt(currentFrameIndex);
+        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
         //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
     }
     this->paintEntireFrame();
@@ -420,10 +419,10 @@ void GraphicsScene::previousFrame()
  */
 void GraphicsScene::nextFrame()
 {
-    if (currentFrameIndex < sprite->getFrames().size() - 1)
+    if (currentFrameIndex < model->getSprite()->getFrames().size() - 1)
     {
         currentFrameIndex++;
-        currentFrame = sprite->getFrameAt(currentFrameIndex);
+        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
         //emit frameUpdated(currentFrameIndex - 1, sprite->getFrames().size());
     }
     this->paintEntireFrame();
