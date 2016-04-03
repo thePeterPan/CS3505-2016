@@ -19,6 +19,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setNewGraphicsScene()
+{
+    scene = new GraphicsScene(model, 20, 20, 20, ui->graphicsView);
+    scene->setBrushColor(ui->colorWheel_widget->color());
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
+}
+
 /**
  * Connects all respective signals and slots.
  *
@@ -251,15 +259,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     // Perform checks.
     event->accept();
 }
-
-void MainWindow::setNewGraphicsScene()
-{
-    scene = new GraphicsScene(model, 20,20,20, ui->graphicsView);
-    scene->setBrushColor(ui->colorWheel_widget->color());
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->show();
-}
-
 
 void MainWindow::brush_pushButton_clicked()
 {

@@ -370,7 +370,7 @@ void GraphicsScene::invertSceneColors()
  */
 void GraphicsScene::addFrame()
 {
-    model->getSprite()->addFrameAt(model->getSprite()->getCurrentFrameIndex() + 1);
+    model->addFrame();
     this->paintEntireFrame();
 }
 
@@ -379,12 +379,9 @@ void GraphicsScene::addFrame()
  */
 void GraphicsScene::removeFrame()
 {
-    if (model->getSprite()->getAnimationLength() > 1)
-    {
-        model->getSprite()->removeFrameAt(model->getSprite()->getCurrentFrameIndex());
-        this->paintEntireFrame();
-        //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
-    }
+    model->removeFrame();
+    this->paintEntireFrame();
+    //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
 }
 
 /**
@@ -392,11 +389,9 @@ void GraphicsScene::removeFrame()
  */
 void GraphicsScene::previousFrame()
 {
-    if (model->getSprite()->getCurrentFrameIndex() > 0)
-    {
-        model->getSprite()->setCurrentFrame(model->getSprite()->getCurrentFrameIndex() - 1);
-        //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
-    }
+    model->prevFrame();
+    //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
+
     this->paintEntireFrame();
 
 }
@@ -406,10 +401,8 @@ void GraphicsScene::previousFrame()
  */
 void GraphicsScene::nextFrame()
 {
-    if (model->getSprite()->getCurrentFrameIndex() < model->getSprite()->getAnimationLength() - 1)
-    {
-        model->getSprite()->setCurrentFrame(model->getSprite()->getCurrentFrameIndex() + 1);
-        //emit frameUpdated(currentFrameIndex - 1, sprite->getFrames().size());
-    }
+    model->nextFrame();
+    //emit frameUpdated(currentFrameIndex - 1, sprite->getFrames().size());
+
     this->paintEntireFrame();
 }

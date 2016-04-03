@@ -59,6 +59,15 @@ void editor_model::prevFrame()
     sprite_main->prevFrame();
 }
 
+void editor_model::addFrame()
+{
+    sprite_main->addFrameAfterCurrentIndex();
+}
+
+void editor_model::removeFrame()
+{
+    sprite_main->removeCurrentFrame();
+}
 
 //// Playback Speed ////
 

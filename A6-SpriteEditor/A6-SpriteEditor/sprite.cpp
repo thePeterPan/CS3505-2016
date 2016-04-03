@@ -1,11 +1,5 @@
 #include "sprite.h"
 
-/**
- * Constructor
- *
- * @brief sprite::sprite
- * @param parent
- */
 Sprite::Sprite(QObject *parent) :
     QObject(parent), currentFrameIndex(0), width(0), height(0), file_saved(false)
 {
@@ -20,31 +14,32 @@ Sprite::Sprite(int width_, int height_, QObject *parent) :
 
 Sprite::~Sprite() { }
 
-/**
- * Returns the number of frames in the sprite.
- *
- * @brief sprite::getAnimationLength
- * @return
- */
+
+//// Accessor Methods ////
+
 int Sprite::getAnimationLength()
 {
     return frames.size();
 }
 
-/**
- * @brief sprite::getFrame
- * @param index
- * @return
- */
+int Sprite::getWidth()
+{
+    return width;
+}
+
+int Sprite::getHeight()
+{
+    return height;
+}
+
+
+//// Frame Manipulation Methods ////
+
 Frame* Sprite::getFrameAt(int index)
 {
     return frames[index];
 }
 
-/**
- * @brief Sprite::getFrames
- * @return
- */
 QList<Frame*> Sprite::getFrames()
 {
     return frames;
@@ -63,14 +58,20 @@ void Sprite::addFrameAfterCurrentIndex()
     frames.insert(++currentFrameIndex, newFrame);
 }
 
-/**
- * @brief sprite::removeFrame
- * @param index
- */
 void Sprite::removeFrameAt(int index)
 {
-    if (frames.size() > 1) {
+    if (frames.size() > 1)
+    {
         frames.removeAt(index);
+        --currentFrameIndex;
+    }
+}
+
+void Sprite::removeCurrentFrame()
+{
+    if (frames.size() > 1)
+    {
+        frames.removeAt(currentFrameIndex);
         --currentFrameIndex;
     }
 }
@@ -108,6 +109,10 @@ int Sprite::getCurrentFrameIndex()
     return currentFrameIndex;
 }
 
+
+
+//// Drawing Methods ////
+
 void Sprite::setPixelColorAtCurrentFrame(int x, int y, QColor color)
 {
     frames.at(currentFrameIndex)->setPixelColor(x, y, color);
@@ -133,39 +138,17 @@ void Sprite::invertCurrentFrameColor()
     frames.at(currentFrameIndex)->invert();
 }
 
-/**
- * @brief sprite::getWidth
- * @return
- */
-int Sprite::getWidth()
-{
-    return width;
-}
 
-/**
- * @brief sprite::getHeight
- * @return
- */
-int Sprite::getHeight()
-{
-    return height;
-}
+//// Save to file methods ////
 
-/**
- * @brief Sprite::toString
- * Used to output the sprite to a file
- * @return
- */
 QString Sprite::toString()
 {
-    QString result;
-    result += QString::number(width);
-    result += " ";
-    result += QString::number(height);
-    result += "\n";
-    result += QString::number(frames.size());
-    result += "\n";
-    foreach(Frame* f, frames){
+    QString result =
+            QString::number(width) + " " +
+            QString::number(height) + "\n" +
+            QString::number(frames.size()) + "\n";
+    foreach(Frame* f, frames)
+    {
         result += f->toString();
     }
     return result;

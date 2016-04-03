@@ -50,8 +50,8 @@ public:
     // Frames:
     void nextFrame();
     void prevFrame();
-    // void addFrameAt(int index);
-    // void deleteFrameAt(int index);
+    void addFrame();
+    void removeFrame();
 
     // Playback Speed
     void setPlaybackSpeed(int speed);

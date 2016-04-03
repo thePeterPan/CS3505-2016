@@ -31,6 +31,7 @@ public:
     void addFrameAt(int index);
     void addFrameAfterCurrentIndex();
     void removeFrameAt(int index);
+    void removeCurrentFrame();
     int getCurrentFrameIndex();
     void nextFrame();
     void prevFrame();
