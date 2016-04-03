@@ -57,7 +57,7 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->playbackSpeed_horizontalSlider, &QSlider::valueChanged, this, &MainWindow::playbackSpeed_hSlider_moved);
 
     /// Frame Slider
-    connect(ui->currentFrame_horizontalSlider, &QSlider::valueChanged, model, &editor_model::setCurrentFrame);
+//    connect(ui->currentFrame_horizontalSlider, &QSlider::valueChanged, model, &editor_model::setCurrentFrame);
 
     /// Color Wheel
     connect(ui->colorWheel_widget, &color_widgets::ColorWheel::colorChanged, this, &MainWindow::colorWheel_colorChanged);
