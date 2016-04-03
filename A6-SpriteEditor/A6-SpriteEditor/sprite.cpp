@@ -7,13 +7,13 @@
  * @param parent
  */
 Sprite::Sprite(QObject *parent) :
-    QObject(parent), currentFrame(0), width(0), height(0), file_saved(false)
+    QObject(parent), currentFrameIndex(0), width(0), height(0), file_saved(false)
 {
 
 }
 
 Sprite::Sprite(int width_, int height_, QObject *parent) :
-    QObject(parent), currentFrame(0), width(width_), height(height_), file_saved(false)
+    QObject(parent), currentFrameIndex(0), width(width_), height(height_), file_saved(false)
 {
 
 }
@@ -28,7 +28,7 @@ Sprite::~Sprite() { }
  */
 int Sprite::getAnimationLength()
 {
-    return frames.length();
+    return frames.size();
 }
 
 /**
@@ -56,7 +56,13 @@ QList<Frame*> Sprite::getFrames()
  */
 void Sprite::addFrame(Frame* f)
 {
-    frames.push_back(f);
+    frames << f;
+}
+
+void Sprite::addFrameAt(int index)
+{
+    frames.insert(index, new Frame(width, height));
+    ++currentFrameIndex;
 }
 
 /**
@@ -67,43 +73,43 @@ void Sprite::removeFrameAt(int index)
 {
     if (frames.size() > 1) {
         frames.removeAt(index);
+        --currentFrameIndex;
     }
-
 }
 
 void Sprite::setCurrentFrame(int index)
 {
-    currentFrame = index;
+    currentFrameIndex = index;
 }
 
-int Sprite::getCurrentFrame()
+int Sprite::getCurrentFrameIndex()
 {
-    return currentFrame;
+    return currentFrameIndex;
 }
 
 void Sprite::setPixelColorAtCurrentFrame(int x, int y, QColor color)
 {
-    frames.at(currentFrame)->setPixelColor(x, y, color);
+    frames.at(currentFrameIndex)->setPixelColor(x, y, color);
 }
 
 QColor Sprite::getPixelColorAtCurrentFrame(int x, int y)
 {
-    return frames.at(currentFrame)->getPixelColor(x, y);
+    return frames.at(currentFrameIndex)->getPixelColor(x, y);
 }
 
 void Sprite::rotateCurrentFrame(bool direction)
 {
-    frames.at(currentFrame)->rotate(direction);
+    frames.at(currentFrameIndex)->rotate(direction);
 }
 
 void Sprite::flipCurrentFrameOrientation(bool orientation)
 {
-    frames.at(currentFrame)->flip(orientation);
+    frames.at(currentFrameIndex)->flip(orientation);
 }
 
 void Sprite::invertCurrentFrameColor()
 {
-    frames.at(currentFrame)->invert();
+    frames.at(currentFrameIndex)->invert();
 }
 
 /**

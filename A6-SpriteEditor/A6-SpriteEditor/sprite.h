@@ -27,10 +27,13 @@ public:
     bool getFileSavedStatus();
     void setFileSavedStatus(bool status);
 
+    // Unnecessary, creation of new frame should be handled by this class
     void addFrame(Frame* frame);
+
+    void addFrameAt(int index);
     void removeFrameAt(int index);
     void setCurrentFrame(int index);
-    int getCurrentFrame();
+    int getCurrentFrameIndex();
     void setPixelColorAtCurrentFrame(int x, int y, QColor color);
     QColor getPixelColorAtCurrentFrame(int x, int y);
     void rotateCurrentFrame(bool direction);
@@ -42,7 +45,7 @@ public:
 
 private:
     QList<Frame*> frames;
-    int currentFrame;
+    int currentFrameIndex;
     int width;
     int height;
 

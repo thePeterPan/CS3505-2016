@@ -50,7 +50,7 @@ public:
     void nextFrame();
 
 signals:
-    void frameUpdated(int currentFrameIndex, int totalFrames);
+    void frameUpdated(int totalFrames);
 
 private:
     // Graphics Objects
@@ -64,10 +64,6 @@ private:
 
     // Model
     editor_model* model;
-
-    // Move to model
-    int currentFrameIndex;
-
 
 public slots:
     void zoomIn();

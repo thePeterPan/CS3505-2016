@@ -25,8 +25,6 @@ GraphicsScene::GraphicsScene(editor_model* _model, int _width, int _height, int 
 
     model->setSprite(new Sprite(width, height));
 
-    currentFrameIndex = 0;
-
     // Frame: the object that the colors are stored in inside of a matrix.
     model->getSprite()->addFrame(new Frame(width, height, this));
 
@@ -373,8 +371,7 @@ void GraphicsScene::invertSceneColors()
  */
 void GraphicsScene::addFrame()
 {
-    model->getSprite()->addFrame(new Frame(width, height, this));
-    currentFrameIndex = model->getSprite()->getFrames().size() - 1;
+    model->getSprite()->addFrameAt(model->getSprite()->getCurrentFrameIndex() + 1);
     this->paintEntireFrame();
 }
 
@@ -383,12 +380,9 @@ void GraphicsScene::addFrame()
  */
 void GraphicsScene::removeFrame()
 {
-
-    if (model->getSprite()->getFrames().size() > 1)
+    if (model->getSprite()->getAnimationLength() > 1)
     {
-        model->getSprite()->removeFrameAt(currentFrameIndex);
-        if (currentFrameIndex == model->getSprite()->getFrames().size())
-            currentFrameIndex--;
+        model->getSprite()->removeFrameAt(model->getSprite()->getCurrentFrameIndex());
         this->paintEntireFrame();
         //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
     }
@@ -399,10 +393,9 @@ void GraphicsScene::removeFrame()
  */
 void GraphicsScene::previousFrame()
 {
-    if (currentFrameIndex > 0)
+    if (model->getSprite()->getCurrentFrameIndex() > 0)
     {
-        currentFrameIndex--;
-//        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
+        model->getSprite()->setCurrentFrame(model->getSprite()->getCurrentFrameIndex() - 1);
         //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
     }
     this->paintEntireFrame();
@@ -414,9 +407,9 @@ void GraphicsScene::previousFrame()
  */
 void GraphicsScene::nextFrame()
 {
-    if (currentFrameIndex < model->getSprite()->getFrames().size() - 1)
+    if (model->getSprite()->getCurrentFrameIndex() < model->getSprite()->getAnimationLength() - 1)
     {
-        currentFrameIndex++;
+        model->getSprite()->setCurrentFrame(model->getSprite()->getCurrentFrameIndex() + 1);
         //emit frameUpdated(currentFrameIndex - 1, sprite->getFrames().size());
     }
     this->paintEntireFrame();
