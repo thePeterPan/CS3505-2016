@@ -93,7 +93,6 @@ private slots:
     // Playback buttons:
     void play_pushButton_clicked();
 
-    void currentFrameHSlider_moved();
     void update_currentFrameStatus(int currentFrame, int numOfFrames);
 
 protected:

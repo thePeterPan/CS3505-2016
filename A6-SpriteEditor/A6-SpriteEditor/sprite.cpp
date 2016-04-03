@@ -47,15 +47,16 @@ QList<Frame*> Sprite::getFrames()
 
 void Sprite::addFrameAt(int index)
 {
-    Frame* newFrame(frames.at(currentFrameIndex));
+    Frame* newFrame(frames.at(currentFrameIndex)->clone());
     frames.insert(index, newFrame);
     ++currentFrameIndex;
 }
 
 void Sprite::addFrameAfterCurrentIndex()
 {
-    Frame* newFrame(frames.at(currentFrameIndex));
-    frames.insert(++currentFrameIndex, newFrame);
+    Frame* newFrame(frames.at(currentFrameIndex)->clone());
+    ++currentFrameIndex;
+    frames.insert(currentFrameIndex, newFrame);
 }
 
 void Sprite::removeFrameAt(int index)

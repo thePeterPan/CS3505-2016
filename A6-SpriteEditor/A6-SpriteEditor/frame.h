@@ -16,7 +16,7 @@ public:
     explicit Frame(QObject *parent = 0);
     explicit Frame(int width_, int height, QObject *parent = 0);
     ~Frame();
-
+    Frame* clone();
 
     // Getters and setters
     void setPixelColor(int x, int y, QColor color);

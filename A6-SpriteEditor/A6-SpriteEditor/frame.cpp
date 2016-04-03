@@ -35,6 +35,19 @@ Frame::Frame(int width_, int height_,QObject *parent) :
  */
 Frame::~Frame() { }
 
+Frame* Frame::clone()
+{
+    Frame* newFrame = new Frame(this->width, this->height);
+    for (int i = 0; i < this->width; ++i)
+    {
+        for (int j = 0; j < this->height; ++j)
+        {
+            newFrame->setPixelColor(i, j, this->getPixelColor(i, j));
+        }
+    }
+    return newFrame;
+}
+
 /**
  * @brief Frame::setPixelColor
  * @param x
