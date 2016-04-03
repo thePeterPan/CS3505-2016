@@ -28,7 +28,6 @@ GraphicsScene::GraphicsScene(editor_model* _model, int _width, int _height, int 
     currentFrameIndex = 0;
 
     // Frame: the object that the colors are stored in inside of a matrix.
-//    currentFrame = new Frame(width, height, this);
     model->getSprite()->addFrame(new Frame(width, height, this));
 
     // Initialize the brush to a value.
@@ -59,7 +58,6 @@ void GraphicsScene::redrawScene(Sprite *sprite)
     this->setSceneRect(0, 0, width * pixelSize, height * pixelSize);
     this->prepareBackground(true);
     model->setSprite(sprite);
-//    currentFrame = sprite->getFrameAt(currentFrameIndex);
 
     for(int i = 0; i < width; i++)
     {
@@ -116,7 +114,6 @@ GraphicsScene::~GraphicsScene()
 {
     delete image;
     delete brush;
-//    delete currentFrame;
 }
 
 /**
@@ -378,7 +375,6 @@ void GraphicsScene::addFrame()
 {
     model->getSprite()->addFrame(new Frame(width, height, this));
     currentFrameIndex = model->getSprite()->getFrames().size() - 1;
-//    currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
     this->paintEntireFrame();
 }
 
@@ -393,7 +389,6 @@ void GraphicsScene::removeFrame()
         model->getSprite()->removeFrameAt(currentFrameIndex);
         if (currentFrameIndex == model->getSprite()->getFrames().size())
             currentFrameIndex--;
-//        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
         this->paintEntireFrame();
         //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
     }
@@ -422,7 +417,6 @@ void GraphicsScene::nextFrame()
     if (currentFrameIndex < model->getSprite()->getFrames().size() - 1)
     {
         currentFrameIndex++;
-//        currentFrame = model->getSprite()->getFrameAt(currentFrameIndex);
         //emit frameUpdated(currentFrameIndex - 1, sprite->getFrames().size());
     }
     this->paintEntireFrame();
