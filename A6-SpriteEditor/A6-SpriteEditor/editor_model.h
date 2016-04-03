@@ -58,6 +58,7 @@ public:
     void prevFrame();
     void addFrame();
     void removeFrame();
+    void setCurrentFrame(int index);
 
     // Brush Color
     void setBrushColor(QColor color);
@@ -95,6 +96,7 @@ private:
 signals:
     void sceneUpdated();
     void squareUpdated(int x, int y);
+    void frameUpdated(int currentFrame, int numOfFrames);
 
 public slots:
 };

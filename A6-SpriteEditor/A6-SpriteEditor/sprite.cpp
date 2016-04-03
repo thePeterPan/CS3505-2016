@@ -1,13 +1,13 @@
 #include "sprite.h"
 
 Sprite::Sprite(QObject *parent) :
-    QObject(parent), currentFrameIndex(0), width(0), height(0), file_saved(false)
+    QObject(parent), currentFrameIndex(0), width(0), height(0)
 {
 
 }
 
 Sprite::Sprite(int width_, int height_, QObject *parent) :
-    QObject(parent), currentFrameIndex(0), width(width_), height(height_), file_saved(false)
+    QObject(parent), currentFrameIndex(0), width(width_), height(height_)
 {
     frames << new Frame(width, height);
 }
@@ -60,31 +60,21 @@ void Sprite::addFrameAfterCurrentIndex()
 
 void Sprite::removeFrameAt(int index)
 {
-    if (frames.size() > 1)
+    if (frames.size() > 1 && index >= 0 && index < frames.size())
     {
         frames.removeAt(index);
-        --currentFrameIndex;
+        if (--currentFrameIndex < 0)
+            currentFrameIndex = 0;
     }
 }
 
 void Sprite::removeCurrentFrame()
 {
-    if (frames.size() > 1)
+    if (frames.size() > 1 && currentFrameIndex >= 0 && currentFrameIndex < frames.size())
     {
         frames.removeAt(currentFrameIndex);
-        --currentFrameIndex;
-    }
-}
-
-void Sprite::setCurrentFrame(int index)
-{
-    if (index < 0)
-    {
-        currentFrameIndex = 0;
-    }
-    else if (index >= frames.size())
-    {
-        currentFrameIndex = frames.size() - 1;
+        if (--currentFrameIndex < 0)
+            currentFrameIndex = 0;
     }
 }
 
@@ -101,6 +91,22 @@ void Sprite::prevFrame()
     if (--currentFrameIndex < 0)
     {
         currentFrameIndex = 0;
+    }
+}
+
+void Sprite::setCurrentFrame(int index)
+{
+    if (index < 0)
+    {
+        currentFrameIndex = 0;
+    }
+    else if (index >= frames.size())
+    {
+        currentFrameIndex = frames.size() - 1;
+    }
+    else
+    {
+        currentFrameIndex = index;
     }
 }
 

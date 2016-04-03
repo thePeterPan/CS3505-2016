@@ -56,6 +56,9 @@ void MainWindow::connectSignalsAndSlots()
     /// Speed Slider
     connect(ui->playbackSpeed_horizontalSlider, &QSlider::valueChanged, this, &MainWindow::playbackSpeed_hSlider_moved);
 
+    /// Frame Slider
+    connect(ui->currentFrame_horizontalSlider, &QSlider::valueChanged, model, &editor_model::setCurrentFrame);
+
     /// Color Wheel
     connect(ui->colorWheel_widget, &color_widgets::ColorWheel::colorChanged, this, &MainWindow::colorWheel_colorChanged);
     /// Alpha Slider
@@ -85,9 +88,10 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->play_pushButton, &QPushButton::clicked, this, &MainWindow::play_pushButton_clicked);
 
 
-    ///
-    connect(this->model, &editor_model::sceneUpdated, scene, &GraphicsScene::redrawScene);
-    connect(this->model, &editor_model::squareUpdated, scene, &GraphicsScene::drawSquare);
+    /// Connections from the model
+    connect(model, &editor_model::sceneUpdated, scene, &GraphicsScene::redrawScene);
+    connect(model, &editor_model::squareUpdated, scene, &GraphicsScene::drawSquare);
+    connect(model, &editor_model::frameUpdated, this, &MainWindow::update_currentFrameStatus);
 }
 
 void MainWindow::initializeUIDefaults()
@@ -103,11 +107,13 @@ void MainWindow::initializeUIDefaults()
     ui->alphaSlider_widget->setValue(255);
     ui->alphaSlider_widget->setFirstColor(QColor::fromRgba(qRgba(0,0,0,0)));
     ui->alphaSlider_widget->setLastColor(QColor::fromRgba(qRgba(0,0,0,255)));
-}
 
-void MainWindow::updateCurrentFrameIndex(int currentFrame, int totalFrames)
-{
-    ui->currentFrameIndex_label->setText(QString::number(currentFrame) + " / " + QString::number(totalFrames));
+    /// Frame Slider
+    ui->currentFrame_horizontalSlider->setMinimum(0);
+    ui->currentFrame_horizontalSlider->setMaximum(0);
+    ui->currentFrame_horizontalSlider->setValue(0);
+    ui->currentFrame_horizontalSlider->setSingleStep(1);
+    ui->currentFrame_horizontalSlider->setPageStep(1);
 }
 
 void MainWindow::playbackSpeed_hSlider_moved(int value)
@@ -311,4 +317,13 @@ void MainWindow::invertColors_pushButton_clicked()
 void MainWindow::play_pushButton_clicked()
 {
 
+}
+
+void MainWindow::update_currentFrameStatus(int currentFrame, int numOfFrames)
+{
+    ui->currentFrame_horizontalSlider->setMinimum(1);
+    ui->currentFrame_horizontalSlider->setMaximum(numOfFrames);
+    ui->currentFrame_horizontalSlider->setValue(currentFrame + 1);
+
+    ui->currentFrameIndex_label->setText(QString::number(currentFrame + 1) + " / " + QString::number(numOfFrames));
 }

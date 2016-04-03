@@ -206,6 +206,9 @@
         </item>
         <item row="14" column="0" colspan="2">
          <widget class="QSlider" name="currentFrame_horizontalSlider">
+          <property name="pageStep">
+           <number>1</number>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>

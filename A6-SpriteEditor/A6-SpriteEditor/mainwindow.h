@@ -52,7 +52,6 @@ private:
 signals:
 
 public slots:
-    void updateCurrentFrameIndex(int currentFrameIndex,int totalFrames);
 
 private slots:
     // File Menu:
@@ -90,13 +89,12 @@ private slots:
     void flipV_pushButton_clicked();
     void flipH_pushButton_clicked();
     void invertColors_pushButton_clicked();
-//    void addFrame_pushButton_clicked();
-//    void removeFrame_pushButton_clicked();
 
     // Playback buttons:
-//    void prevFrame_pushButton_clicked();
-//    void nextFrame_pushButton_clicked();
     void play_pushButton_clicked();
+
+    void currentFrameHSlider_moved();
+    void update_currentFrameStatus(int currentFrame, int numOfFrames);
 
 protected:
     virtual void closeEvent(QCloseEvent *event);

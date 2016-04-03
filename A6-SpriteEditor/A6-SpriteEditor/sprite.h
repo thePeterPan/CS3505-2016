@@ -33,7 +33,6 @@ public:
     int getCurrentFrameIndex();
     void nextFrame();
     void prevFrame();
-    // Not a big fan of this, should only allow one step at a time:
     void setCurrentFrame(int index);
 
     // Current Frame Drawing methods:

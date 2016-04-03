@@ -150,24 +150,37 @@ void editor_model::nextFrame()
 {
     sprite_main->nextFrame();
     emit sceneUpdated();
+    emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
 }
 
 void editor_model::prevFrame()
 {
     sprite_main->prevFrame();
     emit sceneUpdated();
+    emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
 }
 
 void editor_model::addFrame()
 {
     sprite_main->addFrameAfterCurrentIndex();
     emit sceneUpdated();
+    emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
 }
 
 void editor_model::removeFrame()
 {
     sprite_main->removeCurrentFrame();
     emit sceneUpdated();
+    emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
+}
+
+void editor_model::setCurrentFrame(int index)
+{
+    if (index == sprite_main->getCurrentFrameIndex())
+        return;
+    sprite_main->setCurrentFrame(index);
+    emit sceneUpdated();
+    emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
 }
 
 //// Brush Color ////
@@ -233,6 +246,7 @@ void editor_model::loadSpriteFromFile(QString path)
     }
     file_path = path;
     QTextStream in(&file);
+//    int numberOfFrames;
     int width, height;
     int currentX = 0;
     int currentY = 0;
@@ -243,7 +257,7 @@ void editor_model::loadSpriteFromFile(QString path)
     sprite_main = new Sprite(width,height);
 
     QString num_frames = in.readLine();
-    numberOfFrames = num_frames.toInt();
+//    numberOfFrames = num_frames.toInt();
 
     while(!in.atEnd())
     {
