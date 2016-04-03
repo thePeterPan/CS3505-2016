@@ -22,7 +22,7 @@ MainWindow::~MainWindow()
 void MainWindow::setNewGraphicsScene()
 {
     scene = new GraphicsScene(model, 20, 20, 20, ui->graphicsView);
-    scene->setBrushColor(ui->colorWheel_widget->color());
+    model->setBrushColor(ui->colorWheel_widget->color());
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
 }
@@ -84,10 +84,10 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->nextFrame_pushButton, &QPushButton::clicked, model, &editor_model::nextFrame);
     connect(ui->play_pushButton, &QPushButton::clicked, this, &MainWindow::play_pushButton_clicked);
 
-    /// Open file:
-    connect(this->model,&editor_model::modelUpdated,this,&MainWindow::updateModel);
 
-
+    ///
+    connect(this->model, &editor_model::sceneUpdated, scene, &GraphicsScene::redrawScene);
+    connect(this->model, &editor_model::squareUpdated, scene, &GraphicsScene::drawSquare);
 }
 
 void MainWindow::initializeUIDefaults()
@@ -103,11 +103,6 @@ void MainWindow::initializeUIDefaults()
     ui->alphaSlider_widget->setValue(255);
     ui->alphaSlider_widget->setFirstColor(QColor::fromRgba(qRgba(0,0,0,0)));
     ui->alphaSlider_widget->setLastColor(QColor::fromRgba(qRgba(0,0,0,255)));
-}
-
-void MainWindow::updateModel()
-{
-    scene->redrawScene();
 }
 
 void MainWindow::updateCurrentFrameIndex(int currentFrame, int totalFrames)
@@ -195,26 +190,22 @@ void MainWindow::menuImport_triggered()
 
 void MainWindow::menuRotateClockwise_triggered()
 {
-    qDebug() << "Rotate Clockwise";
-    scene->rotateScene(false);
+    model->rotateScene(false);
 }
 
 void MainWindow::menuRotateCounterClockwise_triggered()
 {
-    qDebug() << "Rotate Counterclockwise";
-    scene->rotateScene(true);
+    model->rotateScene(true);
 }
 
 void MainWindow::menuFlipV_triggered()
 {
-    qDebug() << "Flip Vertically";
-    scene->flipSceneOrientation(true);
+    model->flipSceneOrientation(true);
 }
 
 void MainWindow::menuFlipH_triggered()
 {
-    qDebug() << "Flip Horizontally";
-    scene->flipSceneOrientation(false);
+    model->flipSceneOrientation(false);
 }
 
 void MainWindow::menuResizeCanvas_triggered()
@@ -242,7 +233,7 @@ void MainWindow::colorWheel_colorChanged(QColor color)
 
     alpha_color.setAlpha(ui->alphaSlider_widget->value());
 
-    scene->setBrushColor(alpha_color);
+    model->setBrushColor(alpha_color);
 }
 
 void MainWindow::alphaSlider_valueChanged(int value)
@@ -250,7 +241,7 @@ void MainWindow::alphaSlider_valueChanged(int value)
     QColor color = ui->colorWheel_widget->color();
     color.setAlpha(value);
 
-    scene->setBrushColor(color);
+    model->setBrushColor(color);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -281,12 +272,12 @@ void MainWindow::eraser_pushButton_clicked()
 
 void MainWindow::rotateCCW_pushButton_clicked()
 {
-    scene->rotateScene(true);
+    model->rotateScene(true);
 }
 
 void MainWindow::rotateCW_pushButton_clicked()
 {
-    scene->rotateScene(false);
+    model->rotateScene(false);
 }
 
 void MainWindow::panPushButton_clicked()
@@ -301,17 +292,17 @@ void MainWindow::symmetricalTool_pushButton_clicked()
 
 void MainWindow::flipV_pushButton_clicked()
 {
-    scene->flipSceneOrientation(true);
+    model->flipSceneOrientation(true);
 }
 
 void MainWindow::flipH_pushButton_clicked()
 {
-    scene->flipSceneOrientation(false);
+    model->flipSceneOrientation(false);
 }
 
 void MainWindow::invertColors_pushButton_clicked()
 {
-    scene->invertSceneColors();
+    model->invertSceneColors();
 }
 
 

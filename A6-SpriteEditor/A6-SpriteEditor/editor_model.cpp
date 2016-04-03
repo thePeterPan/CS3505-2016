@@ -4,6 +4,7 @@ editor_model::editor_model(QObject *parent) :
     QObject(parent),
     current_state(PAUSED),
     file_path(""),
+    brush_color(QColor::fromRgb(0, 0, 0)),
     current_tool(BRUSH),
     playback_speed(1) { }
 
@@ -33,7 +34,7 @@ editor_model::Tool editor_model::getCurrentTool()
     return current_tool;
 }
 
-
+//// Should not be necessary ////
 //// Sprite Methods ////
 
 void editor_model::setSprite(Sprite *sprite)
@@ -46,27 +47,139 @@ Sprite* editor_model::getSprite()
     return sprite_main;
 }
 
+//// Drawing Methods ////
+
+void editor_model::paintCommand(int x, int y)
+{
+    if(current_tool == editor_model::BRUSH) {
+        drawSquare(x, y);
+    } else if (current_tool == editor_model::FILL_BUCKET) {
+        fillBucket(x, y);
+    } else if (current_tool == editor_model::MIRROR) {
+        drawMirror(x, y);
+    } else if (current_tool == editor_model::ERASER) {
+        eraseSquare(x, y);
+    }
+}
+
+/**
+ * @brief GraphicsScene::drawSquare
+ * Draws a square onto the canvas at the x and y pixel positions.
+ * Aka. for the paint brush tool.
+ * @param x
+ * @param y
+ * @param color
+ */
+void editor_model::drawSquare(int x, int y)
+{
+    if((x < 0) | (y < 0) | (x >= sprite_main->getWidth()) | (y >= sprite_main->getHeight()))
+        return;
+
+    sprite_main->setPixelColorAtCurrentFrame(x, y, brush_color);
+
+    emit squareUpdated(x, y);
+}
+
+void editor_model::eraseSquare(int x, int y)
+{
+    if((x < 0) | (y < 0) | (x >= sprite_main->getWidth()) | (y >= sprite_main->getHeight()))
+        return;
+
+    sprite_main->setPixelColorAtCurrentFrame(x, y, QColor(0, 0, 0, 0));
+
+    emit squareUpdated(x, y);
+}
+
+void editor_model::fillBucket(int x, int y)
+{
+    QColor prev = sprite_main->getPixelColorAtCurrentFrame(x, y);
+
+    if(prev == brush_color)
+        return;
+
+    drawSquare(x, y);
+
+
+    int width = sprite_main->getWidth();
+    int height = sprite_main->getHeight();
+
+    int x1 = x - 1;
+    int x2 = x + 1;
+    int y1 = y - 1;
+    int y2 = y + 1;
+    if(x1 >= 0 && sprite_main->getPixelColorAtCurrentFrame(x1, y) == prev)
+            fillBucket(x1, y);
+
+    if(x2 < width && sprite_main->getPixelColorAtCurrentFrame(x2, y) == prev)
+            fillBucket(x2, y);
+
+    if(y1 >= 0 && sprite_main->getPixelColorAtCurrentFrame(x, y1) == prev)
+            fillBucket(x, y1);
+
+    if(y2 < height && sprite_main->getPixelColorAtCurrentFrame(x, y2) == prev)
+            fillBucket(x, y2);
+}
+
+void editor_model::drawMirror(int x, int y)
+{
+    drawSquare(x, y);
+    drawSquare(sprite_main->getWidth() - 1 - x, y);
+}
+
+void editor_model::rotateScene(bool direction)
+{
+    sprite_main->rotateCurrentFrame(direction);
+    emit sceneUpdated();
+}
+
+void editor_model::flipSceneOrientation(bool orientation)
+{
+    sprite_main->flipCurrentFrameOrientation(orientation);
+    emit sceneUpdated();
+}
+
+void editor_model::invertSceneColors()
+{
+    sprite_main->invertCurrentFrameColor();
+    emit sceneUpdated();
+}
 
 //// Frame Methods ////
 
 void editor_model::nextFrame()
 {
     sprite_main->nextFrame();
+    emit sceneUpdated();
 }
 
 void editor_model::prevFrame()
 {
     sprite_main->prevFrame();
+    emit sceneUpdated();
 }
 
 void editor_model::addFrame()
 {
     sprite_main->addFrameAfterCurrentIndex();
+    emit sceneUpdated();
 }
 
 void editor_model::removeFrame()
 {
     sprite_main->removeCurrentFrame();
+    emit sceneUpdated();
+}
+
+//// Brush Color ////
+
+void editor_model::setBrushColor(QColor color)
+{
+    brush_color = color;
+}
+
+QColor editor_model::getBrushColor()
+{
+    return brush_color;
 }
 
 //// Playback Speed ////
@@ -142,7 +255,7 @@ void editor_model::loadSpriteFromFile(QString path)
         }
 
     }
-    emit modelUpdated();
+    emit sceneUpdated();
 }
 
 QString editor_model::getFilePath()

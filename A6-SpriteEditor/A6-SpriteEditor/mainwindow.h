@@ -55,7 +55,6 @@ private:
 signals:
 
 public slots:
-    void updateModel();
     void updateCurrentFrameIndex(int currentFrameIndex,int totalFrames);
 
 private slots:

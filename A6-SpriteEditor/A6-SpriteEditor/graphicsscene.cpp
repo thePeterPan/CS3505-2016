@@ -27,11 +27,6 @@ GraphicsScene::GraphicsScene(editor_model* _model, int _width, int _height, int 
     // Move to mainwindow?
     model->setSprite(new Sprite(width, height));
 
-
-    // Initalize using constructor parameter?
-    // Initialize the brush to a value.
-    brush = new QBrush(QColor(0, 0, 0, 0));
-
     // Create the scene with a bunch of "pixels" to draw on.
     clearScene();
 }
@@ -43,7 +38,6 @@ GraphicsScene::GraphicsScene(editor_model* _model, int _width, int _height, int 
 GraphicsScene::~GraphicsScene()
 {
     delete image;
-    delete brush;
 }
 
 /**
@@ -77,18 +71,10 @@ void GraphicsScene::clearScene()
                         pixelSize * j,
                         pixelSize,
                         pixelSize,
-                        QPen(Qt::white),
-                        *brush);
+                        QPen(Qt::white));
         }
     }
 }
-
-void GraphicsScene::redrawScene()
-{
-    clearScene();
-    paintEntireFrame();
-}
-
 
 /**
  * @brief GraphicsScene::prepareBackground
@@ -130,13 +116,27 @@ void GraphicsScene::paintEntireFrame()
             pixels[i][j]->setBrush(model->getSprite()->getPixelColorAtCurrentFrame(i, j));
 }
 
+/**
+ * @brief GraphicsScene::redrawScene
+ * Used to update the entire scene if most of the 'squares' were changed.
+ */
+void GraphicsScene::redrawScene()
+{
+    clearScene();
+    paintEntireFrame();
+}
 
-
-
-
-
-
-
+/**
+ * @brief GraphicsScene::drawSquare
+ * Used to update the scene at the specific pixel so we don't need to update
+ * the whole scene if it's not needed.
+ * @param x
+ * @param y
+ */
+void GraphicsScene::drawSquare(int x, int y)
+{
+    pixels[x][y]->setBrush(model->getSprite()->getPixelColorAtCurrentFrame(x, y));
+}
 
 
 
@@ -194,7 +194,7 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int x = mouseEvent->scenePos().x()/pixelSize;
     int y = mouseEvent->scenePos().y()/pixelSize;
     if(x >= 0 && x < model->getSprite()->getWidth() && y >= 0 && y < model->getSprite()->getHeight())
-        paintCommand(x,y);
+        model->paintCommand(x, y);
 }
 
 /**
@@ -208,7 +208,7 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     int y = mouseEvent->scenePos().y()/pixelSize;
 
     if(x >= 0 && x < model->getSprite()->getWidth() && y >= 0 && y < model->getSprite()->getHeight())
-        paintCommand(x,y);
+        model->paintCommand(x, y);
 }
 
 
@@ -272,136 +272,4 @@ void GraphicsScene::setSceneRect(int x, int y, int width, int height)
     //Note: needs to also resize the underlying frame object.
 
     QGraphicsScene::setSceneRect(x,y,width,height);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * @brief GraphicsScene::paintCommand
- * @param x
- * @param y
- */
-void GraphicsScene::paintCommand(int x, int y)
-{
-    if(model->getCurrentTool() == editor_model::BRUSH) {
-        drawSquare(x,y,brush->color());
-    } else if (model->getCurrentTool() == editor_model::FILL_BUCKET) {
-        fillBucket(x,y,brush->color());
-    } else if (model->getCurrentTool() == editor_model::MIRROR) {
-        drawMirror(x,y,brush->color());
-    } else if (model->getCurrentTool() == editor_model::ERASER) {
-        erase(x,y);
-    }
-}
-
-/**
- * @brief GraphicsScene::drawSquare
- * Draws a square onto the canvas at the x and y pixel positions.
- * Aka. for the paint brush tool.
- * @param x
- * @param y
- */
-void GraphicsScene::drawSquare(int x, int y, QColor color)
-{
-    if((x < 0) | (y < 0) | (x >= this->width) | (y >= this->height))
-        return;
-
-    model->getSprite()->setPixelColorAtCurrentFrame(x, y, color);
-
-    pixels[x][y]->setBrush(QBrush(color));
-}
-
-/**
- * @brief GraphicsScene::fillBucket
- * Used for the fill bucket tool.
- * @param x
- * @param y
- * @param color
- */
-void GraphicsScene::fillBucket(int x, int y, QColor color)
-{
-
-    QColor prev = model->getSprite()->getPixelColorAtCurrentFrame(x, y);
-
-    if(prev == color)
-        return;
-
-    drawSquare(x,y,color);
-
-    int x1 = x - 1;
-    int x2 = x + 1;
-    int y1 = y - 1;
-    int y2 = y + 1;
-    if(x1 >= 0 && model->getSprite()->getPixelColorAtCurrentFrame(x1, y) == prev)
-            fillBucket(x1, y, color);
-
-    if(x2 < width && model->getSprite()->getPixelColorAtCurrentFrame(x2, y) == prev)
-            fillBucket(x2, y, color);
-
-    if(y1 >= 0 && model->getSprite()->getPixelColorAtCurrentFrame(x, y1) == prev)
-            fillBucket(x, y1, color);
-
-    if(y2 < height && model->getSprite()->getPixelColorAtCurrentFrame(x, y2) == prev)
-            fillBucket(x, y2, color);
-}
-
-void GraphicsScene::drawMirror(int x, int y, QColor color)
-{
-    drawSquare(x, y, color);
-    drawSquare(width - 1 - x, y,color);
-}
-
-void GraphicsScene::erase(int x, int y)
-{
-    drawSquare(x, y, QColor(0, 0, 0, 0));
-}
-
-/**
- * @brief GraphicsScene::setBrushColor
- * Sets the brush color.
- * @param color
- */
-void GraphicsScene::setBrushColor(QColor color)
-{
-    this->brush->setColor(color);
-}
-
-/**
- * @brief GraphicsScene::rotateScene
- * @param direction
- */
-void GraphicsScene::rotateScene(bool direction)
-{
-    model->getSprite()->rotateCurrentFrame(direction);
-    this->paintEntireFrame();
-}
-
-/**
- * @brief GraphicsScene::flipSceneOrientation
- * @param vertical
- */
-void GraphicsScene::flipSceneOrientation(bool orientation)
-{
-    model->getSprite()->flipCurrentFrameOrientation(orientation);
-    this->paintEntireFrame();
-}
-
-/**
- * @brief GraphicsScene::invertSceneColors
- */
-void GraphicsScene::invertSceneColors()
-{
-    model->getSprite()->invertCurrentFrameColor();
-    this->paintEntireFrame();
 }

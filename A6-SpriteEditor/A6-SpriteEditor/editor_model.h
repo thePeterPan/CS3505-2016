@@ -47,11 +47,21 @@ public:
     void setSprite(Sprite* sprite);
     Sprite* getSprite();
 
+    // Drawing Methods (more in private)
+    void rotateScene(bool direction);
+    void flipSceneOrientation(bool orientation);
+    void invertSceneColors();
+    void paintCommand(int x, int y);
+
     // Frames:
     void nextFrame();
     void prevFrame();
     void addFrame();
     void removeFrame();
+
+    // Brush Color
+    void setBrushColor(QColor color);
+//    QColor getBrushColor();
 
     // Playback Speed
     void setPlaybackSpeed(int speed);
@@ -66,14 +76,22 @@ private:
     // State variables:
     AnimatorState current_state;
     QString file_path;
+    QColor brush_color;
     Tool current_tool;
     int playback_speed;
 
     // Sprite object
     Sprite* sprite_main;
 
+    // Drawing methods more:
+    void drawSquare(int x, int y);
+    void fillBucket(int x, int y);
+    void drawMirror(int x, int y);
+    void eraseSquare(int x, int y);
+
 signals:
-    void modelUpdated();
+    void sceneUpdated();
+    void squareUpdated(int x, int y);
 
 public slots:
 };
