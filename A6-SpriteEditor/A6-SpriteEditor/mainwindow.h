@@ -21,9 +21,6 @@
 #include <ColorDialog>
 #include <ColorWheel>
 
-#include <QGraphicsSceneMouseEvent>
-#include <iostream>
-
 #include "graphicsscene.h"
 #include "editor_model.h"
 #include "newfiledialog.h"

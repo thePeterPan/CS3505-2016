@@ -177,10 +177,10 @@ void editor_model::setBrushColor(QColor color)
     brush_color = color;
 }
 
-QColor editor_model::getBrushColor()
-{
-    return brush_color;
-}
+//QColor editor_model::getBrushColor()
+//{
+//    return brush_color;
+//}
 
 //// Playback Speed ////
 
