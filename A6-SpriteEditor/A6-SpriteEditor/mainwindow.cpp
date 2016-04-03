@@ -96,9 +96,9 @@ void MainWindow::initializeUIDefaults()
     ui->alphaSlider_widget->setLastColor(QColor::fromRgba(qRgba(0,0,0,255)));
 }
 
-void MainWindow::updateModel(Sprite* sprite)
+void MainWindow::updateModel()
 {
-    scene->redrawScene(sprite);
+    scene->redrawScene();
 }
 
 void MainWindow::updateCurrentFrameIndex(int currentFrame, int totalFrames)
@@ -117,13 +117,9 @@ void MainWindow::menuNewFile_triggered()
 
     if(dialog.exec() == QDialog::Accepted)
     {
-        int width = dialog.getWidth();
-        int height = dialog.getHeight();
-        Sprite* s = new Sprite(width,height);
-        Frame* f = new Frame(width,height);
-        s->addFrame(f);
+        Sprite* s = new Sprite(dialog.getWidth(), dialog.getHeight());
         model->setSprite(s);
-        scene->redrawScene(s);
+        scene->redrawScene();
     }
 }
 

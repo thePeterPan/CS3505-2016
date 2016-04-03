@@ -15,7 +15,7 @@ Sprite::Sprite(QObject *parent) :
 Sprite::Sprite(int width_, int height_, QObject *parent) :
     QObject(parent), currentFrameIndex(0), width(width_), height(height_), file_saved(false)
 {
-
+    frames << new Frame(width, height);
 }
 
 Sprite::~Sprite() { }
@@ -50,19 +50,27 @@ QList<Frame*> Sprite::getFrames()
     return frames;
 }
 
-/**
- * @brief sprite::addFrame
- * @return
- */
-void Sprite::addFrame(Frame* f)
-{
-    frames << f;
-}
+///**
+// * @brief sprite::addFrame
+// * @return
+// */
+//void Sprite::addBlankFrame()
+//{
+//    frames << f;
+//    ++currentFrameIndex;
+//}
 
 void Sprite::addFrameAt(int index)
 {
-    frames.insert(index, new Frame(width, height));
+    Frame* newFrame(frames.at(currentFrameIndex));
+    frames.insert(index, newFrame);
     ++currentFrameIndex;
+}
+
+void Sprite::addFrameAfterCurrentIndex()
+{
+    Frame* newFrame(frames.at(currentFrameIndex));
+    frames.insert(++currentFrameIndex, newFrame);
 }
 
 /**

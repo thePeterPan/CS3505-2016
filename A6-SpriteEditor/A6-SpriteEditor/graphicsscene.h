@@ -32,7 +32,7 @@ public:
     void drawMirror(int x, int y, QColor color);
     void paintEntireFrame();
     void erase(int x, int y);
-    void redrawScene(Sprite* sprite);
+    void redrawScene();
 
     // Used to resize the scene (allow for zoom in and out)
     void setSceneRect(const QRectF &rect);

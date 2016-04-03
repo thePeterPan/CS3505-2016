@@ -26,7 +26,7 @@ GraphicsScene::GraphicsScene(editor_model* _model, int _width, int _height, int 
     model->setSprite(new Sprite(width, height));
 
     // Frame: the object that the colors are stored in inside of a matrix.
-    model->getSprite()->addFrame(new Frame(width, height, this));
+//    model->getSprite()->addBlankFrame(new Frame(width, height, this));
 
     // Initialize the brush to a value.
     brush = new QBrush(QColor(0, 0, 0, 0));
@@ -46,16 +46,15 @@ GraphicsScene::GraphicsScene(editor_model* _model, int _width, int _height, int 
  * @brief GraphicsScene::redrawScene
  * @param sprite
  */
-void GraphicsScene::redrawScene(Sprite *sprite)
+void GraphicsScene::redrawScene()
 {
     pixels.clear();
 
-    this->width = sprite->getWidth();
-    this->height = sprite->getHeight();
+    this->width = model->getSprite()->getWidth();
+    this->height = model->getSprite()->getHeight();
 
     this->setSceneRect(0, 0, width * pixelSize, height * pixelSize);
     this->prepareBackground(true);
-    model->setSprite(sprite);
 
     for(int i = 0; i < width; i++)
     {
@@ -171,7 +170,7 @@ void GraphicsScene::zoomIn()
     if(pixelSize + pixelInterval <= maxPixelSize)
     {
         pixelSize += pixelInterval;
-        redrawScene(model->getSprite());
+        redrawScene();
     }
 }
 
@@ -180,7 +179,7 @@ void GraphicsScene::zoomOut()
     if(pixelSize - pixelInterval >= minPixelSize)
     {
         pixelSize -= pixelInterval;
-        redrawScene(model->getSprite());
+        redrawScene();
     }
 }
 

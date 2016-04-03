@@ -55,7 +55,7 @@ private:
 signals:
 
 public slots:
-    void updateModel(Sprite* sprite);
+    void updateModel();
     void updateCurrentFrameIndex(int currentFrameIndex,int totalFrames);
 
 private slots:

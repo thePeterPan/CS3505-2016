@@ -28,9 +28,10 @@ public:
     void setFileSavedStatus(bool status);
 
     // Unnecessary, creation of new frame should be handled by this class
-    void addFrame(Frame* frame);
+//    void addBlankFrame(Frame* frame);
 
     void addFrameAt(int index);
+    void addFrameAfterCurrentIndex();
     void removeFrameAt(int index);
     void setCurrentFrame(int index);
     int getCurrentFrameIndex();
