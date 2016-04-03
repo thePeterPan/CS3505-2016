@@ -5,42 +5,10 @@ editor_model::editor_model(QObject *parent) :
     current_state(PAUSED),
     file_path(""),
     current_tool(BRUSH),
-    playback_speed(1),
-    current_frame_index(0) { }
+    playback_speed(1) { }
 
-void editor_model::setSprite(Sprite *sprite)
-{
-    this->sprite_main = sprite;
-}
 
-Sprite* editor_model::getSprite()
-{
-    return sprite_main;
-}
-
-/**
- * Moves the model to the next frame by incrementing the current_frame_index. If
- * the incremented index is greater than or equal to the length of the number of
- * frames in the sprite, then reset the index back to 0.
- *
- * @brief editor_model::nextFrame
- */
-void editor_model::nextFrame()
-{
-    if (++current_frame_index >= sprite_main->getAnimationLength())
-        current_frame_index = 0;
-}
-
-/**
- * Moves the model to the previous frame by decrementing the index. If the index
- * is decremented to less than 0, reset the index to the end of the list of frames.
- * @brief editor_model::prevFrame
- */
-void editor_model::prevFrame()
-{
-    if (--current_frame_index < 0)
-        current_frame_index = sprite_main->getAnimationLength() - 1;
-}
+//// Animator State ////
 
 void editor_model::setAnimatorState(AnimatorState state)
 {
@@ -52,6 +20,9 @@ editor_model::AnimatorState editor_model::getAnimatorState()
     return current_state;
 }
 
+
+//// Current Tool ////
+
 void editor_model::setCurrentTool(Tool tool)
 {
     current_tool = tool;
@@ -61,6 +32,35 @@ editor_model::Tool editor_model::getCurrentTool()
 {
     return current_tool;
 }
+
+
+//// Sprite Methods ////
+
+void editor_model::setSprite(Sprite *sprite)
+{
+    this->sprite_main = sprite;
+}
+
+Sprite* editor_model::getSprite()
+{
+    return sprite_main;
+}
+
+
+//// Frame Methods ////
+
+void editor_model::nextFrame()
+{
+    sprite_main->nextFrame();
+}
+
+void editor_model::prevFrame()
+{
+    sprite_main->prevFrame();
+}
+
+
+//// Playback Speed ////
 
 void editor_model::setPlaybackSpeed(int speed)
 {
@@ -72,7 +72,10 @@ int editor_model::getPlaybackSpeed()
     return playback_speed;
 }
 
-void editor_model::saveSpriteToFile(QString path)
+
+//// Saving/loading ////
+
+void editor_model::saveToFile(QString path)
 {
     QFile file(path);
     if (file.open(QIODevice::ReadWrite))
@@ -130,7 +133,7 @@ void editor_model::loadSpriteFromFile(QString path)
         }
 
     }
-    emit modelUpdated(sprite_main);
+    emit modelUpdated();
 }
 
 QString editor_model::getFilePath()

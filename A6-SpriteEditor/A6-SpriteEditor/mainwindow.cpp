@@ -151,7 +151,7 @@ void MainWindow::menuSave_triggered()
         return;
     }
 
-    model->saveSpriteToFile(model->getFilePath());
+    model->saveToFile(model->getFilePath());
 }
 
 void MainWindow::menuSaveAs_triggered()
@@ -170,7 +170,7 @@ void MainWindow::menuSaveAs_triggered()
         if (!filename.endsWith(".ssp", Qt::CaseInsensitive))
             filename += ".ssp";
 
-        model->saveSpriteToFile(filename);
+        model->saveToFile(filename);
     }
 }
 

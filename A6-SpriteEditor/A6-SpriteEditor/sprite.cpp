@@ -50,16 +50,6 @@ QList<Frame*> Sprite::getFrames()
     return frames;
 }
 
-///**
-// * @brief sprite::addFrame
-// * @return
-// */
-//void Sprite::addBlankFrame()
-//{
-//    frames << f;
-//    ++currentFrameIndex;
-//}
-
 void Sprite::addFrameAt(int index)
 {
     Frame* newFrame(frames.at(currentFrameIndex));
@@ -87,7 +77,30 @@ void Sprite::removeFrameAt(int index)
 
 void Sprite::setCurrentFrame(int index)
 {
-    currentFrameIndex = index;
+    if (index < 0)
+    {
+        currentFrameIndex = 0;
+    }
+    else if (index >= frames.size())
+    {
+        currentFrameIndex = frames.size() - 1;
+    }
+}
+
+void Sprite::nextFrame()
+{
+    if (++currentFrameIndex >= frames.size())
+    {
+        currentFrameIndex = frames.size() - 1;
+    }
+}
+
+void Sprite::prevFrame()
+{
+    if (--currentFrameIndex < 0)
+    {
+        currentFrameIndex = 0;
+    }
 }
 
 int Sprite::getCurrentFrameIndex()

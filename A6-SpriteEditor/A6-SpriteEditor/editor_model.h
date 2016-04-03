@@ -59,7 +59,7 @@ public:
 
     // Save/load file methods
     QString getFilePath();
-    void saveSpriteToFile(QString path);
+    void saveToFile(QString path);
     void loadSpriteFromFile(QString path);
 
 private:
@@ -72,11 +72,8 @@ private:
     // Sprite object
     Sprite* sprite_main;
 
-    // Move to sprite:
-    int current_frame_index;
-
 signals:
-    void modelUpdated(Sprite* sprite);
+    void modelUpdated();
 
 public slots:
 };

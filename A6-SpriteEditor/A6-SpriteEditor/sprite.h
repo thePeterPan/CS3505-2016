@@ -27,19 +27,23 @@ public:
     bool getFileSavedStatus();
     void setFileSavedStatus(bool status);
 
-    // Unnecessary, creation of new frame should be handled by this class
-//    void addBlankFrame(Frame* frame);
-
+    // Frame Methods
     void addFrameAt(int index);
     void addFrameAfterCurrentIndex();
     void removeFrameAt(int index);
-    void setCurrentFrame(int index);
     int getCurrentFrameIndex();
+    void nextFrame();
+    void prevFrame();
+    // Not a big fan of this, should only allow one step at a time:
+    void setCurrentFrame(int index);
+
+    // Current Frame Drawing methods:
     void setPixelColorAtCurrentFrame(int x, int y, QColor color);
     QColor getPixelColorAtCurrentFrame(int x, int y);
     void rotateCurrentFrame(bool direction);
     void flipCurrentFrameOrientation(bool orientation);
     void invertCurrentFrameColor();
+
 
     // Save to file method
     QString toString();

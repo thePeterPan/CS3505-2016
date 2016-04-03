@@ -77,7 +77,7 @@ void GraphicsScene::redrawScene()
 /**
  * @brief GraphicsScene::prepareBackground
  * Creates a nice, checkered background to draw on.
- * @param replace - if true clears the scene first.
+ * @param replace - if true, clears the scene first.
  */
 void GraphicsScene::prepareBackground(bool replace)
 {
