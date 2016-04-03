@@ -23,30 +23,41 @@ GraphicsScene::GraphicsScene(editor_model* _model, int _width, int _height, int 
     // Setup the checkered background
     this->prepareBackground(false);
 
+
+    // Move to mainwindow?
     model->setSprite(new Sprite(width, height));
 
-    // Frame: the object that the colors are stored in inside of a matrix.
-//    model->getSprite()->addBlankFrame(new Frame(width, height, this));
 
+    // Initalize using constructor parameter?
     // Initialize the brush to a value.
     brush = new QBrush(QColor(0, 0, 0, 0));
 
     // Create the scene with a bunch of "pixels" to draw on.
-    for(int i = 0; i < width; i++)
-    {
-        pixels.append(QVector<QGraphicsRectItem*>(height));
-        for(int j = 0; j < height; j++)
-        {
-            pixels[i][j] = this->addRect(pixelSize*i, pixelSize*j, pixelSize, pixelSize, QPen(Qt::white), *brush);
-        }
-    }
+    clearScene();
 }
 
 /**
- * @brief GraphicsScene::redrawScene
- * @param sprite
+ * @brief GraphicsScene::~GraphicsScene
+ *
  */
-void GraphicsScene::redrawScene()
+GraphicsScene::~GraphicsScene()
+{
+    delete image;
+    delete brush;
+}
+
+/**
+ * @brief GraphicsScene::update
+ * The underlying update function.
+ * So far I don't use it for anything.
+ * @param rect
+ */
+void GraphicsScene::update(const QRectF &rect)
+{
+    QGraphicsScene::update(rect);
+}
+
+void GraphicsScene::clearScene()
 {
     pixels.clear();
 
@@ -70,6 +81,11 @@ void GraphicsScene::redrawScene()
                         *brush);
         }
     }
+}
+
+void GraphicsScene::redrawScene()
+{
+    clearScene();
     paintEntireFrame();
 }
 
@@ -104,14 +120,31 @@ void GraphicsScene::prepareBackground(bool replace)
 }
 
 /**
- * @brief GraphicsScene::~GraphicsScene
- *
+ * @brief GraphicsScene::paintEntireFrame
+ * Paints the entire frame onto the canvas. Slow algorithm.
  */
-GraphicsScene::~GraphicsScene()
+void GraphicsScene::paintEntireFrame()
 {
-    delete image;
-    delete brush;
+    for(int i = 0; i < model->getSprite()->getWidth(); i++)
+        for(int j = 0; j < model->getSprite()->getHeight(); j++)
+            pixels[i][j]->setBrush(model->getSprite()->getPixelColorAtCurrentFrame(i, j));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * @brief GraphicsScene::wheelEvent
@@ -152,55 +185,6 @@ void GraphicsScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 }
 
 /**
- * @brief GraphicsScene::setSceneRect
- * Resizes the scene.
- * @param rect
- */
-void GraphicsScene::setSceneRect(const QRectF &rect)
-{
-    //image->scaled(rect.width(),rect.height());
-
-    //Note: needs to also resize the underlying frame object.
-
-    QGraphicsScene::setSceneRect(rect);
-}
-
-void GraphicsScene::zoomIn()
-{
-    if(pixelSize + pixelInterval <= maxPixelSize)
-    {
-        pixelSize += pixelInterval;
-        redrawScene();
-    }
-}
-
-void GraphicsScene::zoomOut()
-{
-    if(pixelSize - pixelInterval >= minPixelSize)
-    {
-        pixelSize -= pixelInterval;
-        redrawScene();
-    }
-}
-
-/**
- * @brief GraphicsScene::setSceneRect
- * Resizes the scene.
- * @param x
- * @param y
- * @param width
- * @param height
- */
-void GraphicsScene::setSceneRect(int x, int y, int width, int height)
-{
-    //image->scaled(width,height);
-
-    //Note: needs to also resize the underlying frame object.
-
-    QGraphicsScene::setSceneRect(x,y,width,height);
-}
-
-/**
  * @brief GraphicsScene::mouseMoveEvent
  * Event for when the user holds down the mouse and moves across the canvas.
  * @param mouseEvent
@@ -226,6 +210,82 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if(x >= 0 && x < model->getSprite()->getWidth() && y >= 0 && y < model->getSprite()->getHeight())
         paintCommand(x,y);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void GraphicsScene::zoomIn()
+{
+    if(pixelSize + pixelInterval <= maxPixelSize)
+    {
+        pixelSize += pixelInterval;
+        redrawScene();
+    }
+}
+
+void GraphicsScene::zoomOut()
+{
+    if(pixelSize - pixelInterval >= minPixelSize)
+    {
+        pixelSize -= pixelInterval;
+        redrawScene();
+    }
+}
+
+/**
+ * @brief GraphicsScene::setSceneRect
+ * Resizes the scene.
+ * @param rect
+ */
+void GraphicsScene::setSceneRect(const QRectF &rect)
+{
+    //image->scaled(rect.width(),rect.height());
+
+    //Note: needs to also resize the underlying frame object.
+
+    QGraphicsScene::setSceneRect(rect);
+}
+
+/**
+ * @brief GraphicsScene::setSceneRect
+ * Resizes the scene.
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ */
+void GraphicsScene::setSceneRect(int x, int y, int width, int height)
+{
+    //image->scaled(width,height);
+
+    //Note: needs to also resize the underlying frame object.
+
+    QGraphicsScene::setSceneRect(x,y,width,height);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * @brief GraphicsScene::paintCommand
@@ -284,46 +344,27 @@ void GraphicsScene::fillBucket(int x, int y, QColor color)
     int y1 = y - 1;
     int y2 = y + 1;
     if(x1 >= 0 && model->getSprite()->getPixelColorAtCurrentFrame(x1, y) == prev)
-            fillBucket(x1,y,color);
+            fillBucket(x1, y, color);
+
     if(x2 < width && model->getSprite()->getPixelColorAtCurrentFrame(x2, y) == prev)
-            fillBucket(x2,y,color);
+            fillBucket(x2, y, color);
+
     if(y1 >= 0 && model->getSprite()->getPixelColorAtCurrentFrame(x, y1) == prev)
-            fillBucket(x,y1,color);
+            fillBucket(x, y1, color);
+
     if(y2 < height && model->getSprite()->getPixelColorAtCurrentFrame(x, y2) == prev)
-            fillBucket(x,y2,color);
+            fillBucket(x, y2, color);
 }
 
 void GraphicsScene::drawMirror(int x, int y, QColor color)
 {
-    drawSquare(x,y,color);
+    drawSquare(x, y, color);
     drawSquare(width - 1 - x, y,color);
 }
 
 void GraphicsScene::erase(int x, int y)
 {
     drawSquare(x, y, QColor(0, 0, 0, 0));
-}
-
-/**
- * @brief GraphicsScene::paintEntireFrame
- * Paints the entire frame onto the canvas. Slow algorithm.
- */
-void GraphicsScene::paintEntireFrame()
-{
-    for(int i = 0; i < model->getSprite()->getWidth(); i++)
-        for(int j = 0; j < model->getSprite()->getHeight(); j++)
-            pixels[i][j]->setBrush(model->getSprite()->getPixelColorAtCurrentFrame(i, j));
-}
-
-/**
- * @brief GraphicsScene::update
- * The underlying update function.
- * So far I don't use it for anything.
- * @param rect
- */
-void GraphicsScene::update(const QRectF &rect)
-{
-    QGraphicsScene::update(rect);
 }
 
 /**
@@ -362,47 +403,5 @@ void GraphicsScene::flipSceneOrientation(bool orientation)
 void GraphicsScene::invertSceneColors()
 {
     model->getSprite()->invertCurrentFrameColor();
-    this->paintEntireFrame();
-}
-
-/**
- * @brief GraphicsScene::addFrame
- */
-void GraphicsScene::addFrame()
-{
-    model->addFrame();
-    this->paintEntireFrame();
-}
-
-/**
- * @brief GraphicsScene::removeFrame
- */
-void GraphicsScene::removeFrame()
-{
-    model->removeFrame();
-    this->paintEntireFrame();
-    //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
-}
-
-/**
- * @brief GraphicsScene::previousFrame
- */
-void GraphicsScene::previousFrame()
-{
-    model->prevFrame();
-    //emit frameUpdated(currentFrameIndex + 1, sprite->getFrames().size());
-
-    this->paintEntireFrame();
-
-}
-
-/**
- * @brief GraphicsScene::nextFrame
- */
-void GraphicsScene::nextFrame()
-{
-    model->nextFrame();
-    //emit frameUpdated(currentFrameIndex - 1, sprite->getFrames().size());
-
     this->paintEntireFrame();
 }

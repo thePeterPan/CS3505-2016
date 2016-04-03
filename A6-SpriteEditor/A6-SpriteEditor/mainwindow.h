@@ -89,17 +89,17 @@ private slots:
     void eraser_pushButton_clicked();
     void rotateCCW_pushButton_clicked();
     void rotateCW_pushButton_clicked();
-    void pushButton_clicked();
+    void panPushButton_clicked();
     void symmetricalTool_pushButton_clicked();
     void flipV_pushButton_clicked();
     void flipH_pushButton_clicked();
     void invertColors_pushButton_clicked();
-    void addFrame_pushButton_clicked();
-    void removeFrame_pushButton_clicked();
+//    void addFrame_pushButton_clicked();
+//    void removeFrame_pushButton_clicked();
 
     // Playback buttons:
-    void prevFrame_pushButton_clicked();
-    void nextFrame_pushButton_clicked();
+//    void prevFrame_pushButton_clicked();
+//    void nextFrame_pushButton_clicked();
     void play_pushButton_clicked();
 
 protected:

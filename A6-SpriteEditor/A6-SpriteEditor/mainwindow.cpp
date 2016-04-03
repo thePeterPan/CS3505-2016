@@ -50,6 +50,7 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->actionFlip_Horizontally, &QAction::triggered, this, &MainWindow::menuFlipH_triggered);
     connect(ui->actionResize_Canvas, &QAction::triggered, this, &MainWindow::menuResizeCanvas_triggered);
 
+    /// Help Menu:
     connect(ui->menuHelp, &QMenu::triggered, this, &MainWindow::menuHelp_triggered);
 
     /// Speed Slider
@@ -66,27 +67,27 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->eraser_pushButton, &QToolButton::clicked, this, &MainWindow::eraser_pushButton_clicked);
     connect(ui->rotateCCW_pushButton, &QToolButton::clicked, this, &MainWindow::rotateCCW_pushButton_clicked);
     connect(ui->rotateCW_pushButton, &QToolButton::clicked, this, &MainWindow::rotateCW_pushButton_clicked);
-    connect(ui->pan_pushButton, &QToolButton::clicked, this, &MainWindow::pushButton_clicked);
+    connect(ui->pan_pushButton, &QToolButton::clicked, this, &MainWindow::panPushButton_clicked);
     connect(ui->symmetricalTool_pushButton, &QToolButton::clicked, this, &MainWindow::symmetricalTool_pushButton_clicked);
     connect(ui->flipV_pushButton, &QToolButton::clicked, this, &MainWindow::flipV_pushButton_clicked);
     connect(ui->flipH_pushButton, &QToolButton::clicked, this, &MainWindow::flipH_pushButton_clicked);
     connect(ui->invertColors_pushButton, &QToolButton::clicked, this, &MainWindow::invertColors_pushButton_clicked);
-    connect(ui->zoomIn_pushButton, &QPushButton::clicked, this->scene, &GraphicsScene::zoomIn);
-    connect(ui->zoomOut_pushButton, &QPushButton::clicked, this->scene, &GraphicsScene::zoomOut);
-    connect(ui->addFrame_pushButton, &QPushButton::clicked, this, &MainWindow::addFrame_pushButton_clicked);
-    connect(ui->removeFrame_pushButton, &QPushButton::clicked, this, &MainWindow::removeFrame_pushButton_clicked);
+    connect(ui->zoomIn_pushButton, &QPushButton::clicked, scene, &GraphicsScene::zoomIn);
+    connect(ui->zoomOut_pushButton, &QPushButton::clicked, scene, &GraphicsScene::zoomOut);
+
+    /// Frame Toolbar Buttons
+    connect(ui->addFrame_pushButton, &QPushButton::clicked, model, &editor_model::addFrame);
+    connect(ui->removeFrame_pushButton, &QPushButton::clicked, model, &editor_model::removeFrame);
 
     /// Playback buttons:
-    connect(ui->prevFrame_pushButton, &QPushButton::clicked, this, &MainWindow::prevFrame_pushButton_clicked);
-    connect(ui->nextFrame_pushButton, &QPushButton::clicked, this, &MainWindow::nextFrame_pushButton_clicked);
+    connect(ui->prevFrame_pushButton, &QPushButton::clicked, model, &editor_model::prevFrame);
+    connect(ui->nextFrame_pushButton, &QPushButton::clicked, model, &editor_model::nextFrame);
     connect(ui->play_pushButton, &QPushButton::clicked, this, &MainWindow::play_pushButton_clicked);
 
     /// Open file:
     connect(this->model,&editor_model::modelUpdated,this,&MainWindow::updateModel);
 
-    /// Frame Index Label
-    //connect(this->scene,&GraphicsScene::frameUpdated,this,&MainWindow::updateFrame);
-    //connect(this->scene,SIGNAL(frameUpdated(int, int)),this,SLOT(updateFrame(int, int)));
+
 }
 
 void MainWindow::initializeUIDefaults()
@@ -260,6 +261,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
+
+//// Scene Drawing Events/Slots/Methods ////
+
 void MainWindow::brush_pushButton_clicked()
 {
     model->setCurrentTool(editor_model::BRUSH);
@@ -285,7 +289,7 @@ void MainWindow::rotateCW_pushButton_clicked()
     scene->rotateScene(false);
 }
 
-void MainWindow::pushButton_clicked()
+void MainWindow::panPushButton_clicked()
 {
     model->setCurrentTool(editor_model::PAN);
 }
@@ -310,25 +314,8 @@ void MainWindow::invertColors_pushButton_clicked()
     scene->invertSceneColors();
 }
 
-void MainWindow::addFrame_pushButton_clicked()
-{
-    scene->addFrame();
-}
 
-void MainWindow::removeFrame_pushButton_clicked()
-{
-    scene->removeFrame();
-}
-
-void MainWindow::prevFrame_pushButton_clicked()
-{
-    scene->previousFrame();
-}
-
-void MainWindow::nextFrame_pushButton_clicked()
-{
-    scene->nextFrame();
-}
+//// Playback ////
 
 void MainWindow::play_pushButton_clicked()
 {

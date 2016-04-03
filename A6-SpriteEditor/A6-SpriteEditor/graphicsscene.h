@@ -25,32 +25,33 @@ public:
 
     // Drawing methods:
     void prepareBackground(bool replace);
-    void setBrushColor(QColor color);
     void paintCommand(int x, int y);
-    void drawSquare(int x, int y, QColor color);
-    void fillBucket(int x, int y, QColor color);
-    void drawMirror(int x, int y, QColor color);
-    void paintEntireFrame();
-    void erase(int x, int y);
+    void clearScene();
     void redrawScene();
+    void paintEntireFrame();
 
     // Used to resize the scene (allow for zoom in and out)
     void setSceneRect(const QRectF &rect);
     void setSceneRect(int x, int y, int width, int height);
 
+
+
+
+
+    // Move to Model
+    void setBrushColor(QColor color);
     // Scene manipulation
     void rotateScene(bool direction);
     void flipSceneOrientation(bool orientation);
     void invertSceneColors();
 
     // Move to Model
-    void addFrame();
-    void removeFrame();
-    void previousFrame();
-    void nextFrame();
+    void drawSquare(int x, int y, QColor color);
+    void fillBucket(int x, int y, QColor color);
+    void drawMirror(int x, int y, QColor color);
+    void erase(int x, int y);
 
 signals:
-    void frameUpdated(int totalFrames);
 
 private:
     // Graphics Objects
@@ -75,6 +76,7 @@ protected:
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
+
     void update(const QRectF &rect);
 
 
