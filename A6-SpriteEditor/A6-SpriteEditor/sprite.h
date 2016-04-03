@@ -24,8 +24,6 @@ public:
     QList<Frame*> getFrames();
     int getWidth();
     int getHeight();
-    bool getFileSavedStatus();
-    void setFileSavedStatus(bool status);
 
     // Frame Methods
     void addFrameAt(int index);
@@ -54,9 +52,6 @@ private:
     int currentFrameIndex;
     int width;
     int height;
-
-    // Move to model
-    bool file_saved;
 
 signals:
 

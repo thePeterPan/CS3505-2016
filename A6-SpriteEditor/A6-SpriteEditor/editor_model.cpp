@@ -197,6 +197,21 @@ int editor_model::getPlaybackSpeed()
 
 //// Saving/loading ////
 
+bool editor_model::getFileSavedStatus()
+{
+    return file_saved;
+}
+
+void editor_model::setFileSavedStatus(bool status)
+{
+    file_saved = status;
+}
+
+QString editor_model::getFilePath()
+{
+    return file_path;
+}
+
 void editor_model::saveToFile(QString path)
 {
     QFile file(path);
@@ -218,7 +233,7 @@ void editor_model::loadSpriteFromFile(QString path)
     }
     file_path = path;
     QTextStream in(&file);
-    int numberOfFrames, width, height;
+    int width, height;
     int currentX = 0;
     int currentY = 0;
     QString size = in.readLine();
@@ -256,9 +271,4 @@ void editor_model::loadSpriteFromFile(QString path)
 
     }
     emit sceneUpdated();
-}
-
-QString editor_model::getFilePath()
-{
-    return file_path;
 }

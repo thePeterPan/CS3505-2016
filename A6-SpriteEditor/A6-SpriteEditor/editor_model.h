@@ -47,7 +47,7 @@ public:
     void setSprite(Sprite* sprite);
     Sprite* getSprite();
 
-    // Drawing Methods (more in private)
+    // Drawing Methods (a few more in private)
     void rotateScene(bool direction);
     void flipSceneOrientation(bool orientation);
     void invertSceneColors();
@@ -68,6 +68,8 @@ public:
     int getPlaybackSpeed();
 
     // Save/load file methods
+    bool getFileSavedStatus();
+    void setFileSavedStatus(bool status);
     QString getFilePath();
     void saveToFile(QString path);
     void loadSpriteFromFile(QString path);
@@ -76,6 +78,7 @@ private:
     // State variables:
     AnimatorState current_state;
     QString file_path;
+    bool file_saved;
     QColor brush_color;
     Tool current_tool;
     int playback_speed;
