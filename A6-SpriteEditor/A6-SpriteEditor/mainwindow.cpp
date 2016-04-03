@@ -6,13 +6,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     model = new editor_model();
+
+    setNewGraphicsScene();
 
     connectSignalsAndSlots();
     initializeUIDefaults();
-
-    setNewGraphicsScene();
 }
 
 MainWindow::~MainWindow()
