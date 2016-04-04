@@ -77,6 +77,7 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->invertColors_pushButton, &QToolButton::clicked, this, &MainWindow::invertColors_pushButton_clicked);
     connect(ui->zoomIn_pushButton, &QPushButton::clicked, scene, &GraphicsScene::zoomIn);
     connect(ui->zoomOut_pushButton, &QPushButton::clicked, scene, &GraphicsScene::zoomOut);
+    connect(model, &editor_model::toolChanged, this, &MainWindow::toolUpdated);
 
     /// Frame Toolbar Buttons
     connect(ui->addFrame_pushButton, &QPushButton::clicked, model, &editor_model::addFrame);
@@ -114,6 +115,9 @@ void MainWindow::initializeUIDefaults()
     ui->currentFrame_horizontalSlider->setValue(0);
     ui->currentFrame_horizontalSlider->setSingleStep(1);
     ui->currentFrame_horizontalSlider->setPageStep(1);
+
+    /// Toolbar buttons
+    brush_pushButton_clicked();
 }
 
 void MainWindow::playbackSpeed_hSlider_moved(int value)
@@ -329,6 +333,48 @@ void MainWindow::invertColors_pushButton_clicked()
     model->invertSceneColors();
 }
 
+void MainWindow::toolUpdated(editor_model::Tool new_tool)
+{
+    // Enable all tools:
+    ui->brush_pushButton->setEnabled(true);
+    ui->brush_pushButton->setChecked(false);
+    ui->fillBucket_pushButton->setEnabled(true);
+    ui->fillBucket_pushButton->setChecked(false);
+    ui->eraser_pushButton->setEnabled(true);
+    ui->eraser_pushButton->setChecked(false);
+    ui->symmetricalTool_pushButton->setEnabled(true);
+    ui->symmetricalTool_pushButton->setChecked(false);
+    ui->pan_pushButton->setEnabled(true);
+    ui->pan_pushButton->setChecked(false);
+
+    // Figure out which one to disable:
+    switch(new_tool)
+    {
+    case editor_model::BRUSH:
+        ui->brush_pushButton->setEnabled(false);
+        ui->brush_pushButton->setChecked(true);
+        break;
+    case editor_model::FILL_BUCKET:
+        ui->fillBucket_pushButton->setEnabled(false);
+        ui->fillBucket_pushButton->setChecked(true);
+        break;
+    case editor_model::ERASER:
+        ui->eraser_pushButton->setEnabled(false);
+        ui->eraser_pushButton->setChecked(true);
+        break;
+    case editor_model::MIRROR:
+        ui->symmetricalTool_pushButton->setEnabled(false);
+        ui->symmetricalTool_pushButton->setChecked(true);
+        break;
+    case editor_model::PAN:
+        ui->pan_pushButton->setEnabled(false);
+        ui->pan_pushButton->setChecked(true);
+        break;
+    default:
+        qDebug() << "Invalid tool.";
+        break;
+    }
+}
 
 //// Playback ////
 

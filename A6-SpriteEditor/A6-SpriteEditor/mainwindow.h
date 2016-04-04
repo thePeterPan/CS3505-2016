@@ -89,10 +89,12 @@ private slots:
     void flipV_pushButton_clicked();
     void flipH_pushButton_clicked();
     void invertColors_pushButton_clicked();
+    void toolUpdated(editor_model::Tool new_tool);
 
     // Playback buttons:
     void play_pushButton_clicked();
 
+    // Frames:
     void update_currentFrameStatus(int currentFrame, int numOfFrames);
 
 protected:

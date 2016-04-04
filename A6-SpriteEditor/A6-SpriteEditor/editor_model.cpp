@@ -27,6 +27,7 @@ editor_model::AnimatorState editor_model::getAnimatorState()
 void editor_model::setCurrentTool(Tool tool)
 {
     current_tool = tool;
+    emit toolChanged(current_tool);
 }
 
 editor_model::Tool editor_model::getCurrentTool()

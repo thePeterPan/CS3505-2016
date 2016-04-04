@@ -40,9 +40,8 @@ public:
         BRUSH,
         FILL_BUCKET,
         ERASER,
-        ROTATE,
-        PAN,
-        MIRROR
+        MIRROR,
+        PAN
     };
     void setCurrentTool(Tool tool);
     Tool getCurrentTool();
@@ -102,6 +101,7 @@ signals:
     void sceneUpdated();
     void squareUpdated(int x, int y);
     void frameUpdated(int currentFrame, int numOfFrames);
+    void toolChanged(Tool new_tool);
 
 public slots:
 };
