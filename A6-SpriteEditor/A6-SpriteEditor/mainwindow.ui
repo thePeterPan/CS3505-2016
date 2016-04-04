@@ -56,6 +56,9 @@
         </item>
         <item row="11" column="0" colspan="2">
          <widget class="QSlider" name="playbackSpeed_horizontalSlider">
+          <property name="maximum">
+           <number>99</number>
+          </property>
           <property name="pageStep">
            <number>1</number>
           </property>
@@ -845,7 +848,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>20</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSprite_Editor">

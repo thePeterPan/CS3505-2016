@@ -100,7 +100,7 @@ void MainWindow::initializeUIDefaults()
 {
     /// Speed Slider
     ui->playbackSpeed_horizontalSlider->setMinimum(1);
-    ui->playbackSpeed_horizontalSlider->setMaximum(10);
+    ui->playbackSpeed_horizontalSlider->setMaximum(25);
     ui->playbackSpeedCurrent_label->setText(QString::number(ui->playbackSpeed_horizontalSlider->value()));
 
     /// Alpha Slider

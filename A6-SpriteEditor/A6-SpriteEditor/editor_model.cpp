@@ -342,7 +342,7 @@ void editor_model::exportSpriteAsGIF(QString path)
         QProcess _CONVERT;
         QString process = "convert";
         QStringList parameter_list;
-        QString delay = QString::number(100/playback_speed);
+        QString delay = QString::number(100.0/ (double) playback_speed);
         parameter_list << "-delay" << delay << fullFrameFilesPath << fullExportFilePath;
 
         _CONVERT.start(process, parameter_list);
