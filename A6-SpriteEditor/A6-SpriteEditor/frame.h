@@ -6,6 +6,7 @@
 #include <QColor>
 #include <QVector>
 #include <QString>
+#include <QImage>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ public:
 
     // Save to file method
     QString toString();
+    QImage* getQImage();
 
 private:
     QVector<QVector<QColor>> frameMatrix;
