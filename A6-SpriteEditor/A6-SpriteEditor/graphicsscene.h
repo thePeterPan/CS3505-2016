@@ -41,8 +41,8 @@ private:
     QImage * image;
     QVector<QVector<QGraphicsRectItem*>> pixels;
     int pixelSize;
-    int minPixelSize = 5;
-    int maxPixelSize = 100;
+    int minPixelSize = 1;
+    int maxPixelSize = 1000;
     int pixelInterval = 5;
 
     // Model

@@ -109,10 +109,10 @@ int Frame::getFrameHeight()
 void Frame::rotate(bool clockwise)
 {
     QVector<QVector<QColor>> flipped;
-    for (int i = 0; i < width; ++i)
+    for (int i = 0; i < height; ++i)
     {
-        flipped.append(QVector<QColor>(height));
-        for (int j = 0; j < height; ++j)
+        flipped.append(QVector<QColor>(width));
+        for (int j = 0; j < width; ++j)
         {
             if (clockwise)
                 flipped[i][j] = frameMatrix[width - 1 - j][i];
@@ -120,6 +120,9 @@ void Frame::rotate(bool clockwise)
                 flipped[i][j] = frameMatrix[j][height - 1 - i];
         }
     }
+    int temp = width;
+    width = height;
+    height = temp;
     frameMatrix = flipped;
 }
 
