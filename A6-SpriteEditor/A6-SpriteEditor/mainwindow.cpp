@@ -205,7 +205,6 @@ void MainWindow::menuExportAs_triggered()
 
         model->exportSpriteAsGIF(filename);
     }
-    qDebug() << "Export As...";
 }
 
 void MainWindow::menuImport_triggered()

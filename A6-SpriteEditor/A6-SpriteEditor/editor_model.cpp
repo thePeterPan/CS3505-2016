@@ -305,20 +305,51 @@ void editor_model::exportSpriteAsGIF(QString path)
 {
     QFileInfo file(path);
     QString directory = file.dir().path();
-    QString filename = file.fileName();
+    QString fileBaseName = file.baseName();
     QString extension = file.completeSuffix();
 
     QList<QImage*> imageList(sprite_main->getFramesAsImages());
 
+    // If using a temporary directory:
+    QString temporaryDirectory = "tmp/";
+    file.dir().mkdir(temporaryDirectory);
+
+
     // Get the number of padded zeroes we need
     int zeroPadding = QString::number(imageList.size()).length();
 
+    // Create a sequence of images from the frames and put them in the temporary folder:
     for (int index = 0; index < imageList.size(); ++index)
     {
         QString imageIndex = QString("%1").arg(index, zeroPadding, 10, QChar('0'));
         extension = "png"; // **Temporary**
-        QString fullFilePath = directory + "/" + filename + "-" + imageIndex + "." + extension;
+        QString fullFramesFilePath = directory + "/" + temporaryDirectory + fileBaseName + "-" + imageIndex + "." + extension;
 
-        imageList.at(index)->save(fullFilePath, "PNG");
+        imageList.at(index)->save(fullFramesFilePath, "PNG");
+    }
+
+    // Make sure that the convert binary exists on the system:
+    QFileInfo convertFileInfo("/usr/bin/convert");
+    if (convertFileInfo.exists())
+    {
+        // If it exists, convert them to a gif with the following command structure:
+        // convert -delay 5 filename-*.png animated.gif
+        QString fullFrameFilesPath = directory + "/" + temporaryDirectory + fileBaseName + "-*." + extension;
+        extension = "gif";
+        QString fullExportFilePath = directory + "/" + fileBaseName + "." + extension;
+
+        QProcess _CONVERT;
+        QString process = "convert";
+        QStringList parameter_list;
+        QString delay = QString::number(playback_speed);
+        parameter_list << "-delay" << delay << fullFrameFilesPath << fullExportFilePath;
+
+        _CONVERT.start(process, parameter_list);
+        if (!(_CONVERT.waitForFinished()))
+            qDebug() << "Conversion failed:" << _CONVERT.errorString();
+        else
+            qDebug() << "Conversion output:" << _CONVERT.readAll();
+
+        // Was going to add code to delete 'tmp' folder, but I find that a little dangerous.
     }
 }

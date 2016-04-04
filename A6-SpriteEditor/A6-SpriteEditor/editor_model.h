@@ -14,6 +14,7 @@
 #include <QDebug>
 #include <QException>
 #include <QList>
+#include <QProcess>
 
 #include "sprite.h"
 
