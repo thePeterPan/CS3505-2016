@@ -4,8 +4,10 @@
 // Qt Graphics Objects
 #include <QObject>
 #include <QList>
+#include <QImage>
 // Other Qt Objects
 #include <QString>
+#include <QList>
 
 #include "frame.h"
 
@@ -45,6 +47,7 @@ public:
 
     // Save to file method
     QString toString();
+    QList<QImage*> getFramesAsImages();
 
 private:
     QList<Frame*> frames;

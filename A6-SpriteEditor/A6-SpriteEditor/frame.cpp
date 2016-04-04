@@ -171,23 +171,20 @@ QString Frame::toString()
 
 QString Frame::toRgbaString(QColor color)
 {
-
     return QString::number(color.red())   + " " +
             QString::number(color.green()) + " " +
             QString::number(color.blue())  + " " +
             QString::number(color.alpha()) + " ";
-
 }
 
-QImage *Frame::getQImage()
+QImage *Frame::toQImage()
 {
-    QImage *newImage = new QImage(width,height,QImage::Format_ARGB32);
+    QImage *newImage = new QImage(width, height, QImage::Format_ARGB32);
     for (int i = 0; i < width; i++)
     {
         for (int j = 0; j < height; j++)
         {
             QColor tempColor = frameMatrix[i][j];
-
             newImage->setPixel(i,j,tempColor.rgba());
         }
     }

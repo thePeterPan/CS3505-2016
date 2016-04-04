@@ -147,3 +147,14 @@ QString Sprite::toString()
     return result;
 }
 
+QList<QImage*> Sprite::getFramesAsImages()
+{
+    QList<QImage*> imageList;
+
+    foreach (Frame* frame, frames)
+    {
+        imageList << frame->toQImage();
+    }
+
+    return imageList;
+}

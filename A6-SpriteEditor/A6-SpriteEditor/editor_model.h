@@ -8,9 +8,12 @@
 #include <QColor>
 #include <QString>
 #include <QFile>
+#include <QFileInfo>
+#include <QDir>
 #include <QTextStream>
 #include <QDebug>
 #include <QException>
+#include <QList>
 
 #include "sprite.h"
 
@@ -74,6 +77,7 @@ public:
     QString getFilePath();
     void saveToFile(QString path);
     void loadSpriteFromFile(QString path);
+    void exportSpriteAsGIF(QString path);
 
 private:
     // State variables:

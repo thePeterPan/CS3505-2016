@@ -33,7 +33,7 @@ public:
 
     // Save to file method
     QString toString();
-    QImage* getQImage();
+    QImage* toQImage();
 
 private:
     QVector<QVector<QColor>> frameMatrix;

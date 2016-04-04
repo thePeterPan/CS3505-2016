@@ -246,8 +246,6 @@ void editor_model::loadSpriteFromFile(QString path)
         return;
     }
     QTextStream in(&file);
-//    int numberOfFrames;
-//    int currentY = 0;
 
     // Get the wdith and the height from the file.
     QStringList widthAndHeight = in.readLine().split(" ");
@@ -301,4 +299,26 @@ void editor_model::loadSpriteFromFile(QString path)
     // Reset current frame back to 0,
     // which automatically emits signal to update frame status and scene
     setCurrentFrame(0);
+}
+
+void editor_model::exportSpriteAsGIF(QString path)
+{
+    QFileInfo file(path);
+    QString directory = file.dir().path();
+    QString filename = file.fileName();
+    QString extension = file.completeSuffix();
+
+    QList<QImage*> imageList(sprite_main->getFramesAsImages());
+
+    // Get the number of padded zeroes we need
+    int zeroPadding = QString::number(imageList.size()).length();
+
+    for (int index = 0; index < imageList.size(); ++index)
+    {
+        QString imageIndex = QString("%1").arg(index, zeroPadding, 10, QChar('0'));
+        extension = "png"; // **Temporary**
+        QString fullFilePath = directory + "/" + filename + "-" + imageIndex + "." + extension;
+
+        imageList.at(index)->save(fullFilePath, "PNG");
+    }
 }

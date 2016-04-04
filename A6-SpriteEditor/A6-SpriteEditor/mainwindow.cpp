@@ -171,6 +171,7 @@ void MainWindow::menuSaveAs_triggered()
                              QDir::homePath(),
                              tr("Sprite (*.ssp);;All files (*.*)"));
     saveAsDialog.setAcceptMode(QFileDialog::AcceptSave);
+    // If user did not hit cancel:
     if (saveAsDialog.exec())
     {
         // Get the file name input by the user
@@ -186,6 +187,24 @@ void MainWindow::menuSaveAs_triggered()
 
 void MainWindow::menuExportAs_triggered()
 {
+    QFileDialog exportAsDialog(this,
+                               tr("Export as GIF"),
+                               QDir::homePath(),
+                               tr("GIF (*.gif);;All files (*.*)"));
+    exportAsDialog.setAcceptMode(QFileDialog::AcceptSave);
+    exportAsDialog.setLabelText(QFileDialog::Accept, "Export");
+    // If user did not hit cancel:
+    if (exportAsDialog.exec())
+    {
+        // Get the file name input by the user
+        QString filename = exportAsDialog.selectedFiles().at(0);
+
+        // Check to see if the user appended an extension, add if they didn't
+        if (!filename.endsWith(".gif", Qt::CaseInsensitive))
+            filename += ".gif";
+
+        model->exportSpriteAsGIF(filename);
+    }
     qDebug() << "Export As...";
 }
 

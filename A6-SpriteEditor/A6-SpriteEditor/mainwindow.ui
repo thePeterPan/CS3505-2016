@@ -872,7 +872,7 @@
   </action>
   <action name="actionExport_As">
    <property name="text">
-    <string>Export As...</string>
+    <string>Export As GIF</string>
    </property>
   </action>
   <action name="actionChange_Color">
