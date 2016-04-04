@@ -177,7 +177,8 @@ void editor_model::removeFrame()
 
 void editor_model::setCurrentFrame(int index)
 {
-    if (index == sprite_main->getCurrentFrameIndex())
+    qDebug() << index;
+    if (index == sprite_main->getCurrentFrameIndex()+1)
         return;
     sprite_main->setCurrentFrame(index);
     emit sceneUpdated();
