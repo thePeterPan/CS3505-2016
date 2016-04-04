@@ -68,7 +68,7 @@ private slots:
     void menuFlipV_triggered();
     void menuFlipH_triggered();
     void menuResizeCanvas_triggered();
-    void zoomToFit_triggered();
+//    void zoomToFit_triggered();
 
     // Help Menu:
     void menuHelp_triggered();

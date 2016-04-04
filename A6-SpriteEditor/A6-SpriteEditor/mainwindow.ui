@@ -47,19 +47,6 @@
           </property>
          </widget>
         </item>
-        <item row="8" column="1">
-         <widget class="QPushButton" name="invertColors_pushButton">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Invert Colors</string>
-          </property>
-         </widget>
-        </item>
         <item row="10" column="0">
          <widget class="QLabel" name="playbackSpeed_label">
           <property name="text">
@@ -177,19 +164,6 @@
           </property>
          </widget>
         </item>
-        <item row="8" column="0">
-         <widget class="QPushButton" name="symmetricalTool_pushButton">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Mirror tool</string>
-          </property>
-         </widget>
-        </item>
         <item row="10" column="1">
          <widget class="QLabel" name="playbackSpeedCurrent_label">
           <property name="text">
@@ -233,6 +207,85 @@
           </property>
           <property name="margin">
            <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QToolButton" name="rotateCCW_pushButton">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Rotate Counterclockwise</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icons/icons/rotate-backward-80px_white.svg</normaloff>:/icons/icons/rotate-backward-80px_white.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QPushButton" name="rotateCW_pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Rotate Clockwise</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icons/icons/rotate-forward-80px_white.svg</normaloff>:/icons/icons/rotate-forward-80px_white.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -493,10 +546,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="rotateCCW_pushButton">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
+         <widget class="QPushButton" name="symmetricalTool_pushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -509,64 +559,20 @@
             <height>50</height>
            </size>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>60</width>
-            <height>50</height>
-           </size>
-          </property>
           <property name="toolTip">
-           <string>Rotate Counterclockwise</string>
+           <string>Mirror tool</string>
           </property>
           <property name="text">
            <string/>
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/icons/icons/rotate-backward-80px_white.svg</normaloff>:/icons/icons/rotate-backward-80px_white.svg</iconset>
+            <normaloff>:/icons/icons/mirror_horizontal_white.svg</normaloff>:/icons/icons/mirror_horizontal_white.svg</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>50</width>
-            <height>50</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="rotateCW_pushButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>60</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Rotate Clockwise</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="resources.qrc">
-            <normaloff>:/icons/icons/rotate-forward-80px_white.svg</normaloff>:/icons/icons/rotate-forward-80px_white.svg</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>50</width>
-            <height>50</height>
+            <width>30</width>
+            <height>30</height>
            </size>
           </property>
          </widget>
@@ -600,6 +606,38 @@
           <property name="icon">
            <iconset resource="resources.qrc">
             <normaloff>:/icons/icons/hand_white.svg</normaloff>:/icons/icons/hand_white.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>30</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="invertColors_pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Invert Colors</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/icons/icons/button_off_white.svg</normaloff>:/icons/icons/button_off_white.svg</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -786,7 +824,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>22</height>
+     <height>16</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSprite_Editor">

@@ -237,10 +237,10 @@ void MainWindow::menuResizeCanvas_triggered()
     qDebug() << "Resize Canvas";
 }
 
-void MainWindow::zoomToFit_triggered()
-{
-    qDebug() << "Zoom To Fit";
-}
+//void MainWindow::zoomToFit_triggered()
+//{
+//    qDebug() << "Zoom To Fit";
+//}
 
 void MainWindow::menuHelp_triggered()
 {
