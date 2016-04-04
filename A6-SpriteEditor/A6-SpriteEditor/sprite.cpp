@@ -119,7 +119,16 @@ QColor Sprite::getPixelColorAtCurrentFrame(int x, int y)
 
 void Sprite::rotateCurrentFrame(bool direction)
 {
-    frames.at(currentFrameIndex)->rotate(direction);
+    if(width == height)
+        frames.at(currentFrameIndex)->rotate(direction);
+    else{
+        for(int i = 0; i < frames.size(); i++)
+            frames.at(i)->rotate(direction);
+        int temp = height;
+        height = width;
+        width = temp;
+        //TODO: change height, width, etc.
+    }
 }
 
 void Sprite::flipCurrentFrameOrientation(bool orientation)
