@@ -35,15 +35,15 @@ int Sprite::getHeight()
 
 //// Frame Manipulation Methods ////
 
-Frame* Sprite::getFrameAt(int index)
-{
-    return frames[index];
-}
+//Frame* Sprite::getFrameAt(int index)
+//{
+//    return frames[index];
+//}
 
-QList<Frame*> Sprite::getFrames()
-{
-    return frames;
-}
+//QList<Frame*> Sprite::getFrames()
+//{
+//    return frames;
+//}
 
 void Sprite::addFrameAt(int index)
 {
@@ -54,9 +54,7 @@ void Sprite::addFrameAt(int index)
 
 void Sprite::addFrameAfterCurrentIndex()
 {
-    Frame* newFrame(frames.at(currentFrameIndex)->clone());
-    ++currentFrameIndex;
-    frames.insert(currentFrameIndex, newFrame);
+    addFrameAt(currentFrameIndex + 1);
 }
 
 void Sprite::removeFrameAt(int index)
@@ -71,28 +69,17 @@ void Sprite::removeFrameAt(int index)
 
 void Sprite::removeCurrentFrame()
 {
-    if (frames.size() > 1 && currentFrameIndex >= 0 && currentFrameIndex < frames.size())
-    {
-        frames.removeAt(currentFrameIndex);
-        if (--currentFrameIndex < 0)
-            currentFrameIndex = 0;
-    }
+    removeFrameAt(currentFrameIndex);
 }
 
 void Sprite::nextFrame()
 {
-    if (++currentFrameIndex >= frames.size())
-    {
-        currentFrameIndex = frames.size() - 1;
-    }
+    setCurrentFrame(currentFrameIndex + 1);
 }
 
 void Sprite::prevFrame()
 {
-    if (--currentFrameIndex < 0)
-    {
-        currentFrameIndex = 0;
-    }
+    setCurrentFrame(currentFrameIndex - 1);
 }
 
 void Sprite::setCurrentFrame(int index)
@@ -151,12 +138,11 @@ void Sprite::invertCurrentFrameColor()
 QString Sprite::toString()
 {
     QString result =
-            QString::number(width) + " " +
-            QString::number(height) + "\n" +
+            QString::number(width) + " " + QString::number(height) + "\n" +
             QString::number(frames.size()) + "\n";
-    foreach(Frame* f, frames)
+    foreach (Frame* frame, frames)
     {
-        result += f->toString();
+        result += frame->toString();
     }
     return result;
 }

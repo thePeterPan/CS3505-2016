@@ -20,8 +20,8 @@ public:
 
     // Accessor methods
     int getAnimationLength();
-    Frame* getFrameAt(int index);
-    QList<Frame*> getFrames();
+//    Frame* getFrameAt(int index);
+//    QList<Frame*> getFrames();
     int getWidth();
     int getHeight();
 

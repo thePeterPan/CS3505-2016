@@ -240,49 +240,65 @@ void editor_model::saveToFile(QString path)
 void editor_model::loadSpriteFromFile(QString path)
 {
     QFile file(path);
-    if(!file.open(QIODevice::ReadOnly)) {
+    if (!file.open(QIODevice::ReadOnly))
+    {
         //error
         return;
     }
-    file_path = path;
     QTextStream in(&file);
 //    int numberOfFrames;
-    int width, height;
-    int currentX = 0;
-    int currentY = 0;
-    QString size = in.readLine();
-    QStringList sizes = size.split(" ");
-    width = sizes[0].toInt();
-    height = sizes[1].toInt();
-    sprite_main = new Sprite(width,height);
+//    int currentY = 0;
 
+    // Get the wdith and the height from the file.
+    QStringList widthAndHeight = in.readLine().split(" ");
+    int width = widthAndHeight[0].toInt();
+    int height = widthAndHeight[1].toInt();
+
+    // Initialize a new sprite
+    sprite_main = new Sprite(width, height);
+
+    // Get the number of frames.
     QString num_frames = in.readLine();
-//    numberOfFrames = num_frames.toInt();
+    int numberOfFrames = num_frames.toInt();
 
-    while(!in.atEnd())
+    // Loop through the remainder of the lines in the file.
+    while (!in.atEnd())
     {
-        int lineCount = 0;
-        sprite_main->addFrameAfterCurrentIndex();
-        while(lineCount < height)
+        // The following loop encompasses a single frame.
+        int currentY = 0;
+        while (currentY < height)
         {
-            currentX = 0;
+            int currentX = 0;
             QString line = in.readLine();
             QStringList numbers = line.split(" ");
 
-            for(int i = 0; i < numbers.size() - 4; i += 4)
+            // Loop through the line to set the colors on one row.
+            for (int i = 0; i < numbers.size() - 4; i += 4)
             {
-                int red   = numbers[i+0].toInt();
-                int green = numbers[i+1].toInt();
-                int blue  = numbers[i+2].toInt();
-                int alpha = numbers[i+3].toInt();
-                QColor color(red, green, blue, alpha);
+                QColor color(
+                        numbers[i+0].toInt(),
+                        numbers[i+1].toInt(),
+                        numbers[i+2].toInt(),
+                        numbers[i+3].toInt());
+
                 sprite_main->setPixelColorAtCurrentFrame(currentX, currentY, color);
+
                 ++currentX;
             }
             ++currentY;
-            ++lineCount;
         }
 
+        // Check to see if there are more frames, if so, increment counter
+        // and add a frame.
+        if (!in.atEnd())
+        {
+            sprite_main->addFrameAfterCurrentIndex();
+        }
     }
-    emit sceneUpdated();
+
+    file_path = path;
+
+    // Reset current frame back to 0,
+    // which automatically emits signal to update frame status and scene
+    setCurrentFrame(0);
 }

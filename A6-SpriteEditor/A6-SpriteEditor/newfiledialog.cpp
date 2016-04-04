@@ -23,8 +23,8 @@ NewFileDialog::~NewFileDialog()
 
 void NewFileDialog::connectSignalsAndSlots()
 {
-    connect(ui->width_spinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &NewFileDialog::widthSpinBox_changed);
-    connect(ui->height_spinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &NewFileDialog::heightSpinBox_changed);
+//    connect(ui->width_spinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &NewFileDialog::widthSpinBox_changed);
+//    connect(ui->height_spinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &NewFileDialog::heightSpinBox_changed);
     connect(ui->bgContents_comboBox, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &NewFileDialog::bgContentsComboBox_changed);
     connect(ui->title_lineEdit, &QLineEdit::textEdited, this, &NewFileDialog::titleLineEdit_edited);
 
@@ -50,13 +50,13 @@ void NewFileDialog::customAccept()
     accept();
 }
 
-void NewFileDialog::widthSpinBox_changed(int value)
-{
-}
+//void NewFileDialog::widthSpinBox_changed(int value)
+//{
+//}
 
-void NewFileDialog::heightSpinBox_changed(int value)
-{
-}
+//void NewFileDialog::heightSpinBox_changed(int value)
+//{
+//}
 
 void NewFileDialog::bgContentsComboBox_changed(int index)
 {
