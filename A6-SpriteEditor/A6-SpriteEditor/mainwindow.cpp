@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     model = new editor_model();
 
-    graphics();
+    setNewGraphicsScene();
 
     connectSignalsAndSlots();
     initializeUIDefaults();
@@ -17,6 +17,14 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setNewGraphicsScene()
+{
+    scene = new GraphicsScene(model, 20, 20, 20, ui->graphicsView);
+    model->setBrushColor(ui->colorWheel_widget->color());
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
 }
 
 /**
@@ -42,36 +50,49 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->actionFlip_Horizontally, &QAction::triggered, this, &MainWindow::menuFlipH_triggered);
     connect(ui->actionResize_Canvas, &QAction::triggered, this, &MainWindow::menuResizeCanvas_triggered);
 
+    /// Help Menu:
     connect(ui->menuHelp, &QMenu::triggered, this, &MainWindow::menuHelp_triggered);
 
     /// Speed Slider
     connect(ui->playbackSpeed_horizontalSlider, &QSlider::valueChanged, this, &MainWindow::playbackSpeed_hSlider_moved);
+
+    /// Frame Slider
+//    connect(ui->currentFrame_horizontalSlider, &QSlider::valueChanged, model, &editor_model::setCurrentFrame);
 
     /// Color Wheel
     connect(ui->colorWheel_widget, &color_widgets::ColorWheel::colorChanged, this, &MainWindow::colorWheel_colorChanged);
     /// Alpha Slider
     connect(ui->alphaSlider_widget, &color_widgets::GradientSlider::valueChanged, this, &MainWindow::alphaSlider_valueChanged);
 
-    /// Tool Buttons:
+    /// Toolbar Buttons:
     connect(ui->brush_pushButton, &QToolButton::clicked, this, &MainWindow::brush_pushButton_clicked);
     connect(ui->fillBucket_pushButton, &QToolButton::clicked, this, &MainWindow::fillBucket_pushButton_clicked);
     connect(ui->eraser_pushButton, &QToolButton::clicked, this, &MainWindow::eraser_pushButton_clicked);
     connect(ui->rotateCCW_pushButton, &QToolButton::clicked, this, &MainWindow::rotateCCW_pushButton_clicked);
     connect(ui->rotateCW_pushButton, &QToolButton::clicked, this, &MainWindow::rotateCW_pushButton_clicked);
-    connect(ui->pan_pushButton, &QToolButton::clicked, this, &MainWindow::pushButton_clicked);
+    connect(ui->pan_pushButton, &QToolButton::clicked, this, &MainWindow::panPushButton_clicked);
     connect(ui->symmetricalTool_pushButton, &QToolButton::clicked, this, &MainWindow::symmetricalTool_pushButton_clicked);
     connect(ui->flipV_pushButton, &QToolButton::clicked, this, &MainWindow::flipV_pushButton_clicked);
     connect(ui->flipH_pushButton, &QToolButton::clicked, this, &MainWindow::flipH_pushButton_clicked);
     connect(ui->invertColors_pushButton, &QToolButton::clicked, this, &MainWindow::invertColors_pushButton_clicked);
-    connect(ui->zoomIn_pushButton, &QPushButton::clicked, this->scene, &GraphicsScene::zoomIn);
-    connect(ui->zoomOut_pushButton, &QPushButton::clicked, this->scene, &GraphicsScene::zoomOut);
+    connect(ui->zoomIn_pushButton, &QPushButton::clicked, scene, &GraphicsScene::zoomIn);
+    connect(ui->zoomOut_pushButton, &QPushButton::clicked, scene, &GraphicsScene::zoomOut);
+    connect(model, &editor_model::toolChanged, this, &MainWindow::toolUpdated);
 
-    /// Open file:
-    connect(this->model,&editor_model::modelUpdated,this,&MainWindow::updateModel);
+    /// Frame Toolbar Buttons
+    connect(ui->addFrame_pushButton, &QPushButton::clicked, model, &editor_model::addFrame);
+    connect(ui->removeFrame_pushButton, &QPushButton::clicked, model, &editor_model::removeFrame);
 
-    /// Frame Index Label
-    //connect(this->scene,&GraphicsScene::frameUpdated,this,&MainWindow::updateFrame);
-    //connect(this->scene,SIGNAL(frameUpdated(int, int)),this,SLOT(updateFrame(int, int)));
+    /// Playback buttons:
+    connect(ui->prevFrame_pushButton, &QPushButton::clicked, model, &editor_model::prevFrame);
+    connect(ui->nextFrame_pushButton, &QPushButton::clicked, model, &editor_model::nextFrame);
+    connect(ui->play_pushButton, &QPushButton::clicked, this, &MainWindow::play_pushButton_clicked);
+
+
+    /// Connections from the model
+    connect(model, &editor_model::sceneUpdated, scene, &GraphicsScene::redrawScene);
+    connect(model, &editor_model::squareUpdated, scene, &GraphicsScene::drawSquare);
+    connect(model, &editor_model::frameUpdated, this, &MainWindow::update_currentFrameStatus);
 }
 
 void MainWindow::initializeUIDefaults()
@@ -87,18 +108,16 @@ void MainWindow::initializeUIDefaults()
     ui->alphaSlider_widget->setValue(255);
     ui->alphaSlider_widget->setFirstColor(QColor::fromRgba(qRgba(0,0,0,0)));
     ui->alphaSlider_widget->setLastColor(QColor::fromRgba(qRgba(0,0,0,255)));
-}
 
-void MainWindow::updateModel(Sprite* sprite)
-{
-    scene->redrawScene(sprite);
-}
+    /// Frame Slider
+    ui->currentFrame_horizontalSlider->setMinimum(0);
+    ui->currentFrame_horizontalSlider->setMaximum(0);
+    ui->currentFrame_horizontalSlider->setValue(0);
+    ui->currentFrame_horizontalSlider->setSingleStep(1);
+    ui->currentFrame_horizontalSlider->setPageStep(1);
 
-void MainWindow::updateFrame(int currentFrame, int totalFrames)
-{
-    QString current = QString::number(currentFrame);
-    QString total = QString::number(totalFrames);
-    ui->frameIndexLabel->setText("Frame " + current + " of " + total);
+    /// Toolbar buttons
+    brush_pushButton_clicked();
 }
 
 void MainWindow::playbackSpeed_hSlider_moved(int value)
@@ -112,13 +131,9 @@ void MainWindow::menuNewFile_triggered()
 
     if(dialog.exec() == QDialog::Accepted)
     {
-        int width = dialog.getWidth();
-        int height = dialog.getHeight();
-        Sprite* s = new Sprite(width,height,dialog.getTitle());
-        Frame* f = new Frame(width,height);
-        s->addFrame(f);
+        Sprite* s = new Sprite(dialog.getWidth(), dialog.getHeight());
         model->setSprite(s);
-        scene->redrawScene(s);
+        scene->redrawScene();
     }
 }
 
@@ -150,7 +165,7 @@ void MainWindow::menuSave_triggered()
         return;
     }
 
-    model->saveSpriteToFile(model->getFilePath());
+    model->saveToFile(model->getFilePath());
 }
 
 void MainWindow::menuSaveAs_triggered()
@@ -160,6 +175,7 @@ void MainWindow::menuSaveAs_triggered()
                              QDir::homePath(),
                              tr("Sprite (*.ssp);;All files (*.*)"));
     saveAsDialog.setAcceptMode(QFileDialog::AcceptSave);
+    // If user did not hit cancel:
     if (saveAsDialog.exec())
     {
         // Get the file name input by the user
@@ -169,24 +185,30 @@ void MainWindow::menuSaveAs_triggered()
         if (!filename.endsWith(".ssp", Qt::CaseInsensitive))
             filename += ".ssp";
 
-        // Check to see if the file already exists, if so ask if they want to overwrite.
-        QFileInfo checkFile(filename);
-        if (checkFile.exists() && checkFile.isFile()) {
-            QMessageBox::StandardButton reply;
-            reply = QMessageBox::question(this,
-                                          tr("File Exists."),
-                                          tr("File already exists. Overwrite?"),
-                                          QMessageBox::Yes|QMessageBox::No);
-            if (reply == QMessageBox::No) return;
-        }
-
-        model->saveSpriteToFile(filename);
+        model->saveToFile(filename);
     }
 }
 
 void MainWindow::menuExportAs_triggered()
 {
-    qDebug() << "Export As...";
+    QFileDialog exportAsDialog(this,
+                               tr("Export as GIF"),
+                               QDir::homePath(),
+                               tr("GIF (*.gif);;All files (*.*)"));
+    exportAsDialog.setAcceptMode(QFileDialog::AcceptSave);
+    exportAsDialog.setLabelText(QFileDialog::Accept, "Export");
+    // If user did not hit cancel:
+    if (exportAsDialog.exec())
+    {
+        // Get the file name input by the user
+        QString filename = exportAsDialog.selectedFiles().at(0);
+
+        // Check to see if the user appended an extension, add if they didn't
+        if (!filename.endsWith(".gif", Qt::CaseInsensitive))
+            filename += ".gif";
+
+        model->exportSpriteAsGIF(filename);
+    }
 }
 
 void MainWindow::menuImport_triggered()
@@ -196,26 +218,22 @@ void MainWindow::menuImport_triggered()
 
 void MainWindow::menuRotateClockwise_triggered()
 {
-    qDebug() << "Rotate Clockwise";
-    scene->rotate(false);
+    model->rotateScene(false);
 }
 
 void MainWindow::menuRotateCounterClockwise_triggered()
 {
-    qDebug() << "Rotate Counterclockwise";
-    scene->rotate(true);
+    model->rotateScene(true);
 }
 
 void MainWindow::menuFlipV_triggered()
 {
-    qDebug() << "Flip Vertically";
-    scene->flip(true);
+    model->flipSceneOrientation(true);
 }
 
 void MainWindow::menuFlipH_triggered()
 {
-    qDebug() << "Flip Horizontally";
-    scene->flip(false);
+    model->flipSceneOrientation(false);
 }
 
 void MainWindow::menuResizeCanvas_triggered()
@@ -223,10 +241,10 @@ void MainWindow::menuResizeCanvas_triggered()
     qDebug() << "Resize Canvas";
 }
 
-void MainWindow::zoomToFit_triggered()
-{
-    qDebug() << "Zoom To Fit";
-}
+//void MainWindow::zoomToFit_triggered()
+//{
+//    qDebug() << "Zoom To Fit";
+//}
 
 void MainWindow::menuHelp_triggered()
 {
@@ -243,7 +261,7 @@ void MainWindow::colorWheel_colorChanged(QColor color)
 
     alpha_color.setAlpha(ui->alphaSlider_widget->value());
 
-    scene->setColor(alpha_color);
+    model->setBrushColor(alpha_color);
 }
 
 void MainWindow::alphaSlider_valueChanged(int value)
@@ -251,7 +269,7 @@ void MainWindow::alphaSlider_valueChanged(int value)
     QColor color = ui->colorWheel_widget->color();
     color.setAlpha(value);
 
-    scene->setColor(color);
+    model->setBrushColor(color);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -262,81 +280,114 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-void MainWindow::graphics()
-{
-    scene = new GraphicsScene(model, 20,20,20, ui->graphicsView);
-    scene->setColor(ui->colorWheel_widget->color());
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->show();
-}
 
+//// Scene Drawing Events/Slots/Methods ////
 
 void MainWindow::brush_pushButton_clicked()
 {
-    model->setTool(editor_model::BRUSH);
+    model->setCurrentTool(editor_model::BRUSH);
 }
 
 void MainWindow::fillBucket_pushButton_clicked()
 {
-    model->setTool(editor_model::FILL_BUCKET);
+    model->setCurrentTool(editor_model::FILL_BUCKET);
 }
 
 void MainWindow::eraser_pushButton_clicked()
 {
-    model->setTool(editor_model::ERASER);
+    model->setCurrentTool(editor_model::ERASER);
 }
 
 void MainWindow::rotateCCW_pushButton_clicked()
 {
-    scene->rotate(true);
+    model->rotateScene(true);
 }
 
 void MainWindow::rotateCW_pushButton_clicked()
 {
-    scene->rotate(false);
+    model->rotateScene(false);
 }
 
-void MainWindow::pushButton_clicked()
+void MainWindow::panPushButton_clicked()
 {
-    model->setTool(editor_model::PAN);
+    model->setCurrentTool(editor_model::PAN);
 }
 
 void MainWindow::symmetricalTool_pushButton_clicked()
 {
-    model->setTool(editor_model::MIRROR);
+    model->setCurrentTool(editor_model::MIRROR);
 }
 
 void MainWindow::flipV_pushButton_clicked()
 {
-    scene->flip(true);
+    model->flipSceneOrientation(true);
 }
 
 void MainWindow::flipH_pushButton_clicked()
 {
-    scene->flip(false);
+    model->flipSceneOrientation(false);
 }
 
 void MainWindow::invertColors_pushButton_clicked()
 {
-    scene->invert();
+    model->invertSceneColors();
 }
 
-void MainWindow::on_addFrame_pushButton_clicked()
+void MainWindow::toolUpdated(editor_model::Tool new_tool)
 {
-    scene->addFrame();
+    // Enable all tools:
+    ui->brush_pushButton->setEnabled(true);
+    ui->brush_pushButton->setChecked(false);
+    ui->fillBucket_pushButton->setEnabled(true);
+    ui->fillBucket_pushButton->setChecked(false);
+    ui->eraser_pushButton->setEnabled(true);
+    ui->eraser_pushButton->setChecked(false);
+    ui->symmetricalTool_pushButton->setEnabled(true);
+    ui->symmetricalTool_pushButton->setChecked(false);
+    ui->pan_pushButton->setEnabled(true);
+    ui->pan_pushButton->setChecked(false);
+
+    // Figure out which one to disable:
+    switch(new_tool)
+    {
+    case editor_model::BRUSH:
+        ui->brush_pushButton->setEnabled(false);
+        ui->brush_pushButton->setChecked(true);
+        break;
+    case editor_model::FILL_BUCKET:
+        ui->fillBucket_pushButton->setEnabled(false);
+        ui->fillBucket_pushButton->setChecked(true);
+        break;
+    case editor_model::ERASER:
+        ui->eraser_pushButton->setEnabled(false);
+        ui->eraser_pushButton->setChecked(true);
+        break;
+    case editor_model::MIRROR:
+        ui->symmetricalTool_pushButton->setEnabled(false);
+        ui->symmetricalTool_pushButton->setChecked(true);
+        break;
+    case editor_model::PAN:
+        ui->pan_pushButton->setEnabled(false);
+        ui->pan_pushButton->setChecked(true);
+        break;
+    default:
+        qDebug() << "Invalid tool.";
+        break;
+    }
 }
 
-void MainWindow::on_removeFrame_pushButton_clicked()
+//// Playback ////
+
+void MainWindow::play_pushButton_clicked()
 {
-    scene->removeFrame();
+
 }
 
-void MainWindow::on_prevFrame_pushButton_clicked()
+void MainWindow::update_currentFrameStatus(int currentFrame, int numOfFrames)
 {
-    scene->previousFrame();
-}
+    ui->currentFrame_horizontalSlider->setMinimum(1);
+    ui->currentFrame_horizontalSlider->setMaximum(numOfFrames);
+    ui->currentFrame_horizontalSlider->setValue(currentFrame + 1);
 
-void MainWindow::on_nextFrame_pushButton_clicked()
-{
-    scene->nextFrame();
+    ui->currentFrameIndex_label->setText(QString::number(currentFrame + 1) + " / " + QString::number(numOfFrames));
 }

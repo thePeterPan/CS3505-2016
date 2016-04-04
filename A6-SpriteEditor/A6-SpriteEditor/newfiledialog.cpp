@@ -23,8 +23,8 @@ NewFileDialog::~NewFileDialog()
 
 void NewFileDialog::connectSignalsAndSlots()
 {
-    connect(ui->width_spinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &NewFileDialog::widthSpinBox_changed);
-    connect(ui->height_spinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &NewFileDialog::heightSpinBox_changed);
+//    connect(ui->width_spinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &NewFileDialog::widthSpinBox_changed);
+//    connect(ui->height_spinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &NewFileDialog::heightSpinBox_changed);
     connect(ui->bgContents_comboBox, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &NewFileDialog::bgContentsComboBox_changed);
     connect(ui->title_lineEdit, &QLineEdit::textEdited, this, &NewFileDialog::titleLineEdit_edited);
 
@@ -33,11 +33,10 @@ void NewFileDialog::connectSignalsAndSlots()
 }
 
 /**
+ * @brief NewFileDialog::customAccept
  * Normally this is automatically connected to the accept slot, but here we are
  * intercepting it so that we can validate the data before the dialog box is
  * actually accepted.
- *
- * @brief NewFileDialog::customAccept
  */
 void NewFileDialog::customAccept()
 {
@@ -51,23 +50,13 @@ void NewFileDialog::customAccept()
     accept();
 }
 
-//void NewFileDialog::accepted()
+//void NewFileDialog::widthSpinBox_changed(int value)
 //{
-//    qDebug() << "Accepted";
 //}
 
-//void NewFileDialog::rejected()
+//void NewFileDialog::heightSpinBox_changed(int value)
 //{
-//    qDebug() << "Rejected";
 //}
-
-void NewFileDialog::widthSpinBox_changed(int value)
-{
-}
-
-void NewFileDialog::heightSpinBox_changed(int value)
-{
-}
 
 void NewFileDialog::bgContentsComboBox_changed(int index)
 {

@@ -1,100 +1,160 @@
 #include "sprite.h"
 
-/**
- * Constructor
- *
- * @brief sprite::sprite
- * @param parent
- */
 Sprite::Sprite(QObject *parent) :
-    QObject(parent), width(0), height(0), file_saved(false), sprite_title("New Sprite")
+    QObject(parent), currentFrameIndex(0), width(0), height(0)
 {
 
 }
 
-Sprite::Sprite(int width_, int height_, QString title_, QObject *parent) :
-    QObject(parent), width(width_), height(height_), file_saved(false),
-    sprite_title(title_)
+Sprite::Sprite(int width_, int height_, QObject *parent) :
+    QObject(parent), currentFrameIndex(0), width(width_), height(height_)
 {
-
+    frames << new Frame(width, height);
 }
 
-/**
- * Returns the number of frames in the sprite.
- *
- * @brief sprite::getAnimationLength
- * @return
- */
+Sprite::~Sprite() { }
+
+
+//// Accessor Methods ////
+
 int Sprite::getAnimationLength()
 {
-    return frames.length();
+    return frames.size();
 }
 
-/**
- * @brief sprite::getFrame
- * @param index
- * @return
- */
-Frame* Sprite::getFrame(int index)
-{
-    return frames[index];
-}
-
-/**
- * @brief sprite::addFrame
- * @return
- */
-void Sprite::addFrame(Frame* f)
-{
-    frames.push_back(f);
-}
-
-/**
- * @brief sprite::removeFrame
- * @param index
- */
-void Sprite::removeFrameAt(int index)
-{
-    if (frames.size() > 1) {
-        frames.removeAt(index);
-    }
-
-}
-
-/**
- * @brief sprite::getWidth
- * @return
- */
 int Sprite::getWidth()
 {
     return width;
 }
 
-/**
- * @brief sprite::getHeight
- * @return
- */
 int Sprite::getHeight()
 {
     return height;
 }
 
+
+//// Frame Manipulation Methods ////
+
+//Frame* Sprite::getFrameAt(int index)
+//{
+//    return frames[index];
+//}
+
+//QList<Frame*> Sprite::getFrames()
+//{
+//    return frames;
+//}
+
+void Sprite::addFrameAt(int index)
+{
+    Frame* newFrame(frames.at(currentFrameIndex)->clone());
+    frames.insert(index, newFrame);
+    ++currentFrameIndex;
+}
+
+void Sprite::addFrameAfterCurrentIndex()
+{
+    addFrameAt(currentFrameIndex + 1);
+}
+
+void Sprite::removeFrameAt(int index)
+{
+    if (frames.size() > 1 && index >= 0 && index < frames.size())
+    {
+        frames.removeAt(index);
+        if (--currentFrameIndex < 0)
+            currentFrameIndex = 0;
+    }
+}
+
+void Sprite::removeCurrentFrame()
+{
+    removeFrameAt(currentFrameIndex);
+}
+
+void Sprite::nextFrame()
+{
+    setCurrentFrame(currentFrameIndex + 1);
+}
+
+void Sprite::prevFrame()
+{
+    setCurrentFrame(currentFrameIndex - 1);
+}
+
+void Sprite::setCurrentFrame(int index)
+{
+    if (index < 0)
+    {
+        currentFrameIndex = 0;
+    }
+    else if (index >= frames.size())
+    {
+        currentFrameIndex = frames.size() - 1;
+    }
+    else
+    {
+        currentFrameIndex = index;
+    }
+}
+
+int Sprite::getCurrentFrameIndex()
+{
+    return currentFrameIndex;
+}
+
+
+
+//// Drawing Methods ////
+
+void Sprite::setPixelColorAtCurrentFrame(int x, int y, QColor color)
+{
+    frames.at(currentFrameIndex)->setPixelColor(x, y, color);
+}
+
+QColor Sprite::getPixelColorAtCurrentFrame(int x, int y)
+{
+    return frames.at(currentFrameIndex)->getPixelColor(x, y);
+}
+
+void Sprite::rotateCurrentFrame(bool direction)
+{
+    frames.at(currentFrameIndex)->rotate(direction);
+}
+
+void Sprite::flipCurrentFrameOrientation(bool orientation)
+{
+    frames.at(currentFrameIndex)->flip(orientation);
+}
+
+void Sprite::invertCurrentFrameColor()
+{
+    frames.at(currentFrameIndex)->invert();
+}
+
+
+//// Save to file methods ////
+
 QString Sprite::toString()
 {
-    QString result;
-    result += QString::number(width);
-    result += " ";
-    result += QString::number(height);
-    result += "\n";
-    result += QString::number(frames.size());
-    result += "\n";
-    foreach(Frame* f, frames){
-        result += f->toString();
+    QString result =
+            QString::number(width) + " " + QString::number(height) + "\n" +
+            QString::number(frames.size()) + "\n";
+    foreach (Frame* frame, frames)
+    {
+        result += frame->toString();
     }
     return result;
 }
 
+QList<QImage*> Sprite::getFramesAsImages()
+{
+    QList<QImage*> imageList;
 
-QList<Frame*> Sprite::getFrames(){
-    return frames;
+    foreach (Frame* frame, frames)
+    {
+        imageList << frame->toQImage();
+    }
+
+    return imageList;
 }

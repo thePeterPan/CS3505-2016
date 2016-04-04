@@ -13,18 +13,13 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QFileDialog>
-#include <QMessageBox>
 // Other Qt Objects
 #include <QCloseEvent>
 #include <QString>
 #include <QDebug>
-#include <QFileInfo>
 // from Qt-Color-Widgets library
 #include <ColorDialog>
 #include <ColorWheel>
-
-#include <QGraphicsSceneMouseEvent>
-#include <iostream>
 
 #include "graphicsscene.h"
 #include "editor_model.h"
@@ -52,13 +47,11 @@ private:
     void connectSignalsAndSlots();
     void initializeUIDefaults();
 
-    void graphics();
+    void setNewGraphicsScene();
 
 signals:
 
 public slots:
-    void updateModel(Sprite* sprite);
-    void updateFrame(int currentFrameIndex,int totalFrames);
 
 private slots:
     // File Menu:
@@ -75,7 +68,7 @@ private slots:
     void menuFlipV_triggered();
     void menuFlipH_triggered();
     void menuResizeCanvas_triggered();
-    void zoomToFit_triggered();
+//    void zoomToFit_triggered();
 
     // Help Menu:
     void menuHelp_triggered();
@@ -85,21 +78,24 @@ private slots:
     void colorWheel_colorChanged(QColor color);
     void alphaSlider_valueChanged(int value);
 
-    // Tool buttons:
+    // Toolbar buttons:
     void brush_pushButton_clicked();
     void fillBucket_pushButton_clicked();
     void eraser_pushButton_clicked();
     void rotateCCW_pushButton_clicked();
     void rotateCW_pushButton_clicked();
-    void pushButton_clicked();
+    void panPushButton_clicked();
     void symmetricalTool_pushButton_clicked();
     void flipV_pushButton_clicked();
     void flipH_pushButton_clicked();
     void invertColors_pushButton_clicked();
-    void on_addFrame_pushButton_clicked();
-    void on_removeFrame_pushButton_clicked();
-    void on_prevFrame_pushButton_clicked();
-    void on_nextFrame_pushButton_clicked();
+    void toolUpdated(editor_model::Tool new_tool);
+
+    // Playback buttons:
+    void play_pushButton_clicked();
+
+    // Frames:
+    void update_currentFrameStatus(int currentFrame, int numOfFrames);
 
 protected:
     virtual void closeEvent(QCloseEvent *event);

@@ -8,9 +8,13 @@
 #include <QColor>
 #include <QString>
 #include <QFile>
+#include <QFileInfo>
+#include <QDir>
 #include <QTextStream>
 #include <QDebug>
 #include <QException>
+#include <QList>
+#include <QProcess>
 
 #include "sprite.h"
 
@@ -27,6 +31,8 @@ public:
         PLAYING,
         PAUSED
     };
+    void setAnimatorState(AnimatorState state);
+    AnimatorState getAnimatorState();
 
     // Indicates the current tool that the user has selected.
     enum Tool: unsigned int
@@ -34,43 +40,68 @@ public:
         BRUSH,
         FILL_BUCKET,
         ERASER,
-        ROTATE,
-        PAN,
-        MIRROR
+        MIRROR,
+        PAN
     };
+    void setCurrentTool(Tool tool);
+    Tool getCurrentTool();
 
-    Tool current_tool;
+    // Unnecessary (maybe)
+    void setSprite(Sprite* sprite);
+    Sprite* getSprite();
 
+    // Drawing Methods (a few more in private)
+    void rotateScene(bool direction);
+    void flipSceneOrientation(bool orientation);
+    void invertSceneColors();
+    void paintCommand(int x, int y);
 
-    void setBrushColor(QColor color);
+    // Frames:
     void nextFrame();
     void prevFrame();
+    void addFrame();
+    void removeFrame();
+    void setCurrentFrame(int index);
 
-    void setAnimatorState(AnimatorState state);
-    AnimatorState getAnimatorState();
+    // Brush Color
+    void setBrushColor(QColor color);
+//    QColor getBrushColor();
 
-    void setTool(Tool tool);
-    Tool getTool();
-
+    // Playback Speed
     void setPlaybackSpeed(int speed);
+    int getPlaybackSpeed();
 
-    void saveSpriteToFile(QString path);
-    void loadSpriteFromFile(QString path);
+    // Save/load file methods
+    bool getFileSavedStatus();
+    void setFileSavedStatus(bool status);
     QString getFilePath();
-    void setSprite(Sprite* sprite);
+    void saveToFile(QString path);
+    void loadSpriteFromFile(QString path);
+    void exportSpriteAsGIF(QString path);
 
 private:
     // State variables:
-    QColor brush_color;
-    int current_frame_index;
     AnimatorState current_state;
-    int playback_speed;
     QString file_path;
+    bool file_saved;
+    QColor brush_color;
+    Tool current_tool;
+    int playback_speed;
+
     // Sprite object
     Sprite* sprite_main;
 
+    // Drawing methods more:
+    void drawSquare(int x, int y);
+    void fillBucket(int x, int y);
+    void drawMirror(int x, int y);
+    void eraseSquare(int x, int y);
+
 signals:
-    void modelUpdated(Sprite* sprite);
+    void sceneUpdated();
+    void squareUpdated(int x, int y);
+    void frameUpdated(int currentFrame, int numOfFrames);
+    void toolChanged(Tool new_tool);
 
 public slots:
 };

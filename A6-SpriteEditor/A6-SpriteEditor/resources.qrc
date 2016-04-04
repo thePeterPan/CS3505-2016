@@ -34,6 +34,16 @@
         <file>icons/rotate-backward-80px.svg</file>
         <file>icons/rotate-forward-80px_white.svg</file>
         <file>icons/rotate-backward-80px_white.svg</file>
+        <file>icons/trash.svg</file>
+        <file>icons/square-add.svg</file>
+        <file>icons/square-add_white.svg</file>
+        <file>icons/trash_white.svg</file>
+        <file>icons/mirror_horizontal.svg</file>
+        <file>icons/mirror_horizontal_white.svg</file>
+        <file>icons/button_off.svg</file>
+        <file>icons/button_off_white.svg</file>
+        <file>icons/button_on.svg</file>
+        <file>icons/button_on_white.svg</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

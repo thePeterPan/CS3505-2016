@@ -35,6 +35,19 @@ Frame::Frame(int width_, int height_,QObject *parent) :
  */
 Frame::~Frame() { }
 
+Frame* Frame::clone()
+{
+    Frame* newFrame = new Frame(this->width, this->height);
+    for (int i = 0; i < this->width; ++i)
+    {
+        for (int j = 0; j < this->height; ++j)
+        {
+            newFrame->setPixelColor(i, j, this->getPixelColor(i, j));
+        }
+    }
+    return newFrame;
+}
+
 /**
  * @brief Frame::setPixelColor
  * @param x
@@ -96,10 +109,10 @@ int Frame::getFrameHeight()
 void Frame::rotate(bool clockwise)
 {
     QVector<QVector<QColor>> flipped;
-    for(int i = 0; i < width; ++i)
+    for (int i = 0; i < width; ++i)
     {
         flipped.append(QVector<QColor>(height));
-        for(int j = 0; j < height; ++j)
+        for (int j = 0; j < height; ++j)
         {
             if (clockwise)
                 flipped[i][j] = frameMatrix[width - 1 - j][i];
@@ -115,44 +128,23 @@ void Frame::flip(bool vertical)
     QVector<QVector<QColor>> temp(frameMatrix);
     if (vertical)
     {       
-        for(int x = 0; x < width; ++x)
-            for(int y = 0; y < height; ++y)
+        for (int x = 0; x < width; ++x)
+            for (int y = 0; y < height; ++y)
                 frameMatrix[x][y] = temp[x][height - 1 - y];
     }
     else
     {
-        for(int x = 0; x < width; ++x)
-            for(int y = 0; y < height; ++y)
+        for (int x = 0; x < width; ++x)
+            for (int y = 0; y < height; ++y)
                 frameMatrix[x][y] = temp[width - x - 1][y];
     }
 
 }
 
-QString Frame::toString(){
-    QString result;
-    for(int i = 0; i < height; ++i){
-        for(int j = 0; j < width; ++j){
-            QColor color = getPixelColor(j,i);
-            result += toRgbaString(color);
-        }
-        result += "\n";
-    }
-    return result;
-}
-
-QString Frame::toRgbaString(QColor color){
-
-    return QString::number(color.red())   + " " +
-            QString::number(color.green()) + " " +
-            QString::number(color.blue())  + " " +
-            QString::number(color.alpha()) + " ";
-
-}
-
 void Frame::invert()
 {
-    for(int x = 0; x < width; ++x)
-        for(int y = 0; y < height; ++y)
+    for (int x = 0; x < width; ++x)
+        for (int y = 0; y < height; ++y)
         {
             QColor invert = frameMatrix[x][y];
             invert.setBlue (255 - invert.blue());
@@ -160,4 +152,42 @@ void Frame::invert()
             invert.setGreen(255 - invert.green());
             frameMatrix[x][y] = invert;
         }
+}
+
+QString Frame::toString()
+{
+    QString result;
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            QColor color = getPixelColor(x,y);
+            result += toRgbaString(color);
+        }
+        result += "\n";
+    }
+    return result;
+}
+
+QString Frame::toRgbaString(QColor color)
+{
+    return QString::number(color.red())   + " " +
+            QString::number(color.green()) + " " +
+            QString::number(color.blue())  + " " +
+            QString::number(color.alpha()) + " ";
+}
+
+QImage *Frame::toQImage()
+{
+    QImage *newImage = new QImage(width, height, QImage::Format_ARGB32);
+    for (int i = 0; i < width; i++)
+    {
+        for (int j = 0; j < height; j++)
+        {
+            QColor tempColor = frameMatrix[i][j];
+            newImage->setPixel(i,j,tempColor.rgba());
+        }
+    }
+
+    return newImage;
 }
