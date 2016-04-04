@@ -58,7 +58,7 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->playbackSpeed_horizontalSlider, &QSlider::valueChanged, this, &MainWindow::playbackSpeed_hSlider_moved);
 
     /// Frame Slider
-//    connect(ui->currentFrame_horizontalSlider, &QSlider::valueChanged, model, &editor_model::setCurrentFrame);
+    connect(ui->currentFrame_horizontalSlider, &QSlider::valueChanged, model, &editor_model::setCurrentFrame);
 
     /// Color Wheel
     connect(ui->colorWheel_widget, &color_widgets::ColorWheel::colorChanged, this, &MainWindow::colorWheel_colorChanged);
@@ -386,9 +386,9 @@ void MainWindow::play_pushButton_clicked()
 
 void MainWindow::update_currentFrameStatus(int currentFrame, int numOfFrames)
 {
-    ui->currentFrame_horizontalSlider->setMinimum(1);
-    ui->currentFrame_horizontalSlider->setMaximum(numOfFrames);
-    ui->currentFrame_horizontalSlider->setValue(currentFrame + 1);
+    ui->currentFrame_horizontalSlider->setMinimum(0);
+    ui->currentFrame_horizontalSlider->setMaximum(numOfFrames-1);
+    ui->currentFrame_horizontalSlider->setValue(currentFrame);
 
     ui->currentFrameIndex_label->setText(QString::number(currentFrame + 1) + " / " + QString::number(numOfFrames));
 }
