@@ -182,15 +182,31 @@ QString Frame::toRgbaString(QColor color)
 
 QImage *Frame::toQImage()
 {
-    QImage *newImage = new QImage(width, height, QImage::Format_ARGB32);
+    int pixelSize = 20;
+    QImage *newImage = new QImage(width*pixelSize, height*pixelSize, QImage::Format_ARGB32);
     for (int i = 0; i < width; i++)
     {
         for (int j = 0; j < height; j++)
         {
             QColor tempColor = frameMatrix[i][j];
-            newImage->setPixel(i,j,tempColor.rgba());
+//            newImage->setPixel(i,j,tempColor.rgba());
+            drawRealPixelSizeToQImage(newImage, i, j, pixelSize, tempColor);
         }
     }
 
     return newImage;
+}
+
+void Frame::drawRealPixelSizeToQImage(QImage *image, int x, int y, int pixelSize, QColor color)
+{
+    int realXStartingPixel = x * pixelSize;
+    int realYStartingPixel = y * pixelSize;
+
+    for (int i = 0; i < pixelSize; ++i)
+    {
+        for (int j = 0; j < pixelSize; ++j)
+        {
+            image->setPixel(realXStartingPixel + j, realYStartingPixel + i, color.rgba());
+        }
+    }
 }

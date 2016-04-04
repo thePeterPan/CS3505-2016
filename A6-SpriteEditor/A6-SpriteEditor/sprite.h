@@ -48,6 +48,7 @@ public:
     // Save to file method
     QString toString();
     QList<QImage*> getFramesAsImages();
+    QImage* getFrameAsImage(int index);
 
 private:
     QList<Frame*> frames;
