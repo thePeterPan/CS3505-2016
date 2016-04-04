@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     model = new editor_model();
+    update_currentFrameStatus(0,1);
 
     setNewGraphicsScene();
 
@@ -390,4 +391,9 @@ void MainWindow::update_currentFrameStatus(int currentFrame, int numOfFrames)
     ui->currentFrame_horizontalSlider->setValue(currentFrame + 1);
 
     ui->currentFrameIndex_label->setText(QString::number(currentFrame + 1) + " / " + QString::number(numOfFrames));
+}
+
+void MainWindow::on_playbackSpeed_horizontalSlider_valueChanged(int value)
+{
+    model->setPlaybackSpeed(value);
 }

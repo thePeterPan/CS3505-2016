@@ -97,6 +97,8 @@ private slots:
     // Frames:
     void update_currentFrameStatus(int currentFrame, int numOfFrames);
 
+    void on_playbackSpeed_horizontalSlider_valueChanged(int value);
+
 protected:
     virtual void closeEvent(QCloseEvent *event);
 

@@ -236,6 +236,10 @@ void GraphicsScene::zoomIn()
         pixelSize += pixelInterval;
         redrawScene();
     }
+    else if(pixelSize < maxPixelSize){
+        pixelSize = maxPixelSize;
+        redrawScene();
+    }
 }
 
 void GraphicsScene::zoomOut()
@@ -243,6 +247,10 @@ void GraphicsScene::zoomOut()
     if(pixelSize - pixelInterval >= minPixelSize)
     {
         pixelSize -= pixelInterval;
+        redrawScene();
+    }
+    else if(pixelSize > minPixelSize){
+        pixelSize = minPixelSize;
         redrawScene();
     }
 }
