@@ -40,7 +40,7 @@ private:
     // Graphics Objects
     QImage * image;
     QVector<QVector<QGraphicsRectItem*>> pixels;
-    int width, height, pixelSize;
+    int pixelSize;
     int minPixelSize = 5;
     int maxPixelSize = 100;
     int pixelInterval = 5;

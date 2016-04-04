@@ -16,16 +16,17 @@
  * @param pixelSize
  */
 GraphicsScene::GraphicsScene(editor_model* _model, int _width, int _height, int _pixelSize, QObject *parent) :
-    QGraphicsScene(parent), width(_width), height(_height), pixelSize(_pixelSize), model(_model)
+    QGraphicsScene(parent), pixelSize(_pixelSize), model(_model)
 {
+    // Move to mainwindow?
+    model->setSprite(new Sprite(_width, _height));
+
+
     // Set the size of the drawing area
-    this->setSceneRect(0, 0, width*pixelSize, height*pixelSize);
+    this->setSceneRect(0, 0,
+            model->getSprite()->getWidth()*pixelSize, model->getSprite()->getHeight()*pixelSize);
     // Setup the checkered background
     this->prepareBackground(false);
-
-
-    // Move to mainwindow?
-    model->setSprite(new Sprite(width, height));
 
     // Create the scene with a bunch of "pixels" to draw on.
     clearScene();
@@ -55,8 +56,8 @@ void GraphicsScene::clearScene()
 {
     pixels.clear();
 
-    this->width = model->getSprite()->getWidth();
-    this->height = model->getSprite()->getHeight();
+    int width = model->getSprite()->getWidth();
+    int height = model->getSprite()->getHeight();
 
     this->setSceneRect(0, 0, width * pixelSize, height * pixelSize);
     this->prepareBackground(true);
@@ -85,13 +86,16 @@ void GraphicsScene::prepareBackground(bool replace)
 {
     if(replace)
         this->clear();
-    image = new QImage(width * pixelSize, height * pixelSize, QImage::Format_ARGB32);
+    image = new QImage(
+                model->getSprite()->getWidth() * pixelSize,
+                model->getSprite()->getHeight() * pixelSize,
+                QImage::Format_ARGB32);
     QPainter painter(image);
     painter.setPen(Qt::white);
 
-    for(int i = 0; i < width * 2; i++)
+    for(int i = 0; i < model->getSprite()->getWidth() * 2; i++)
     {
-        for(int j = 0; j < height * 2; j++)
+        for(int j = 0; j < model->getSprite()->getHeight() * 2; j++)
         {
             if((i + j) % 2 == 0)
                 painter.setBrush(QBrush(Qt::lightGray));
