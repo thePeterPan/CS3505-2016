@@ -22,7 +22,7 @@ PreviewScene::PreviewScene(editor_model* _model, QObject* parent, int _width, in
 
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()), this, SLOT(updateSprite()));
-    timer->start(2001);
+    //timer->start(2001);
 
     this->setSceneRect(0,0,width,height);
     //this->setBackgroundBrush(QBrush(Qt::white));
@@ -43,7 +43,10 @@ void PreviewScene::showNextImage()
 
     index++;
     if(index >= maxindex)
+    {
+        QTimer::singleShot(1,this,SLOT(updateSprite()));
         index = 0;
+    }
 
     QTimer::singleShot(1000/model->getPlaybackSpeed(), this, SLOT(showNextImage()));
 }
@@ -55,6 +58,4 @@ void PreviewScene::showNextImage()
 void PreviewScene::updateSprite()
 {
     updateFrames();
-    if(this->index >= this->maxindex)
-        this->index = 0;
 }
