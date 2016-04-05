@@ -17,23 +17,22 @@ public:
 
     PreviewScene(editor_model* model, QObject *parent = 0, int width = 230, int height=218);
 
-
 private:
+
     // Model
     editor_model* model;
+
+    //Parameters
     int width, height;
     int index, maxindex;
     QList<QImage*> frames;
-    QTimer * timer;
 
     void updateFrames();
 
 protected slots:
+
     void updateSprite();
     void showNextImage();
-
-
-
 };
 
 
