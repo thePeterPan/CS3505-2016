@@ -28,6 +28,13 @@ void MainWindow::setNewGraphicsScene()
     ui->graphicsView->show();
 }
 
+void MainWindow::setNewPreviewScene()
+{
+    preview = new PreviewScene(model, ui->graphicsView);
+    ui->preview_graphicsView->setScene(preview);
+    ui->preview_graphicsView->show();
+}
+
 /**
  * Connects all respective signals and slots.
  *
