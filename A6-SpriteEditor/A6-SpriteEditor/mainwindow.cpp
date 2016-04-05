@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     update_currentFrameStatus(0,1);
 
     setNewGraphicsScene();
+    setNewPreviewScene();
 
     connectSignalsAndSlots();
     initializeUIDefaults();

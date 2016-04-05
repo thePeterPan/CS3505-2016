@@ -5,15 +5,25 @@
 PreviewScene::PreviewScene(editor_model* _model, QObject* parent, int _width, int _height) :
     QGraphicsScene(parent), model(_model), width(_width), height(_height)
 {
+    updateFrames();
+    index = 0;
+
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()), this, SLOT(updateSprite()));
     timer->start(2001);
 
     this->setSceneRect(0,0,width,height);
+    this->setBackgroundBrush(QBrush(Qt::white));
 
-    //QTimer::singleShot(model->getPlaybackSpeed(), this, SLOT(showNextImage()));
+    QTimer::singleShot(500, this, SLOT(showNextImage()));
 }
-/*
+
+void PreviewScene::updateFrames()
+{
+    this->frames = model->getSprite()->getFramesAsImages();
+    this->maxindex = frames.size();
+}
+
 void PreviewScene::showNextImage()
 {
     this->clear();
@@ -23,8 +33,8 @@ void PreviewScene::showNextImage()
     if(index >= maxindex)
         index = 0;
 
-    QTimer::singleShot(model->getPlaybackSpeed(), this, SLOT(showNextImage()));
-}*/
+    QTimer::singleShot(500, this, SLOT(showNextImage()));
+}
 
 /**
  * @brief PreviewScene::updateSprite
@@ -32,8 +42,7 @@ void PreviewScene::showNextImage()
  */
 void PreviewScene::updateSprite()
 {
-    this->frames = model->getSprite()->getFramesAsImages();
-    this->maxindex = frames.size();
+    updateFrames();
     if(this->index >= this->maxindex)
         this->index = 0;
 }
