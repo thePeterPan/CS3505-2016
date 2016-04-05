@@ -61,6 +61,7 @@ void editor_model::paintCommand(int x, int y)
     } else if (current_tool == editor_model::ERASER) {
         eraseSquare(x, y);
     }
+    emit fileSaved(false);
 }
 
 /**
@@ -131,18 +132,21 @@ void editor_model::rotateScene(bool direction)
 {
     sprite_main->rotateCurrentFrame(direction);
     emit sceneUpdated();
+    emit fileSaved(false);
 }
 
 void editor_model::flipSceneOrientation(bool orientation)
 {
     sprite_main->flipCurrentFrameOrientation(orientation);
     emit sceneUpdated();
+    emit fileSaved(false);
 }
 
 void editor_model::invertSceneColors()
 {
     sprite_main->invertCurrentFrameColor();
     emit sceneUpdated();
+    emit fileSaved(false);
 }
 
 //// Frame Methods ////
@@ -166,6 +170,7 @@ void editor_model::addFrame()
     sprite_main->addFrameAfterCurrentIndex();
     emit sceneUpdated();
     emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
+    emit fileSaved(false);
 }
 
 void editor_model::removeFrame()
@@ -173,6 +178,7 @@ void editor_model::removeFrame()
     sprite_main->removeCurrentFrame();
     emit sceneUpdated();
     emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
+    emit fileSaved(false);
 }
 
 void editor_model::setCurrentFrame(int index)
@@ -236,6 +242,7 @@ void editor_model::saveToFile(QString path)
     }
 
     file_path = path;
+    emit fileSaved(true);
 }
 
 void editor_model::loadSpriteFromFile(QString path)
@@ -304,6 +311,7 @@ void editor_model::loadSpriteFromFile(QString path)
 
     emit sceneUpdated();
     emit frameUpdated(sprite_main->getCurrentFrameIndex(),sprite_main->getAnimationLength());
+    emit fileSaved(true);
 }
 
 void editor_model::exportSpriteAsGIF(QString path)
@@ -357,6 +365,11 @@ void editor_model::exportSpriteAsGIF(QString path)
 
         // Was going to add code to delete 'tmp' folder, but I find that a little dangerous.
     }
+}
+
+void editor_model::newSprite()
+{
+    file_path = "";
 }
 
 void editor_model::iterateThroughFrames()

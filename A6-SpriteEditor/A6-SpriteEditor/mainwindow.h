@@ -17,6 +17,7 @@
 #include <QCloseEvent>
 #include <QString>
 #include <QDebug>
+#include <QFileInfo>
 // from Qt-Color-Widgets library
 #include <ColorDialog>
 #include <ColorWheel>
@@ -76,7 +77,6 @@ private slots:
     void menuHelp_triggered();
 
     // State properties:
-    void playbackSpeed_hSlider_moved(int value);
     void colorWheel_colorChanged(QColor color);
     void alphaSlider_valueChanged(int value);
 
@@ -86,7 +86,6 @@ private slots:
     void eraser_pushButton_clicked();
     void rotateCCW_pushButton_clicked();
     void rotateCW_pushButton_clicked();
-    void panPushButton_clicked();
     void symmetricalTool_pushButton_clicked();
     void flipV_pushButton_clicked();
     void flipH_pushButton_clicked();
@@ -95,12 +94,15 @@ private slots:
 
     // Playback buttons:
     void play_pushButton_clicked();
+    void playbackSpeed_horizontalSlider_valueChanged(int value);
+//    void playbackSpeed_hSlider_moved(int value);
 
     // Frames:
     void update_currentFrameStatus(int currentFrame, int numOfFrames);
 
-    void on_playbackSpeed_horizontalSlider_valueChanged(int value);
-
+    // Window Title:
+    // true if file was just saved, false if file has been modified.
+    void fileSavedEvent(bool status);
 protected:
     virtual void closeEvent(QCloseEvent *event);
 

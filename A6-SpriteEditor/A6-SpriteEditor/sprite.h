@@ -15,15 +15,12 @@ class Sprite : public QObject
 {
     Q_OBJECT
 public:
-
     explicit Sprite(QObject *parent = 0);
     explicit Sprite(int width_, int height_, QObject * parent = 0);
     ~Sprite();
 
     // Accessor methods
     int getAnimationLength();
-//    Frame* getFrameAt(int index);
-//    QList<Frame*> getFrames();
     int getWidth();
     int getHeight();
 
@@ -55,11 +52,6 @@ private:
     int currentFrameIndex;
     int width;
     int height;
-
-signals:
-
-public slots:
-
 };
 
 #endif // SPRITE_H

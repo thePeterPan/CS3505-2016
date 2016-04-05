@@ -6,8 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     model = new editor_model();
-    update_currentFrameStatus(0,1);
 
     setNewGraphicsScene();
     setNewPreviewScene();
@@ -61,12 +61,6 @@ void MainWindow::connectSignalsAndSlots()
     /// Help Menu:
     connect(ui->menuHelp, &QMenu::triggered, this, &MainWindow::menuHelp_triggered);
 
-    /// Speed Slider
-    connect(ui->playbackSpeed_horizontalSlider, &QSlider::valueChanged, this, &MainWindow::playbackSpeed_hSlider_moved);
-
-    /// Frame Slider
-    connect(ui->currentFrame_horizontalSlider, &QSlider::valueChanged, model, &editor_model::setCurrentFrame);
-
     /// Color Wheel
     connect(ui->colorWheel_widget, &color_widgets::ColorWheel::colorChanged, this, &MainWindow::colorWheel_colorChanged);
     /// Alpha Slider
@@ -78,7 +72,6 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->eraser_pushButton, &QToolButton::clicked, this, &MainWindow::eraser_pushButton_clicked);
     connect(ui->rotateCCW_pushButton, &QToolButton::clicked, this, &MainWindow::rotateCCW_pushButton_clicked);
     connect(ui->rotateCW_pushButton, &QToolButton::clicked, this, &MainWindow::rotateCW_pushButton_clicked);
-    connect(ui->pan_pushButton, &QToolButton::clicked, this, &MainWindow::panPushButton_clicked);
     connect(ui->symmetricalTool_pushButton, &QToolButton::clicked, this, &MainWindow::symmetricalTool_pushButton_clicked);
     connect(ui->flipV_pushButton, &QToolButton::clicked, this, &MainWindow::flipV_pushButton_clicked);
     connect(ui->flipH_pushButton, &QToolButton::clicked, this, &MainWindow::flipH_pushButton_clicked);
@@ -87,24 +80,30 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->zoomOut_pushButton, &QPushButton::clicked, scene, &GraphicsScene::zoomOut);
     connect(model, &editor_model::toolChanged, this, &MainWindow::toolUpdated);
 
-    /// Frame Toolbar Buttons
+    /// Frame Controls
     connect(ui->addFrame_pushButton, &QPushButton::clicked, model, &editor_model::addFrame);
     connect(ui->removeFrame_pushButton, &QPushButton::clicked, model, &editor_model::removeFrame);
+    /// Frame Slider
+    connect(ui->currentFrame_horizontalSlider, &QSlider::valueChanged, model, &editor_model::setCurrentFrame);
 
-    /// Playback buttons:
+    /// Playback Controls:
     connect(ui->prevFrame_pushButton, &QPushButton::clicked, model, &editor_model::prevFrame);
     connect(ui->nextFrame_pushButton, &QPushButton::clicked, model, &editor_model::nextFrame);
     connect(ui->play_pushButton, &QPushButton::clicked, this, &MainWindow::play_pushButton_clicked);
-
+    connect(ui->playbackSpeed_horizontalSlider, &QSlider::valueChanged, this, &MainWindow::playbackSpeed_horizontalSlider_valueChanged);
 
     /// Connections from the model
     connect(model, &editor_model::sceneUpdated, scene, &GraphicsScene::redrawScene);
     connect(model, &editor_model::squareUpdated, scene, &GraphicsScene::drawSquare);
     connect(model, &editor_model::frameUpdated, this, &MainWindow::update_currentFrameStatus);
+    connect(model, &editor_model::fileSaved, this, &MainWindow::fileSavedEvent);
 }
 
 void MainWindow::initializeUIDefaults()
 {
+    // Main Window:
+    setWindowTitle("Sprite Editor - New Sprite");
+
     /// Speed Slider
     ui->playbackSpeed_horizontalSlider->setMinimum(1);
     ui->playbackSpeed_horizontalSlider->setMaximum(25);
@@ -123,14 +122,10 @@ void MainWindow::initializeUIDefaults()
     ui->currentFrame_horizontalSlider->setValue(0);
     ui->currentFrame_horizontalSlider->setSingleStep(1);
     ui->currentFrame_horizontalSlider->setPageStep(1);
+    update_currentFrameStatus(0,1);
 
     /// Toolbar buttons
     brush_pushButton_clicked();
-}
-
-void MainWindow::playbackSpeed_hSlider_moved(int value)
-{
-    ui->playbackSpeedCurrent_label->setText(QString::number(value));
 }
 
 void MainWindow::menuNewFile_triggered()
@@ -141,7 +136,10 @@ void MainWindow::menuNewFile_triggered()
     {
         Sprite* s = new Sprite(dialog.getWidth(), dialog.getHeight());
         model->setSprite(s);
+        model->newSprite();
         scene->redrawScene();
+
+        setWindowTitle("Sprite Editor - New Sprite");
     }
 }
 
@@ -311,11 +309,6 @@ void MainWindow::rotateCW_pushButton_clicked()
     model->rotateScene(false);
 }
 
-void MainWindow::panPushButton_clicked()
-{
-    model->setCurrentTool(editor_model::PAN);
-}
-
 void MainWindow::symmetricalTool_pushButton_clicked()
 {
     model->setCurrentTool(editor_model::MIRROR);
@@ -347,8 +340,6 @@ void MainWindow::toolUpdated(editor_model::Tool new_tool)
     ui->eraser_pushButton->setChecked(false);
     ui->symmetricalTool_pushButton->setEnabled(true);
     ui->symmetricalTool_pushButton->setChecked(false);
-    ui->pan_pushButton->setEnabled(true);
-    ui->pan_pushButton->setChecked(false);
 
     // Figure out which one to disable:
     switch(new_tool)
@@ -369,10 +360,6 @@ void MainWindow::toolUpdated(editor_model::Tool new_tool)
         ui->symmetricalTool_pushButton->setEnabled(false);
         ui->symmetricalTool_pushButton->setChecked(true);
         break;
-    case editor_model::PAN:
-        ui->pan_pushButton->setEnabled(false);
-        ui->pan_pushButton->setChecked(true);
-        break;
     default:
         qDebug() << "Invalid tool.";
         break;
@@ -386,6 +373,11 @@ void MainWindow::play_pushButton_clicked()
     model->iterateThroughFrames();
 }
 
+void MainWindow::playbackSpeed_horizontalSlider_valueChanged(int value)
+{
+    model->setPlaybackSpeed(value);
+}
+
 void MainWindow::update_currentFrameStatus(int currentFrame, int numOfFrames)
 {
     ui->currentFrame_horizontalSlider->setMinimum(0);
@@ -395,7 +387,37 @@ void MainWindow::update_currentFrameStatus(int currentFrame, int numOfFrames)
     ui->currentFrameIndex_label->setText(QString::number(currentFrame + 1) + " / " + QString::number(numOfFrames));
 }
 
-void MainWindow::on_playbackSpeed_horizontalSlider_valueChanged(int value)
+//void MainWindow::playbackSpeed_hSlider_moved(int value)
+//{
+//    ui->playbackSpeedCurrent_label->setText(QString::number(value));
+//}
+
+//// Window Title ////
+
+/**
+ * @brief MainWindow::fileSavedEvent
+ * true if file was just saved, false if file has been modified
+ * @param status
+ */
+void MainWindow::fileSavedEvent(bool status)
 {
-    model->setPlaybackSpeed(value);
+    QFileInfo fileInfo(model->getFilePath());
+    QString name;
+    if (fileInfo.filePath() == "")
+    {
+        name = "New Sprite";
+    }
+    else
+    {
+        name = fileInfo.fileName();
+    }
+
+    if (status)
+    {
+        setWindowTitle("Sprite Editor - " + name);
+    }
+    else
+    {
+        setWindowTitle("* Sprite Editor - " + name);
+    }
 }
