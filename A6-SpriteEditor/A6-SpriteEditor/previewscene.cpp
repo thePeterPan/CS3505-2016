@@ -3,29 +3,10 @@
 PreviewScene::PreviewScene(editor_model* _model, QObject* parent, int _width, int _height) :
     QGraphicsScene(parent), model(_model), width(_width), height(_height)
 {
-    /*if(width!=230 && height!=218)
-    {
-        if(width > height)
-        {
-            height = height*218 / width;
-            width = 230;
-        }
-        else
-        {
-            width = width*230/height;
-            height = 218;
-        }
-    }*/
-
     updateFrames();
     index = 0;
 
-    timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()), this, SLOT(updateSprite()));
-    //timer->start(2001);
-
     this->setSceneRect(0,0,width,height);
-    //this->setBackgroundBrush(QBrush(Qt::white));
 
     QTimer::singleShot(500, this, SLOT(showNextImage()));
 }
@@ -44,6 +25,7 @@ void PreviewScene::showNextImage()
     index++;
     if(index >= maxindex)
     {
+        //At the end of the animation, so refresh the images and then start again.
         QTimer::singleShot(1,this,SLOT(updateSprite()));
         index = 0;
     }
