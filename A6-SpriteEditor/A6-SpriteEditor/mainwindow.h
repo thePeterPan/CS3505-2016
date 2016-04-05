@@ -21,6 +21,7 @@
 // from Qt-Color-Widgets library
 #include <ColorDialog>
 #include <ColorWheel>
+#include <QDesktopServices>
 
 #include "graphicsscene.h"
 #include "editor_model.h"

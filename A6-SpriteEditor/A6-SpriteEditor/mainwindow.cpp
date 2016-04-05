@@ -69,7 +69,7 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->actionFlip_Horizontally, &QAction::triggered, this, &MainWindow::menuFlipH_triggered);
 
     /// Help Menu:
-    connect(ui->menuHelp, &QMenu::triggered, this, &MainWindow::menuHelp_triggered);
+    connect(ui->viewTutorialItem, &QAction::triggered, this, &MainWindow::menuHelp_triggered);
 
     /// Color Wheel
     connect(ui->colorWheel_widget, &color_widgets::ColorWheel::colorChanged, this, &MainWindow::colorWheel_colorChanged);
@@ -282,7 +282,9 @@ void MainWindow::menuFlipH_triggered()
  */
 void MainWindow::menuHelp_triggered()
 {
-    qDebug() << "Help!";
+
+    QString link = "https://drive.google.com/file/d/0B_Xk7ipNEG4bOThJT3FuY1NJcDQ/view?ts=57044168";
+    QDesktopServices::openUrl(QUrl(link));
 }
 
 /**
