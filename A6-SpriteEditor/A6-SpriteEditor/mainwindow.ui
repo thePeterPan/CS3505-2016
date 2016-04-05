@@ -804,7 +804,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>20</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSprite_Editor">
@@ -837,6 +837,7 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="viewTutorialItem"/>
    </widget>
    <addaction name="menuSprite_Editor"/>
    <addaction name="menuEdit"/>
@@ -925,6 +926,16 @@
   <action name="actionZoom_to_Fit">
    <property name="text">
     <string>Zoom to Fit</string>
+   </property>
+  </action>
+  <action name="actionView_Tutorial">
+   <property name="text">
+    <string>View Tutorial</string>
+   </property>
+  </action>
+  <action name="viewTutorialItem">
+   <property name="text">
+    <string>View Tutorial</string>
    </property>
   </action>
  </widget>
