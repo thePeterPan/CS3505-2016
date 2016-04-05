@@ -1,9 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+/**
+ * @brief MainWindow::MainWindow creates a new MainWindow object
+ * @param parent pointer to parent object to construct
+ */
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     model = new EditorModel();
@@ -17,11 +19,17 @@ MainWindow::MainWindow(QWidget *parent) :
     initializeUIDefaults();
 }
 
+/**
+ * @brief MainWindow::~MainWindow destructor that deletes the ui object
+ */
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+/**
+ * @brief creates a default graphicsscene for our sprite editor for the user to manipulate
+ */
 void MainWindow::setNewGraphicsScene()
 {
     scene = new GraphicsScene(model, 20, 20, 20, ui->graphicsView);
@@ -30,6 +38,9 @@ void MainWindow::setNewGraphicsScene()
     ui->graphicsView->show();
 }
 
+/**
+ * @brief creates a new preview scene object for us to preview the user's sprite
+ */
 void MainWindow::setNewPreviewScene()
 {
     preview = new PreviewScene(model, ui->graphicsView);
@@ -57,10 +68,9 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->actionRotate_Counterclockwise, &QAction::triggered, this, &MainWindow::menuRotateCounterClockwise_triggered);
     connect(ui->actionFlip_Vertically, &QAction::triggered, this, &MainWindow::menuFlipV_triggered);
     connect(ui->actionFlip_Horizontally, &QAction::triggered, this, &MainWindow::menuFlipH_triggered);
-    connect(ui->actionResize_Canvas, &QAction::triggered, this, &MainWindow::menuResizeCanvas_triggered);
 
     /// Help Menu:
-    connect(ui->menuHelp, &QMenu::triggered, this, &MainWindow::menuHelp_triggered);
+    connect(ui->viewTutorialItem, &QAction::triggered, this, &MainWindow::menuHelp_triggered);
 
     /// Color Wheel
     connect(ui->colorWheel_widget, &color_widgets::ColorWheel::colorChanged, this, &MainWindow::colorWheel_colorChanged);
@@ -100,6 +110,9 @@ void MainWindow::connectSignalsAndSlots()
     connect(model, &EditorModel::fileSaved, this, &MainWindow::fileSavedEvent);
 }
 
+/**
+ * @brief Initializes the defaults of our GUI
+ */
 void MainWindow::initializeUIDefaults()
 {
     // Main Window:
@@ -129,6 +142,9 @@ void MainWindow::initializeUIDefaults()
     brush_pushButton_clicked();
 }
 
+/**
+ * @brief Triggered when the user selects File->New File
+ */
 void MainWindow::menuNewFile_triggered()
 {
     NewFileDialog dialog;
@@ -144,6 +160,9 @@ void MainWindow::menuNewFile_triggered()
     }
 }
 
+/**
+ * @brief Triggered when the user selects File->Open
+ */
 void MainWindow::menuOpen_triggered()
 {
     qDebug() << "Open:";
@@ -164,6 +183,9 @@ void MainWindow::menuOpen_triggered()
     }
 }
 
+/**
+ * @brief Triggered when the user selects File->Save
+ */
 void MainWindow::menuSave_triggered()
 {
     if (model->getFilePath() == "")
@@ -175,6 +197,9 @@ void MainWindow::menuSave_triggered()
     model->saveToFile(model->getFilePath());
 }
 
+/**
+ * @brief Triggered when the user selects File->Save As...
+ */
 void MainWindow::menuSaveAs_triggered()
 {
     QFileDialog saveAsDialog(this,
@@ -196,6 +221,9 @@ void MainWindow::menuSaveAs_triggered()
     }
 }
 
+/**
+ * @brief Triggered when the user selects File->Export as GIF
+ */
 void MainWindow::menuExportAs_triggered()
 {
     QFileDialog exportAsDialog(this,
@@ -218,41 +246,52 @@ void MainWindow::menuExportAs_triggered()
     }
 }
 
+/**
+ * @brief rotates the current frame clockwise
+ */
 void MainWindow::menuRotateClockwise_triggered()
 {
     model->rotateScene(false);
 }
 
+/**
+ * @brief rotates the current frame counterclockwise
+ */
 void MainWindow::menuRotateCounterClockwise_triggered()
 {
     model->rotateScene(true);
 }
 
+/**
+ * @brief flips the current frame over the vertical axis
+ */
 void MainWindow::menuFlipV_triggered()
 {
     model->flipSceneOrientation(true);
 }
 
+/**
+ * @brief flips the current frame over the horizontal axis
+ */
 void MainWindow::menuFlipH_triggered()
 {
     model->flipSceneOrientation(false);
 }
 
-void MainWindow::menuResizeCanvas_triggered()
-{
-    qDebug() << "Resize Canvas";
-}
-
-//void MainWindow::zoomToFit_triggered()
-//{
-//    qDebug() << "Zoom To Fit";
-//}
-
+/**
+ * @brief Opens up the help menu
+ */
 void MainWindow::menuHelp_triggered()
 {
-    qDebug() << "Help!";
+
+    QString link = "https://drive.google.com/file/d/0B_Xk7ipNEG4bOThJT3FuY1NJcDQ/view?ts=57044168";
+    QDesktopServices::openUrl(QUrl(link));
 }
 
+/**
+ * @brief Slot that is triggered when the user selects a new color from the color wheel
+ * @param color new color selected
+ */
 void MainWindow::colorWheel_colorChanged(QColor color)
 {
     QColor alpha_color = color;
@@ -266,6 +305,10 @@ void MainWindow::colorWheel_colorChanged(QColor color)
     model->setBrushColor(alpha_color);
 }
 
+/**
+ * @brief Slot triggered by selection of current transparency value
+ * @param value new alpha value
+ */
 void MainWindow::alphaSlider_valueChanged(int value)
 {
     QColor color = ui->colorWheel_widget->color();
@@ -274,6 +317,10 @@ void MainWindow::alphaSlider_valueChanged(int value)
     model->setBrushColor(color);
 }
 
+/**
+ * @brief erroneous
+ * @param event sent
+ */
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     // http://stackoverflow.com/questions/25454648/qmainwindow-close-signal-not-emitted
@@ -285,51 +332,82 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 //// Scene Drawing Events/Slots/Methods ////
 
+/**
+ * @brief user selects the brush tool to use
+ */
 void MainWindow::brush_pushButton_clicked()
 {
     model->setCurrentTool(EditorModel::BRUSH);
 }
 
+/**
+ * @brief user selects the fill bucket tool to use
+ */
 void MainWindow::fillBucket_pushButton_clicked()
 {
     model->setCurrentTool(EditorModel::FILL_BUCKET);
 }
 
+/**
+ * @brief user selects the eraser tool to use
+ */
 void MainWindow::eraser_pushButton_clicked()
 {
     model->setCurrentTool(EditorModel::ERASER);
 }
 
+/**
+ * @brief user selects the rotate counter clockwise tool to use
+ */
 void MainWindow::rotateCCW_pushButton_clicked()
 {
     model->rotateScene(true);
 }
 
+/**
+ * @brief user selects the rotate clockwise tool to use
+ */
 void MainWindow::rotateCW_pushButton_clicked()
 {
     model->rotateScene(false);
 }
 
+/**
+ * @brief user selects the mirror tool to use
+ */
 void MainWindow::symmetricalTool_pushButton_clicked()
 {
     model->setCurrentTool(EditorModel::MIRROR);
 }
 
+/**
+ * @brief user clicks the flip over the vertical axis button
+ */
 void MainWindow::flipV_pushButton_clicked()
 {
     model->flipSceneOrientation(true);
 }
 
+/**
+ * @brief user clicks the flip over the horizontal axis button
+ */
 void MainWindow::flipH_pushButton_clicked()
 {
     model->flipSceneOrientation(false);
 }
 
+/**
+ * @brief inverts the colors on the screen
+ */
 void MainWindow::invertColors_pushButton_clicked()
 {
     model->invertSceneColors();
 }
 
+/**
+ * @brief if the tool the user wants to use is changed
+ * @param new_tool the new tool the user wants to use
+ */
 void MainWindow::toolUpdated(EditorModel::Tool new_tool)
 {
     // Enable all tools:
@@ -369,17 +447,29 @@ void MainWindow::toolUpdated(EditorModel::Tool new_tool)
 
 //// Playback ////
 
+/**
+ * @brief User presses play to iterate through all the frames
+ */
 void MainWindow::play_pushButton_clicked()
 {
     model->iterateThroughFrames();
 }
 
+/**
+ * @brief playback speed is changed
+ * @param value of new playback speed
+ */
 void MainWindow::playbackSpeed_horizontalSlider_valueChanged(int value)
 {
     ui->playbackSpeedCurrent_label->setText(QString::number(value));
     model->setPlaybackSpeed(value);
 }
 
+/**
+ * @brief Update the labels for what frame we're on / how many frames there are
+ * @param currentFrame index of the current frame you're on
+ * @param numOfFrames the total number of frames in your animation
+ */
 void MainWindow::update_currentFrameStatus(int currentFrame, int numOfFrames)
 {
     ui->currentFrame_horizontalSlider->setMinimum(0);
@@ -388,11 +478,6 @@ void MainWindow::update_currentFrameStatus(int currentFrame, int numOfFrames)
 
     ui->currentFrameIndex_label->setText(QString::number(currentFrame + 1) + " / " + QString::number(numOfFrames));
 }
-
-//void MainWindow::playbackSpeed_hSlider_moved(int value)
-//{
-//    ui->playbackSpeedCurrent_label->setText(QString::number(value));
-//}
 
 //// Window Title ////
 
