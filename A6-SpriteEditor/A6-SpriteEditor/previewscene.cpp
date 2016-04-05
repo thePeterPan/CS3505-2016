@@ -1,7 +1,5 @@
 #include "previewscene.h"
 
-//Dimensions: 232x220
-
 PreviewScene::PreviewScene(editor_model* _model, QObject* parent, int _width, int _height) :
     QGraphicsScene(parent), model(_model), width(_width), height(_height)
 {
@@ -47,6 +45,7 @@ void PreviewScene::showNextImage()
     if(index >= maxindex)
         index = 0;
 
+    // Time until the next frame. Can use model->getPlaybackSpeed(), but that uses a different metric.
     QTimer::singleShot(500, this, SLOT(showNextImage()));
 }
 

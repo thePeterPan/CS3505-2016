@@ -143,51 +143,6 @@ void GraphicsScene::drawSquare(int x, int y)
 }
 
 
-
-
-
-
-
-
-
-/**
- * @brief GraphicsScene::wheelEvent
- * Intended to be a zoom event, but it wasn't quite what I was expecting.
- * @param wheelEvent
- */
-void GraphicsScene::wheelEvent(QGraphicsSceneWheelEvent *wheelEvent)
-{
-    //An interesting scroll idea: what if this zooms when ctrl is also held down?
-    //pixelSize += wheelEvent->delta();
-
-    /*
-
-    int newX = this->width() + wheelEvent->delta();
-    int newY = this->height() + wheelEvent->delta();
-
-    if(newX < 50 | newY < 50)
-    {
-        newX = 50;
-        newY = 50;
-    }
-    if(newX > 5000 | newY > 5000)
-    {
-        newX = 5000;
-        newY = 5000;
-    }
-    this->setSceneRect(0,0,newX, newY);*/
-}
-
-void GraphicsScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
-{
-    return;
-}
-
-void GraphicsScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
-{
-    return;
-}
-
 /**
  * @brief GraphicsScene::mouseMoveEvent
  * Event for when the user holds down the mouse and moves across the canvas.

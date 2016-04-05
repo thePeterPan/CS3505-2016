@@ -30,10 +30,6 @@ public:
     void paintEntireFrame();
     void drawSquare(int x, int y);
 
-    // Used to resize the scene (allow for zoom in and out)
-    void setSceneRect(const QRectF &rect);
-    void setSceneRect(int x, int y, int width, int height);
-
 signals:
 
 private:
@@ -54,13 +50,8 @@ public slots:
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void wheelEvent(QGraphicsSceneWheelEvent *wheelEvent);
-    void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
-
     void update(const QRectF &rect);
-
 
 };
 
