@@ -366,12 +366,12 @@ void editor_model::iterateThroughFrames()
 
 void editor_model::moveToNextFrame()
 {
-    if (sprite_main->getCurrentFrameIndex() < sprite_main->getAnimationLength() - 1)
+    if (sprite_main->getCurrentFrameIndex() >= sprite_main->getAnimationLength() - 1)
     {
-        this->setCurrentFrame(sprite_main->getCurrentFrameIndex() + 1);
+        return;
     }
     else
     {
-        this->setCurrentFrame(0);
+        this->setCurrentFrame(sprite_main->getCurrentFrameIndex() + 1);
     }
 }
