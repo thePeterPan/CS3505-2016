@@ -259,9 +259,9 @@ void editor_model::loadSpriteFromFile(QString path)
     // Get the number of frames.
     QString num_frames = in.readLine();
     int numberOfFrames = num_frames.toInt();
-
+    int currentFrame = 0;
     // Loop through the remainder of the lines in the file.
-    while (!in.atEnd())
+    while (currentFrame < numberOfFrames)
     {
         // The following loop encompasses a single frame.
         int currentY = 0;
@@ -293,6 +293,7 @@ void editor_model::loadSpriteFromFile(QString path)
         {
             sprite_main->addFrameAfterCurrentIndex();
         }
+        currentFrame++;
     }
 
     file_path = path;
@@ -300,6 +301,9 @@ void editor_model::loadSpriteFromFile(QString path)
     // Reset current frame back to 0,
     // which automatically emits signal to update frame status and scene
     setCurrentFrame(0);
+
+    emit sceneUpdated();
+    emit frameUpdated(sprite_main->getCurrentFrameIndex(),sprite_main->getAnimationLength());
 }
 
 void editor_model::exportSpriteAsGIF(QString path)
