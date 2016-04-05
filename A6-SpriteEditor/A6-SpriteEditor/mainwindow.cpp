@@ -375,7 +375,7 @@ void MainWindow::toolUpdated(editor_model::Tool new_tool)
 
 void MainWindow::play_pushButton_clicked()
 {
-
+    model->iterateThroughFrames();
 }
 
 void MainWindow::update_currentFrameStatus(int currentFrame, int numOfFrames)

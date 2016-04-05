@@ -177,7 +177,6 @@ void editor_model::removeFrame()
 
 void editor_model::setCurrentFrame(int index)
 {
-    qDebug() << index;
     if (index == sprite_main->getCurrentFrameIndex())
         return;
     sprite_main->setCurrentFrame(index);
@@ -353,5 +352,26 @@ void editor_model::exportSpriteAsGIF(QString path)
             qDebug() << "Conversion output:" << _CONVERT.readAll();
 
         // Was going to add code to delete 'tmp' folder, but I find that a little dangerous.
+    }
+}
+
+void editor_model::iterateThroughFrames()
+{
+    this->setCurrentFrame(0);
+    for (int i = 1; i < sprite_main->getAnimationLength(); i++)
+    {
+        QTimer::singleShot(i * (1000.0/ (double) playback_speed), this, SLOT(moveToNextFrame()));
+    }
+}
+
+void editor_model::moveToNextFrame()
+{
+    if (sprite_main->getCurrentFrameIndex() < sprite_main->getAnimationLength() - 1)
+    {
+        this->setCurrentFrame(sprite_main->getCurrentFrameIndex() + 1);
+    }
+    else
+    {
+        this->setCurrentFrame(0);
     }
 }
