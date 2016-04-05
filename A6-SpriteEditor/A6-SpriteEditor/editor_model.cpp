@@ -272,7 +272,7 @@ void editor_model::loadSpriteFromFile(QString path)
             QStringList numbers = line.split(" ");
 
             // Loop through the line to set the colors on one row.
-            for (int i = 0; i < numbers.size() - 4; i += 4)
+            for (int i = 0; i <= numbers.size() - 4; i += 4)
             {
                 QColor color(
                         numbers[i+0].toInt(),
