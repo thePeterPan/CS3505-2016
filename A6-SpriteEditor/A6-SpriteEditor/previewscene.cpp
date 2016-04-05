@@ -45,8 +45,7 @@ void PreviewScene::showNextImage()
     if(index >= maxindex)
         index = 0;
 
-    // Time until the next frame. Can use model->getPlaybackSpeed(), but that uses a different metric.
-    QTimer::singleShot(500, this, SLOT(showNextImage()));
+    QTimer::singleShot(1000/model->getPlaybackSpeed(), this, SLOT(showNextImage()));
 }
 
 /**

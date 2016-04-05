@@ -209,34 +209,3 @@ void GraphicsScene::zoomOut()
         redrawScene();
     }
 }
-
-/**
- * @brief GraphicsScene::setSceneRect
- * Resizes the scene.
- * @param rect
- */
-void GraphicsScene::setSceneRect(const QRectF &rect)
-{
-    //image->scaled(rect.width(),rect.height());
-
-    //Note: needs to also resize the underlying frame object.
-
-    QGraphicsScene::setSceneRect(rect);
-}
-
-/**
- * @brief GraphicsScene::setSceneRect
- * Resizes the scene.
- * @param x
- * @param y
- * @param width
- * @param height
- */
-void GraphicsScene::setSceneRect(int x, int y, int width, int height)
-{
-    //image->scaled(width,height);
-
-    //Note: needs to also resize the underlying frame object.
-
-    QGraphicsScene::setSceneRect(x,y,width,height);
-}
