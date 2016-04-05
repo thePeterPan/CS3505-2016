@@ -804,7 +804,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSprite_Editor">
@@ -830,7 +830,6 @@
     <addaction name="actionFlip_Vertically"/>
     <addaction name="actionFlip_Horizontally"/>
     <addaction name="separator"/>
-    <addaction name="actionResize_Canvas"/>
     <addaction name="actionZoom_to_Fit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">

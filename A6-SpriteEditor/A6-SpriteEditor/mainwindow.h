@@ -70,8 +70,6 @@ private slots:
     void menuRotateCounterClockwise_triggered();
     void menuFlipV_triggered();
     void menuFlipH_triggered();
-    void menuResizeCanvas_triggered();
-//    void zoomToFit_triggered();
 
     // Help Menu:
     void menuHelp_triggered();
@@ -105,8 +103,6 @@ private slots:
     void fileSavedEvent(bool status);
 protected:
     virtual void closeEvent(QCloseEvent *event);
-
-
 
 };
 
