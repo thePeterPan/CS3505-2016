@@ -42,6 +42,7 @@ private:
 
     // Helper method to save to file
     QString toRgbaString(QColor color);
+    void drawRealPixelSizeToQImage(QImage* image, int x, int y, int pixelSize, QColor color);
 
 signals:
 

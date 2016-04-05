@@ -167,3 +167,9 @@ QList<QImage*> Sprite::getFramesAsImages()
 
     return imageList;
 }
+
+QImage* Sprite::getFrameAsImage(int index)
+{
+    QImage* image(frames.at(index)->toQImage());
+    return image;
+}

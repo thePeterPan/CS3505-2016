@@ -15,6 +15,7 @@
 #include <QException>
 #include <QList>
 #include <QProcess>
+#include <QTimer>
 
 #include "sprite.h"
 
@@ -79,6 +80,9 @@ public:
     void loadSpriteFromFile(QString path);
     void exportSpriteAsGIF(QString path);
 
+    // play button preview
+    void iterateThroughFrames();
+
 private:
     // State variables:
     AnimatorState current_state;
@@ -104,6 +108,7 @@ signals:
     void toolChanged(Tool new_tool);
 
 public slots:
+    void moveToNextFrame();
 };
 
 #endif // EDITOR_MODEL_H
