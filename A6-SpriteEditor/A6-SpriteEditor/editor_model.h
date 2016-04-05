@@ -19,11 +19,11 @@
 
 #include "sprite.h"
 
-class editor_model : public QObject
+class EditorModel : public QObject
 {
     Q_OBJECT
 public:
-    explicit editor_model(QObject *parent = 0);
+    explicit EditorModel(QObject *parent = 0);
 
     // Indicates the state of the main view. e.g. if the main view
     // is currently playing the animation at the given speed.
@@ -47,7 +47,7 @@ public:
     void setCurrentTool(Tool tool);
     Tool getCurrentTool();
 
-    // Unnecessary (maybe)
+
     void setSprite(Sprite* sprite);
     Sprite* getSprite();
 
@@ -85,15 +85,15 @@ public:
 
 private:
     // State variables:
-    AnimatorState current_state;
-    QString file_path;
-    bool file_saved;
-    QColor brush_color;
-    Tool current_tool;
-    int playback_speed;
+    AnimatorState currentState;
+    QString filePath;
+    bool fileSaved;
+    QColor brushColor;
+    Tool currentTool;
+    int playbackSpeed;
 
     // Sprite object
-    Sprite* sprite_main;
+    Sprite* spriteMain;
 
     // Drawing methods more:
     void drawSquare(int x, int y);

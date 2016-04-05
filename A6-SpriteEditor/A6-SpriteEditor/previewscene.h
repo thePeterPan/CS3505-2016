@@ -15,12 +15,12 @@ class PreviewScene : public QGraphicsScene
     Q_OBJECT
 public:
 
-    PreviewScene(editor_model* model, QObject *parent = 0, int width = 230, int height=218);
+    PreviewScene(EditorModel* model, QObject *parent = 0, int width = 230, int height=218);
 
 private:
 
     // Model
-    editor_model* model;
+    EditorModel* model;
 
     //Parameters
     int width, height;

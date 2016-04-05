@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    model = new editor_model();
+    model = new EditorModel();
     update_currentFrameStatus(0,1);
 
     setNewGraphicsScene();
@@ -65,7 +65,7 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->playbackSpeed_horizontalSlider, &QSlider::valueChanged, this, &MainWindow::playbackSpeed_hSlider_moved);
 
     /// Frame Slider
-    connect(ui->currentFrame_horizontalSlider, &QSlider::valueChanged, model, &editor_model::setCurrentFrame);
+    connect(ui->currentFrame_horizontalSlider, &QSlider::valueChanged, model, &EditorModel::setCurrentFrame);
 
     /// Color Wheel
     connect(ui->colorWheel_widget, &color_widgets::ColorWheel::colorChanged, this, &MainWindow::colorWheel_colorChanged);
@@ -85,22 +85,22 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->invertColors_pushButton, &QToolButton::clicked, this, &MainWindow::invertColors_pushButton_clicked);
     connect(ui->zoomIn_pushButton, &QPushButton::clicked, scene, &GraphicsScene::zoomIn);
     connect(ui->zoomOut_pushButton, &QPushButton::clicked, scene, &GraphicsScene::zoomOut);
-    connect(model, &editor_model::toolChanged, this, &MainWindow::toolUpdated);
+    connect(model, &EditorModel::toolChanged, this, &MainWindow::toolUpdated);
 
     /// Frame Toolbar Buttons
-    connect(ui->addFrame_pushButton, &QPushButton::clicked, model, &editor_model::addFrame);
-    connect(ui->removeFrame_pushButton, &QPushButton::clicked, model, &editor_model::removeFrame);
+    connect(ui->addFrame_pushButton, &QPushButton::clicked, model, &EditorModel::addFrame);
+    connect(ui->removeFrame_pushButton, &QPushButton::clicked, model, &EditorModel::removeFrame);
 
     /// Playback buttons:
-    connect(ui->prevFrame_pushButton, &QPushButton::clicked, model, &editor_model::prevFrame);
-    connect(ui->nextFrame_pushButton, &QPushButton::clicked, model, &editor_model::nextFrame);
+    connect(ui->prevFrame_pushButton, &QPushButton::clicked, model, &EditorModel::prevFrame);
+    connect(ui->nextFrame_pushButton, &QPushButton::clicked, model, &EditorModel::nextFrame);
     connect(ui->play_pushButton, &QPushButton::clicked, this, &MainWindow::play_pushButton_clicked);
 
 
     /// Connections from the model
-    connect(model, &editor_model::sceneUpdated, scene, &GraphicsScene::redrawScene);
-    connect(model, &editor_model::squareUpdated, scene, &GraphicsScene::drawSquare);
-    connect(model, &editor_model::frameUpdated, this, &MainWindow::update_currentFrameStatus);
+    connect(model, &EditorModel::sceneUpdated, scene, &GraphicsScene::redrawScene);
+    connect(model, &EditorModel::squareUpdated, scene, &GraphicsScene::drawSquare);
+    connect(model, &EditorModel::frameUpdated, this, &MainWindow::update_currentFrameStatus);
 }
 
 void MainWindow::initializeUIDefaults()
@@ -288,17 +288,17 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::brush_pushButton_clicked()
 {
-    model->setCurrentTool(editor_model::BRUSH);
+    model->setCurrentTool(EditorModel::BRUSH);
 }
 
 void MainWindow::fillBucket_pushButton_clicked()
 {
-    model->setCurrentTool(editor_model::FILL_BUCKET);
+    model->setCurrentTool(EditorModel::FILL_BUCKET);
 }
 
 void MainWindow::eraser_pushButton_clicked()
 {
-    model->setCurrentTool(editor_model::ERASER);
+    model->setCurrentTool(EditorModel::ERASER);
 }
 
 void MainWindow::rotateCCW_pushButton_clicked()
@@ -313,12 +313,12 @@ void MainWindow::rotateCW_pushButton_clicked()
 
 void MainWindow::panPushButton_clicked()
 {
-    model->setCurrentTool(editor_model::PAN);
+    model->setCurrentTool(EditorModel::PAN);
 }
 
 void MainWindow::symmetricalTool_pushButton_clicked()
 {
-    model->setCurrentTool(editor_model::MIRROR);
+    model->setCurrentTool(EditorModel::MIRROR);
 }
 
 void MainWindow::flipV_pushButton_clicked()
@@ -336,7 +336,7 @@ void MainWindow::invertColors_pushButton_clicked()
     model->invertSceneColors();
 }
 
-void MainWindow::toolUpdated(editor_model::Tool new_tool)
+void MainWindow::toolUpdated(EditorModel::Tool new_tool)
 {
     // Enable all tools:
     ui->brush_pushButton->setEnabled(true);
@@ -353,23 +353,23 @@ void MainWindow::toolUpdated(editor_model::Tool new_tool)
     // Figure out which one to disable:
     switch(new_tool)
     {
-    case editor_model::BRUSH:
+    case EditorModel::BRUSH:
         ui->brush_pushButton->setEnabled(false);
         ui->brush_pushButton->setChecked(true);
         break;
-    case editor_model::FILL_BUCKET:
+    case EditorModel::FILL_BUCKET:
         ui->fillBucket_pushButton->setEnabled(false);
         ui->fillBucket_pushButton->setChecked(true);
         break;
-    case editor_model::ERASER:
+    case EditorModel::ERASER:
         ui->eraser_pushButton->setEnabled(false);
         ui->eraser_pushButton->setChecked(true);
         break;
-    case editor_model::MIRROR:
+    case EditorModel::MIRROR:
         ui->symmetricalTool_pushButton->setEnabled(false);
         ui->symmetricalTool_pushButton->setChecked(true);
         break;
-    case editor_model::PAN:
+    case EditorModel::PAN:
         ui->pan_pushButton->setEnabled(false);
         ui->pan_pushButton->setChecked(true);
         break;

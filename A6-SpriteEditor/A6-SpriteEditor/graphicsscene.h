@@ -20,7 +20,7 @@ class GraphicsScene : public QGraphicsScene
 
 public:
 
-    GraphicsScene(editor_model* model, int width, int height, int pixelSize, QObject *parent = 0);
+    GraphicsScene(EditorModel* model, int width, int height, int pixelSize, QObject *parent = 0);
     ~GraphicsScene();
 
     // Drawing methods:
@@ -42,7 +42,7 @@ private:
     int pixelInterval = 5;
 
     // Model
-    editor_model* model;
+    EditorModel* model;
 
 public slots:
     void zoomIn();

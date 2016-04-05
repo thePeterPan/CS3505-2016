@@ -43,7 +43,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     GraphicsScene* scene;
-    editor_model* model;
+    EditorModel* model;
     PreviewScene* preview;
 
     void connectSignalsAndSlots();
@@ -91,7 +91,7 @@ private slots:
     void flipV_pushButton_clicked();
     void flipH_pushButton_clicked();
     void invertColors_pushButton_clicked();
-    void toolUpdated(editor_model::Tool new_tool);
+    void toolUpdated(EditorModel::Tool new_tool);
 
     // Playback buttons:
     void play_pushButton_clicked();

@@ -1,6 +1,6 @@
 #include "previewscene.h"
 
-PreviewScene::PreviewScene(editor_model* _model, QObject* parent, int _width, int _height) :
+PreviewScene::PreviewScene(EditorModel* _model, QObject* parent, int _width, int _height) :
     QGraphicsScene(parent), model(_model), width(_width), height(_height)
 {
     updateFrames();

@@ -1,64 +1,99 @@
 #include "editor_model.h"
 
-editor_model::editor_model(QObject *parent) :
+EditorModel::EditorModel(QObject *parent) :
     QObject(parent),
-    current_state(PAUSED),
-    file_path(""),
-    brush_color(QColor::fromRgb(0, 0, 0)),
-    current_tool(BRUSH),
-    playback_speed(1) { }
+    currentState(PAUSED),
+    filePath(""),
+    brushColor(QColor::fromRgb(0, 0, 0)),
+    currentTool(BRUSH),
+    playbackSpeed(1) { }
 
 
 //// Animator State ////
 
-void editor_model::setAnimatorState(AnimatorState state)
+/**
+ * @brief EditorModel::setAnimatorState
+ * sets the state passed in as the currentState
+ * @param state
+ */
+void EditorModel::setAnimatorState(AnimatorState state)
 {
-    current_state = state;
+    currentState = state;
 }
-
-editor_model::AnimatorState editor_model::getAnimatorState()
+/**
+ * @brief EditorModel::getAnimatorState
+ * returns the currentState
+ * @return
+ */
+EditorModel::AnimatorState EditorModel::getAnimatorState()
 {
-    return current_state;
+    return currentState;
 }
 
 
 //// Current Tool ////
 
-void editor_model::setCurrentTool(Tool tool)
+/**
+ * @brief EditorModel::setCurrentTool
+ * sets the tool that is selected to currentTool
+ * @param tool
+ */
+void EditorModel::setCurrentTool(Tool tool)
 {
-    current_tool = tool;
-    emit toolChanged(current_tool);
+    currentTool = tool;
+    emit toolChanged(currentTool);
 }
 
-editor_model::Tool editor_model::getCurrentTool()
+/**
+ * @brief EditorModel::getCurrentTool
+ * returns the tool that is selected
+ * @return
+ */
+EditorModel::Tool EditorModel::getCurrentTool()
 {
-    return current_tool;
+    return currentTool;
 }
 
-//// Should not be necessary ////
 //// Sprite Methods ////
 
-void editor_model::setSprite(Sprite *sprite)
+/**
+ * @brief EditorModel::setSprite
+ * sets this sprite to the sprite that is being edited
+ * @param sprite
+ */
+void EditorModel::setSprite(Sprite *sprite)
 {
-    this->sprite_main = sprite;
+    this->spriteMain = sprite;
 }
 
-Sprite* editor_model::getSprite()
+/**
+ * @brief EditorModel::getSprite
+ * returns the sprite that is being edited
+ * @return
+ */
+Sprite* EditorModel::getSprite()
 {
-    return sprite_main;
+    return spriteMain;
 }
 
 //// Drawing Methods ////
 
-void editor_model::paintCommand(int x, int y)
+/**
+ * @brief EditorModel::paintCommand
+ * this method directs the program to the appropiate drawing method
+ * depending on the tool selected
+ * @param x
+ * @param y
+ */
+void EditorModel::paintCommand(int x, int y)
 {
-    if(current_tool == editor_model::BRUSH) {
+    if(currentTool == EditorModel::BRUSH) {
         drawSquare(x, y);
-    } else if (current_tool == editor_model::FILL_BUCKET) {
+    } else if (currentTool == EditorModel::FILL_BUCKET) {
         fillBucket(x, y);
-    } else if (current_tool == editor_model::MIRROR) {
+    } else if (currentTool == EditorModel::MIRROR) {
         drawMirror(x, y);
-    } else if (current_tool == editor_model::ERASER) {
+    } else if (currentTool == EditorModel::ERASER) {
         eraseSquare(x, y);
     }
 }
@@ -71,174 +106,261 @@ void editor_model::paintCommand(int x, int y)
  * @param y
  * @param color
  */
-void editor_model::drawSquare(int x, int y)
+void EditorModel::drawSquare(int x, int y)
 {
-    if((x < 0) | (y < 0) | (x >= sprite_main->getWidth()) | (y >= sprite_main->getHeight()))
+    if((x < 0) | (y < 0) | (x >= spriteMain->getWidth()) | (y >= spriteMain->getHeight()))
         return;
 
-    sprite_main->setPixelColorAtCurrentFrame(x, y, brush_color);
+    spriteMain->setPixelColorAtCurrentFrame(x, y, brushColor);
 
     emit squareUpdated(x, y);
 }
 
-void editor_model::eraseSquare(int x, int y)
+/**
+ * @brief EditorModel::eraseSquare
+ * "erases"(sets it to black and completely transparent)
+ *  the square located at (x,y)
+ * @param x
+ * @param y
+ */
+void EditorModel::eraseSquare(int x, int y)
 {
-    if((x < 0) | (y < 0) | (x >= sprite_main->getWidth()) | (y >= sprite_main->getHeight()))
+    if((x < 0) | (y < 0) | (x >= spriteMain->getWidth()) | (y >= spriteMain->getHeight()))
         return;
 
-    sprite_main->setPixelColorAtCurrentFrame(x, y, QColor(0, 0, 0, 0));
+    spriteMain->setPixelColorAtCurrentFrame(x, y, QColor(0, 0, 0, 0));
 
     emit squareUpdated(x, y);
 }
 
-void editor_model::fillBucket(int x, int y)
+/**
+ * @brief EditorModel::fillBucket
+ * recursively draws squares in the area contained around the point (x,y)
+ * @param x
+ * @param y
+ */
+void EditorModel::fillBucket(int x, int y)
 {
-    QColor prev = sprite_main->getPixelColorAtCurrentFrame(x, y);
+    QColor prev = spriteMain->getPixelColorAtCurrentFrame(x, y);
 
-    if(prev == brush_color)
+    if(prev == brushColor)
         return;
 
     drawSquare(x, y);
 
-
-    int width = sprite_main->getWidth();
-    int height = sprite_main->getHeight();
+    int width = spriteMain->getWidth();
+    int height = spriteMain->getHeight();
 
     int x1 = x - 1;
     int x2 = x + 1;
     int y1 = y - 1;
     int y2 = y + 1;
-    if(x1 >= 0 && sprite_main->getPixelColorAtCurrentFrame(x1, y) == prev)
+    if(x1 >= 0 && spriteMain->getPixelColorAtCurrentFrame(x1, y) == prev)
             fillBucket(x1, y);
 
-    if(x2 < width && sprite_main->getPixelColorAtCurrentFrame(x2, y) == prev)
+    if(x2 < width && spriteMain->getPixelColorAtCurrentFrame(x2, y) == prev)
             fillBucket(x2, y);
 
-    if(y1 >= 0 && sprite_main->getPixelColorAtCurrentFrame(x, y1) == prev)
+    if(y1 >= 0 && spriteMain->getPixelColorAtCurrentFrame(x, y1) == prev)
             fillBucket(x, y1);
 
-    if(y2 < height && sprite_main->getPixelColorAtCurrentFrame(x, y2) == prev)
+    if(y2 < height && spriteMain->getPixelColorAtCurrentFrame(x, y2) == prev)
             fillBucket(x, y2);
 }
 
-void editor_model::drawMirror(int x, int y)
+/**
+ * @brief EditorModel::drawMirror
+ * handles the drawing of symmetric points
+ * @param x
+ * @param y
+ */
+void EditorModel::drawMirror(int x, int y)
 {
     drawSquare(x, y);
-    drawSquare(sprite_main->getWidth() - 1 - x, y);
+    drawSquare(spriteMain->getWidth() - 1 - x, y);
 }
 
-void editor_model::rotateScene(bool direction)
+/**
+ * @brief EditorModel::rotateScene
+ * rotates the scene
+ * @param direction
+ */
+void EditorModel::rotateScene(bool direction)
 {
-    sprite_main->rotateCurrentFrame(direction);
+    spriteMain->rotateCurrentFrame(direction);
     emit sceneUpdated();
 }
 
-void editor_model::flipSceneOrientation(bool orientation)
+/**
+ * @brief EditorModel::flipSceneOrientation
+ * calls the flipCurrentFrameOrientation method in the sprite class
+ * and emits the sceneUpdated signal
+ * @param orientation
+ */
+void EditorModel::flipSceneOrientation(bool orientation)
 {
-    sprite_main->flipCurrentFrameOrientation(orientation);
+    spriteMain->flipCurrentFrameOrientation(orientation);
     emit sceneUpdated();
 }
 
-void editor_model::invertSceneColors()
+/**
+ * @brief EditorModel::invertSceneColors
+ * calls the invertCurrentFrameColor method in the sprite class
+ * and emits the sceneUpdated signal
+ */
+void EditorModel::invertSceneColors()
 {
-    sprite_main->invertCurrentFrameColor();
+    spriteMain->invertCurrentFrameColor();
     emit sceneUpdated();
 }
 
 //// Frame Methods ////
 
-void editor_model::nextFrame()
+/**
+ * @brief EditorModel::nextFrame
+ * calls the nextFrame method in the sprite class and emits update signals
+ */
+void EditorModel::nextFrame()
 {
-    sprite_main->nextFrame();
+    spriteMain->nextFrame();
     emit sceneUpdated();
-    emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
+    emit frameUpdated(spriteMain->getCurrentFrameIndex(), spriteMain->getAnimationLength());
 }
 
-void editor_model::prevFrame()
+/**
+ * @brief EditorModel::prevFrame
+ * calls the prevFrame method in the sprite class and emits udpate signals
+ */
+void EditorModel::prevFrame()
 {
-    sprite_main->prevFrame();
+    spriteMain->prevFrame();
     emit sceneUpdated();
-    emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
+    emit frameUpdated(spriteMain->getCurrentFrameIndex(), spriteMain->getAnimationLength());
 }
 
-void editor_model::addFrame()
+/**
+ * @brief EditorModel::addFrame
+ * calls the addFrameAfterCurrentIndex method in the sprite class
+ * and emits update signals
+ */
+void EditorModel::addFrame()
 {
-    sprite_main->addFrameAfterCurrentIndex();
+    spriteMain->addFrameAfterCurrentIndex();
     emit sceneUpdated();
-    emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
+    emit frameUpdated(spriteMain->getCurrentFrameIndex(), spriteMain->getAnimationLength());
 }
 
-void editor_model::removeFrame()
+/**
+ * @brief EditorModel::removeFrame
+ * calls the removeCurrentFrame method in the sprite class
+ * and emits update signals
+ */
+void EditorModel::removeFrame()
 {
-    sprite_main->removeCurrentFrame();
+    spriteMain->removeCurrentFrame();
     emit sceneUpdated();
-    emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
+    emit frameUpdated(spriteMain->getCurrentFrameIndex(), spriteMain->getAnimationLength());
 }
 
-void editor_model::setCurrentFrame(int index)
+/**
+ * @brief EditorModel::setCurrentFrame
+ * sets the currentFrame and emits updated signals
+ * @param index
+ */
+void EditorModel::setCurrentFrame(int index)
 {
-    if (index == sprite_main->getCurrentFrameIndex())
+    if (index == spriteMain->getCurrentFrameIndex())
         return;
-    sprite_main->setCurrentFrame(index);
+    spriteMain->setCurrentFrame(index);
     emit sceneUpdated();
-    emit frameUpdated(sprite_main->getCurrentFrameIndex(), sprite_main->getAnimationLength());
+    emit frameUpdated(spriteMain->getCurrentFrameIndex(), spriteMain->getAnimationLength());
 }
 
 //// Brush Color ////
 
-void editor_model::setBrushColor(QColor color)
+void EditorModel::setBrushColor(QColor color)
 {
-    brush_color = color;
+    brushColor = color;
 }
-
-//QColor editor_model::getBrushColor()
-//{
-//    return brush_color;
-//}
 
 //// Playback Speed ////
 
-void editor_model::setPlaybackSpeed(int speed)
+/**
+ * @brief EditorModel::setPlaybackSpeed
+ * sets the playbackSpeed
+ * @param speed
+ */
+void EditorModel::setPlaybackSpeed(int speed)
 {
-    playback_speed = speed;
+    playbackSpeed = speed;
 }
 
-int editor_model::getPlaybackSpeed()
+/**
+ * @brief EditorModel::getPlaybackSpeed
+ * returns the playbackSpeed
+ * @return
+ */
+int EditorModel::getPlaybackSpeed()
 {
-    return playback_speed;
+    return playbackSpeed;
 }
 
 
 //// Saving/loading ////
 
-bool editor_model::getFileSavedStatus()
+/**
+ * @brief EditorModel::getFileSavedStatus
+ * returns the fileSaved status
+ * @return
+ */
+bool EditorModel::getFileSavedStatus()
 {
-    return file_saved;
+    return fileSaved;
 }
 
-void editor_model::setFileSavedStatus(bool status)
+/**
+ * @brief EditorModel::setFileSavedStatus
+ * sets the fileSaved status
+ * @param status
+ */
+void EditorModel::setFileSavedStatus(bool status)
 {
-    file_saved = status;
+    fileSaved = status;
 }
 
-QString editor_model::getFilePath()
+/**
+ * @brief EditorModel::getFilePath
+ * returns the filePath
+ * @return
+ */
+QString EditorModel::getFilePath()
 {
-    return file_path;
+    return filePath;
 }
 
-void editor_model::saveToFile(QString path)
+/**
+ * @brief EditorModel::saveToFile
+ * saves the sprite to a file
+ * @param path
+ */
+void EditorModel::saveToFile(QString path)
 {
     QFile file(path);
     if (file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
     {
         QTextStream stream(&file);
-        stream << sprite_main->toString();
+        stream << spriteMain->toString();
     }
 
-    file_path = path;
+    filePath = path;
 }
 
-void editor_model::loadSpriteFromFile(QString path)
+/**
+ * @brief EditorModel::loadSpriteFromFile
+ * loads an already existing sprite to be edited
+ * @param path
+ */
+void EditorModel::loadSpriteFromFile(QString path)
 {
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly))
@@ -254,7 +376,7 @@ void editor_model::loadSpriteFromFile(QString path)
     int width = widthAndHeight[1].toInt();
 
     // Initialize a new sprite
-    sprite_main = new Sprite(width, height);
+    spriteMain = new Sprite(width, height);
 
     // Get the number of frames.
     QString num_frames = in.readLine();
@@ -280,7 +402,7 @@ void editor_model::loadSpriteFromFile(QString path)
                         numbers[i+2].toInt(),
                         numbers[i+3].toInt());
 
-                sprite_main->setPixelColorAtCurrentFrame(currentX, currentY, color);
+                spriteMain->setPixelColorAtCurrentFrame(currentX, currentY, color);
 
                 ++currentX;
             }
@@ -291,29 +413,34 @@ void editor_model::loadSpriteFromFile(QString path)
         // and add a frame.
         if (!in.atEnd())
         {
-            sprite_main->addFrameAfterCurrentIndex();
+            spriteMain->addFrameAfterCurrentIndex();
         }
         currentFrame++;
     }
 
-    file_path = path;
+    filePath = path;
 
     // Reset current frame back to 0,
     // which automatically emits signal to update frame status and scene
     setCurrentFrame(0);
 
     emit sceneUpdated();
-    emit frameUpdated(sprite_main->getCurrentFrameIndex(),sprite_main->getAnimationLength());
+    emit frameUpdated(spriteMain->getCurrentFrameIndex(),spriteMain->getAnimationLength());
 }
 
-void editor_model::exportSpriteAsGIF(QString path)
+/**
+ * @brief EditorModel::exportSpriteAsGIF
+ * exports the sprite as a GIF
+ * @param path
+ */
+void EditorModel::exportSpriteAsGIF(QString path)
 {
     QFileInfo file(path);
     QString directory = file.dir().path();
     QString fileBaseName = file.baseName();
     QString extension = file.completeSuffix();
 
-    QList<QImage*> imageList(sprite_main->getFramesAsImages());
+    QList<QImage*> imageList(spriteMain->getFramesAsImages());
 
     // If using a temporary directory:
     QString temporaryDirectory = "tmp/";
@@ -346,7 +473,7 @@ void editor_model::exportSpriteAsGIF(QString path)
         QProcess _CONVERT;
         QString process = "convert";
         QStringList parameter_list;
-        QString delay = QString::number(100.0/ (double) playback_speed);
+        QString delay = QString::number(100.0/ (double) playbackSpeed);
         parameter_list << "-dispose" << "background" << "-delay" << delay << fullFrameFilesPath << fullExportFilePath;
 
         _CONVERT.start(process, parameter_list);
@@ -359,23 +486,31 @@ void editor_model::exportSpriteAsGIF(QString path)
     }
 }
 
-void editor_model::iterateThroughFrames()
+/**
+ * @brief EditorModel::iterateThroughFrames
+ * iterates through the frames of the sprite
+ */
+void EditorModel::iterateThroughFrames()
 {
     this->setCurrentFrame(0);
-    for (int i = 1; i < sprite_main->getAnimationLength(); i++)
+    for (int i = 1; i < spriteMain->getAnimationLength(); i++)
     {
-        QTimer::singleShot(i * (1000.0/ (double) playback_speed), this, SLOT(moveToNextFrame()));
+        QTimer::singleShot(i * (1000.0/ (double) playbackSpeed), this, SLOT(moveToNextFrame()));
     }
 }
 
-void editor_model::moveToNextFrame()
+/**
+ * @brief EditorModel::moveToNextFrame
+ * moves the currentGrame to the next frame
+ */
+void EditorModel::moveToNextFrame()
 {
-    if (sprite_main->getCurrentFrameIndex() >= sprite_main->getAnimationLength() - 1)
+    if (spriteMain->getCurrentFrameIndex() >= spriteMain->getAnimationLength() - 1)
     {
         return;
     }
     else
     {
-        this->setCurrentFrame(sprite_main->getCurrentFrameIndex() + 1);
+        this->setCurrentFrame(spriteMain->getCurrentFrameIndex() + 1);
     }
 }

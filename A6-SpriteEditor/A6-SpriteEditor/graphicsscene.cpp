@@ -15,7 +15,7 @@
  * @param height
  * @param pixelSize
  */
-GraphicsScene::GraphicsScene(editor_model* _model, int _width, int _height, int _pixelSize, QObject *parent) :
+GraphicsScene::GraphicsScene(EditorModel* _model, int _width, int _height, int _pixelSize, QObject *parent) :
     QGraphicsScene(parent), pixelSize(_pixelSize), model(_model)
 {
     // Move to mainwindow?
