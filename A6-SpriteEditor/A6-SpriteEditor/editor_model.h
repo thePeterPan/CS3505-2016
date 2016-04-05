@@ -107,6 +107,8 @@ signals:
     void frameUpdated(int currentFrame, int numOfFrames);
     void toolChanged(Tool new_tool);
 
+    void fileSaved(bool status);
+
 public slots:
     void moveToNextFrame();
 };

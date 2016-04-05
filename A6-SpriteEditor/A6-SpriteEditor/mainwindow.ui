@@ -881,7 +881,7 @@
   </action>
   <action name="actionNew_File">
    <property name="text">
-    <string>New File</string>
+    <string>New Sprite</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
