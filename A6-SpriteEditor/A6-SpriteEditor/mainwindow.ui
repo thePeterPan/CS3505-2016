@@ -596,50 +596,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pan_pushButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>60</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>60</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Pan Tool</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="resources.qrc">
-            <normaloff>:/icons/icons/hand_white.svg</normaloff>:/icons/icons/hand_white.svg</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="invertColors_pushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -848,7 +804,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>17</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSprite_Editor">

@@ -78,7 +78,6 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->eraser_pushButton, &QToolButton::clicked, this, &MainWindow::eraser_pushButton_clicked);
     connect(ui->rotateCCW_pushButton, &QToolButton::clicked, this, &MainWindow::rotateCCW_pushButton_clicked);
     connect(ui->rotateCW_pushButton, &QToolButton::clicked, this, &MainWindow::rotateCW_pushButton_clicked);
-    connect(ui->pan_pushButton, &QToolButton::clicked, this, &MainWindow::panPushButton_clicked);
     connect(ui->symmetricalTool_pushButton, &QToolButton::clicked, this, &MainWindow::symmetricalTool_pushButton_clicked);
     connect(ui->flipV_pushButton, &QToolButton::clicked, this, &MainWindow::flipV_pushButton_clicked);
     connect(ui->flipH_pushButton, &QToolButton::clicked, this, &MainWindow::flipH_pushButton_clicked);
@@ -311,11 +310,6 @@ void MainWindow::rotateCW_pushButton_clicked()
     model->rotateScene(false);
 }
 
-void MainWindow::panPushButton_clicked()
-{
-    model->setCurrentTool(editor_model::PAN);
-}
-
 void MainWindow::symmetricalTool_pushButton_clicked()
 {
     model->setCurrentTool(editor_model::MIRROR);
@@ -347,8 +341,6 @@ void MainWindow::toolUpdated(editor_model::Tool new_tool)
     ui->eraser_pushButton->setChecked(false);
     ui->symmetricalTool_pushButton->setEnabled(true);
     ui->symmetricalTool_pushButton->setChecked(false);
-    ui->pan_pushButton->setEnabled(true);
-    ui->pan_pushButton->setChecked(false);
 
     // Figure out which one to disable:
     switch(new_tool)
@@ -368,10 +360,6 @@ void MainWindow::toolUpdated(editor_model::Tool new_tool)
     case editor_model::MIRROR:
         ui->symmetricalTool_pushButton->setEnabled(false);
         ui->symmetricalTool_pushButton->setChecked(true);
-        break;
-    case editor_model::PAN:
-        ui->pan_pushButton->setEnabled(false);
-        ui->pan_pushButton->setChecked(true);
         break;
     default:
         qDebug() << "Invalid tool.";

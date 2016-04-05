@@ -41,8 +41,7 @@ public:
         BRUSH,
         FILL_BUCKET,
         ERASER,
-        MIRROR,
-        PAN
+        MIRROR
     };
     void setCurrentTool(Tool tool);
     Tool getCurrentTool();

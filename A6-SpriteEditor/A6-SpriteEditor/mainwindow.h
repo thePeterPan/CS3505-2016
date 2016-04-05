@@ -86,7 +86,6 @@ private slots:
     void eraser_pushButton_clicked();
     void rotateCCW_pushButton_clicked();
     void rotateCW_pushButton_clicked();
-    void panPushButton_clicked();
     void symmetricalTool_pushButton_clicked();
     void flipV_pushButton_clicked();
     void flipH_pushButton_clicked();
