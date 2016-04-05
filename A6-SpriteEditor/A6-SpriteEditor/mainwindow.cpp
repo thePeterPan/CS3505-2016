@@ -375,6 +375,7 @@ void MainWindow::play_pushButton_clicked()
 
 void MainWindow::playbackSpeed_horizontalSlider_valueChanged(int value)
 {
+    ui->playbackSpeedCurrent_label->setText(QString::number(value));
     model->setPlaybackSpeed(value);
 }
 
