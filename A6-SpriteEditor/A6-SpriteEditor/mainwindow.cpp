@@ -41,7 +41,6 @@ void MainWindow::connectSignalsAndSlots()
     connect(ui->actionSave, &QAction::triggered, this, &MainWindow::menuSave_triggered);
     connect(ui->actionSave_As, &QAction::triggered, this, &MainWindow::menuSaveAs_triggered);
     connect(ui->actionExport_As, &QAction::triggered, this, &MainWindow::menuExportAs_triggered);
-    connect(ui->actionImport,  &QAction::triggered, this, &MainWindow::menuImport_triggered);
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
 
     /// Edit Menu:
@@ -210,11 +209,6 @@ void MainWindow::menuExportAs_triggered()
 
         model->exportSpriteAsGIF(filename);
     }
-}
-
-void MainWindow::menuImport_triggered()
-{
-    qDebug() << "Import";
 }
 
 void MainWindow::menuRotateClockwise_triggered()
