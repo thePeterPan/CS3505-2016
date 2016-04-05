@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     frame.cpp \
     graphicsscene.cpp \
     newfiledialog.cpp \
-    helpdialog.cpp
+    helpdialog.cpp \
+    previewscene.cpp
 
 HEADERS  += mainwindow.h \
     editor_model.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     frame.h \
     graphicsscene.h \
     newfiledialog.h \
-    helpdialog.h
+    helpdialog.h \
+    previewscene.h
 
 FORMS    += mainwindow.ui \
     newfiledialog.ui \

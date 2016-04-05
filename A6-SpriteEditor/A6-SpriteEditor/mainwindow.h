@@ -24,6 +24,7 @@
 #include "graphicsscene.h"
 #include "editor_model.h"
 #include "newfiledialog.h"
+#include "previewscene.h"
 
 namespace Ui {
 class MainWindow;
@@ -43,11 +44,13 @@ private:
     Ui::MainWindow *ui;
     GraphicsScene* scene;
     editor_model* model;
+    PreviewScene* preview;
 
     void connectSignalsAndSlots();
     void initializeUIDefaults();
 
     void setNewGraphicsScene();
+    void setNewPreviewScene();
 
 signals:
 

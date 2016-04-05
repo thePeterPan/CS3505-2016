@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     update_currentFrameStatus(0,1);
 
     setNewGraphicsScene();
+    setNewPreviewScene();
 
     connectSignalsAndSlots();
     initializeUIDefaults();
@@ -26,6 +27,13 @@ void MainWindow::setNewGraphicsScene()
     model->setBrushColor(ui->colorWheel_widget->color());
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
+}
+
+void MainWindow::setNewPreviewScene()
+{
+    preview = new PreviewScene(model, ui->graphicsView);
+    ui->preview_graphicsView->setScene(preview);
+    ui->preview_graphicsView->show();
 }
 
 /**
