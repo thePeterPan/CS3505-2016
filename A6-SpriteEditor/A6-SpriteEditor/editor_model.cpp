@@ -250,8 +250,8 @@ void editor_model::loadSpriteFromFile(QString path)
 
     // Get the wdith and the height from the file.
     QStringList widthAndHeight = in.readLine().split(" ");
-    int width = widthAndHeight[0].toInt();
-    int height = widthAndHeight[1].toInt();
+    int height = widthAndHeight[0].toInt();
+    int width = widthAndHeight[1].toInt();
 
     // Initialize a new sprite
     sprite_main = new Sprite(width, height);

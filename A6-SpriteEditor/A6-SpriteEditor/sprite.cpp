@@ -147,7 +147,7 @@ void Sprite::invertCurrentFrameColor()
 QString Sprite::toString()
 {
     QString result =
-            QString::number(width) + " " + QString::number(height) + "\n" +
+            QString::number(height) + " " + QString::number(width) + "\n" +
             QString::number(frames.size()) + "\n";
     foreach (Frame* frame, frames)
     {
