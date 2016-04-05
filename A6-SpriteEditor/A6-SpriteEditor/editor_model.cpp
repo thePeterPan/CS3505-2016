@@ -359,6 +359,11 @@ void editor_model::exportSpriteAsGIF(QString path)
     }
 }
 
+void editor_model::newSprite()
+{
+    file_path = "";
+}
+
 void editor_model::iterateThroughFrames()
 {
     this->setCurrentFrame(0);

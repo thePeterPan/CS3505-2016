@@ -78,6 +78,7 @@ public:
     void saveToFile(QString path);
     void loadSpriteFromFile(QString path);
     void exportSpriteAsGIF(QString path);
+    void newSprite();
 
     // play button preview
     void iterateThroughFrames();

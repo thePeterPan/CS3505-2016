@@ -140,6 +140,7 @@ void MainWindow::menuNewFile_triggered()
     {
         Sprite* s = new Sprite(dialog.getWidth(), dialog.getHeight());
         model->setSprite(s);
+        model->newSprite();
         scene->redrawScene();
     }
 }
