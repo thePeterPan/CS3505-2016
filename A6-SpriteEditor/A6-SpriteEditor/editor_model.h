@@ -41,8 +41,7 @@ public:
         BRUSH,
         FILL_BUCKET,
         ERASER,
-        MIRROR,
-        PAN
+        MIRROR
     };
     void setCurrentTool(Tool tool);
     Tool getCurrentTool();
@@ -79,6 +78,7 @@ public:
     void saveToFile(QString path);
     void loadSpriteFromFile(QString path);
     void exportSpriteAsGIF(QString path);
+    void newSprite();
 
     // play button preview
     void iterateThroughFrames();
@@ -87,7 +87,7 @@ private:
     // State variables:
     AnimatorState currentState;
     QString filePath;
-    bool fileSaved;
+    bool fileIsSaved;
     QColor brushColor;
     Tool currentTool;
     int playbackSpeed;
@@ -106,6 +106,8 @@ signals:
     void squareUpdated(int x, int y);
     void frameUpdated(int currentFrame, int numOfFrames);
     void toolChanged(Tool new_tool);
+
+    void fileSaved(bool status);
 
 public slots:
     void moveToNextFrame();

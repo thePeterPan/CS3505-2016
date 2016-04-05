@@ -126,15 +126,21 @@ void Frame::rotate(bool clockwise)
     frameMatrix = flipped;
 }
 
+/**
+ * @brief Frame::flip
+ * @param vertical - true if vertical, false if horizontal
+ */
 void Frame::flip(bool vertical)
 {
     QVector<QVector<QColor>> temp(frameMatrix);
+    // Vertical flip
     if (vertical)
     {       
         for (int x = 0; x < width; ++x)
             for (int y = 0; y < height; ++y)
                 frameMatrix[x][y] = temp[x][height - 1 - y];
     }
+    // Horizontal flip
     else
     {
         for (int x = 0; x < width; ++x)
@@ -143,7 +149,10 @@ void Frame::flip(bool vertical)
     }
 
 }
-
+/**
+ * @brief Frame::invert
+ * Invert the colors of the frame
+ */
 void Frame::invert()
 {
     for (int x = 0; x < width; ++x)
@@ -156,7 +165,10 @@ void Frame::invert()
             frameMatrix[x][y] = invert;
         }
 }
-
+/**
+ * @brief Frame::toString
+ * @return
+ */
 QString Frame::toString()
 {
     QString result;
@@ -171,7 +183,11 @@ QString Frame::toString()
     }
     return result;
 }
-
+/**
+ * @brief Frame::toRgbaString
+ * @param color
+ * @return
+ */
 QString Frame::toRgbaString(QColor color)
 {
     return QString::number(color.red())   + " " +
@@ -179,7 +195,10 @@ QString Frame::toRgbaString(QColor color)
             QString::number(color.blue())  + " " +
             QString::number(color.alpha()) + " ";
 }
-
+/**
+ * @brief Frame::toQImage
+ * @return
+ */
 QImage *Frame::toQImage()
 {
     int pixelSize = 20;
@@ -189,14 +208,20 @@ QImage *Frame::toQImage()
         for (int j = 0; j < height; j++)
         {
             QColor tempColor = frameMatrix[i][j];
-//            newImage->setPixel(i,j,tempColor.rgba());
             drawRealPixelSizeToQImage(newImage, i, j, pixelSize, tempColor);
         }
     }
 
     return newImage;
 }
-
+/**
+ * @brief Frame::drawRealPixelSizeToQImage
+ * @param image
+ * @param x
+ * @param y
+ * @param pixelSize
+ * @param color
+ */
 void Frame::drawRealPixelSizeToQImage(QImage *image, int x, int y, int pixelSize, QColor color)
 {
     int realXStartingPixel = x * pixelSize;

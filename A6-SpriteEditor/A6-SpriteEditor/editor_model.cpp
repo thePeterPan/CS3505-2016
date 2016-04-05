@@ -96,6 +96,7 @@ void EditorModel::paintCommand(int x, int y)
     } else if (currentTool == EditorModel::ERASER) {
         eraseSquare(x, y);
     }
+    emit fileSaved(false);
 }
 
 /**
@@ -189,6 +190,7 @@ void EditorModel::rotateScene(bool direction)
 {
     spriteMain->rotateCurrentFrame(direction);
     emit sceneUpdated();
+    emit fileSaved(false);
 }
 
 /**
@@ -201,6 +203,7 @@ void EditorModel::flipSceneOrientation(bool orientation)
 {
     spriteMain->flipCurrentFrameOrientation(orientation);
     emit sceneUpdated();
+    emit fileSaved(false);
 }
 
 /**
@@ -212,6 +215,7 @@ void EditorModel::invertSceneColors()
 {
     spriteMain->invertCurrentFrameColor();
     emit sceneUpdated();
+    emit fileSaved(false);
 }
 
 //// Frame Methods ////
@@ -247,7 +251,9 @@ void EditorModel::addFrame()
 {
     spriteMain->addFrameAfterCurrentIndex();
     emit sceneUpdated();
+
     emit frameUpdated(spriteMain->getCurrentFrameIndex(), spriteMain->getAnimationLength());
+    emit fileSaved(false);
 }
 
 /**
@@ -259,7 +265,9 @@ void EditorModel::removeFrame()
 {
     spriteMain->removeCurrentFrame();
     emit sceneUpdated();
+
     emit frameUpdated(spriteMain->getCurrentFrameIndex(), spriteMain->getAnimationLength());
+    emit fileSaved(false);
 }
 
 /**
@@ -315,7 +323,7 @@ int EditorModel::getPlaybackSpeed()
  */
 bool EditorModel::getFileSavedStatus()
 {
-    return fileSaved;
+    return fileIsSaved;
 }
 
 /**
@@ -325,7 +333,7 @@ bool EditorModel::getFileSavedStatus()
  */
 void EditorModel::setFileSavedStatus(bool status)
 {
-    fileSaved = status;
+    fileIsSaved = status;
 }
 
 /**
@@ -353,6 +361,7 @@ void EditorModel::saveToFile(QString path)
     }
 
     filePath = path;
+    emit fileSaved(true);
 }
 
 /**
@@ -425,7 +434,9 @@ void EditorModel::loadSpriteFromFile(QString path)
     setCurrentFrame(0);
 
     emit sceneUpdated();
+
     emit frameUpdated(spriteMain->getCurrentFrameIndex(),spriteMain->getAnimationLength());
+    emit fileSaved(true);
 }
 
 /**
@@ -485,6 +496,13 @@ void EditorModel::exportSpriteAsGIF(QString path)
         // Was going to add code to delete 'tmp' folder, but I find that a little dangerous.
     }
 }
+
+
+void EditorModel::newSprite()
+{
+    filePath = "";
+}
+
 
 /**
  * @brief EditorModel::iterateThroughFrames
