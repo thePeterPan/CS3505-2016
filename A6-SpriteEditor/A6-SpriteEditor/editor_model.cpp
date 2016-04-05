@@ -229,7 +229,7 @@ QString editor_model::getFilePath()
 void editor_model::saveToFile(QString path)
 {
     QFile file(path);
-    if (file.open(QIODevice::ReadWrite))
+    if (file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
     {
         QTextStream stream(&file);
         stream << sprite_main->toString();
