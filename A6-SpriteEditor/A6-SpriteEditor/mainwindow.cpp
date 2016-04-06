@@ -155,6 +155,7 @@ void MainWindow::menuNewFile_triggered()
         model->setSprite(s);
         model->newSprite();
         scene->redrawScene();
+        update_currentFrameStatus(0,1);
 
         setWindowTitle("Sprite Editor - New Sprite");
     }
