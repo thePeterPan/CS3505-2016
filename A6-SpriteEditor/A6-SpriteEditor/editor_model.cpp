@@ -8,6 +8,10 @@ EditorModel::EditorModel(QObject *parent) :
     currentTool(BRUSH),
     playbackSpeed(1) { }
 
+EditorModel::~EditorModel()
+{
+    delete spriteMain;
+}
 
 //// Animator State ////
 

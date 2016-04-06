@@ -25,6 +25,7 @@ class EditorModel : public QObject
 
 public:
     explicit EditorModel(QObject *parent = 0);
+    ~EditorModel();
 
     // Indicates the state of the main view. e.g. if the main view
     // is currently playing the animation at the given speed.
