@@ -187,6 +187,15 @@ void Sprite::invertCurrentFrameColor()
     frames.at(currentFrameIndex)->invert();
 }
 
+/**
+ * @brief Sprite::paintEntireFrame Paints the entire frame a certain color
+ * @param color The color to paint the frame
+ */
+void Sprite::paintEntireFrame(QColor color)
+{
+    frames.at(currentFrameIndex)->setWholeFrameColor(color);
+}
+
 
 //// Save to file methods ////
 

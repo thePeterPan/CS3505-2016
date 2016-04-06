@@ -40,6 +40,7 @@ public:
     void rotateCurrentFrame(bool direction);
     void flipCurrentFrameOrientation(bool orientation);
     void invertCurrentFrameColor();
+    void paintEntireFrame(QColor color);
 
 
     // Save to file method

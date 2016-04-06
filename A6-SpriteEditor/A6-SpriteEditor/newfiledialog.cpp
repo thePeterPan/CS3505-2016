@@ -16,6 +16,8 @@ NewFileDialog::NewFileDialog(QWidget *parent) :
     ui->bgColor_colorLineEdit->hide();
     ui->bgColor_label->hide();
 
+    bgColorExists = false;
+
     connectSignalsAndSlots();
 }
 
