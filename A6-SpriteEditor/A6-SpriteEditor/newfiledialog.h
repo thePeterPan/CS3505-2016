@@ -25,17 +25,17 @@ public:
     int getWidth();
     int getHeight();
     QColor getBgColor();
+    bool hasBgColor();
 
 signals:
 
 private:
     Ui::NewFileDialog *ui;
+    bool bgColorExists;
 
     void connectSignalsAndSlots();
 
 private slots:
-//    void widthSpinBox_changed(int value);
-//    void heightSpinBox_changed(int value);
     void bgContentsComboBox_changed(int index);
     void titleLineEdit_edited(QString text);
 

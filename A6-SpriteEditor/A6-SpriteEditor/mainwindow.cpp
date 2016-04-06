@@ -25,6 +25,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete scene;
+    delete model;
+    delete preview;
 }
 
 /**
@@ -157,7 +160,10 @@ void MainWindow::menuNewFile_triggered()
         scene->redrawScene();
         update_currentFrameStatus(0,1);
 
-        setWindowTitle("Sprite Editor - New Sprite");
+        if(dialog.hasBgColor())
+            qDebug() << dialog.getBgColor();
+
+        setWindowTitle("Sprite Editor - " + dialog.getTitle());
     }
 }
 

@@ -43,7 +43,7 @@ public:
 public slots:
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
     GraphicsScene* scene;
     EditorModel* model;
     PreviewScene* preview;
