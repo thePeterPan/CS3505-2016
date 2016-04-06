@@ -43,7 +43,7 @@ void PreviewScene::showNextImage()
     imageIndex++;
     if(imageIndex >= maxindex)
     {
-        QTimer::singleShot(1,this,SLOT(updateSprite()));
+        QTimer::singleShot(1,this,SLOT(updateFromSprite()));
         imageIndex = 0;
     }
 
@@ -54,7 +54,7 @@ void PreviewScene::showNextImage()
  * @brief PreviewScene::updateSprite
  * Timer slot. This method is called when the image list needs to be refreshed.
  */
-void PreviewScene::updateSprite()
+void PreviewScene::updateFromSprite()
 {
     updateFrames();
 }
