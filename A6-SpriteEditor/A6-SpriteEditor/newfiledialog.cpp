@@ -75,7 +75,8 @@ void NewFileDialog::bgContentsComboBox_changed(int index)
         ui->bgColor_colorLineEdit->setEnabled(false);
         ui->bgColor_colorLineEdit->hide();
         ui->bgColor_label->hide();
-    } else if (index == 1)
+    }
+    else if (index == 1)
     {
         bgColorExists = true;
         ui->bgColor_colorLineEdit->setEnabled(true);
@@ -101,6 +102,10 @@ void NewFileDialog::titleLineEdit_edited(QString text)
     }
 }
 
+/**
+ * @brief NewFileDialog::hasBgColor Method to check if the user specified a background color.
+ * @return true if a background color exists, otherwise false
+ */
 bool NewFileDialog::hasBgColor()
 {
     return bgColorExists;
@@ -108,7 +113,7 @@ bool NewFileDialog::hasBgColor()
 
 /**
  * @brief NewFileDialog::getTitle
- * @return
+ * @return the title of the sprite specified by the user
  */
 QString NewFileDialog::getTitle()
 {
@@ -137,7 +142,7 @@ int NewFileDialog::getHeight()
 
 /**
  * @brief NewFileDialog::getBgColor
- * Gets the background color, if one was specified.
+ * Gets the background color selected by the user.
  * @return
  */
 QColor NewFileDialog::getBgColor()

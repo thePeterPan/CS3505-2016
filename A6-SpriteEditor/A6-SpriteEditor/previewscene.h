@@ -14,26 +14,23 @@ class PreviewScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-
     PreviewScene(EditorModel* model, QObject *parent = 0, int width = 230, int height=218);
 
 private:
-
     // Model
     EditorModel* model;
 
-    //Parameters
+    // Parameters
     int width, height;
-    int index, maxindex;
+    int imageIndex, maxindex;
     QList<QImage*> frames;
 
+    // Methods
     void updateFrames();
 
 protected slots:
-
     void updateSprite();
     void showNextImage();
 };
-
 
 #endif // PREVIEWSCENE_H

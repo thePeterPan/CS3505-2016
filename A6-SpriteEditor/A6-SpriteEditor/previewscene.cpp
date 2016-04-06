@@ -1,33 +1,51 @@
 #include "previewscene.h"
 
+/**
+ * @brief PreviewScene::PreviewScene Creates a new preview window.
+ * @param _model: The model that controls this window.
+ * @param parent: The Ui that this window is displayed in.
+ * @param _width: Optional. Default value is 230, which is the size of the space in the Ui
+ * @param _height: Optional. Default value is 218, which is the size of the space in the Ui
+ */
 PreviewScene::PreviewScene(EditorModel* _model, QObject* parent, int _width, int _height) :
     QGraphicsScene(parent), model(_model), width(_width), height(_height)
 {
     updateFrames();
-    index = 0;
+    imageIndex = 0;
 
     this->setSceneRect(0,0,width,height);
 
     QTimer::singleShot(500, this, SLOT(showNextImage()));
 }
 
+/**
+ * @brief PreviewScene::updateFrames
+ * Gets all of the frames from the model as QImages.
+ * This method refreshes the images that the preview window shows.
+ */
 void PreviewScene::updateFrames()
 {
     this->frames = model->getSprite()->getFramesAsImages();
     this->maxindex = frames.size();
 }
 
+/**
+ * @brief PreviewScene::showNextImage
+ * Clears off the last image and shows the next image in the sprite.
+ * Once all images have been shown, the window refreshes the list of images
+ * and starts over from the beginning.
+ */
 void PreviewScene::showNextImage()
 {
     this->clear();
-    this->addPixmap(QPixmap::fromImage(frames.at(index)->scaled(width,height,Qt::KeepAspectRatio)));
+    this->addPixmap(QPixmap::fromImage(frames.at(imageIndex)->scaled(width,height,Qt::KeepAspectRatio)));
 
-    index++;
-    if(index >= maxindex)
+    imageIndex++;
+    if(imageIndex >= maxindex)
     {
         //At the end of the animation, so refresh the images and then start again.
         QTimer::singleShot(1,this,SLOT(updateSprite()));
-        index = 0;
+        imageIndex = 0;
     }
 
     QTimer::singleShot(1000/model->getPlaybackSpeed(), this, SLOT(showNextImage()));
@@ -35,7 +53,7 @@ void PreviewScene::showNextImage()
 
 /**
  * @brief PreviewScene::updateSprite
- * Updates the info that it has on the sprite at every timer tick.
+ * Timer slot. This method is called when the image list needs to be refreshed.
  */
 void PreviewScene::updateSprite()
 {

@@ -157,12 +157,14 @@ void MainWindow::menuNewFile_triggered()
         Sprite* s = new Sprite(dialog.getWidth(), dialog.getHeight());
         model->setSprite(s);
         model->newSprite();
+
         if(dialog.hasBgColor())
+        {
             model->getSprite()->paintEntireFrame(dialog.getBgColor());
+        }
+
         scene->redrawScene();
         update_currentFrameStatus(0,1);
-
-
 
         setWindowTitle("Sprite Editor - " + dialog.getTitle());
     }
