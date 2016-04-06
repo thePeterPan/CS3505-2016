@@ -17,6 +17,7 @@
 
 class GraphicsScene : public QGraphicsScene
 {
+    Q_OBJECT
 
 public:
 

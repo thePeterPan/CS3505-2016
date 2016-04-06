@@ -14,6 +14,7 @@
 class Sprite : public QObject
 {
     Q_OBJECT
+
 public:
     explicit Sprite(QObject *parent = 0);
     explicit Sprite(int width_, int height_, QObject * parent = 0);

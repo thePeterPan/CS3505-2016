@@ -13,6 +13,7 @@
 class PreviewScene : public QGraphicsScene
 {
     Q_OBJECT
+
 public:
     PreviewScene(EditorModel* model, QObject *parent = 0, int width = 230, int height=218);
 

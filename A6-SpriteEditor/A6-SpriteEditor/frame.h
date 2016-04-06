@@ -13,6 +13,7 @@ using namespace std;
 class Frame : public QObject
 {
     Q_OBJECT
+
 public:
     explicit Frame(QObject *parent = 0);
     explicit Frame(int width_, int height, QObject *parent = 0);

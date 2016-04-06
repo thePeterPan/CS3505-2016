@@ -22,6 +22,7 @@
 class EditorModel : public QObject
 {
     Q_OBJECT
+
 public:
     explicit EditorModel(QObject *parent = 0);
 
