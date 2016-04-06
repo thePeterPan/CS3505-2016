@@ -8,6 +8,9 @@ EditorModel::EditorModel(QObject *parent) :
     currentTool(BRUSH),
     playbackSpeed(1) { }
 
+/**
+ * @brief EditorModel::~EditorModel
+ */
 EditorModel::~EditorModel()
 {
     delete spriteMain;
@@ -33,7 +36,6 @@ EditorModel::AnimatorState EditorModel::getAnimatorState()
 {
     return currentState;
 }
-
 
 //// Current Tool ////
 
@@ -317,7 +319,6 @@ int EditorModel::getPlaybackSpeed()
     return playbackSpeed;
 }
 
-
 //// Saving/loading ////
 
 /**
@@ -501,12 +502,14 @@ void EditorModel::exportSpriteAsGIF(QString path)
     }
 }
 
-
+/**
+ * @brief EditorModel::newSprite
+ * Clears the filepath.
+ */
 void EditorModel::newSprite()
 {
     filePath = "";
 }
-
 
 /**
  * @brief EditorModel::iterateThroughFrames

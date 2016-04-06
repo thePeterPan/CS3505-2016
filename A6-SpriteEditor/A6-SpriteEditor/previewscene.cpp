@@ -8,12 +8,12 @@
  * @param _height: Optional. Default value is 218, which is the size of the space in the Ui
  */
 PreviewScene::PreviewScene(EditorModel* _model, QObject* parent, int _width, int _height) :
-    QGraphicsScene(parent), model(_model), width(_width), height(_height)
+    QGraphicsScene(parent), model(_model), sceneWidth(_width), sceneHeight(_height)
 {
     updateFrames();
     imageIndex = 0;
 
-    this->setSceneRect(0,0,width,height);
+    this->setSceneRect(0,0,sceneWidth,sceneHeight);
 
     QTimer::singleShot(500, this, SLOT(showNextImage()));
 }
@@ -38,12 +38,11 @@ void PreviewScene::updateFrames()
 void PreviewScene::showNextImage()
 {
     this->clear();
-    this->addPixmap(QPixmap::fromImage(frames.at(imageIndex)->scaled(width,height,Qt::KeepAspectRatio)));
+    this->addPixmap(QPixmap::fromImage(frames.at(imageIndex)->scaled(sceneWidth,sceneHeight,Qt::KeepAspectRatio)));
 
     imageIndex++;
     if(imageIndex >= maxindex)
     {
-        //At the end of the animation, so refresh the images and then start again.
         QTimer::singleShot(1,this,SLOT(updateSprite()));
         imageIndex = 0;
     }
