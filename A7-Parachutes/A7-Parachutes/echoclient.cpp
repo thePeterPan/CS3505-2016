@@ -1,15 +1,5 @@
 /****************************************************************************
 **
-** http://doc.qt.io/qt-5/qtwebsockets-index.html
-**
-**
-** http://doc.qt.io/qt-4.8/qtcpserver.html
-** https://github.com/qtproject/qtwebsockets
-** http://stefanfrings.de/qtwebapp/index-en.html
-** http://doc.qt.io/qt-5/qtwebsockets-index.html
-** http://doc.qt.io/qt-5/qtwebsockets-examples.html
-** https://github.com/qtproject/qt-solutions/tree/master/qtservice
-**
 ** Copyright (C) 2014 Kurt Pattyn <pattyn.kurt@gmail.com>.
 ** Contact: http://www.qt.io/licensing/
 **
@@ -40,32 +30,35 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-#include <QtCore/QCoreApplication>
-#include <QtCore/QCommandLineParser>
-#include <QtCore/QCommandLineOption>
-#include "echoserver.h"
+#include "echoclient.h"
+#include <QtCore/QDebug>
 
-int main(int argc, char *argv[])
+QT_USE_NAMESPACE
+
+EchoClient::EchoClient(const QUrl &url, bool debug, QObject *parent) :
+    QObject(parent),
+    m_url(url),
+    m_debug(debug)
 {
-    QCoreApplication a(argc, argv);
+    if (m_debug)
+        qDebug() << "WebSocket server:" << url;
+    connect(&m_webSocket, &QWebSocket::connected, this, &EchoClient::onConnected);
+    connect(&m_webSocket, &QWebSocket::disconnected, this, &EchoClient::closed);
+    m_webSocket.open(QUrl(url));
+}
 
-    QCommandLineParser parser;
-    parser.setApplicationDescription("QtWebSockets example: echoserver");
-    parser.addHelpOption();
+void EchoClient::onConnected()
+{
+    if (m_debug)
+        qDebug() << "WebSocket connected";
+    connect(&m_webSocket, &QWebSocket::textMessageReceived,
+            this, &EchoClient::onTextMessageReceived);
+    m_webSocket.sendTextMessage(QStringLiteral("Hello, world!"));
+}
 
-    QCommandLineOption dbgOption(QStringList() << "d" << "debug",
-            QCoreApplication::translate("main", "Debug output [default: off]."));
-    parser.addOption(dbgOption);
-    QCommandLineOption portOption(QStringList() << "p" << "port",
-            QCoreApplication::translate("main", "Port for echoserver [default: 1234]."),
-            QCoreApplication::translate("main", "port"), QLatin1Literal("1234"));
-    parser.addOption(portOption);
-    parser.process(a);
-    bool debug = parser.isSet(dbgOption);
-    int port = parser.value(portOption).toInt();
-
-    EchoServer *server = new EchoServer(port, debug);
-    QObject::connect(server, &EchoServer::closed, &a, &QCoreApplication::quit);
-
-    return a.exec();
+void EchoClient::onTextMessageReceived(QString message)
+{
+    if (m_debug)
+        qDebug() << "Message received:" << message;
+    m_webSocket.close();
 }

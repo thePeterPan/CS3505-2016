@@ -1,15 +1,5 @@
 /****************************************************************************
 **
-** http://doc.qt.io/qt-5/qtwebsockets-index.html
-**
-**
-** http://doc.qt.io/qt-4.8/qtcpserver.html
-** https://github.com/qtproject/qtwebsockets
-** http://stefanfrings.de/qtwebapp/index-en.html
-** http://doc.qt.io/qt-5/qtwebsockets-index.html
-** http://doc.qt.io/qt-5/qtwebsockets-examples.html
-** https://github.com/qtproject/qt-solutions/tree/master/qtservice
-**
 ** Copyright (C) 2014 Kurt Pattyn <pattyn.kurt@gmail.com>.
 ** Contact: http://www.qt.io/licensing/
 **
@@ -40,32 +30,29 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-#include <QtCore/QCoreApplication>
-#include <QtCore/QCommandLineParser>
-#include <QtCore/QCommandLineOption>
-#include "echoserver.h"
+#ifndef ECHOCLIENT_H
+#define ECHOCLIENT_H
 
-int main(int argc, char *argv[])
+#include <QtCore/QObject>
+#include <QtWebSockets/QWebSocket>
+
+class EchoClient : public QObject
 {
-    QCoreApplication a(argc, argv);
+    Q_OBJECT
+public:
+    explicit EchoClient(const QUrl &url, bool debug = false, QObject *parent = Q_NULLPTR);
 
-    QCommandLineParser parser;
-    parser.setApplicationDescription("QtWebSockets example: echoserver");
-    parser.addHelpOption();
+Q_SIGNALS:
+    void closed();
 
-    QCommandLineOption dbgOption(QStringList() << "d" << "debug",
-            QCoreApplication::translate("main", "Debug output [default: off]."));
-    parser.addOption(dbgOption);
-    QCommandLineOption portOption(QStringList() << "p" << "port",
-            QCoreApplication::translate("main", "Port for echoserver [default: 1234]."),
-            QCoreApplication::translate("main", "port"), QLatin1Literal("1234"));
-    parser.addOption(portOption);
-    parser.process(a);
-    bool debug = parser.isSet(dbgOption);
-    int port = parser.value(portOption).toInt();
+private Q_SLOTS:
+    void onConnected();
+    void onTextMessageReceived(QString message);
 
-    EchoServer *server = new EchoServer(port, debug);
-    QObject::connect(server, &EchoServer::closed, &a, &QCoreApplication::quit);
+private:
+    QWebSocket m_webSocket;
+    QUrl m_url;
+    bool m_debug;
+};
 
-    return a.exec();
-}
+#endif // ECHOCLIENT_H
