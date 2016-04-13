@@ -16,6 +16,7 @@ before_install:
 env:
 - DIR=A6-SpriteEditor/A6-SpriteEditor
 - DIR=A7-Parachutes/A7-Parachutes
+- DIR=A7-Parachutes/A7-Server
 
 install:
 # - sudo apt-get -y install qt55[QTPACKAGE]
