@@ -2,24 +2,30 @@ sudo: required
 dist: trusty
 
 addons:
-  apt: 
-   sources: ['ubuntu-toolchain-r-test'] # 'beineri-opt-qt551-trusty']
-   # packages: ['gcc-4.8', 'g++-4.8', 'libboost-dev', 'libgtest-dev']
-   packages: ['g++-4.8','libgtest-dev']
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+    - libgtest-dev
 
 before_install:
-  # - sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted"
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt551-trusty
-  - sudo apt-get update -qq
-  
-env: ['DIR=A6-SpriteEditor/A6-SpriteEditor']
+- sudo add-apt-repository --yes ppa:beineri/opt-qt551-trusty
+- sudo apt-get update -qq
+
+env:
+- DIR=A6-SpriteEditor/A6-SpriteEditor
 
 install:
-  # - sudo apt-get -y install qt55[QTPACKAGE]
-  - sudo apt-get -y install qt55creator qt55graphicaleffects qt55connectivity
+# - sudo apt-get -y install qt55[QTPACKAGE]
+- sudo apt-get -y install qt55creator qt55graphicaleffects qt55connectivity
 
 script:
-  - cd $DIR
-  - source /opt/qt55/bin/qt55-env.sh
-  - /opt/qt55/bin/qmake
-  - make
+- cd $DIR
+- source /opt/qt55/bin/qt55-env.sh
+- "/opt/qt55/bin/qmake"
+- make
+
+notifications:
+  slack:
+    secure: kza099g0+jcGNX7idHXVD/0/J3BsiV+/Ltf5t/WNJLFxH+yOlSzdYFgHC9rfWFL0E+pHM4CEVUTEQWb5uPyJpHM+pYmyIUm7gSNhW9y3YHfEuOVrZYV09OHv65DPmoS2UTOls9WQX4GNGBeEwp36Mq1EoobDBlGAofrCpZG8SBA1WQKdRpxX/dQ4bsS6v+DaaFDC+hUBIId8nBIxwQX+qp2le3NgHojfQVkzWCZD36sNSTCgryT5i8XLNR1SzzhDt8C+I+Glcr8whH8qnjzs0d86jpyvgqZNd+rA6kn3jIYVwiRsnLgCCfjgPfzY1WUYNdXTDl9w3WhbQXTIEGFTp4sLNo7oW6ZS2AoKHe/KXY4BYHT/X5zPeblafUTI5mor0EE55bi0/G1cAraiMdQXID4D33Ojpt4psNJfhFsrwjo9S3GWfHSprtAeZmm2vfoSxBG1x6SNjkxgzXkFvA7ju5li4WP7BUUQ+eFK6yNQs3QBxw6ftDnLAldwRRkw/tAtf3nHOOK7bJZHTUagg5QvJTgHxOJs+xdmPXKgiqd8QwTaRA/Zd4ry8R9rj80WooqJ+wMlDdVUfj1t+6T18d7IBiwcqpwyvVh2Mevd278MXApo+fI9X9kWCt+ELFj2W0svV2TgL8iUgQGtGcbqXaR4Sx1UD8wncfzy0wd5GelmLmc=
