@@ -45,6 +45,8 @@
 #include <QtCore/QCommandLineOption>
 #include "echoserver.h"
 
+#include "tcpserver.h"
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
@@ -66,6 +68,8 @@ int main(int argc, char *argv[])
 
     EchoServer *server = new EchoServer(port, debug);
     QObject::connect(server, &EchoServer::closed, &a, &QCoreApplication::quit);
+
+    TcpServer tcpServer;
 
     return a.exec();
 }

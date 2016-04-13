@@ -17,12 +17,10 @@ TEMPLATE = app
 SOURCES += main.cpp\
     mainwindow.cpp \
     Trie/Node.cpp \
-    Trie/Trie.cpp \
-    echoclient.cpp
+    Trie/Trie.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
-    Trie/Trie.h \
-    echoclient.h
+    Trie/Trie.h
 
 FORMS    += mainwindow.ui

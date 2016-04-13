@@ -10,10 +10,12 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    echoserver.cpp
+    echoserver.cpp \
+    tcpserver.cpp
 
 HEADERS += \
-    echoserver.h
+    echoserver.h \
+    tcpserver.h
 
 DISTFILES += \
     echoclient.html
