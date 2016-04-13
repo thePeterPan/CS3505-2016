@@ -16,9 +16,6 @@ Trie::Trie()
 //destructor
 Trie::~Trie()
 {
-	//cout << "entering trie destructor" << endl;
-	//vector<string>* vec;
-	//allWordsInNode("", vec , &rootNode);
 	//delete each node in the trie
 	//I think I just need to go through the trie and delete? each Node
 	traverseDeleteRecursion(&rootNode);
@@ -50,14 +47,11 @@ void Trie::addWord(string newWord)
 	for (unsigned int i = 0; i < newWord.size(); i++)
 	{
 		int index = getIndexFromChar(newWord[i]);
-		//if (currentNode->nodePointerArr[index] == nullptr)
 		if (currentNode->getChild(index) == nullptr)
 		{
-
 			//add new Node
 			currentNode->nodePointerArr[index] = new Node();
 			currentNode = currentNode->nodePointerArr[index];
-			//currentNode->getChild(index) = currentNode;
 		}
 		else 
 			currentNode = currentNode->nodePointerArr[index];
@@ -78,7 +72,6 @@ bool Trie::isWord(string possibleWord)
 		else
 		{
 			currentNode = currentNode->getChild(index);
-			//cout << getCharFromIndex(index);
 		}
 	}
 	
@@ -140,7 +133,6 @@ void Trie::allWordsInNode(string tempString, vector<string>* wordVector, Node* c
 	Node* childNode;
 	//check to see if any of the pointers in the nodePointerArray are not null,
 	//if they aren't null, then the base case has not been reached and the recursion must continue.	
-	//tempString.pop_back();
 	for (int i = 0; i < 26; i++)
 	{
 		if (currentNode->nodePointerArr[i] != nullptr)
@@ -160,20 +152,16 @@ void Trie::allWordsInNode(string tempString, vector<string>* wordVector, Node* c
 
 void Trie::traverseDeleteRecursion(Node* currentNode)
 {
-	//cout << "entering delete recursive method" << endl;
 	Node* childNode;
 	//check to see if any of the pointers in the nodePointerArray are not null,
 	//if they aren't null, then the base case has not been reached and the recursion must continue.	
-	//tempString.pop_back();
 	for (int i = 0; i < 26; i++)
 	{
 		if (currentNode->nodePointerArr[i] != nullptr)
 		{
-
 			childNode = currentNode->getChild(i);
 			traverseDeleteRecursion(childNode);
 			delete childNode;
-			//cout << "deleting node..." << endl;
 		}
 
 	}
@@ -186,7 +174,6 @@ void Trie::traverseCopyRecursion(Node* currentNode, const Node* otherCurrent)
 	//Node* otherChildNode;
 	//check to see if any of the pointers in the nodePointerArray are not null,
 	//if they aren't null, then the base case has not been reached and the recursion must continue.	
-	//tempString.pop_back();
 	for (int i = 0; i < 26; i++)
 	{
 		if (otherCurrent->nodePointerArr[i] != nullptr)
