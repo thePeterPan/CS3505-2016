@@ -1,4 +1,4 @@
-QT += core websockets network
+QT += core network # websockets
 QT -= gui
 
 CONFIG += c++11
@@ -10,11 +10,11 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    echoserver.cpp \
+#    echoserver.cpp \
     tcpserver.cpp
 
 HEADERS += \
-    echoserver.h \
+#    echoserver.h \
     tcpserver.h
 
 DISTFILES += \

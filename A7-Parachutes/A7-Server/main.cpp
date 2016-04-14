@@ -1,7 +1,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QCommandLineParser>
 #include <QtCore/QCommandLineOption>
-#include "echoserver.h"
+//#include "echoserver.h"
 
 #include "tcpserver.h"
 #include "httplistener.h"
@@ -28,16 +28,16 @@ int main(int argc, char *argv[])
     bool debug = parser.isSet(dbgOption);
     int port = parser.value(portOption).toInt();
 
-    EchoServer *server = new EchoServer(port, debug);
-    QObject::connect(server, &EchoServer::closed, &a, &QCoreApplication::quit);
+//    EchoServer *server = new EchoServer(port, debug);
+//    QObject::connect(server, &EchoServer::closed, &a, &QCoreApplication::quit);
 
     // TcpServer:
     TcpServer tcpServer;
 
     // QtWebApp:
-    QSettings* settings=new QSettings("configfile.ini",QSettings::IniFormat,app);
-    MyRequestHandler* handler = new MyRequestHandler(app);
-    HttpListener* listener=new HttpListener(settings,handler,app);
+    QSettings* settings = new QSettings("configfile.ini", QSettings::IniFormat, &a);
+//    MyRequestHandler* handler = new MyRequestHandler(app);
+//    HttpListener* listener = new HttpListener(settings, handler, app);
 
     return a.exec();
 }
