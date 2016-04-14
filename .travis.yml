@@ -20,7 +20,8 @@ env:
 
 install:
 # - sudo apt-get -y install qt55[QTPACKAGE]
-- sudo apt-get -y install qt55creator qt55graphicaleffects qt55connectivity qt55quick1 qt55quickcontrols qt55qbs qt55canvas3d qt55tools 
+- sudo apt-get -y install qt55creator qt55graphicaleffects qt55connectivity qt55quick1 qt55quickcontrols qt55qbs qt55canvas3d qt55tools
+- sudo apt-get -y install qttools5-dev
 
 script:
 - cd $DIR
