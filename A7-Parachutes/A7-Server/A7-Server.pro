@@ -22,16 +22,16 @@ HEADERS += \
 DISTFILES += \
     index.html \
     echoclient.html \
-    configfile.ini
+    A7-Server.ini
 
 include(QtWebApp/QtWebApp.pro)
 
 # Source: http://stackoverflow.com/questions/19066593/copy-a-file-to-build-directory-after-compiling-project-with-qt
 # Source: http://dragly.org/2013/11/05/copying-data-files-to-the-build-directory-when-working-with-qmake/
 copyini.commands = $(COPY_DIR) $$PWD/*.ini $$OUT_PWD
-copyhtml.commands = $(COPY_DIR) $$PWD/*.html $$OUT_PWD
-first.depends = $(first) copyini copyhtml
+copydocroot.commands = $(COPY_DIR) $$PWD/docroot $$OUT_PWD
+first.depends = $(first) copyini copydocroot
 export(first.depends)
 export(copyini.commands)
-export(copyhtml.commands)
-QMAKE_EXTRA_TARGETS += first copyini copyhtml
+export(copydocroot.commands)
+QMAKE_EXTRA_TARGETS += first copyini copydocroot
