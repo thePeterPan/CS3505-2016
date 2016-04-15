@@ -18,10 +18,8 @@ HEADERS += \
     tcpserver.h
 
 DISTFILES += \
+    index.html \
     echoclient.html \
     configfile.ini
 
-include(QtWebApp/qtservice/qtservice.pri)
-include(QtWebApp/httpserver/httpserver.pri)
-include(QtWebApp/logging/logging.pri)
-include(QtWebApp/templateengine/templateengine.pri)
+include(QtWebApp/QtWebApp.pro)

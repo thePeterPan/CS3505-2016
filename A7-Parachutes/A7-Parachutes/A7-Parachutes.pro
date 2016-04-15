@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui websockets
+QT       += core gui # websockets
 
 QMAKE_CXXFLAGS += -std=c++0x
 

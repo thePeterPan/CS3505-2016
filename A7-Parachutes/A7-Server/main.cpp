@@ -8,11 +8,9 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QCoreApplication app(argc, argv);
 
     QCommandLineParser parser;
-    parser.setApplicationDescription("QtWebSockets example: echoserver");
-    parser.addHelpOption();
 
     QCommandLineOption dbgOption(QStringList() << "d" << "debug",
             QCoreApplication::translate("main", "Debug output [default: off]."));
@@ -23,7 +21,7 @@ int main(int argc, char *argv[])
             QCoreApplication::translate("main", "port"), QLatin1Literal("1234"));
     parser.addOption(portOption);
 
-    parser.process(a);
+    parser.process(app);
 
     bool debug = parser.isSet(dbgOption);
     int port = parser.value(portOption).toInt();
@@ -35,9 +33,9 @@ int main(int argc, char *argv[])
     TcpServer tcpServer;
 
     // QtWebApp:
-    QSettings* settings = new QSettings("configfile.ini", QSettings::IniFormat, &a);
+    QSettings* settings = new QSettings("configfile.ini", QSettings::IniFormat, &app);
 //    MyRequestHandler* handler = new MyRequestHandler(app);
 //    HttpListener* listener = new HttpListener(settings, handler, app);
 
-    return a.exec();
+    return app.exec();
 }
