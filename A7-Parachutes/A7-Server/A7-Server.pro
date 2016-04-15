@@ -26,7 +26,9 @@ DISTFILES += \
 
 include(QtWebApp/QtWebApp.pro)
 
-# if building on travis, add "CONFIG+=travis" to qmake command options
+# If building on travis, add "CONFIG+=travis" to qmake command options.
+# This is a hack to prevent travis build errors because the COPY_DIR command below
+# causes errors when it copies files into the exact same directory.
 travis { } else {
     # Source: http://stackoverflow.com/questions/19066593/copy-a-file-to-build-directory-after-compiling-project-with-qt
     # Source: http://dragly.org/2013/11/05/copying-data-files-to-the-build-directory-when-working-with-qmake/
