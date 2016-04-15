@@ -37,7 +37,9 @@ int main(int argc, char *argv[])
 //    TcpServer tcpServer;
 
     // QtWebApp:
-    QSettings* settings = new QSettings("configfile.ini", QSettings::IniFormat, &app);
+//    QSettings* settings = new QSettings("configfile.ini", QSettings::IniFormat, &app);
+    QSettings* settings = new QSettings(&app);
+    settings->setValue("port", parser.value(portOption));
     WebRequestHandler* handler = new WebRequestHandler(&app);
     HttpListener* listener = new HttpListener(settings, handler, &app);
 
