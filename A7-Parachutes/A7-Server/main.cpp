@@ -3,8 +3,12 @@
 #include <QtCore/QCommandLineOption>
 //#include "echoserver.h"
 
+// From 3rd party libraries
 #include "tcpserver.h"
 #include "httplistener.h"
+
+// Application internals
+#include "webrequesthandler.h"
 
 int main(int argc, char *argv[])
 {
@@ -29,13 +33,13 @@ int main(int argc, char *argv[])
 //    EchoServer *server = new EchoServer(port, debug);
 //    QObject::connect(server, &EchoServer::closed, &a, &QCoreApplication::quit);
 
-    // TcpServer:
-    TcpServer tcpServer;
+    // Create a TcpListener using QtTcpSocket:
+//    TcpServer tcpServer;
 
     // QtWebApp:
     QSettings* settings = new QSettings("configfile.ini", QSettings::IniFormat, &app);
-//    MyRequestHandler* handler = new MyRequestHandler(app);
-//    HttpListener* listener = new HttpListener(settings, handler, app);
+    WebRequestHandler* handler = new WebRequestHandler(&app);
+    HttpListener* listener = new HttpListener(settings, handler, &app);
 
     return app.exec();
 }

@@ -11,11 +11,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
 #    echoserver.cpp \
-    tcpserver.cpp
+    tcpserver.cpp \
+    webrequesthandler.cpp
 
 HEADERS += \
 #    echoserver.h \
-    tcpserver.h
+    tcpserver.h \
+    webrequesthandler.h
 
 DISTFILES += \
     index.html \
