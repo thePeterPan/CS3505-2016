@@ -26,7 +26,8 @@ DISTFILES += \
 
 include(QtWebApp/QtWebApp.pro)
 
-contains($$PWD, $$OUT_PWD) { } else {
+# if building on travis, add "CONFIG+=travis" to qmake command options
+travis { } else {
     # Source: http://stackoverflow.com/questions/19066593/copy-a-file-to-build-directory-after-compiling-project-with-qt
     # Source: http://dragly.org/2013/11/05/copying-data-files-to-the-build-directory-when-working-with-qmake/
     copyini.commands = $(COPY_DIR) $$PWD/*.ini $$OUT_PWD
