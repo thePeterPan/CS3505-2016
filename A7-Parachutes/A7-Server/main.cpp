@@ -14,6 +14,7 @@
 
 QString searchConfigFile()
 {
+    // ini config file must share the name of the app
     QString binDir = QCoreApplication::applicationDirPath();
     QString appName = QCoreApplication::applicationName();
     QString fileName(appName + ".ini");
