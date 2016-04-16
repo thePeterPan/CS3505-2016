@@ -1,7 +1,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QCommandLineParser>
 #include <QtCore/QCommandLineOption>
-//#include "echoserver.h"
 #include <QDir>
 
 // From 3rd party libraries
@@ -10,6 +9,7 @@
 #include "httplistener.h"       // HttpListener
 
 // Application internals
+#include "echoserver.h"         // EchoServer
 #include "webrequesthandler.h"  // WebRequestHandler
 
 QString searchConfigFile()
@@ -97,8 +97,8 @@ int main(int argc, char *argv[])
     parser.process(app);
     // parser.value(portOption)
 
-//    bool debug = parser.isSet(dbgOption);
-//    int port = parser.value(portOption).toInt();
+    bool debug = parser.isSet(dbgOption);
+    int port = parser.value(portOption).toInt();
 
     launchWebServer(&parser, &app);
 

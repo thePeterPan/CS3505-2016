@@ -1,4 +1,4 @@
-QT += core network # websockets
+QT += core network
 QT -= gui
 
 CONFIG += c++11
@@ -10,12 +10,12 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-#    echoserver.cpp \
+    echoserver.cpp \
     tcpserver.cpp \
     webrequesthandler.cpp
 
 HEADERS += \
-#    echoserver.h \
+    echoserver.h \
     tcpserver.h \
     webrequesthandler.h
 
@@ -40,3 +40,5 @@ travis { } else {
     export(copydocroot.commands)
     QMAKE_EXTRA_TARGETS += first copyini copydocroot
 }
+
+include(QtWebSockets/websockets.pro)
