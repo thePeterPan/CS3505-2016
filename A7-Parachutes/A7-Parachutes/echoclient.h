@@ -51,7 +51,6 @@
 #define ECHOCLIENT_H
 
 #include <QtCore/QObject>
-//#include <QtWebSockets/QWebSocket>
 #include "QtWebSockets/qwebsocket.h"
 
 class EchoClient : public QObject
