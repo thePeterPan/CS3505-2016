@@ -18,12 +18,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
     mainwindow.cpp \
     Trie/Node.cpp \
-    Trie/Trie.cpp
+    Trie/Trie.cpp \
+    echoclient.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
-    Trie/Trie.h
+    Trie/Trie.h \
+    echoclient.h
 
 FORMS    += mainwindow.ui
 
 include(Box2D/Box2D.pro)
+
+include(QtWebSockets/websockets.pro)
