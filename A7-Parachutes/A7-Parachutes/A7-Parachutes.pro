@@ -4,9 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += core gui # websockets
+QT       += core gui
 
-QMAKE_CXXFLAGS += -std=c++0x
+#QMAKE_CXXFLAGS += -std=c++0x
+CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,3 +25,5 @@ HEADERS  += mainwindow.h \
     Trie/Trie.h
 
 FORMS    += mainwindow.ui
+
+include(Box2D/Box2D.pro)
