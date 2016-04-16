@@ -30,4 +30,9 @@ FORMS    += mainwindow.ui
 
 include(Box2D/Box2D.pro)
 
-include(QtWebSockets/websockets.pro)
+win32|macx {
+    QT += websockets
+}
+unix:!macx {
+    include(QtWebSockets/websockets.pro)
+}

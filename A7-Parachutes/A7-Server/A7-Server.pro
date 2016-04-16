@@ -41,4 +41,9 @@ travis { } else {
     QMAKE_EXTRA_TARGETS += first copyini copydocroot
 }
 
-include(QtWebSockets/websockets.pro)
+win32|macx {
+    QT += websockets
+}
+unix:!macx {
+    include(QtWebSockets/websockets.pro)
+}
