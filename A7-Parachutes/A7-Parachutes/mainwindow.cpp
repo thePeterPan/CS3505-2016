@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->loginButton, SIGNAL(clicked()), this, SLOT(showLevelDialog()));
+    connect(ui->createAccountButton, SIGNAL(clicked()), this, SLOT(showRegistration()));
 }
 
 MainWindow::~MainWindow()

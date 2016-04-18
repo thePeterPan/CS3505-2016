@@ -19,17 +19,17 @@ SOURCES += main.cpp\
     Trie/Node.cpp \
     Trie/Trie.cpp \
     leveldialog.cpp \
-    registration.cpp
+    registrationDialog.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
     Trie/Trie.h \
     leveldialog.h \
-    registration.h
+    registrationDialog.h
 
 FORMS    += mainwindow.ui \
     leveldialog.ui \
-    registration.ui
+    registrationDialog.ui
 
 RESOURCES += \
     images.qrc

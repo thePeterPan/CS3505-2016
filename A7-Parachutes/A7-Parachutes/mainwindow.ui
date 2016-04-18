@@ -38,7 +38,7 @@ background-color: rgb(255, 255, 255);
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="images.qrc">:/C:/Users/dguser/Desktop/cloud.png</pixmap>
+     <pixmap resource="images.qrc">:/images/cloud.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="gameName">

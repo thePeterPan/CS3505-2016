@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>C:/Users/dguser/Desktop/cloud.png</file>
+        <file>images/cloud.png</file>
     </qresource>
 </RCC>
