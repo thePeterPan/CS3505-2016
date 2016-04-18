@@ -6,7 +6,8 @@
 
 QT       += core gui
 
-QMAKE_CXXFLAGS += -std=c++0x
+#QMAKE_CXXFLAGS += -std=c++0x
+CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,13 +20,16 @@ SOURCES += main.cpp\
     Trie/Node.cpp \
     Trie/Trie.cpp \
     leveldialog.cpp \
-    registrationDialog.cpp
+    registrationDialog.cpp\
+    echoclient.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
     Trie/Trie.h \
     leveldialog.h \
-    registrationDialog.h
+    registrationDialog.h \
+    echoclient.h
+
 
 FORMS    += mainwindow.ui \
     leveldialog.ui \
@@ -33,3 +37,14 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     images.qrc
+
+FORMS    += mainwindow.ui
+
+include(Box2D/Box2D.pro)
+
+win32|macx {
+    QT += websockets
+}
+unix:!macx {
+    include(QtWebSockets/websockets.pro)
+}
