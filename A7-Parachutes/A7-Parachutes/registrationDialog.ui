@@ -6,13 +6,181 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>466</width>
+    <height>362</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Registration</string>
   </property>
+  <widget class="QLabel" name="titleLabel">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>30</y>
+     <width>191</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 14pt &quot;Fixedsys&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Register for an account</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="usernameLabel">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>100</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 9pt &quot;Fixedsys&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Your username:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="passwordLabel">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>130</y>
+     <width>171</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 9pt &quot;Fixedsys&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Create your password:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="confirmPasswordLabel">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>160</y>
+     <width>181</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 9pt &quot;Fixedsys&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Confirm your password:</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="studentRadioButton">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>190</y>
+     <width>141</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 9pt &quot;Fixedsys&quot;;</string>
+   </property>
+   <property name="text">
+    <string>I am a student</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="OKButton">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>270</y>
+     <width>75</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 9pt &quot;Fixedsys&quot;;</string>
+   </property>
+   <property name="text">
+    <string>OK</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="teacherRadioButton">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>190</y>
+     <width>131</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 9pt &quot;Fixedsys&quot;;</string>
+   </property>
+   <property name="text">
+    <string>I am a teacher</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="username">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>100</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="password">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>130</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="confirmPassword">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>160</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="teacberNameLabel">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>220</y>
+     <width>171</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 9pt &quot;Fixedsys&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Your teacher's name:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="teachersName">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>220</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

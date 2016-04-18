@@ -24,6 +24,7 @@ private:
 
 private slots:
     void showLevelDialog();
+    void showRegistration();
 };
 
 #endif // MAINWINDOW_H

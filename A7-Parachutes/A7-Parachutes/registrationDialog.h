@@ -2,7 +2,6 @@
 #define REGISTRATIONDIALOG_H
 
 #include <QDialog>
-
 namespace Ui {
 class RegistrationDialog;
 }
@@ -15,8 +14,14 @@ public:
     explicit RegistrationDialog(QWidget *parent = 0);
     ~RegistrationDialog();
 
+private slots:
+    void enableTeacherName();
+    void disableTeacherName();
+    void showMainwindow();
+
 private:
     Ui::RegistrationDialog *ui;
+
 };
 
 #endif // REGISTRATIONDIALOG_H

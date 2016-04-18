@@ -16,6 +16,13 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::showLevelDialog() {
+
+    if(ui->inputPassword->text().count()!=0&&ui->inputUsername->text().count()!=0){
     level.show();
     this->close();
+}
+}
+
+void MainWindow::showRegistration() {
+    registration.show();
 }
