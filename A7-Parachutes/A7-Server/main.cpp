@@ -168,6 +168,11 @@ int main(int argc, char *argv[])
 
     launchSocketListener(port, debug, &app);
 
+    QPluginLoader plug("libqsqlmysql.so");
+    plug.load();
+    qDebug() << plug.errorString();
+    qDebug() << "mysql plugin loaded: " << plug.isLoaded();
+
     initializeSQLConnection();
 
     return app.exec();

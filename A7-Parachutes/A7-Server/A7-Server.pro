@@ -42,6 +42,11 @@ include(QtWebApp/QtWebApp.pro)
     export(copyini.commands)
     export(copydocroot.commands)
     QMAKE_EXTRA_TARGETS += first copyini copydocroot
+#first: $(first) copyini copydocroot
+#copyini:
+#	$(COPY_DIR) /home/ppan/cs3505-github/A7-Parachutes/A7-Server/A7-Server.ini /home/ppan/cs3505-github/A7-Parachutes/build-A7-Server-Desktop-Debug
+#copydocroot
+#	$(COPY_DIR) /home/ppan/cs3505-github/A7-Parachutes/A7-Server/docroot /home/ppan/cs3505-github/A7-Parachutes/build-A7-Server-Desktop-Debug/docroot
 }
 
 ########## QtWebSockets
@@ -69,4 +74,17 @@ win32 {
 macx {
     # not tested
     LIBS+=$$system_path($$PWD/MySQL-Connector/lib/macx/libmysqlcppconn-static.a)
+}
+# source :http://stackoverflow.com/questions/2497192/how-can-i-set-where-a-qt-app-finds-a-qt-module
+unix:!mac{
+#    QMAKE_LFLAGS += -Wl,-rpath=\\\$\$ORIGIN
+#    QMAKE_LFLAGS += -Wl,-rpath=\\\$\$ORIGIN/lib
+#    QMAKE_LFLAGS += -Wl,-rpath=\\\$\$ORIGIN/libs
+#    QMAKE_LFLAGS += -Wl,-rpath=$$PWD/lib
+#    QMAKE_LFLAGS += -Wl,-rpath=/home/ppan/Downloads/mysql/mysql-5.7.12-linux-glibc2.5-x86_64/lib
+#    LIBS += /home/ppan/Downloads/mysql/mysql-5.7.12-linux-glibc2.5-x86_64/lib/libmysqlclient.a
+#    LIBS += -ldl /home/ppan/Downloads/mysql/mysql-5.7.12-linux-glibc2.5-x86_64/lib/libmysqlclient_r.so
+#    LIBS += /home/ppan/Downloads/mysql/mysql-5.7.12-linux-glibc2.5-x86_64/lib/libmysqlclient.so.20
+#    QMAKE_RPATHDIR += /home/ppan/Downloads/mysql/mysql-5.7.12-linux-glibc2.5-x86_64/lib
+#  QMAKE_RPATH=
 }
