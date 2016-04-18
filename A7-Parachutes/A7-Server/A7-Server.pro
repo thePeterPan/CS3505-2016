@@ -24,6 +24,8 @@ DISTFILES += \
     echoclient.html \
     A7-Server.ini
 
+########## QtWebApp
+
 include(QtWebApp/QtWebApp.pro)
 
 # If building on travis, add "CONFIG+=travis" to qmake command options.
@@ -41,9 +43,29 @@ include(QtWebApp/QtWebApp.pro)
     QMAKE_EXTRA_TARGETS += first copyini copydocroot
 }
 
+########## QtWebSockets
+
 win32|macx {
     QT += websockets
 }
 unix:!macx {
     include(QtWebSockets/websockets.pro)
+}
+
+########## QtSql
+
+QT += sql
+
+INCLUDEPATH+=$$system_path($$PWD/MySQL-Connector/include)
+unix:!macx {
+    LIBS+=-ldl # got a build error, was told to put this here, fixed, don't know why.
+    LIBS+=$$system_path($$PWD/MySQL-Connector/lib/unix/libmysqlcppconn-static.a)
+}
+win32 {
+    # Not tested
+    LIBS+=$$system_path($$PWD/MySQL-Connector/lib/win32/mysqlcppconn-static.lib)
+}
+macx {
+    # not tested
+    LIBS+=$$system_path($$PWD/MySQL-Connector/lib/macx/libmysqlcppconn-static.a)
 }
