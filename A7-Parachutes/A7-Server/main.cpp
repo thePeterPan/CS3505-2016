@@ -4,10 +4,8 @@
 #include <QtCore/QCommandLineOption>
 #include <QDir>
 #include <QString>
-//#include <QtSql/QSql>
-//#include <QtSql/QSqlDatabase>
-#include <QtSql>
-#include <QtSql/QSqlDriver>
+
+//MySQL Connector libraries
 #include "mysql_connection.h"
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
@@ -95,20 +93,6 @@ void launchSocketListener(int port, bool debug, QObject* parent = 0)
 
 void initializeSQLConnection()
 {
-//    qDebug() << QCoreApplication::libraryPaths();
-//    qDebug() << QSqlDatabase::drivers();
-//    qDebug() << QSqlDatabase::isDriverAvailable("QMYSQL");
-//    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-//    db.setHostName("us-cdbr-azure-west-c.cloudapp.net");
-//    db.setDatabaseName("neverland-db");
-//    db.setUserName("b485a4f4f7fcea");
-//    db.setPassword("fd0282b9");
-//    if (!db.open())
-//    {
-//        qDebug() << "Database error.";
-//    }
-
-
     /// Source: https://dev.mysql.com/doc/connector-cpp/en/connector-cpp-examples-complete-example-1.html
     try {
       sql::Driver *driver;
@@ -167,11 +151,6 @@ int main(int argc, char *argv[])
     launchWebServer(&parser, &app);
 
     launchSocketListener(port, debug, &app);
-
-    QPluginLoader plug("libqsqlmysql.so");
-    plug.load();
-    qDebug() << plug.errorString();
-    qDebug() << "mysql plugin loaded: " << plug.isLoaded();
 
     initializeSQLConnection();
 
