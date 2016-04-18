@@ -31,11 +31,12 @@ include(QtWebApp/QtWebApp.pro)
 # If building on travis, add "CONFIG+=travis" to qmake command options.
 # This is a hack to prevent travis build errors because the COPY_DIR command below
 # causes errors when it copies files into the exact same directory.
-!travis:!win32 {
+!travis {
     # Source: http://stackoverflow.com/questions/19066593/copy-a-file-to-build-directory-after-compiling-project-with-qt
     # Source: http://dragly.org/2013/11/05/copying-data-files-to-the-build-directory-when-working-with-qmake/
-    copyini.commands = $(COPY_DIR) $$PWD/"$$TARGET".ini $$OUT_PWD
-    copydocroot.commands = $(COPY_DIR) $$PWD/docroot $$OUT_PWD
+    # Windows copy issues: http://stackoverflow.com/questions/18860769/how-reference-qt-creator-current-build-directory-from-qt-project-file
+    copyini.commands = $(COPY_DIR) $$system_path($$PWD/"$$TARGET".ini) $$system_path($$OUT_PWD)
+    copydocroot.commands = $(COPY_DIR) $$system_path($$PWD/docroot) $$system_path($$OUT_PWD/docroot)
     first.depends = $(first) copyini copydocroot
     export(first.depends)
     export(copyini.commands)
