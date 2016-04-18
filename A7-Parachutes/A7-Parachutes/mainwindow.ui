@@ -41,7 +41,7 @@ background-color: rgb(255, 255, 255);
      <pixmap resource="images.qrc">:/C:/Users/dguser/Desktop/cloud.png</pixmap>
     </property>
    </widget>
-   <widget class="QLabel" name="username">
+   <widget class="QLabel" name="gameName">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -57,7 +57,7 @@ background-color: rgb(255, 255, 255);
      <string>Parachutes</string>
     </property>
    </widget>
-   <widget class="QLabel" name="username_2">
+   <widget class="QLabel" name="usernameLabel">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -73,7 +73,7 @@ background-color: rgb(255, 255, 255);
      <string>Username</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="passwordLabel">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -89,7 +89,7 @@ background-color: rgb(255, 255, 255);
      <string>Password</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="loginButton">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -110,7 +110,7 @@ background-color: rgb(255, 255, 255);
      <string>Log In</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="createAccountButton">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -128,7 +128,7 @@ font: 9pt &quot;Fixedsys&quot;;
      <string>Create Account</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="inputUsername">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -138,7 +138,7 @@ font: 9pt &quot;Fixedsys&quot;;
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="inputPassword">
     <property name="geometry">
      <rect>
       <x>200</x>
