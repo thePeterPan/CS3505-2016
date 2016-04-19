@@ -29,7 +29,7 @@ background-color: rgb(255, 255, 255);
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>40</y>
+      <y>0</y>
       <width>251</width>
       <height>201</height>
      </rect>
@@ -45,7 +45,7 @@ background-color: rgb(255, 255, 255);
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>130</y>
+      <y>80</y>
       <width>171</width>
       <height>31</height>
      </rect>
@@ -154,6 +154,33 @@ font: 9pt &quot;Fixedsys&quot;;
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="warningLabel">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>215</y>
+      <width>541</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255, 0, 53)</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -161,7 +188,7 @@ font: 9pt &quot;Fixedsys&quot;;
      <x>0</x>
      <y>0</y>
      <width>577</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
