@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "leveldialog.h"
+#include "registrationDialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +19,12 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    levelDialog level;
+    RegistrationDialog registration;
+
+private slots:
+    void showLevelDialog();
+    void showRegistration();
 };
 
 #endif // MAINWINDOW_H

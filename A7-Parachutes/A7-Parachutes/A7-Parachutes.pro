@@ -19,14 +19,23 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     Trie/Node.cpp \
     Trie/Trie.cpp \
-    echoclient.cpp
+    echoclient.cpp \
+    leveldialog.cpp \
+    registrationDialog.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
     Trie/Trie.h \
-    echoclient.h
+    echoclient.h \
+    leveldialog.h \
+    registrationDialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    leveldialog.ui \
+    registrationDialog.ui
+
+RESOURCES += \
+    images.qrc
 
 include(Box2D/Box2D.pro)
 
