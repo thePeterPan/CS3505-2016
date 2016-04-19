@@ -2,6 +2,7 @@
 #define LEVELDIALOG_H
 
 #include <QDialog>
+#include "gamewindow.h"
 
 namespace Ui {
 class levelDialog;
@@ -17,6 +18,10 @@ public:
 
 private:
     Ui::levelDialog *ui;
+    gameWindow game;
+
+private slots:
+    void showGameWindow();
 };
 
 #endif // LEVELDIALOG_H

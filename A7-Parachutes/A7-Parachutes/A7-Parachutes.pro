@@ -21,18 +21,21 @@ SOURCES += main.cpp\
     Trie/Trie.cpp \
     echoclient.cpp \
     leveldialog.cpp \
-    registrationDialog.cpp
+    registrationDialog.cpp \
+    gamewindow.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
     Trie/Trie.h \
     echoclient.h \
     leveldialog.h \
-    registrationDialog.h
+    registrationDialog.h \
+    gamewindow.h
 
 FORMS    += mainwindow.ui \
     leveldialog.ui \
-    registrationDialog.ui
+    registrationDialog.ui \
+    gamewindow.ui
 
 RESOURCES += \
     images.qrc
