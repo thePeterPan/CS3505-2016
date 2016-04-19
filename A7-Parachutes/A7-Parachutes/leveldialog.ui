@@ -75,7 +75,7 @@ font: 9pt &quot;Fixedsys&quot;;
     <string>Level 2</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="level3Button">
    <property name="geometry">
     <rect>
      <x>370</x>
