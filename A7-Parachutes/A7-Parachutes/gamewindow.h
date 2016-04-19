@@ -1,13 +1,13 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
-#include <QDialog>
+#include <QMainWindow>
 
 namespace Ui {
 class gameWindow;
 }
 
-class gameWindow : public QDialog
+class gameWindow : public QMainWindow
 {
     Q_OBJECT
 
