@@ -29,11 +29,12 @@ bool MainWindow::checkLogin(){
     if(ui->inputPassword->text().count() ==0 || ui->inputUsername->text().count() ==0){
 
         ui->warningLabel->setText("User Name or Password CANNOT BE EMPTY");
-
-    }else{
-
-        //check login data from sever.
+        return false;
     }
+    //else{
+        //check login data from sever.
+
+    return true;
 }
 
 
