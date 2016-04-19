@@ -5,13 +5,6 @@
 #include <QDir>
 #include <QString>
 
-//MySQL Connector libraries
-#include "mysql_connection.h"
-#include <cppconn/driver.h>
-#include <cppconn/exception.h>
-#include <cppconn/resultset.h>
-#include <cppconn/statement.h>
-
 // From 3rd party libraries
 #include "tcpserver.h"          // TcpServer
 #include "staticfilecontroller.h"
@@ -20,6 +13,7 @@
 // Application internals
 #include "echoserver.h"         // EchoServer
 #include "webrequesthandler.h"  // WebRequestHandler
+#include "mysqlwrapper.h"
 
 QString searchConfigFile()
 {
@@ -91,44 +85,6 @@ void launchSocketListener(int port, bool debug, QObject* parent = 0)
     //    TcpServer tcpServer;
 }
 
-void initializeSQLConnection()
-{
-    /// Source: https://dev.mysql.com/doc/connector-cpp/en/connector-cpp-examples-complete-example-1.html
-    try {
-      sql::Driver *driver;
-      sql::Connection *con;
-      sql::Statement *stmt;
-      sql::ResultSet *res;
-
-      /* Create a connection */
-      driver = get_driver_instance();
-      con = driver->connect("us-cdbr-azure-west-c.cloudapp.net:3306", "b485a4f4f7fcea", "fd0282b9");
-      /* Connect to the MySQL test database */
-      con->setSchema("neverland-db");
-
-      stmt = con->createStatement();
-      res = stmt->executeQuery("SELECT first FROM user");
-      while (res->next()) {
-        qDebug() << "\t... MySQL replies: ";
-        /* Access column data by alias or column name */
-//        qDebug() << QObject::tr(res->getString("_message").asStdString());
-        qDebug() << "\t... MySQL says it again: ";
-        /* Access column fata by numeric offset, 1 is the first column */
-//        qDebug() << QObject::tr(res->getString(1));
-      }
-      delete res;
-      delete stmt;
-      delete con;
-
-    } catch (sql::SQLException &e) {
-//      qDebug() << "# ERR: SQLException in " << __FILE__;
-//      qDebug() << "(" << __FUNCTION__ << ") on line " << __LINE__ ;
-      qDebug() << "# ERR: " << e.what();
-      qDebug() << " (MySQL error code: " << QString::number(e.getErrorCode());
-//      qDebug() << ", SQLState: " << QObject::tr(e.getSQLState()) << " )";
-    }
-}
-
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
@@ -151,8 +107,6 @@ int main(int argc, char *argv[])
     launchWebServer(&parser, &app);
 
     launchSocketListener(port, debug, &app);
-
-    initializeSQLConnection();
 
     return app.exec();
 }

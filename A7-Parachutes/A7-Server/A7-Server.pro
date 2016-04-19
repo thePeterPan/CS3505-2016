@@ -12,12 +12,14 @@ TEMPLATE = app
 SOURCES += main.cpp \
     echoserver.cpp \
     tcpserver.cpp \
-    webrequesthandler.cpp
+    webrequesthandler.cpp \
+    mysqlwrapper.cpp
 
 HEADERS += \
     echoserver.h \
     tcpserver.h \
-    webrequesthandler.h
+    webrequesthandler.h \
+    mysqlwrapper.h
 
 DISTFILES += \
     index.html \
