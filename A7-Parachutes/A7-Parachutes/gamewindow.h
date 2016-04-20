@@ -2,6 +2,8 @@
 #define GAMEWINDOW_H
 
 #include <QDialog>
+#include "sprite.h"
+#include "qtimer.h"
 
 namespace Ui {
 class gameWindow;
@@ -17,6 +19,11 @@ public:
 
 private:
     Ui::gameWindow *ui;
+
+    Sprite sprite;
+
+protected:
+    void paintEvent(QPaintEvent *);
 };
 
 #endif // GAMEWINDOW_H

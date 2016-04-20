@@ -2,24 +2,27 @@
 #define SPRITE_H
 
 #include <QPainter>
+#include <QString>
 
 class Sprite
 {
 public:
     Sprite();
+    Sprite(int x, int y, int width, int height, int numFrames, QString filepath);
 
     void draw(QPainter * painter);
 
-    void setX();
-    void setY();
+    void setX(int newX);
+    int getX();
+    void setY(int newY);
+    int getY();
     void nextFrame();
 
 private:
 
     QPixmap * image;
-    int currentFrame;
-    int x;
-    int y;
+    int currentFrame, numFrames;
+    int x, y, width, height;
 
 };
 

@@ -4,8 +4,6 @@
 #include <QMainWindow>
 #include "leveldialog.h"
 #include "registrationDialog.h"
-#include "sprite.h"
-#include "qtimer.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,10 +21,6 @@ private:
     Ui::MainWindow *ui;
     levelDialog level;
     RegistrationDialog registration;
-    Sprite sprite;
-
-protected:
-    void paintEvent(QPaintEvent *);
 
 private slots:
     void showLevelDialog();
