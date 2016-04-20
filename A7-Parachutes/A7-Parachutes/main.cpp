@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     w.show();
 
     // For testing Box2D purposes:
-    runBox2DHelloWorld();
+    //runBox2DHelloWorld();
 
     // For testing QtWebSockets:
     echoclient_test(&a);
