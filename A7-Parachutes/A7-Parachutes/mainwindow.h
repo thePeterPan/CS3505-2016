@@ -21,6 +21,7 @@ private:
     Ui::MainWindow *ui;
     levelDialog level;
     RegistrationDialog registration;
+    bool checkLogin();
 
 private slots:
     void showLevelDialog();
