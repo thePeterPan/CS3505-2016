@@ -16,6 +16,7 @@ class gameWindow : public QMainWindow
 
 public:
     explicit gameWindow(QWidget *parent = 0);
+    void keyPressEvent(QKeyEvent* e);
     ~gameWindow();
 
 private:
@@ -25,6 +26,8 @@ private:
 
 protected:
     void paintEvent(QPaintEvent *);
+private slots:
+
 };
 
 #endif // GAMEWINDOW_H

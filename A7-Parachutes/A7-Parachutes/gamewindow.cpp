@@ -1,6 +1,8 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
 #include "Box2D/Box2D.h"
+#include "QMessageBox"
+#include "QKeyEvent"
 
 gameWindow::gameWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,4 +27,11 @@ void gameWindow::paintEvent(QPaintEvent *)
     sprite.draw(&painter);
 
     QTimer::singleShot(100,this,SLOT(update()));
+}
+
+void gameWindow::keyPressEvent(QKeyEvent *e) {
+    QMessageBox* box = new QMessageBox();
+    box->setWindowTitle(QString("Hello"));
+    box->setText(QString("You Pressed: ")+ e->text().toUpper());
+    box->show();
 }
