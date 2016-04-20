@@ -29,10 +29,10 @@ Sprite::Sprite(int x, int y, int width, int height, int numFrames, QString filep
     currentFrame = 0;
 }
 
-/*Sprite::~Sprite()
+Sprite::~Sprite()
 {
     delete image;
-}*/
+}
 
 void Sprite::setX(int newX)
 {

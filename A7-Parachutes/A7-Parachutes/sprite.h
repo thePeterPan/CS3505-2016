@@ -22,9 +22,8 @@ public:
 private:
 
     QPixmap * image;
-    int currentFrame, numFrames;
     int x, y, width, height;
-
+    int currentFrame, numFrames;
 };
 
 #endif // SPRITE_H
