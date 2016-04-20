@@ -16,8 +16,8 @@ void echoclient_test(QObject* parent = 0)
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
+    MainWindow w;
+    w.show();
 
     // For testing Box2D purposes:
     runBox2DHelloWorld();
