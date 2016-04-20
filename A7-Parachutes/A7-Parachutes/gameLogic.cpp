@@ -1,4 +1,4 @@
-#include "gamelogic.h"
+#include "gameLogic.h"
 #include "Box2D/Box2D.h"
 #include <QDebug>
 

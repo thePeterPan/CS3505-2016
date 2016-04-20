@@ -1,5 +1,6 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
+#include "gameLogic.h"
 
 gameWindow::gameWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,6 +12,7 @@ gameWindow::gameWindow(QWidget *parent) :
 
     QTimer::singleShot(100,this,SLOT(update()));
 
+    gameLogic game;
 
 }
 
