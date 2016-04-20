@@ -9,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->loginButton, SIGNAL(clicked()), this, SLOT(showLevelDialog()));
     connect(ui->createAccountButton, SIGNAL(clicked()), this, SLOT(showRegistration()));
+
+    QTimer::singleShot(100,this,SLOT(update()));
+    Sprite sprite();
 }
 
 MainWindow::~MainWindow()
@@ -26,4 +29,12 @@ void MainWindow::showLevelDialog() {
 
 void MainWindow::showRegistration() {
     registration.show();
+}
+
+void MainWindow::paintEvent(QPaintEvent *)
+{
+    QPainter painter(this);
+    sprite.draw(&painter);
+
+    QTimer::singleShot(100,this,SLOT(update()));
 }

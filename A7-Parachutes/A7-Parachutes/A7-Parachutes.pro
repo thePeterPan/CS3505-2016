@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     leveldialog.cpp \
     registrationDialog.cpp \
     gamewindow.cpp \
-    game.cpp
+    game.cpp \
+    sprite.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
@@ -32,7 +33,8 @@ HEADERS  += mainwindow.h \
     leveldialog.h \
     registrationDialog.h \
     gamewindow.h \
-    game.h
+    game.h \
+    sprite.h
 
 FORMS    += mainwindow.ui \
     leveldialog.ui \
