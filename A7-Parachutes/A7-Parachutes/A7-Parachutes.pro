@@ -22,7 +22,9 @@ SOURCES += main.cpp\
     echoclient.cpp \
     leveldialog.cpp \
     registrationDialog.cpp \
-    gamewindow.cpp
+    gamewindow.cpp \
+    sprite.cpp \
+    game.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
@@ -30,7 +32,9 @@ HEADERS  += mainwindow.h \
     echoclient.h \
     leveldialog.h \
     registrationDialog.h \
-    gamewindow.h
+    gamewindow.h \
+    sprite.h \
+    game.h
 
 FORMS    += mainwindow.ui \
     leveldialog.ui \

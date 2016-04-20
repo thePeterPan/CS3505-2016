@@ -1,13 +1,16 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
-#include <QDialog>
+#include <QMainWindow>
+#include <sprite.h>
+#include <QPainter>
+#include <QTimer>
 
 namespace Ui {
 class gameWindow;
 }
 
-class gameWindow : public QDialog
+class gameWindow : public QMainWindow
 {
     Q_OBJECT
 
@@ -17,6 +20,11 @@ public:
 
 private:
     Ui::gameWindow *ui;
+
+    Sprite sprite;
+
+protected:
+    void paintEvent(QPaintEvent *);
 };
 
 #endif // GAMEWINDOW_H
