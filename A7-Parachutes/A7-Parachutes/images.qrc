@@ -3,5 +3,6 @@
         <file>images/cloud.png</file>
         <file>images/start.png</file>
         <file>images/Pause.png</file>
+        <file>images/crate_sprite.png</file>
     </qresource>
 </RCC>
