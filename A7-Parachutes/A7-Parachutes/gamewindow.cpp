@@ -30,8 +30,8 @@ void gameWindow::paintEvent(QPaintEvent *)
 }
 
 void gameWindow::keyPressEvent(QKeyEvent *e) {
-    QMessageBox* box = new QMessageBox();
-    box->setWindowTitle(QString("Hello"));
-    box->setText(QString("You Pressed: ")+ e->text().toUpper());
-    box->show();
+    QChar letter = e->text()[0].toUpper();
+    if (letter >= 'A' && letter <= 'Z'){
+        ui->listWidget->addItem(QString(letter));
+    }
 }
