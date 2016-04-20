@@ -9,6 +9,7 @@ class Sprite
 public:
     Sprite();
     Sprite(int x, int y, int width, int height, int numFrames, QString filepath);
+    ~Sprite();
 
     void draw(QPainter * painter);
 
