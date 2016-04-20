@@ -9,15 +9,15 @@
 
 void echoclient_test(QObject* parent = 0)
 {
-    EchoClient client(QUrl(QStringLiteral("ws://localhost:1234")), true);
+    EchoClient client(QUrl(QStringLiteral("ws://127.0.0.1:8081")), true);
     QObject::connect(&client, &EchoClient::closed, parent, &QCoreApplication::quit);
 }
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+//    MainWindow w;
+//    w.show();
 
     // For testing Box2D purposes:
     runBox2DHelloWorld();

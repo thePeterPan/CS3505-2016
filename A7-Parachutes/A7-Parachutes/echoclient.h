@@ -65,6 +65,7 @@ Q_SIGNALS:
 private Q_SLOTS:
     void onConnected();
     void onTextMessageReceived(QString message);
+    void onError(QAbstractSocket::SocketError error);
 
 private:
     QWebSocket m_webSocket;
