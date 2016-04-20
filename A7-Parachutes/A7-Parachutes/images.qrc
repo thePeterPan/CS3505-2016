@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>images/cloud.png</file>
+        <file>images/start.png</file>
+        <file>images/Pause.png</file>
     </qresource>
 </RCC>
