@@ -1,17 +1,21 @@
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
-
+#include <QQueue>
+#include <QObject>
 #include "Box2D/Box2D.h"
 
 
-class gameLogic
+class gameLogic : public QObject
 {
+    Q_OBJECT
+
 public:
-    gameLogic();
+    explicit gameLogic(QObject *parent = 0);
     float getXPos();
     float getYPos();
     b2World* World;
     b2World* getWorld();
+    void testSignals();
 
 private:
     void setUpBox2D();
@@ -20,6 +24,18 @@ private:
     void CreateBox(b2World& World, int MouseX, int MouseY); // Spawns a box at MouseX, MouseY
     float SCALE;
     b2Vec2 Gravity;
+    QString currentWord;
+    int currentWordIndex;
+    QQueue<QString> words;
+
+signals:
+    void newWord(QString word);
+    void newLevel(int level);
+    void failed();
+    void victory();
+
+public slots:
+    void newLetterTyped(char letter);
 
 };
 
