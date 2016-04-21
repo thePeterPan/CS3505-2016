@@ -20,22 +20,22 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     Trie/Node.cpp \
     Trie/Trie.cpp \
-    echoclient.cpp \
     leveldialog.cpp \
     registrationDialog.cpp \
     gamewindow.cpp \
     sprite.cpp \
-    game.cpp
+    game.cpp \
+    networking.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
     Trie/Trie.h \
-    echoclient.h \
     leveldialog.h \
     registrationDialog.h \
     gamewindow.h \
     sprite.h \
-    game.h
+    game.h \
+    networking.h
 
 FORMS    += mainwindow.ui \
     leveldialog.ui \
@@ -43,7 +43,7 @@ FORMS    += mainwindow.ui \
     gamewindow.ui
 
 RESOURCES += \
-    images.qrc
+    resources.qrc
 
 include(Box2D/Box2D.pro)
 
