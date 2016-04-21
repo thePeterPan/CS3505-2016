@@ -82,8 +82,8 @@ void gameWindow::paintEvent(QPaintEvent *)
 void gameWindow::keyPressEvent(QKeyEvent *e) {
     QChar letter = e->text()[0].toUpper();
     if (letter >= 'A' && letter <= 'Z'){
-        ui->listWidget->addItem(QString(letter));
-    }
+       // ui->listWidget->addItem(QString(letter));
+        qDebug() << letter;
     }
 }
 
