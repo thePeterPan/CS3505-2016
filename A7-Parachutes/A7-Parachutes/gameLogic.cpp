@@ -55,16 +55,6 @@ void gameLogic::CreateBox(b2World& World, int MouseX, int MouseY)
         Body->CreateFixture(&FixtureDef);
 }
 
-float getXPos()
-{
-    //return position.x();
-}
-
-float getYPos()
-{
-    //return position.y();
-}
-
 b2World* gameLogic::getWorld()
 {
     return World;
