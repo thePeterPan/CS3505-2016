@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>A7-Server.ini</file>
+        <file>docroot/index.html</file>
+        <file>docroot/images/qq.jpg</file>
+    </qresource>
+</RCC>

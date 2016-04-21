@@ -9,7 +9,7 @@
 
 void echoclient_test(QObject* parent = 0)
 {
-    EchoClient client(QUrl(QStringLiteral("ws://localhost:1234")), true);
+    EchoClient client(QUrl(QStringLiteral("ws://127.0.0.1:8081")), true);
     QObject::connect(&client, &EchoClient::closed, parent, &QCoreApplication::quit);
 }
 
