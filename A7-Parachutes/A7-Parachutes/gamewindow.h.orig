@@ -36,6 +36,10 @@ private:
 
 protected:
     void paintEvent(QPaintEvent *);
+<<<<<<< HEAD
+private slots:
+
+=======
 
 public slots:
     void receiveNewWord(QString word); //Connected to gameLogic::newWord
@@ -45,6 +49,7 @@ public slots:
 
 signals:
     void letterTyped(char letter);
+>>>>>>> sprite_box2d
 };
 
 #endif // GAMEWINDOW_H

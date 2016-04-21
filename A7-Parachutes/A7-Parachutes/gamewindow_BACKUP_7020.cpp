@@ -1,7 +1,11 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
+<<<<<<< HEAD
+#include "Box2D/Box2D.h"
 #include "QMessageBox"
 #include "QKeyEvent"
+=======
+>>>>>>> sprite_box2d
 
 gameWindow::gameWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -79,11 +83,19 @@ void gameWindow::paintEvent(QPaintEvent *)
     QTimer::singleShot(100,this,SLOT(update()));
 }
 
+<<<<<<< HEAD
 void gameWindow::keyPressEvent(QKeyEvent *e) {
     QChar letter = e->text()[0].toUpper();
     if (letter >= 'A' && letter <= 'Z'){
         ui->listWidget->addItem(QString(letter));
     }
+}
+=======
+void gameWindow::setListWidget(QString word)
+{
+    for(auto i = 0; i < word.length(); i++)
+    {
+        ui->listWidget->item(i)->setText(word.at(i));
     }
 }
 
@@ -107,3 +119,4 @@ void gameWindow::receiveVictory()
 {
     qDebug() << "received victory";
 }
+>>>>>>> sprite_box2d

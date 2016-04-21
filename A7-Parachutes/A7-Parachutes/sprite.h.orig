@@ -8,7 +8,11 @@ class Sprite
 {
 public:
     Sprite();
+<<<<<<< HEAD
+    Sprite(int x, int y, int width, int height, int numFrames, QString filepath);
+=======
     Sprite(int x, int y, int width, int height, int numFrames, QString letter);
+>>>>>>> sprite_box2d
     //~Sprite();
 
     void draw(QPainter * painter);

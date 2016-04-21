@@ -29,15 +29,19 @@ Sprite::Sprite(int x, int y, int width, int height, int numFrames, QString lette
     currentFrame = 0;
 }
 
-/*
+<<<<<<< HEAD
+//Sprite::~Sprite()
 //{
 //   delete image;
 //}
+=======
+/*
 Sprite::~Sprite()
 {
     delete image;
 }
 */
+>>>>>>> sprite_box2d
 
 void Sprite::setX(int newX)
 {
