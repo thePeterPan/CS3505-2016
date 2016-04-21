@@ -10,16 +10,16 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    echoserver.cpp \
     tcpserver.cpp \
     webrequesthandler.cpp \
-    mysqlwrapper.cpp
+    mysqlwrapper.cpp \
+    networking.cpp
 
 HEADERS += \
-    echoserver.h \
     tcpserver.h \
     webrequesthandler.h \
-    mysqlwrapper.h
+    mysqlwrapper.h \
+    networking.h
 
 DISTFILES += \
     docroot/index.html \

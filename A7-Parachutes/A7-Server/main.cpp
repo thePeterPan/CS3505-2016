@@ -11,7 +11,7 @@
 #include "httplistener.h"       // HttpListener
 
 // Application internals
-#include "echoserver.h"         // EchoServer
+#include "networking.h"
 #include "webrequesthandler.h"  // WebRequestHandler
 #include "mysqlwrapper.h"
 
@@ -32,12 +32,8 @@ void launchWebServer(QString configFile, QObject* parent = 0)
 
 void launchSocketListener(QString configFile, QObject* parent = 0)
 {
-    QSettings* socketSettings = new QSettings(configFile, QSettings::IniFormat);
-    socketSettings->beginGroup("socket");
-    int port = socketSettings->value("port", 8081).toInt();
-    bool debug = socketSettings->value("debug", false).toBool();
-    EchoServer *server = new EchoServer(port, debug);
-    QObject::connect(server, &EchoServer::closed, parent, &QCoreApplication::quit);
+    Networking *server = new Networking(configFile, parent);
+    QObject::connect(server, &Networking::closed, parent, &QCoreApplication::quit);
 }
 
 int main(int argc, char *argv[])
