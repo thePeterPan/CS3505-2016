@@ -13,10 +13,10 @@ gameLogic::gameLogic()
 void gameLogic::setUpBox2D()
 {
     /** Prepare the world */
-        b2Vec2 Gravity(0.f, 9.8f);
+        Gravity = b2Vec2(0.f, 9.8f);
         bool doSleep = true;
 
-        b2World* World = new b2World(Gravity);
+        World = new b2World(Gravity);
         //World(Gravity);
 
         CreateGround(*World, 400.f, 500.f);
@@ -42,14 +42,14 @@ void gameLogic::CreateGround(b2World& World, float X, float Y)
 void gameLogic::CreateBox(b2World& World, int MouseX, int MouseY)
 {
         b2BodyDef BodyDef;
-        BodyDef.position = b2Vec2(MouseX/SCALE, MouseY/SCALE);
         BodyDef.type = b2_dynamicBody;
+        BodyDef.position = b2Vec2(13.0f, MouseY/SCALE);
         b2Body* Body = World.CreateBody(&BodyDef);
 
         b2PolygonShape Shape;
-        Shape.SetAsBox((32.f/2)/SCALE, (32.f/2)/SCALE);
+        Shape.SetAsBox(100.f,100.f);
         b2FixtureDef FixtureDef;
-        FixtureDef.density = 1.f;
+        FixtureDef.density = 1.0f;
         FixtureDef.friction = 0.7f;
         FixtureDef.shape = &Shape;
         Body->CreateFixture(&FixtureDef);

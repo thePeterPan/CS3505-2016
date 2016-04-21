@@ -7,6 +7,7 @@ gameWindow::gameWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     sprite = Sprite();
+    groundSprite = Sprite();
 
     QTimer::singleShot(100,this,SLOT(update()));
 }
@@ -19,12 +20,13 @@ gameWindow::~gameWindow()
 void gameWindow::paintEvent(QPaintEvent *)
 {
     game.World->Step(1/60.f, 8, 3);
+    QPainter painter(this);
+
     //b2World* world = World;
     for (b2Body* BodyIterator = game.World->GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
        {
             if (BodyIterator->GetType() == b2_dynamicBody)
             {
-                QPainter painter(this);
                 //sf::Sprite Sprite;
                 //Sprite.SetTexture(BoxTexture);
                 //Sprite.SetOrigin(16.f, 16.f);
@@ -38,16 +40,14 @@ void gameWindow::paintEvent(QPaintEvent *)
             }
             else
             {
-                QPainter painter(this);
-                Sprite GroundSprite;
                 //GroundSprite.SetTexture(GroundTexture);
                 //GroundSprite.SetOrigin(400.f, 8.f);
                 //GroundSprite.SetPosition(BodyIterator->GetPosition().x * SCALE, BodyIterator->GetPosition().y * SCALE);
-                GroundSprite.setX(BodyIterator->GetPosition().x * 30.0f);
-                GroundSprite.setY(BodyIterator->GetPosition().y * 30.0f);
+                groundSprite.setX(BodyIterator->GetPosition().x * 30.0f);
+                groundSprite.setY(BodyIterator->GetPosition().y * 30.0f);
                 //GroundSprite.SetRotation(180/b2_pi * BodyIterator->GetAngle());
                 //Window.Draw(GroundSprite);
-                GroundSprite.draw(&painter);
+                groundSprite.draw(&painter);
 
             }
         }

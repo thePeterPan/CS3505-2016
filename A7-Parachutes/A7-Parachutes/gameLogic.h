@@ -19,6 +19,7 @@ private:
     void CreateGround(b2World& World, float X, float Y);
     void CreateBox(b2World& World, int MouseX, int MouseY); // Spawns a box at MouseX, MouseY
     float SCALE;
+    b2Vec2 Gravity;
 
 };
 

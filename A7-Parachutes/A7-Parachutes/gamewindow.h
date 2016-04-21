@@ -24,7 +24,7 @@ public:
 private:
     Ui::gameWindow *ui;
 
-    Sprite sprite;
+    Sprite sprite,groundSprite;
 
     gameLogic game;
 
