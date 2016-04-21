@@ -1,8 +1,21 @@
 #include "networking.h"
 
-Networking::Networking(const QUrl &url_, bool debug_, QObject *parent)
-    : url(url_), debug(debug_), QObject(parent)
+Networking::Networking(QString configFile, QObject *parent)
+    : url(), debug(false), QObject(parent)
 {
+    QSettings* socketSettings = new QSettings(configFile, QSettings::IniFormat);
+    socketSettings->beginGroup("socket");
+    // Get the settings from the ini file.
+    QString scheme = socketSettings->value("scheme", QString("ws")).toString();
+    QString host = socketSettings->value("host", QString("localhost")).toString();
+    int port = socketSettings->value("port", 8081).toInt();
+    // Set the url to connect to
+    url.setScheme(scheme);
+    url.setHost(host);
+    url.setPort(port);
+
+    debug = socketSettings->value("debug", false).toBool();
+
     if (debug)
         qDebug() << "Attempting to connect to:" << url;
 
