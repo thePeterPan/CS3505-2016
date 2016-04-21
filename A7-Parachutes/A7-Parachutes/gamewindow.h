@@ -5,6 +5,9 @@
 #include <sprite.h>
 #include <QPainter>
 #include <QTimer>
+#include "gameLogic.h"
+#include "Box2D/Box2D.h"
+
 
 namespace Ui {
 class gameWindow;
@@ -22,6 +25,8 @@ private:
     Ui::gameWindow *ui;
 
     Sprite sprite;
+
+    gameLogic game;
 
 protected:
     void paintEvent(QPaintEvent *);

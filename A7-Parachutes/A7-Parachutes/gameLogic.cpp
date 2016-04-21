@@ -7,75 +7,65 @@ gameLogic::gameLogic()
 {
 
     setUpBox2D();
+    SCALE = 30.0f;
 }
 
 void gameLogic::setUpBox2D()
 {
-    // Define the gravity vector.
-    b2Vec2 gravity(0.0f, -10.0f);
+    /** Prepare the world */
+        b2Vec2 Gravity(0.f, 9.8f);
+        bool doSleep = true;
 
-    // Construct a world object, which will hold and simulate the rigid bodies.
-    b2World world(gravity);
+        b2World* World = new b2World(Gravity);
+        //World(Gravity);
 
-    // Define the ground body.
-    b2BodyDef groundBodyDef;
-    groundBodyDef.position.Set(0.0f, -10.0f);
+        CreateGround(*World, 400.f, 500.f);
+        CreateBox(*World, 0, 0);
 
-    // Call the body factory which allocates memory for the ground body
-    // from a pool and creates the ground box shape (also from a pool).
-    // The body is also added to the world.
-    b2Body* groundBody = world.CreateBody(&groundBodyDef);
 
-    // Define the ground box shape.
-    b2PolygonShape groundBox;
+}
 
-    // The extents are the half-widths of the box.
-    groundBox.SetAsBox(50.0f, 10.0f);
+void gameLogic::CreateGround(b2World& World, float X, float Y)
+{
+        b2BodyDef BodyDef;
+        BodyDef.position = b2Vec2(X/30.f, Y/30.f);
+        BodyDef.type = b2_staticBody;
+        b2Body* Body = World.CreateBody(&BodyDef);
+        b2PolygonShape Shape;
+        Shape.SetAsBox((800.f/2)/SCALE, (16.f/2)/SCALE); // Creates a box shape. Divide your desired width and height by 2.
+        b2FixtureDef FixtureDef;
+        FixtureDef.density = 0.f;  // Sets the density of the body
+        FixtureDef.shape = &Shape; // Sets the shape
+        Body->CreateFixture(&FixtureDef); // Apply the fixture definition
+}
 
-    // Add the ground fixture to the ground body.
-    groundBody->CreateFixture(&groundBox, 0.0f);
+void gameLogic::CreateBox(b2World& World, int MouseX, int MouseY)
+{
+        b2BodyDef BodyDef;
+        BodyDef.position = b2Vec2(MouseX/SCALE, MouseY/SCALE);
+        BodyDef.type = b2_dynamicBody;
+        b2Body* Body = World.CreateBody(&BodyDef);
 
-    // Define the dynamic body. We set its position and call the body factory.
-    b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(0.0f, 4.0f);
-    b2Body* body = world.CreateBody(&bodyDef);
+        b2PolygonShape Shape;
+        Shape.SetAsBox((32.f/2)/SCALE, (32.f/2)/SCALE);
+        b2FixtureDef FixtureDef;
+        FixtureDef.density = 1.f;
+        FixtureDef.friction = 0.7f;
+        FixtureDef.shape = &Shape;
+        Body->CreateFixture(&FixtureDef);
+}
 
-    // Define another box shape for our dynamic body.
-    b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(1.0f, 1.0f);
+float getXPos()
+{
+    //return position.x();
+}
 
-    // Define the dynamic body fixture.
-    b2FixtureDef fixtureDef;
-    fixtureDef.shape = &dynamicBox;
+float getYPos()
+{
+    //return position.y();
+}
 
-    // Set the box density to be non-zero, so it will be dynamic.
-    fixtureDef.density = 1.0f;
-
-    // Override the default friction.
-    fixtureDef.friction = 0.3f;
-
-    // Add the shape to the body.
-    body->CreateFixture(&fixtureDef);
-
-    // Prepare for simulation. Typically we use a time step of 1/60 of a
-    // second (60Hz) and 10 iterations. This provides a high quality simulation
-    // in most game scenarios.
-    float32 timeStep = 1.0f / 60.0f;
-    int32 velocityIterations = 6;
-    int32 positionIterations = 2;
-
-    // This is our little game loop.
-    for (int32 i = 0; i < 60; ++i)
-    {
-            // Instruct the world to perform a single step of simulation.
-            // It is generally best to keep the time step and iterations fixed.
-            world.Step(timeStep, velocityIterations, positionIterations);
-
-            // Now print the position and angle of the body.
-            b2Vec2 position = body->GetPosition();
-            float32 angle = body->GetAngle();
-
-            qDebug("%4.2f %4.2f %4.2f", position.x, position.y, angle);
-    }
+b2World* gameLogic::getWorld()
+{
+    return World;
 }
