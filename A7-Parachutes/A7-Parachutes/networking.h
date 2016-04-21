@@ -10,6 +10,7 @@ class Networking : public QObject
     Q_OBJECT
 public:
     explicit Networking(QString configFile, QObject *parent = 0);
+    ~Networking();
 
 Q_SIGNALS:
     void closed();

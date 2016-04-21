@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include <QSettings>
 
 // 3rd party libraries
 #include "Box2D/helloworld.h"   // runBox2DHelloWorld

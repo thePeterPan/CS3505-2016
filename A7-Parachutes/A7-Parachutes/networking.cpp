@@ -30,6 +30,8 @@ Networking::Networking(QString configFile, QObject *parent)
     webSocket.open(QUrl(url));
 }
 
+Networking::~Networking() {}
+
 void Networking::onConnected()
 {
     if (debug)
