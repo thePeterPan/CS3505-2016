@@ -24,7 +24,6 @@ gameWindow::~gameWindow()
 
 void gameWindow::connectSignalsAndSlots()
 {
-    qDebug() << "connecting signals and slots";
     //connect(ui->loginButton, SIGNAL(clicked()), this, SLOT(showLevelDialog()));
     //connect(ui->createAccountButton, SIGNAL(clicked()), this, SLOT(showRegistration()));
     connect(this->game, &gameLogic::newWord, this, &gameWindow::receiveNewWord);
@@ -85,7 +84,8 @@ void gameWindow::keyPressEvent(QKeyEvent *e) {
     QChar letter = e->text()[0].toUpper();
     if (letter >= 'A' && letter <= 'Z'){
        // ui->listWidget->addItem(QString(letter));
-        qDebug() << letter;
+        //ONLY SEND THIS if the box corresponding to
+        //the letter they typed is in the target zone
         emit letterTyped(letter);
     }
 }
