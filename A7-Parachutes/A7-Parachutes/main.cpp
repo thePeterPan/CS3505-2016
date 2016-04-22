@@ -10,8 +10,8 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-//    MainWindow w;
-//    w.show();
+    MainWindow w;
+    w.show();
 
     // Get settings from config file:
     QString configFile = ":/A7-Parachutes.ini";

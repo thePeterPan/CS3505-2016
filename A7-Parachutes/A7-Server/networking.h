@@ -13,8 +13,10 @@
 #include <QJsonValue>
 #include <QJsonArray>
 
-#include "QtWebSockets/QWebSocketServer"
-#include "QtWebSockets/QWebSocket"
+//#include <QtWebSockets/QWebSocketServer>
+#include "QtWebSockets/qwebsocketserver.h"
+//#include <QtWebSockets/QWebSocket>
+#include "QtWebSockets/qwebsocket.h"
 
 class Networking : public QObject
 {
