@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     QString configFile = ":/A7-Parachutes.ini";
 
     // For testing Box2D purposes:
-    runBox2DHelloWorld();
+    //runBox2DHelloWorld();
 
 
     // Turns out putting this in a method was deleting the client object when the method returned,

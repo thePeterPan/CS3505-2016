@@ -5,6 +5,10 @@
 #include <sprite.h>
 #include <QPainter>
 #include <QTimer>
+#include "gameLogic.h"
+#include "Box2D/Box2D.h"
+#include <QDebug>
+
 
 namespace Ui {
 class gameWindow;
@@ -16,15 +20,31 @@ class gameWindow : public QMainWindow
 
 public:
     explicit gameWindow(QWidget *parent = 0);
+    void keyPressEvent(QKeyEvent* e);
     ~gameWindow();
 
 private:
     Ui::gameWindow *ui;
 
-    Sprite sprite;
+    Sprite sprite,groundSprite;
+
+    gameLogic* game;
+
+    void connectSignalsAndSlots();
+
+    void setListWidget(QString word);
 
 protected:
     void paintEvent(QPaintEvent *);
+
+public slots:
+    void receiveNewWord(QString word); //Connected to gameLogic::newWord
+    void receiveNewLevel(int level);//Connected to gameLogic::newLevel
+    void receiveFail();//Connected to gameLogic::failed
+    void receiveVictory();//Connected to gameLogic::victory
+
+signals:
+    void letterTyped(QChar letter);
 };
 
 #endif // GAMEWINDOW_H

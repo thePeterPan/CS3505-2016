@@ -8,8 +8,8 @@ class Sprite
 {
 public:
     Sprite();
-    Sprite(int x, int y, int width, int height, int numFrames, QString filepath);
-    ~Sprite();
+    Sprite(int x, int y, int width, int height, int numFrames, QString letter);
+    //~Sprite();
 
     void draw(QPainter * painter);
 

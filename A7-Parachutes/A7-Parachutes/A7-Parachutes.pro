@@ -24,7 +24,7 @@ SOURCES += main.cpp\
     registrationDialog.cpp \
     gamewindow.cpp \
     sprite.cpp \
-    game.cpp \
+    gameLogic.cpp \
     networking.cpp
 
 HEADERS  += mainwindow.h \
@@ -34,7 +34,7 @@ HEADERS  += mainwindow.h \
     registrationDialog.h \
     gamewindow.h \
     sprite.h \
-    game.h \
+    gameLogic.h \
     networking.h
 
 FORMS    += mainwindow.ui \

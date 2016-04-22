@@ -21,18 +21,23 @@ Sprite::Sprite()
  * @param numFrames
  * @param filepath
  */
-Sprite::Sprite(int x, int y, int width, int height, int numFrames, QString filepath) :
+Sprite::Sprite(int x, int y, int width, int height, int numFrames, QString letter) :
     x(x),y(y),width(width),height(height),numFrames(numFrames)
 {
-    image = new QPixmap(filepath);
+    image = new QPixmap(":/images/crate_sprites/" + letter + ".png");
     (*image) = image->scaled(width,height,Qt::KeepAspectRatioByExpanding);
     currentFrame = 0;
 }
 
+/*
+//{
+//   delete image;
+//}
 Sprite::~Sprite()
 {
     delete image;
 }
+*/
 
 void Sprite::setX(int newX)
 {
