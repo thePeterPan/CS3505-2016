@@ -34,6 +34,7 @@ void launchSocketListener(QString configFile, QObject* parent = 0)
 {
     Networking *server = new Networking(configFile, parent);
     QObject::connect(server, &Networking::closed, parent, &QCoreApplication::quit);
+    server->getJsonDocument();
 }
 
 int main(int argc, char *argv[])

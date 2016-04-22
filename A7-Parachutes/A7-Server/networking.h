@@ -6,9 +6,13 @@
 #include <QByteArray>
 #include <QSettings>
 #include <QDebug>
+#include <QFile>
 
-//QT_FORWARD_DECLARE_CLASS(QWebSocketServer)
-//QT_FORWARD_DECLARE_CLASS(QWebSocket)
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
+
 #include "QtWebSockets/QWebSocketServer"
 #include "QtWebSockets/QWebSocket"
 
@@ -18,6 +22,8 @@ class Networking : public QObject
 public:
     explicit Networking(QString configFile, QObject *parent = Q_NULLPTR);
     ~Networking();
+
+    void getJsonDocument();
 
 Q_SIGNALS:
     void closed();

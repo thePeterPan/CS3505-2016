@@ -69,3 +69,41 @@ void Networking::socketDisconnected()
         client->deleteLater();
     }
 }
+
+void Networking::getJsonDocument()
+{
+    qDebug() << "--------------------------------------------------------";
+
+    QFile file(":/sample.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QString jsonString = file.readAll();
+    file.close();
+
+    qWarning() << jsonString;
+    qDebug() << "--------------------------------------------------------";
+
+    QJsonDocument document = QJsonDocument::fromJson(jsonString.toUtf8());
+    QJsonObject object = document.object();
+    QJsonValue value = object.value(QString("appName"));
+
+    qWarning() << value;
+    qDebug() << "--------------------------------------------------------";
+
+    QJsonObject item = value.toObject();
+
+    qWarning() << tr("QJsonObject of descripiton: ") << item;
+    qDebug() << "--------------------------------------------------------";
+
+    /* incase of string value get value and convert into string*/
+    qWarning() << tr("QJsonObject[appName] of description: ") << item["description"];
+    qDebug() << "--------------------------------------------------------";
+    QJsonValue subObject = item["description"];
+    qWarning() << subObject.toString();
+    qDebug() << "--------------------------------------------------------";
+
+    /* incase of array get array and convert into string*/
+    qWarning() << tr("QJsonObject[appName] of value: ") << item["imp"];
+    qDebug() << "--------------------------------------------------------";
+    QJsonArray subArray = item["imp"].toArray();
+    qWarning() << subArray[1].toString();
+}
