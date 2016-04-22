@@ -45,7 +45,8 @@ void Networking::processTextMessage(QString message)
         qDebug() << "Message received:" << message;
     if (client)
     {
-        client->sendTextMessage(message);
+//        client->sendTextMessage(message);
+        client->sendTextMessage(getJsonDocument());
     }
 }
 
@@ -70,9 +71,9 @@ void Networking::socketDisconnected()
     }
 }
 
-void Networking::getJsonDocument()
+QString Networking::getJsonDocument()
 {
-    qDebug() << "--------------------------------------------------------";
+    qDebug() << "-------------------------------------------------------------------------------------";
 
     QFile file(":/sample.json");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -83,6 +84,7 @@ void Networking::getJsonDocument()
     qDebug() << "--------------------------------------------------------";
 
     QJsonDocument document = QJsonDocument::fromJson(jsonString.toUtf8());
+
     QJsonObject object = document.object();
     QJsonValue value = object.value(QString("appName"));
 
@@ -106,4 +108,10 @@ void Networking::getJsonDocument()
     qDebug() << "--------------------------------------------------------";
     QJsonArray subArray = item["imp"].toArray();
     qWarning() << subArray[1].toString();
+
+    qDebug() << "-------------------------------------------------------------------------------------";
+
+    return document.toJson(QJsonDocument::Compact);
+    // http://stackoverflow.com/questions/15893040/how-to-create-read-write-json-files-in-qt5
+    // http://stackoverflow.com/questions/28181627/how-to-convert-a-qjsonobject-to-qstring
 }

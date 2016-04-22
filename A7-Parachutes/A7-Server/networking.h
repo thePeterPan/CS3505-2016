@@ -23,7 +23,7 @@ public:
     explicit Networking(QString configFile, QObject *parent = Q_NULLPTR);
     ~Networking();
 
-    void getJsonDocument();
+    QString getJsonDocument();
 
 Q_SIGNALS:
     void closed();

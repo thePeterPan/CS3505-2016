@@ -3,6 +3,12 @@
 
 #include <QObject>
 #include <QSettings>
+
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
+
 #include "QtWebSockets/QWebSocket"
 
 class Networking : public QObject
