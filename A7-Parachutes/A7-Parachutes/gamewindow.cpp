@@ -31,6 +31,8 @@ void gameWindow::connectSignalsAndSlots()
     connect(this->game, &gameLogic::newLevel, this, &gameWindow::receiveNewLevel);
     connect(this->game, &gameLogic::failed, this, &gameWindow::receiveFail);
     connect(this->game, &gameLogic::victory, this, &gameWindow::receiveVictory);
+    connect(this, &gameWindow::letterTyped, this->game, &gameLogic::newLetterTyped);
+
 }
 
 void gameWindow::paintEvent(QPaintEvent *)
@@ -84,6 +86,7 @@ void gameWindow::keyPressEvent(QKeyEvent *e) {
     if (letter >= 'A' && letter <= 'Z'){
        // ui->listWidget->addItem(QString(letter));
         qDebug() << letter;
+        emit letterTyped(letter);
     }
 }
 

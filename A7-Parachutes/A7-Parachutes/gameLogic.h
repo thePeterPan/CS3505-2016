@@ -16,7 +16,7 @@ public:
     b2World* World;
     b2World* getWorld();
     void testSignals();
-    void getWordsFromDatabase();
+    void getWordsFromDatabase(int level);
 
 private:
     void setUpBox2D();
@@ -28,6 +28,7 @@ private:
     QString currentWord;
     int currentWordIndex;
     QQueue<QString> words;
+    int currentLevel;
 
 signals:
     void newWord(QString word);
@@ -36,7 +37,7 @@ signals:
     void victory();
 
 public slots:
-    void newLetterTyped(char letter);
+    void newLetterTyped(QChar letter);
 
 };
 

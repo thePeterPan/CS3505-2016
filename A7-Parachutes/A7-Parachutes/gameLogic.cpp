@@ -7,6 +7,8 @@ gameLogic::gameLogic(QObject *parent) : QObject(parent)
 {
     setUpBox2D();
     SCALE = 30.0f;
+    currentLevel = 1;
+    getWordsFromDatabase(currentLevel);
 }
 
 void gameLogic::setUpBox2D()
@@ -59,25 +61,88 @@ b2World* gameLogic::getWorld()
     return World;
 }
 
-void gameLogic::getWordsFromDatabase()
+void gameLogic::getWordsFromDatabase(int level)
 {
     words.clear();
 
     //test data
-    words.append("basket");
-    words.append("ball");
-    words.append("basketball");
-    words.append("warrior");
-    words.append("cavalier");
-    words.append("spur");
-    words.append("jazz");
-    words.append("celtic");
-    words.append("final");
-    words.append("guard");
+    if(level == 1)
+    {
+        words.append("basket");
+        words.append("ball");
+        words.append("basketball");
+        words.append("warrior");
+        words.append("cavalier");
+        words.append("spur");
+        words.append("jazz");
+        words.append("celtic");
+        words.append("final");
+        words.append("guard");
+    }
+    else if(level == 2)
+    {
+        words.append("base");
+        words.append("ball");
+        words.append("baseball");
+        words.append("brave");
+        words.append("yankee");
+        words.append("indian");
+        words.append("mariner");
+        words.append("giant");
+        words.append("dodger");
+        words.append("diamondback");
+    }
+    else if(level == 3)
+    {
+        words.append("foot");
+        words.append("ball");
+        words.append("football");
+        words.append("cowboy");
+        words.append("redskin");
+        words.append("jet");
+        words.append("patriot");
+        words.append("raider");
+        words.append("charger");
+        words.append("seahawk");
+        words.append("ram");
+        words.append("texan");
+    }
+    currentWord = words.first();
+    currentWordIndex = 0;
+    words.removeFirst();
+    qDebug() << currentWord;
 }
 
-void gameLogic::newLetterTyped(char letter)
+void gameLogic::newLetterTyped(QChar letter)
 {
+    if(letter == currentWord.at(currentWordIndex).toUpper())
+    {
+        qDebug() << letter << " was correct";
+        if(currentWordIndex == currentWord.length() - 1)
+        {
+            if(words.isEmpty())
+            {
+                getWordsFromDatabase(++currentLevel);
+                emit newLevel(currentLevel);
+            }
+            else
+            {
+                currentWord = words.first();
+                currentWordIndex = 0;
+                words.removeFirst();
+                qDebug() << "new word: " << currentWord;
+            }
+        }
+        else
+        {
+            currentWordIndex++;
+        }
+    }
+    else
+    {
+
+       emit failed();
+    }
     // If the new letter is incorrect || the position of the lowest sprite on GUI is bad:
     //      emit failed();
     // If that's the end of the word, but the QQueue is not empty:

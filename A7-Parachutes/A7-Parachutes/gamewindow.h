@@ -44,7 +44,7 @@ public slots:
     void receiveVictory();//Connected to gameLogic::victory
 
 signals:
-    void letterTyped(char letter);
+    void letterTyped(QChar letter);
 };
 
 #endif // GAMEWINDOW_H
