@@ -39,11 +39,11 @@ include(QtWebApp/QtWebApp.pro)
     # Source: http://stackoverflow.com/questions/19066593/copy-a-file-to-build-directory-after-compiling-project-with-qt
     # Source: http://dragly.org/2013/11/05/copying-data-files-to-the-build-directory-when-working-with-qmake/
     # Windows copy issues: http://stackoverflow.com/questions/18860769/how-reference-qt-creator-current-build-directory-from-qt-project-file
-    copydocroot.commands = $(COPY_DIR) $$system_path($$PWD/docroot) $$system_path($$OUT_PWD/docroot)
-    first.depends = $(first) copydocroot
-    export(first.depends)
-    export(copydocroot.commands)
-    QMAKE_EXTRA_TARGETS += first copydocroot
+#    copydocroot.commands = $(COPY_DIR) $$system_path($$PWD/docroot) $$system_path($$OUT_PWD/docroot)
+#    first.depends = $(first) copydocroot
+#    export(first.depends)
+#    export(copydocroot.commands)
+#    QMAKE_EXTRA_TARGETS += first copydocroot
 #first: $(first) copyini copydocroot
 #copyini:
 #	$(COPY_DIR) /home/ppan/cs3505-github/A7-Parachutes/A7-Server/A7-Server.ini /home/ppan/cs3505-github/A7-Parachutes/build-A7-Server-Desktop-Debug
