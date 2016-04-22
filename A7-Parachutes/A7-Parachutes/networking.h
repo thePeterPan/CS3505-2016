@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QSettings>
-#include <QtWebSockets/QWebSocket>
+#include "QtWebSockets/QWebSocket"
 
 class Networking : public QObject
 {

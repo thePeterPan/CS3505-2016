@@ -9,8 +9,8 @@
 
 //QT_FORWARD_DECLARE_CLASS(QWebSocketServer)
 //QT_FORWARD_DECLARE_CLASS(QWebSocket)
-#include <QtWebSockets/QWebSocketServer>
-#include <QtWebSockets/QWebSocket>
+#include "QtWebSockets/QWebSocketServer"
+#include "QtWebSockets/QWebSocket"
 
 class Networking : public QObject
 {
