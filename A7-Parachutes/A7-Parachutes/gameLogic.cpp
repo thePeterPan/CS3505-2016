@@ -59,6 +59,23 @@ b2World* gameLogic::getWorld()
     return World;
 }
 
+void gameLogic::getWordsFromDatabase()
+{
+    words.clear();
+
+    //test data
+    words.append("basket");
+    words.append("ball");
+    words.append("basketball");
+    words.append("warrior");
+    words.append("cavalier");
+    words.append("spur");
+    words.append("jazz");
+    words.append("celtic");
+    words.append("final");
+    words.append("guard");
+}
+
 void gameLogic::newLetterTyped(char letter)
 {
     // If the new letter is incorrect || the position of the lowest sprite on GUI is bad:

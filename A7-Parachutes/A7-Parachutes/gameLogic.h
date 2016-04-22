@@ -16,6 +16,7 @@ public:
     b2World* World;
     b2World* getWorld();
     void testSignals();
+    void getWordsFromDatabase();
 
 private:
     void setUpBox2D();
