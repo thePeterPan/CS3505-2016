@@ -42,7 +42,7 @@ FORMS    += mainwindow.ui \
     gamewindow.ui
 
 RESOURCES += \
-    images.qrc
+    resources.qrc
 
 include(Box2D/Box2D.pro)
 
