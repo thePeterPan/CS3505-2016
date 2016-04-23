@@ -3,18 +3,18 @@
 Networking::Networking(QString configFile, QObject *parent)
     : url(), debug(false), QObject(parent)
 {
+    // Get the settings from the ini file.
     QSettings* socketSettings = new QSettings(configFile, QSettings::IniFormat);
     socketSettings->beginGroup("socket");
-    // Get the settings from the ini file.
     QString scheme = socketSettings->value("scheme", QString("ws")).toString();
     QString host = socketSettings->value("host", QString("localhost")).toString();
     int port = socketSettings->value("port", 8081).toInt();
+    debug = socketSettings->value("debug", false).toBool();
+
     // Set the url to connect to
     url.setScheme(scheme);
     url.setHost(host);
     url.setPort(port);
-
-    debug = socketSettings->value("debug", false).toBool();
 
     if (debug)
         qDebug() << "Attempting to connect to:" << url;
@@ -46,6 +46,8 @@ void Networking::onConnected()
 
 void Networking::onTextMessageReceived(QString message)
 {
+    qDebug() << "Message Received:" << message;
+
     QJsonDocument document = QJsonDocument::fromJson(message.toUtf8());
 
     qDebug() << "-------------------------------------------------------------------------------------";
@@ -79,5 +81,5 @@ void Networking::onTextMessageReceived(QString message)
 
 void Networking::onBinaryMessageReceived(QByteArray data)
 {
-
+    qDebug() << "Binary message received" << data;
 }

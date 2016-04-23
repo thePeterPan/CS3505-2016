@@ -6,16 +6,36 @@ Networking::Networking(QString configFile, QObject *parent)
       clients(),
       debug()
 {
+    // Read in the settings for the socket from the ini file.
     QSettings* socketSettings = new QSettings(configFile, QSettings::IniFormat);
     socketSettings->beginGroup("socket");
     int port = socketSettings->value("port", 8081).toInt();
     debug = socketSettings->value("debug", false).toBool();
 
+    // Listen on all network interfaces on the specified port.
     if (webSocketServer->listen(QHostAddress::Any, port)) {
         if (debug)
-            qDebug() << "Socket Server listening on port:" << port;
+            qDebug() << "Socket Server listening on address" << webSocketServer->serverUrl().url();
         connect(webSocketServer, &QWebSocketServer::newConnection, this, &Networking::onNewConnection);
         connect(webSocketServer, &QWebSocketServer::closed, this, &Networking::closed);
+    } else {
+        if (debug) {
+            qDebug() << "Error starting socket server on" << webSocketServer->serverUrl().url();
+            qDebug() << "Trying again.";
+        }
+        // If unable to connect on the specified port, automatically choose a port.
+        if (webSocketServer->listen(QHostAddress::Any)) {
+            if (debug) {
+                qDebug() << "Socket Server listening on address" << webSocketServer->serverUrl().url();
+            }
+            connect(webSocketServer, &QWebSocketServer::newConnection, this, &Networking::onNewConnection);
+            connect(webSocketServer, &QWebSocketServer::closed, this, &Networking::closed);
+        } else {
+            if (debug) {
+                qDebug() << "Unable to launch socket server.";
+                Q_EMIT closed();
+            }
+        }
     }
 }
 
@@ -28,6 +48,7 @@ Networking::~Networking()
 void Networking::onNewConnection()
 {
     QWebSocket *socket = webSocketServer->nextPendingConnection();
+
     if (debug)
         qDebug() << "Socket connected:" << socket;
 
@@ -35,14 +56,17 @@ void Networking::onNewConnection()
     connect(socket, &QWebSocket::binaryMessageReceived, this, &Networking::processBinaryMessage);
     connect(socket, &QWebSocket::disconnected, this, &Networking::socketDisconnected);
 
+    // Add the newly connected socket to the list of clients.
     clients << socket;
 }
 
 void Networking::processTextMessage(QString message)
 {
+    // Get the QWebSocket that sent the signal
     QWebSocket *client = qobject_cast<QWebSocket *>(sender());
     if (debug)
         qDebug() << "Message received:" << message;
+    // If the socket is valid and still open, send the message.
     if (client)
     {
 //        client->sendTextMessage(message);
@@ -52,12 +76,14 @@ void Networking::processTextMessage(QString message)
 
 void Networking::processBinaryMessage(QByteArray message)
 {
+    // Get the QWebSocket that sent the signal
     QWebSocket *client = qobject_cast<QWebSocket *>(sender());
     if (debug)
         qDebug() << "Binary Message received:" << message;
+    // If the socket is valid and still open, send the message.
     if (client)
     {
-        client->sendBinaryMessage(message);
+//        client->sendBinaryMessage(message);
     }
 }
 
@@ -65,6 +91,8 @@ void Networking::socketDisconnected()
 {
     QWebSocket *client = qobject_cast<QWebSocket *>(sender());
     if (debug)
+        qDebug() << "Socket Disconnected:" << client;
+    if (client)
     {
         clients.removeAll(client);
         client->deleteLater();
@@ -96,14 +124,14 @@ QString Networking::getJsonDocument()
     qWarning() << tr("QJsonObject of descripiton: ") << item;
     qDebug() << "--------------------------------------------------------";
 
-    /* incase of string value get value and convert into string*/
+    // incase of string value get value and convert into string
     qWarning() << tr("QJsonObject[appName] of description: ") << item["description"];
     qDebug() << "--------------------------------------------------------";
     QJsonValue subObject = item["description"];
     qWarning() << subObject.toString();
     qDebug() << "--------------------------------------------------------";
 
-    /* incase of array get array and convert into string*/
+    // incase of array get array and convert into string
     qWarning() << tr("QJsonObject[appName] of value: ") << item["imp"];
     qDebug() << "--------------------------------------------------------";
     QJsonArray subArray = item["imp"].toArray();
