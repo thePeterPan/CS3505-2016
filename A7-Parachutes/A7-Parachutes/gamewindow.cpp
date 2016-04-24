@@ -15,7 +15,6 @@ gameWindow::gameWindow(QWidget *parent) :
     sprite = Sprite();
     //groundSprite = Sprite();
     connectSignalsAndSlots();
-    //QTimer::singleShot(100,this,SLOT(update()));
     game->testSignals();
 
 

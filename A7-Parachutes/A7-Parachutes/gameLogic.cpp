@@ -23,15 +23,26 @@ void gameLogic::setUpBox2D()
     CreateGround(0.0f, 0.0f,2000.0f, 1.0f);
     CreateGround(0.0f,0.0f,1.0f,1200.0f);
     CreateGround(800.0f,0.0f,1.0f,1200.0f);
-    CreateGround(0.0f,615.0f,2000.0f,1.0f);
+    CreateGround(0.0f,700.0f,2000.0f,1.0f);
 
-    CreateBox("t",80.0f, 600.0f, 100.0f, 100.0f, 0.1f,1.0f);
-    CreateBox("i",150.0f, 550.0f, 100.0f, 100.0f, 0.1f,1.0f);
-    CreateBox("r",220.0f, 600.0f, 100.0f, 100.0f, 0.1f,1.0f);
-    CreateBox("e",290.0f, 400.0f, 100.0f, 100.0f, 0.1f,1.0f);
-    CreateBox("d",360.0f, 250.0f, 100.0f, 100.0f, 0.1f,1.0f);
-    CreateBox("!",430.0f, 600.0f, 100.0f, 100.0f, 0.05f,1.0f);
 
+
+
+}
+
+void gameLogic::addWordToWorld()
+{
+    sprites.clear();
+    World->Dump();
+    //NEEDS TO BE A GLOBAL:: WIDTH, HEIGHT
+    float width = 800.0f;
+    float height = 635.0f;
+    float itemWidth = 80.0f;
+    int spacing = width / currentWord.length();
+    for(int i = 0; i < currentWord.length(); i++)
+    {
+        CreateBox(""+currentWord[i],i*spacing, height-width/2,itemWidth,itemWidth, 0.1f,1.0f);
+    }
 }
 
 void gameLogic::CreateGround(float x, float y, float width, float height)
@@ -62,7 +73,7 @@ void gameLogic::CreateBox(QString letter, float x, float y, float width, float h
     fixtureDef.restitution = restitution;
     box->CreateFixture(&fixtureDef);
 
-    TemporarySprite sprite(box,letter);
+    TemporarySprite sprite(box,letter,(int)width);
     sprites.append(sprite);
 }
 
@@ -121,6 +132,7 @@ void gameLogic::getWordsFromDatabase(int level)
     currentWordIndex = 0;
     words.removeFirst();
     qDebug() << currentWord;
+    addWordToWorld();
 }
 
 void gameLogic::newLetterTyped(QChar letter)
@@ -141,6 +153,8 @@ void gameLogic::newLetterTyped(QChar letter)
                 currentWordIndex = 0;
                 words.removeFirst();
                 qDebug() << "new word: " << currentWord;
+                addWordToWorld();
+
             }
         }
         else

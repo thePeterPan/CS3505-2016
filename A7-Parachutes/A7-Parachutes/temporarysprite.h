@@ -12,13 +12,14 @@ class TemporarySprite
 
 public:
     TemporarySprite();
-    TemporarySprite(b2Body * body, QString letter);
+    TemporarySprite(b2Body * body, QString letter, int width);
     void draw(QPainter * painter);
     QString getLetter();
 
 private:
     b2Body * body;
     QString letter;
+    int width;
 
 };
 
