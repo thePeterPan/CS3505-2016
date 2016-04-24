@@ -3,7 +3,13 @@
 
 #include <QObject>
 #include <QSettings>
-#include <QtWebSockets/QWebSocket>
+
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
+
+#include "QtWebSockets/qwebsocket.h"
 
 class Networking : public QObject
 {
@@ -12,8 +18,20 @@ public:
     explicit Networking(QString configFile, QObject *parent = 0);
     ~Networking();
 
+    enum RequestType {
+        WordList,
+        Login,
+        Signup,
+        GameOver,
+        TeacherList,
+        UsernameCheck
+    };
+
+    void requestWordList(QString teacher, QString listName);
+
 Q_SIGNALS:
-    void closed();
+    void socketClosed();
+    void receiveError(QString errorMessage);
 
 private Q_SLOTS:
     void onConnected();
@@ -24,6 +42,10 @@ private:
     QWebSocket webSocket;
     QUrl url;
     bool debug;
+
+    void printJsonObject(QJsonObject &json);
+    void printJsonArray(QJsonArray &array);
+    void testJson(QString message);
 };
 
 #endif // NETWORKING_H

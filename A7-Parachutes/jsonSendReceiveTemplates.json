@@ -1,0 +1,102 @@
+{
+  "website": "http://www.jsoneditoronline.org/?id=69b4a0300741846356af681b18e708da",
+  "request word list template": {
+    "requestType": "enum::Networking::WordList",
+    "teacher": "teacher name",
+    "listName": "list name"
+  },
+  "word list response template": {
+    "wordList": {
+      "name": "list1",
+      "list": [
+        "word1",
+        "word2",
+        "word3",
+        "word4"
+      ]
+    }
+  },
+  "login request template": {
+    "requestType": "enum::Networking::Login",
+    "username": "username",
+    "password": "#############"
+  },
+  "login response template": {
+    "userAccess": {
+      "state": "granted/denied",
+      "username": "username",
+      "token": "#################",
+      "tokenExpiration": "token expiration"
+    }
+  },
+  "teacher list request template": {
+    "requestType": "enum::Networking::TeacherList"
+  },
+  "teacher list response template": {
+    "teacherList": [
+      "teacher1",
+      "teacher2",
+      "teacher3"
+    ]
+  },
+  "username check request template": {
+    "requestType": "enum::Networking::UsernameCheck",
+    "username": "username"
+  },
+  "username check response template": {
+    "usernameValidity": "valid/invalid"
+  },
+  "sign up request template": {
+    "requestType": "enum::Networking::Signup",
+    "username": "username",
+    "password": "###########",
+    "teacher": "teacher",
+    "class": "class"
+  },
+  "sign up response template": {
+    "userAccess": {
+      "state": "granted/denied",
+      "username": "username",
+      "token": "################",
+      "tokenExpiration": "token expiration"
+    }
+  },
+  "game over request template": {
+    "requestType": "enum::Networking::GameOver",
+    "username": "username",
+    "token": "##################",
+    "gameType": "enum::GameType",
+    "score": 1,
+    "timestamp": "timestamp",
+    "duration": "duration"
+  },
+  "game over response template": {
+    "gameOver": {
+      "username": "username",
+      "placement": 1,
+      "leaderboard": [
+        "first place",
+        "second place",
+        "third place",
+        "fourth place",
+        "fifth place",
+        "sixth place",
+        "seventh place",
+        "eigth place",
+        "ninth place",
+        "tenth place"
+      ]
+    }
+  },
+  "client error response template": {
+    "requestType": "enum::Networking::Error",
+    "message": "Error message",
+    "receivedString": ""
+  },
+  "server error response template": {
+    "error": {
+      "message": "error message string",
+      "receivedString": ""
+    }
+  }
+}
