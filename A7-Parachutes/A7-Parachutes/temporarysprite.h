@@ -5,6 +5,8 @@
 #include <QString>
 #include <Box2D/Box2D.h>
 #include <QDebug>
+#include <QPixmap>
+#include <QFont>
 
 
 class TemporarySprite
@@ -21,6 +23,8 @@ private:
     b2Body * body;
     QString letter;
     int width;
+    QPixmap * image;
+    QFont font;
 
 };
 
