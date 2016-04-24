@@ -1,0 +1,21 @@
+{
+  "website" : "http://www.jsoneditoronline.org",
+  "send word list template": {
+    "wordList": {
+      "name": "list1",
+      "list": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  },
+  "request word list template" : {
+    "request" : {
+      "type" : "enum::Networking::WordList",
+      "teacher" : "teacher name",
+      "listName" : "list name"
+    }
+  }
+}
