@@ -37,7 +37,7 @@ void gameWindow::connectSignalsAndSlots()
 
 void gameWindow::paintEvent(QPaintEvent *)
 {
-    game->World->Step(1.f/60.f, 8, 3);
+    game->World->Step(1.f/120.f, 8, 3);
     QPainter painter(this);
 
     //b2World* world = World;

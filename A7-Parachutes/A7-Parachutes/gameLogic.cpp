@@ -16,7 +16,10 @@ void gameLogic::setUpBox2D()
     World = new b2World(Gravity);
     //World(Gravity);
 
-    CreateGround(400.0f, 20.0f);
+    CreateGround(0.0f, 0.0f,2000.0f, 20.0f);
+    CreateGround(-10.0f,0.0f,20.0f,1200.0f);
+    CreateGround(1000.0f,0.0f,20.0f,1200.0f);
+
     CreateBox(80.0f, 600.0f, 100.0f, 100.0f, 0.2f,0.2f);
     CreateBox(150.0f, 600.0f, 100.0f, 100.0f, 0.35f,0.3f);
     CreateBox(220.0f, 600.0f, 100.0f, 100.0f, 0.4f,0.5f);
@@ -26,15 +29,15 @@ void gameLogic::setUpBox2D()
 
 }
 
-void gameLogic::CreateGround(float width, float height)
+void gameLogic::CreateGround(float x, float y, float width, float height)
 {
 
     b2BodyDef groundDef;
-    groundDef.position.Set(0.0f, -10.f);
+    groundDef.position.Set(x/SCALE, y/SCALE);
     //bodyDef.type = b2_staticBody; // Static by default
     b2Body* ground = World->CreateBody(&groundDef);
     b2PolygonShape groundBox;
-    groundBox.SetAsBox((width/2.0f), (height/2.0f)); // Creates a box shape. Divide your desired width and height by 2.
+    groundBox.SetAsBox((width/2.0f)/SCALE, (height/2.0f)/SCALE); // Creates a box shape. Divide your desired width and height by 2.
     //b2FixtureDef FixtureDef;
     //FixtureDef.density = 0.f;  // Sets the density of the body
     //FixtureDef.shape = &groundBox; // Sets the shape
@@ -49,7 +52,7 @@ void gameLogic::CreateBox(float x, float y, float width, float height, float fri
     b2Body* box = World->CreateBody(&boxDef);
 
     b2PolygonShape shape;
-    shape.SetAsBox(width/SCALE,height/SCALE);//2mx2m box
+    shape.SetAsBox((width/2.0f)/SCALE,(height/2.0f)/SCALE);//2mx2m box
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
     fixtureDef.density = density;
