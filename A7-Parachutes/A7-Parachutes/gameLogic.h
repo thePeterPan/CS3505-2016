@@ -22,7 +22,7 @@ private:
     void setUpBox2D();
     b2Vec2 position;
     void CreateGround(float width, float height);
-    void CreateBox(float x, float y, float width, float height, float friction, float density);
+    void CreateBox(float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
 
     float SCALE;
 

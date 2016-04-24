@@ -17,12 +17,12 @@ void gameLogic::setUpBox2D()
     //World(Gravity);
 
     CreateGround(400.0f, 20.0f);
-    CreateBox(80.0f, 600.0f, 100.0f, 100.0f, 0.2f,1.2f);
-    CreateBox(150.0f, 600.0f, 100.0f, 100.0f, 0.35f,1.2f);
-    CreateBox(220.0f, 600.0f, 100.0f, 100.0f, 0.4f,1.2f);
-    CreateBox(290.0f, 600.0f, 100.0f, 100.0f, 0.55f,1.2f);
-    CreateBox(360.0f, 600.0f, 100.0f, 100.0f, 0.7f,1.2f);
-    CreateBox(430.0f, 600.0f, 100.0f, 100.0f, 0.85f,1.2f);
+    CreateBox(80.0f, 600.0f, 100.0f, 100.0f, 0.2f,0.2f);
+    CreateBox(150.0f, 600.0f, 100.0f, 100.0f, 0.35f,0.3f);
+    CreateBox(220.0f, 600.0f, 100.0f, 100.0f, 0.4f,0.5f);
+    CreateBox(290.0f, 600.0f, 100.0f, 100.0f, 0.55f,0.6f);
+    CreateBox(360.0f, 600.0f, 100.0f, 100.0f, 0.7f,0.8f);
+    CreateBox(430.0f, 600.0f, 100.0f, 100.0f, 0.85f,0.9f);
 
 }
 
@@ -38,10 +38,10 @@ void gameLogic::CreateGround(float width, float height)
     //b2FixtureDef FixtureDef;
     //FixtureDef.density = 0.f;  // Sets the density of the body
     //FixtureDef.shape = &groundBox; // Sets the shape
-    ground->CreateFixture(&groundBox,0.0f); // Apply the fixture definition
+    ground->CreateFixture(&groundBox,10.0f); // Apply the fixture definition
 }
 
-void gameLogic::CreateBox(float x, float y, float width, float height, float friction, float density)
+void gameLogic::CreateBox(float x, float y, float width, float height, float friction, float restitution, float density)
 {
     b2BodyDef boxDef;
     boxDef.type = b2_dynamicBody;
@@ -54,6 +54,7 @@ void gameLogic::CreateBox(float x, float y, float width, float height, float fri
     fixtureDef.shape = &shape;
     fixtureDef.density = density;
     fixtureDef.friction = friction;
+    fixtureDef.restitution = restitution;
     box->CreateFixture(&fixtureDef);
     /*
         b2BodyDef bodyDef;

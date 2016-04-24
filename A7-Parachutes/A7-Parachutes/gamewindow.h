@@ -35,8 +35,6 @@ private:
 
     void setListWidget(QString word);
 
-    void testBox2D();
-
 protected:
     void paintEvent(QPaintEvent *);
 
