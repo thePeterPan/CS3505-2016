@@ -20,6 +20,7 @@ public:
     void paintWorld(QPainter * painter);
     b2World* getWorld();
     void testSignals();
+    void getWordsFromDatabase(int level);
 
 private:
     void setUpBox2D();
@@ -33,7 +34,11 @@ private:
     QString currentWord;
     int currentWordIndex;
     QQueue<QString> words;
+<<<<<<< HEAD
     QList<TemporarySprite> sprites;
+=======
+    int currentLevel;
+>>>>>>> refs/remotes/origin/neverland-dev
 
 signals:
     void newWord(QString word);
@@ -42,7 +47,7 @@ signals:
     void victory();
 
 public slots:
-    void newLetterTyped(char letter);
+    void newLetterTyped(QChar letter);
 
 };
 

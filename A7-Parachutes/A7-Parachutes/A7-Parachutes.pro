@@ -6,8 +6,9 @@
 
 QT       += core gui
 
-#QMAKE_CXXFLAGS += -std=c++0x
 CONFIG += c++11
+
+QMAKE_CXXFLAGS += -Wextra
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,26 +20,34 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     Trie/Node.cpp \
     Trie/Trie.cpp \
-    echoclient.cpp \
     leveldialog.cpp \
     registrationDialog.cpp \
     gamewindow.cpp \
     sprite.cpp \
+<<<<<<< HEAD
     game.cpp \
     gameLogic.cpp \
     temporarysprite.cpp
+=======
+    gameLogic.cpp \
+    networking.cpp
+>>>>>>> refs/remotes/origin/neverland-dev
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
     Trie/Trie.h \
-    echoclient.h \
     leveldialog.h \
     registrationDialog.h \
     gamewindow.h \
     sprite.h \
+<<<<<<< HEAD
     game.h \
     gameLogic.h \
     temporarysprite.h
+=======
+    gameLogic.h \
+    networking.h
+>>>>>>> refs/remotes/origin/neverland-dev
 
 FORMS    += mainwindow.ui \
     leveldialog.ui \
@@ -46,7 +55,7 @@ FORMS    += mainwindow.ui \
     gamewindow.ui
 
 RESOURCES += \
-    images.qrc
+    resources.qrc
 
 include(Box2D/Box2D.pro)
 

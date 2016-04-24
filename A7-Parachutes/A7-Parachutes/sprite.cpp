@@ -30,6 +30,9 @@ Sprite::Sprite(int x, int y, int width, int height, int numFrames, QString lette
 }
 
 /*
+//{
+//   delete image;
+//}
 Sprite::~Sprite()
 {
     delete image;

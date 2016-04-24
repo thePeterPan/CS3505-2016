@@ -21,6 +21,7 @@ class gameWindow : public QMainWindow
 
 public:
     explicit gameWindow(QWidget *parent = 0);
+    void keyPressEvent(QKeyEvent* e);
     ~gameWindow();
 
 private:
@@ -47,7 +48,7 @@ public slots:
     void receiveVictory();//Connected to gameLogic::victory
 
 signals:
-    void letterTyped(char letter);
+    void letterTyped(QChar letter);
 };
 
 #endif // GAMEWINDOW_H
