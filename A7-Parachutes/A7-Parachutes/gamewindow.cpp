@@ -12,8 +12,6 @@ gameWindow::gameWindow(QWidget *parent) :
     scale = 100;
 
     game = new gameLogic(this,(float)scale);
-    sprite = Sprite();
-    //groundSprite = Sprite();
     connectSignalsAndSlots();
     game->testSignals();
 

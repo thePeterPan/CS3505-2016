@@ -18,7 +18,6 @@ void gameLogic::setUpBox2D()
     bool doSleep = true;
 
     World = new b2World(Gravity);
-    //World(Gravity);
 
     CreateGround(0.0f, 0.0f,2000.0f, 1.0f);
     CreateGround(0.0f,0.0f,1.0f,1200.0f);

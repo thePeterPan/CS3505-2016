@@ -27,8 +27,6 @@ public:
 private:
     Ui::gameWindow *ui;
 
-    Sprite sprite;
-
     gameLogic* game;
 
     int scale;
