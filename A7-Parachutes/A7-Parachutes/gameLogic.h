@@ -5,12 +5,13 @@
 #include "Box2D/Box2D.h"
 
 
+
 class gameLogic : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit gameLogic(QObject *parent = 0);
+    explicit gameLogic(QObject *parent = 0, float scale = 100.0f);
     float getXPos();
     float getYPos();
     b2World* World;
@@ -20,9 +21,11 @@ public:
 private:
     void setUpBox2D();
     b2Vec2 position;
-    void CreateGround(b2World& World, float X, float Y);
-    void CreateBox(b2World& World, int MouseX, int MouseY); // Spawns a box at MouseX, MouseY
+    void CreateGround(float width, float height);
+    void CreateBox(float x, float y, float width, float height, float friction, float density);
+
     float SCALE;
+
     b2Vec2 Gravity;
     QString currentWord;
     int currentWordIndex;

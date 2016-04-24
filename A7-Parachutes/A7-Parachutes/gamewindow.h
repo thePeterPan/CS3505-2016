@@ -25,13 +25,17 @@ public:
 private:
     Ui::gameWindow *ui;
 
-    Sprite sprite,groundSprite;
+    Sprite sprite;
 
     gameLogic* game;
+
+    int scale;
 
     void connectSignalsAndSlots();
 
     void setListWidget(QString word);
+
+    void testBox2D();
 
 protected:
     void paintEvent(QPaintEvent *);
