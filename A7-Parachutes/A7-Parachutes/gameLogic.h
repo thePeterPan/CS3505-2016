@@ -3,7 +3,9 @@
 #include <QQueue>
 #include <QObject>
 #include "Box2D/Box2D.h"
-
+#include <QString>
+#include <QList>
+#include "temporarysprite.h"
 
 
 class gameLogic : public QObject
@@ -15,6 +17,7 @@ public:
     float getXPos();
     float getYPos();
     b2World* World;
+    void paintWorld(QPainter * painter);
     b2World* getWorld();
     void testSignals();
 
@@ -22,7 +25,7 @@ private:
     void setUpBox2D();
     b2Vec2 position;
     void CreateGround(float x, float y, float width, float height);
-    void CreateBox(float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
+    void CreateBox(QString letter, float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
 
     float SCALE;
 
@@ -30,6 +33,7 @@ private:
     QString currentWord;
     int currentWordIndex;
     QQueue<QString> words;
+    QList<TemporarySprite> sprites;
 
 signals:
     void newWord(QString word);

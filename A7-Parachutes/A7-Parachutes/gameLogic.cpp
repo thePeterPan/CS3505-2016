@@ -4,6 +4,7 @@
 
 gameLogic::gameLogic(QObject *parent, float scale) : QObject(parent), SCALE(scale)
 {
+    sprites = QList<TemporarySprite>();
     setUpBox2D();
 }
 
@@ -16,16 +17,17 @@ void gameLogic::setUpBox2D()
     World = new b2World(Gravity);
     //World(Gravity);
 
-    CreateGround(0.0f, 0.0f,2000.0f, 20.0f);
-    CreateGround(-10.0f,0.0f,20.0f,1200.0f);
-    CreateGround(1000.0f,0.0f,20.0f,1200.0f);
+    CreateGround(0.0f, 0.0f,2000.0f, 1.0f);
+    CreateGround(0.0f,0.0f,1.0f,1200.0f);
+    CreateGround(800.0f,0.0f,1.0f,1200.0f);
+    CreateGround(0.0f,615.0f,2000.0f,1.0f);
 
-    CreateBox(80.0f, 600.0f, 100.0f, 100.0f, 0.2f,0.2f);
-    CreateBox(150.0f, 600.0f, 100.0f, 100.0f, 0.35f,0.3f);
-    CreateBox(220.0f, 600.0f, 100.0f, 100.0f, 0.4f,0.5f);
-    CreateBox(290.0f, 600.0f, 100.0f, 100.0f, 0.55f,0.6f);
-    CreateBox(360.0f, 600.0f, 100.0f, 100.0f, 0.7f,0.8f);
-    CreateBox(430.0f, 600.0f, 100.0f, 100.0f, 0.85f,0.9f);
+    CreateBox("t",80.0f, 600.0f, 100.0f, 100.0f, 0.1f,1.0f);
+    CreateBox("i",150.0f, 550.0f, 100.0f, 100.0f, 0.1f,1.0f);
+    CreateBox("r",220.0f, 600.0f, 100.0f, 100.0f, 0.1f,1.0f);
+    CreateBox("e",290.0f, 400.0f, 100.0f, 100.0f, 0.1f,1.0f);
+    CreateBox("d",360.0f, 250.0f, 100.0f, 100.0f, 0.1f,1.0f);
+    CreateBox("!",430.0f, 600.0f, 100.0f, 100.0f, 0.05f,1.0f);
 
 }
 
@@ -38,13 +40,10 @@ void gameLogic::CreateGround(float x, float y, float width, float height)
     b2Body* ground = World->CreateBody(&groundDef);
     b2PolygonShape groundBox;
     groundBox.SetAsBox((width/2.0f)/SCALE, (height/2.0f)/SCALE); // Creates a box shape. Divide your desired width and height by 2.
-    //b2FixtureDef FixtureDef;
-    //FixtureDef.density = 0.f;  // Sets the density of the body
-    //FixtureDef.shape = &groundBox; // Sets the shape
     ground->CreateFixture(&groundBox,10.0f); // Apply the fixture definition
 }
 
-void gameLogic::CreateBox(float x, float y, float width, float height, float friction, float restitution, float density)
+void gameLogic::CreateBox(QString letter, float x, float y, float width, float height, float friction, float restitution, float density)
 {
     b2BodyDef boxDef;
     boxDef.type = b2_dynamicBody;
@@ -59,20 +58,9 @@ void gameLogic::CreateBox(float x, float y, float width, float height, float fri
     fixtureDef.friction = friction;
     fixtureDef.restitution = restitution;
     box->CreateFixture(&fixtureDef);
-    /*
-        b2BodyDef bodyDef;
-        bodyDef.type = b2_dynamicBody;
-        bodyDef.position.Set(1.0f, 4.0f);
-        b2Body* body = World->CreateBody(&bodyDef);
 
-        b2PolygonShape shape;
-        shape.SetAsBox(1.0f,1.0f);//2mx2m box
-        b2FixtureDef fixtureDef;
-        fixtureDef.shape = &shape;
-        fixtureDef.density = 1.0f;
-        fixtureDef.friction = 0.7f;
-        body->CreateFixture(&fixtureDef);
-        */
+    TemporarySprite sprite(box,letter);
+    sprites.append(sprite);
 }
 
 b2World* gameLogic::getWorld()
@@ -104,4 +92,14 @@ void gameLogic::testSignals()
     emit newLevel(1);
     emit failed();
     emit victory();
+}
+
+void gameLogic::paintWorld(QPainter *painter)
+{
+    World->Step(1.f/120.f, 8, 3);
+
+    for(int i = 0; i < sprites.length(); i++)
+    {
+        sprites[i].draw(painter);
+    }
 }

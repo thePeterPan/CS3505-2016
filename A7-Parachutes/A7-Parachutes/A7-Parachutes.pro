@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     gamewindow.cpp \
     sprite.cpp \
     game.cpp \
-    gameLogic.cpp
+    gameLogic.cpp \
+    temporarysprite.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
@@ -36,7 +37,8 @@ HEADERS  += mainwindow.h \
     gamewindow.h \
     sprite.h \
     game.h \
-    gameLogic.h
+    gameLogic.h \
+    temporarysprite.h
 
 FORMS    += mainwindow.ui \
     leveldialog.ui \
