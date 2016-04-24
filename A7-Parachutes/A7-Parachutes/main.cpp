@@ -10,8 +10,8 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-//    MainWindow w;
-//    w.show();
+    MainWindow w;
+    w.show();
 
     // Get settings from config file:
     QString configFile = ":/A7-Parachutes.ini";
@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
 
     // Turns out putting this in a method was deleting the client object when the method returned,
     // therefore creating a pointer for it is better.
-    Networking* client = new Networking(configFile, &app);
+    //Networking* client = new Networking(configFile, &app);
     // If the connection closes:
-    QObject::connect(client, &Networking::closed, &app, &QCoreApplication::quit);
+    //QObject::connect(client, &Networking::closed, &app, &QCoreApplication::quit);
 
     return app.exec();
 }

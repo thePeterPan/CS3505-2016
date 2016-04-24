@@ -6,12 +6,9 @@ gameLogic::gameLogic(QObject *parent, float scale) : QObject(parent), SCALE(scal
 {
     sprites = QList<TemporarySprite>();
     setUpBox2D();
-<<<<<<< HEAD
-=======
-    SCALE = 30.0f;
+    SCALE = 100.0f;
     currentLevel = 1;
     getWordsFromDatabase(currentLevel);
->>>>>>> refs/remotes/origin/neverland-dev
 }
 
 void gameLogic::setUpBox2D()

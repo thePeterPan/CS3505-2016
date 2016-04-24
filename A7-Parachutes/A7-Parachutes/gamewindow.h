@@ -39,7 +39,6 @@ private:
 
 protected:
     void paintEvent(QPaintEvent *);
-    void keyPressEvent(QKeyEvent * event);
 
 public slots:
     void receiveNewWord(QString word); //Connected to gameLogic::newWord

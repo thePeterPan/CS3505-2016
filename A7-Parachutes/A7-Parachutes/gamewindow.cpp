@@ -76,9 +76,3 @@ void gameWindow::receiveVictory()
 {
     qDebug() << "received victory";
 }
-
-void gameWindow::keyPressEvent(QKeyEvent * event)
-{
-    qDebug() << event->text();
-    qDebug() << event->key();
-}
