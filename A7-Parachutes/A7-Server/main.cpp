@@ -42,7 +42,6 @@ int main(int argc, char *argv[])
     // Start Web Socket Listener:
     Networking* server = new Networking(configFile, &app);
     QObject::connect(server, &Networking::closed, &app, &QCoreApplication::quit);
-    server->getJsonDocument();
 
     return app.exec();
 }

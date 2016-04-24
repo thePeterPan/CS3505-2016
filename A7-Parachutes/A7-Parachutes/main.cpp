@@ -24,7 +24,8 @@ int main(int argc, char *argv[])
     // therefore creating a pointer for it is better.
     Networking* client = new Networking(configFile, &app);
     // If the connection closes:
-    QObject::connect(client, &Networking::closed, &app, &QCoreApplication::quit);
+    QObject::connect(client, &Networking::socketClosed, &app, &QCoreApplication::quit);
+//    client->requestWordList("teacher", "listname");
 
     return app.exec();
 }

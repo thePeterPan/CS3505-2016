@@ -45,6 +45,10 @@ Networking::~Networking()
     qDeleteAll(clients.begin(), clients.end());
 }
 
+/////////////////////////////////
+///////////// SLOTS /////////////
+/////////////////////////////////
+
 void Networking::onNewConnection()
 {
     QWebSocket *socket = webSocketServer->nextPendingConnection();
@@ -60,17 +64,60 @@ void Networking::onNewConnection()
     clients << socket;
 }
 
+/*!
+ * \brief Processes the \a message received and sent by the client.
+ * \param message
+ * \sa processBinaryMessage
+ */
 void Networking::processTextMessage(QString message)
 {
     // Get the QWebSocket that sent the signal
     QWebSocket *client = qobject_cast<QWebSocket *>(sender());
     if (debug)
         qDebug() << "Message received:" << message;
-    // If the socket is valid and still open, send the message.
+
+    // If the socket is valid and still open
     if (client)
     {
+        // Create a QJsonDocument from the received string so we can parse it:
+        QJsonDocument receivedDocument = QJsonDocument::fromJson(message.toUtf8());
+        // Make sure the message contains a Json Object
+        if (receivedDocument.isObject())
+        {
+            // Convert the document to a QJsonObject:
+            QJsonObject receivedObject = receivedDocument.object();
+            // Look at what the client has requested through the message:
+            RequestType request = RequestType(qRound(receivedObject["requestType"].toDouble()));
+
+            if (debug)
+                printJsonObject(receivedObject);
+
+            if (request == WordList)
+            {
+                // Make sure the two needed key/values exist
+                if (receivedObject.contains("teacher") && receivedObject.contains("listName"))
+                {
+                    QJsonObject wordList;
+                    // Write the list of words to the wordList QJsonObject
+                    writeWordList(receivedObject["teacher"].toString(), receivedObject["listName"].toString(), wordList);
+                    // Convert the QJsonObject to a QJsonDocument:
+                    QJsonDocument responseDocument(wordList);
+                    // Send the response message
+                    client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                } else {
+                    if (debug)
+                        qDebug() << "Error! Unknown JSON Document:" << message;
+                    //
+                }
+            }
+        } else {
+            if (debug)
+                qDebug() << "Error! Unknown JSON Document:" << message;
+            // TODO: Send error message to client.
+        }
+
 //        client->sendTextMessage(message);
-        client->sendTextMessage(getJsonDocument());
+//        client->sendTextMessage(testJson());
     }
 }
 
@@ -99,7 +146,65 @@ void Networking::socketDisconnected()
     }
 }
 
-QString Networking::getJsonDocument()
+///////////////////////////////////
+///////////// PRIVATE /////////////
+///////////////////////////////////
+
+/*!
+ * \brief Networking::getJsonWordList
+ * \return
+ */
+void Networking::writeWordList(QString teacher, QString listName, QJsonObject &json)
+{
+    // Create root JSON Object:
+    QJsonObject wordList;
+
+    // Add the key "name" and its value.
+    wordList["name"] = listName;
+    // Create a dummy array of words to send.
+    QJsonArray wordArray;
+    for (int i = 0; i < 10; ++i)
+    {
+        QString word(tr("word") + QString::number(i));
+        wordArray.append(word);
+    }
+    // Add the key "list" and its value is the array.
+    wordList["list"] = wordArray;
+
+    // Add the root JSON object to the given JSON object.
+    json["wordList"] = wordList;
+}
+
+/*!
+ * \brief Prints out the first dimension of the json object for debugging.
+ * \param json
+ */
+void Networking::printJsonObject(QJsonObject &json)
+{
+    qDebug() << "---------------------JSON Object------------------------";
+    /// Three different ways of looping through a QJsonObject:
+//    for(QJsonValue value : json)
+//    {
+//        qDebug() << value;
+//    }
+//    Q_FOREACH(const QJsonValue &value, json)
+//    {
+//        qDebug() << value;
+//    }
+    for(QJsonObject::iterator itr = json.begin(); itr != json.end(); ++itr)
+    {
+        qDebug() << "key:" << itr.key();
+        qDebug() << "value:" << itr.value();
+    }
+    qDebug() << "--------------------------------------------------------";
+}
+
+
+/*!
+ * \brief Used to test sending JSON documents between client and server.
+ * \return a compact json string.
+ */
+QString Networking::testJson()
 {
     qDebug() << "-------------------------------------------------------------------------------------";
 
@@ -114,6 +219,7 @@ QString Networking::getJsonDocument()
     QJsonDocument document = QJsonDocument::fromJson(jsonString.toUtf8());
 
     QJsonObject object = document.object();
+
     QJsonValue value = object.value(QString("appName"));
 
     qWarning() << value;

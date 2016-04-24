@@ -23,7 +23,16 @@ public:
     explicit Networking(QString configFile, QObject *parent = Q_NULLPTR);
     ~Networking();
 
-    QString getJsonDocument();
+    QString testJson();
+
+    enum RequestType {
+        WordList,
+        Login,
+        Signup,
+        GameOver,
+        TeacherList,
+        UsernameCheck
+    };
 
 Q_SIGNALS:
     void closed();
@@ -38,6 +47,10 @@ private:
     QWebSocketServer *webSocketServer;
     QList<QWebSocket *> clients;
     bool debug;
+
+    void writeWordList(QString teacher, QString listName, QJsonObject &json);
+    void printJsonObject(QJsonObject &json);
+    QString jsonTest();
 };
 
 #endif // NETWORKING_H
