@@ -14,7 +14,7 @@ gameLogic::gameLogic(QObject *parent, float scale) : QObject(parent), SCALE(scal
 void gameLogic::setUpBox2D()
 {
     /** Prepare the world */
-    Gravity = b2Vec2(0.0f, -9.8f);
+    Gravity = b2Vec2(0.0f, -3.8f);
     bool doSleep = true;
 
     World = new b2World(Gravity);
@@ -23,7 +23,7 @@ void gameLogic::setUpBox2D()
     CreateGround(0.0f, 0.0f,2000.0f, 1.0f);
     CreateGround(0.0f,0.0f,1.0f,1200.0f);
     CreateGround(800.0f,0.0f,1.0f,1200.0f);
-    CreateGround(0.0f,700.0f,2000.0f,1.0f);
+    CreateGround(0.0f,1000.0f,2000.0f,1.0f);
 
 
 
@@ -32,8 +32,11 @@ void gameLogic::setUpBox2D()
 
 void gameLogic::addWordToWorld()
 {
+    for(int i = 0; i < sprites.length(); i++)
+    {
+        World->DestroyBody(sprites[i].getBody());
+    }
     sprites.clear();
-    World->Dump();
     //NEEDS TO BE A GLOBAL:: WIDTH, HEIGHT
     float width = 800.0f;
     float height = 635.0f;

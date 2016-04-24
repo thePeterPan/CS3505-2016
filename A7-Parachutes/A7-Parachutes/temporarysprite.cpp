@@ -30,3 +30,8 @@ QString TemporarySprite::getLetter()
 {
     return letter;
 }
+
+b2Body* TemporarySprite::getBody()
+{
+    return body;
+}

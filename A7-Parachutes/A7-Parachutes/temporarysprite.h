@@ -15,6 +15,7 @@ public:
     TemporarySprite(b2Body * body, QString letter, int width);
     void draw(QPainter * painter);
     QString getLetter();
+    b2Body * getBody();
 
 private:
     b2Body * body;
