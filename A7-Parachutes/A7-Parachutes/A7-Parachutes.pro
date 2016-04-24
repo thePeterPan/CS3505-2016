@@ -24,9 +24,14 @@ SOURCES += main.cpp\
     registrationDialog.cpp \
     gamewindow.cpp \
     sprite.cpp \
+<<<<<<< HEAD
+    game.cpp \
     gameLogic.cpp \
-    temporarysprite.cpp \
+    temporarysprite.cpp
+=======
+    gameLogic.cpp \
     networking.cpp
+>>>>>>> refs/remotes/origin/neverland-dev
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
@@ -35,9 +40,14 @@ HEADERS  += mainwindow.h \
     registrationDialog.h \
     gamewindow.h \
     sprite.h \
+<<<<<<< HEAD
+    game.h \
     gameLogic.h \
-    temporarysprite.h \
+    temporarysprite.h
+=======
+    gameLogic.h \
     networking.h
+>>>>>>> refs/remotes/origin/neverland-dev
 
 FORMS    += mainwindow.ui \
     leveldialog.ui \

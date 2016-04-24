@@ -34,8 +34,11 @@ private:
     QString currentWord;
     int currentWordIndex;
     QQueue<QString> words;
+<<<<<<< HEAD
     QList<TemporarySprite> sprites;
+=======
     int currentLevel;
+>>>>>>> refs/remotes/origin/neverland-dev
 
 signals:
     void newWord(QString word);
