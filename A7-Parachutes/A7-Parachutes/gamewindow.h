@@ -8,6 +8,7 @@
 #include "gameLogic.h"
 #include "Box2D/Box2D.h"
 #include <QDebug>
+#include <QKeyEvent>
 
 
 namespace Ui {
@@ -37,6 +38,7 @@ private:
 
 protected:
     void paintEvent(QPaintEvent *);
+    void keyPressEvent(QKeyEvent * event);
 
 public slots:
     void receiveNewWord(QString word); //Connected to gameLogic::newWord

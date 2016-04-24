@@ -29,6 +29,7 @@ void gameWindow::connectSignalsAndSlots()
     qDebug() << "connecting signals and slots";
     //connect(ui->loginButton, SIGNAL(clicked()), this, SLOT(showLevelDialog()));
     //connect(ui->createAccountButton, SIGNAL(clicked()), this, SLOT(showRegistration()));
+    //connect(ui->)
     connect(this->game, &gameLogic::newWord, this, &gameWindow::receiveNewWord);
     connect(this->game, &gameLogic::newLevel, this, &gameWindow::receiveNewLevel);
     connect(this->game, &gameLogic::failed, this, &gameWindow::receiveFail);
@@ -69,4 +70,10 @@ void gameWindow::receiveFail()
 void gameWindow::receiveVictory()
 {
     qDebug() << "received victory";
+}
+
+void gameWindow::keyPressEvent(QKeyEvent * event)
+{
+    qDebug() << event->text();
+    qDebug() << event->key();
 }
