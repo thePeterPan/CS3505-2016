@@ -16,8 +16,6 @@ gameWindow::gameWindow(QWidget *parent) :
     game->testSignals();
     pm.load(":/images/backgrond2.jpg");
 
-
-
 }
 
 gameWindow::~gameWindow()
@@ -86,7 +84,6 @@ void gameWindow::receiveVictory()
 
 void gameWindow::resizeEvent(QResizeEvent *)
 {
-
-   emit newHeight( ui->centralwidget->height());
+    emit newHeight( ui->centralwidget->height());
     emit newWidth( ui->centralwidget->width());
 }
