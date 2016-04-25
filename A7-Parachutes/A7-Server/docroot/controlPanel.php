@@ -1,8 +1,3 @@
-<?php
-error_reporting ( E_ALL );
-ini_set ( "display_errors", 1 );
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -170,5 +165,3 @@ ini_set ( "display_errors", 1 );
     </script>
 </body>
 </html>
-
-?>

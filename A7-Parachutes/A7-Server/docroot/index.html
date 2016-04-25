@@ -12,11 +12,11 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Score', 'Words', 'Rank'],
-          ['2014', 1000, 400, 200],
-          ['2015', 1170, 460, 250],
-          ['2016', 660, 1120, 300],
-          ['2017', 1030, 540, 350]
+          ['Player', 'Score', 'Words', 'Rank'],
+          ['Peter', 1000, 400, 200],
+          ['Yan', 1170, 460, 250],
+          ['Fred', 660, 1120, 300],
+          ['keeton', 1030, 540, 350]
         ]);
 
         var options = {
@@ -104,11 +104,6 @@
                 <div class="mdl-card__supporting-text">
                   Game Statics.
                     <div id="columnchart_material"></div>
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                        Get Started
-                    </a>
                 </div>
                 <div class="mdl-card__menu">
                     <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
