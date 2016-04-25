@@ -71,21 +71,21 @@ void gameLogic::CreateGround(float x, float y, float width, float height)
  */
 void gameLogic::createRoughGround()
 {
-    float size = 7;
+    float size = 5;
     for(float i = 0; i < size; i++)
     {
         b2BodyDef boxDef;
-        boxDef.type = b2_dynamicBody;
-        boxDef.position.Set((i*8/size), 2.0f);
+        //boxDef.type = b2_dynamicBody;
+        boxDef.position.Set(i+ i * 0.1f, 0.21f);
         b2Body* box = World->CreateBody(&boxDef);
 
         b2PolygonShape shape;
         shape.SetAsBox(0.1f,0.1f);
         b2FixtureDef fixtureDef;
         fixtureDef.shape = &shape;
-        fixtureDef.density = 10.0f;
+        fixtureDef.density = 150.0f;
         fixtureDef.friction = 0.05f;
-        fixtureDef.restitution = 0.3f;
+        fixtureDef.restitution = 1.0f;
         box->CreateFixture(&fixtureDef);
     }
 }
@@ -244,7 +244,7 @@ void gameLogic::paintWorld(QPainter *painter)
 
     for(int i = 0; i < sprites.length(); i++)
     {
-        (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::black);
+        (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::cyan);
 
         sprites[i].draw(painter, xScale, yScale, windowHeight);
     }
