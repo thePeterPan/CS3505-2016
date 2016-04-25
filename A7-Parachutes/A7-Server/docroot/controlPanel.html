@@ -1,3 +1,8 @@
+<?php
+error_reporting ( E_ALL );
+ini_set ( "display_errors", 1 );
+
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,8 +24,7 @@
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation. We hide it in small screens. -->
-                <nav class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" href="">Link</a>
+                <nav class="mdl-navigation mdl-layout--large-screen-only">                  
                     <a class="mdl-navigation__link" href="index.html">  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color--cyan">          Home
                         </button></a>
                     <a class="mdl-navigation__link" href="readme.html">
@@ -36,12 +40,12 @@
             </div>
         </header>
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">Title</span>
+            <span class="mdl-layout-title">Parachute---The Lost Boys & Wendy</span>
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="readme.html">Readme</a>
+                <a class="mdl-navigation__link" href="https://github.com/University-of-Utah-CS3505/u0680482">This Project</a>
+                <a class="mdl-navigation__link" href="controlPanel.html">Management</a>
+                <a class="mdl-navigation__link" href="index.html">Home</a>
             </nav>
         </div>
         <main class="mdl-layout__content">
@@ -143,7 +147,7 @@
             </p>
         </div>
         <div class="mdl-dialog__actions">
-            <button type="button" class="mdl-button">Remove</button>
+            <button type="button" class="mdl-button remove">Remove</button>
             <button type="button" class="mdl-button close">Cancel</button>
         </div>
     </dialog>
@@ -159,6 +163,12 @@
     dialog.querySelector('.close').addEventListener('click', function() {
       dialog.close();
     });
+    dialog.querySelector('.remove').addEventListener('click', function() {
+      dialog.close();
+    });
+
     </script>
 </body>
 </html>
+
+?>

@@ -19,13 +19,14 @@
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation. We hide it in small screens. -->
-                <nav class="mdl-navigation mdl-layout--large-screen-only">              
-                    <a class="mdl-navigation__link" href="index.html">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color--cyan">
-                           Home
+                <nav class="mdl-navigation mdl-layout--large-screen-only">                  
+                    <a class="mdl-navigation__link" href="index.html">  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color--cyan">          Home
+                        </button></a>
+                    <a class="mdl-navigation__link" href="readme.html">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color--cyan">                  README
                         </button>
                     </a>
-                    <a class="mdl-navigation__link" href="https://github.com/University-of-Utah-CS3505/u0680482.git">
+                    <a class="mdl-navigation__link" href="https://github.com/University-of-Utah-CS3505/u0680482">
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                             View This Project
                         </button>
@@ -79,11 +80,39 @@
                     <div class="mdl-card__title">
                         <h2 class="mdl-card__title-text">Manage Profiles</h2>
                     </div>
-
-                    <div>
+                   
+                    <div class="mdl-card__supporting-text">
+                        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">ID</th>
+                                    <th>User Name</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">112251</td>
+                                    <td>Fred</td>
+                                    <td>999</td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">1235548</td>
+                                    <td>Peter</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">2158461</td>
+                                    <td>Taner</td>
+                                    <td>9999</td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <p></p>
-                        <p>This is an awsome project.</p>
                         <p></p>
+                        <button id="remove" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                           Remove
+                        </button>                      
                     </div>
                     <div class="mdl-card__menu">
                         <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -104,5 +133,35 @@
             </div>
         </footer>
     </div>
+
+    <dialog class="mdl-dialog">
+        <h6 class="mdl-dialog__title">Removing</h6>
+        <div class="mdl-dialog__content">
+            <p>
+                Remove the accounts you selected?
+            </p>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button remove">Remove</button>
+            <button type="button" class="mdl-button close">Cancel</button>
+        </div>
+    </dialog>
+    <script>
+    var dialog = document.querySelector('dialog');
+    var showDialogButton = document.querySelector('#remove');
+    if (!dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    showDialogButton.addEventListener('click', function () {
+      dialog.showModal();
+    });
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+    });
+    dialog.querySelector('.remove').addEventListener('click', function() {
+      dialog.close();
+    });
+
+    </script>
 </body>
 </html>

@@ -86,6 +86,6 @@ void gameWindow::receiveVictory()
 
 void gameWindow::resizeEvent(QResizeEvent *)
 {
-    emit newHeight( ui->centralwidget->height());
-    emit newWidth( ui->centralwidget->width());
+    emit newHeight( this->width());
+    emit newWidth( this->height());
 }
