@@ -20,10 +20,10 @@ void gameLogic::setUpBox2D()
 
     World = new b2World(gravity);
 
-    CreateGround(0.0f, 0.0f,2000.0f, 1.0f);
-    CreateGround(0.0f,0.0f,1.0f,1400.0f);
-    CreateGround(800.0f,0.0f,1.0f,1400.0f);
-    CreateGround(0.0f,650.0f,2000.0f,1.0f);
+    CreateGround(0.0f, 0.0f,windowWidth * 2, 1.0f);
+    CreateGround(0.0f,0.0f,1.0f,windowHeight * 2);
+    CreateGround(800.0f,0.0f,1.0f,windowHeight * 2);
+    CreateGround(0.0f,windowHeight,windowWidth * 2,1.0f);
 
     createRoughGround();
 }
@@ -36,13 +36,12 @@ void gameLogic::addWordToWorld()
     }
     sprites.clear();
     //NEEDS TO BE A GLOBAL:: WIDTH, HEIGHT
-    int width = 800;
-    int height = 635;
+
     float itemWidth = 80.0f;
-    int spacing = width / currentWord.length();
+    int spacing = windowWidth / currentWord.length();
     for(int i = 0; i < currentWord.length(); i++)
     {
-        CreateBox(""+currentWord[i],i*spacing, height-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f);
+        CreateBox(""+currentWord[i],i*spacing, windowHeight-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f);
     }
 }
 
@@ -246,15 +245,16 @@ void gameLogic::paintWorld(QPainter *painter)
     {
         (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::cyan);
 
-        sprites[i].draw(painter, xScale, yScale, windowHeight);
+        sprites[i].draw(painter, xScale, yScale, windowHeight2);
     }
 }
 void gameLogic::changeHeight(int newHeight){
-    windowHeight = newHeight;
-    yScale = 100 * windowHeight / 635;
+    windowHeight2 = newHeight;
+    yScale = 100 * windowHeight2 / windowHeight;
 }
 
-void gameLogic::changeWidth(int newWidth){
-    windowWidth = newWidth;
-    xScale = 100 * windowWidth / 800;
+void gameLogic::changeWidth(int newWidth)
+{
+    xScale = 100 * newWidth / windowWidth;
+    //windowWidth = newWidth; // Not needed - physics world is scaled anyways.
 }

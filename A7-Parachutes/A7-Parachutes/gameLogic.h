@@ -32,7 +32,7 @@ private:
     void createRoughGround();
 
     float SCALE;
-    int windowWidth, windowHeight;
+    int windowWidth, windowHeight, windowHeight2;
     int xScale, yScale;
 
     QString currentWord;
