@@ -7,5 +7,7 @@
         <file>A7-Parachutes.ini</file>
         <file>images/crate_sprite.ai</file>
         <file>images/crate_sprite.svg</file>
+        <file>images/logo.PNG</file>
+        <file>images/backgrond2.jpg</file>
     </qresource>
 </RCC>

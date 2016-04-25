@@ -35,7 +35,7 @@ void gameLogic::addWordToWorld()
     sprites.clear();
     //NEEDS TO BE A GLOBAL:: WIDTH, HEIGHT
     float width = 800.0f;
-    float height = 635.0f;
+    float height = 595.0f;
     float itemWidth = 80.0f;
     int spacing = width / currentWord.length();
     for(int i = 0; i < currentWord.length(); i++)

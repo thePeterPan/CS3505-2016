@@ -15,6 +15,8 @@ gameWindow::gameWindow(QWidget *parent) :
     connectSignalsAndSlots();
     game->testSignals();
 
+    pm.load(":/images/backgrond2.jpg");
+
 
 }
 
