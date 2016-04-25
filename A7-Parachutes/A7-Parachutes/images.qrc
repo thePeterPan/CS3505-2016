@@ -3,5 +3,9 @@
         <file>images/cloud.png</file>
         <file>images/start.png</file>
         <file>images/Pause.png</file>
+        <file>images/background.jpg</file>
+        <file>images/11.jpg</file>
+        <file>images/logo.PNG</file>
+        <file>images/backgrond2.jpg</file>
     </qresource>
 </RCC>
