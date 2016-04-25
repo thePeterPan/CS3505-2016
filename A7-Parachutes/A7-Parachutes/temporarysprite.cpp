@@ -27,8 +27,9 @@ void TemporarySprite::draw(QPainter *painter)
     QTransform transform;
     transform.rotateRadians(angle);
     float size = width * abs(sin(angle) * cos(angle))/ sqrt(2);
+    size += width;
 
-    painter->drawPixmap(x-width/2,y-width/2,width+size,width+size,image->transformed(transform));
+    painter->drawPixmap(x-size/2,y-size/2,size,size,image->transformed(transform));
     painter->setFont(font);
     painter->drawText(x-10,y,50,50,0,letter);
 }
