@@ -39,6 +39,7 @@ private:
 
 protected:
     void paintEvent(QPaintEvent *);
+    void resizeEvent(QResizeEvent *);
 
 public slots:
     void receiveNewWord(QString word); //Connected to gameLogic::newWord
@@ -48,6 +49,8 @@ public slots:
 
 signals:
     void letterTyped(QChar letter);
+    void newHeight(int);
+    void newWidth(int);
 };
 
 #endif // GAMEWINDOW_H

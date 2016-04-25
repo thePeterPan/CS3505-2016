@@ -13,7 +13,7 @@ class gameLogic : public QObject
     Q_OBJECT
 
 public:
-    explicit gameLogic(QObject *parent = 0, float scale = 100.0f);
+    explicit gameLogic(QObject *parent = 0, int windowWidth = 800, int windowHeight = 635, float scale = 100.0f);
     float getXPos();
     float getYPos();
     b2World* World;
@@ -30,6 +30,7 @@ private:
     void CreateBox(QString letter, float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
 
     float SCALE;
+    int width, height;
 
     QString currentWord;
     int currentWordIndex;
@@ -45,6 +46,8 @@ signals:
 
 public slots:
     void newLetterTyped(QChar letter);
+    void changeHeight(int);
+    void changeWidth(int);
 
 };
 

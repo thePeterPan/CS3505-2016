@@ -2,7 +2,8 @@
 #include "Box2D/Box2D.h"
 #include <QDebug>
 
-gameLogic::gameLogic(QObject *parent, float scale) : QObject(parent), SCALE(scale)
+gameLogic::gameLogic(QObject *parent, int windowWidth, int windowHeight, float scale) :
+    QObject(parent), width(windowWidth), height(windowHeight), SCALE(scale)
 {
     sprites = QList<TemporarySprite>();
     setUpBox2D();
@@ -34,8 +35,6 @@ void gameLogic::addWordToWorld()
     }
     sprites.clear();
     //NEEDS TO BE A GLOBAL:: WIDTH, HEIGHT
-    float width = 800.0f;
-    float height = 595.0f;
     float itemWidth = 80.0f;
     int spacing = width / currentWord.length();
     for(int i = 0; i < currentWord.length(); i++)
@@ -221,4 +220,12 @@ void gameLogic::paintWorld(QPainter *painter)
 
         sprites[i].draw(painter);
     }
+}
+void gameLogic::changeHeight(int newHeight){
+    height = newHeight;
+}
+
+void gameLogic::changeWidth(int newWidth){
+    width = newWidth;
+
 }

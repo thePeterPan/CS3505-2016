@@ -11,7 +11,7 @@ gameWindow::gameWindow(QWidget *parent) :
 
     scale = 100;
 
-    game = new gameLogic(this,(float)scale);
+    game = new gameLogic(this,ui->centralwidget->width(),ui->centralwidget->height());
     connectSignalsAndSlots();
     game->testSignals();
     pm.load(":/images/backgrond2.jpg");
@@ -35,6 +35,10 @@ void gameWindow::connectSignalsAndSlots()
     connect(this->game, &gameLogic::failed, this, &gameWindow::receiveFail);
     connect(this->game, &gameLogic::victory, this, &gameWindow::receiveVictory);
     connect(this, &gameWindow::letterTyped, this->game, &gameLogic::newLetterTyped);
+    connect(this,SIGNAL(newHeight(int)),this->game,SLOT(changeHeight(int)));
+    connect(this,SIGNAL(newWidth(int)),this->game,SLOT(changeWidth(int)));
+
+
 
 }
 
@@ -78,4 +82,11 @@ void gameWindow::receiveFail()
 void gameWindow::receiveVictory()
 {
     qDebug() << "received victory";
+}
+
+void gameWindow::resizeEvent(QResizeEvent *)
+{
+
+   emit newHeight( ui->centralwidget->height());
+    emit newWidth( ui->centralwidget->width());
 }
