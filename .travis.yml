@@ -1,6 +1,6 @@
 sudo: required
 dist: trusty
-language: c++
+language: cpp
 
 addons:
   apt:
@@ -12,7 +12,7 @@ addons:
     - libboost-all-dev
 
 before_install:
-- sudo add-apt-repository --yes ppa:beineri/opt-qt551-trusty
+- sudo add-apt-repository --yes ppa:beineri/opt-qt56-trusty
 - sudo apt-get update -qq
 
 env:
@@ -22,14 +22,12 @@ env:
 
 install:
 # - sudo apt-get -y install qt55[QTPACKAGE]
-- sudo apt-get -y install qt55creator qt55graphicaleffects qt55connectivity qt55quick1 qt55quickcontrols qt55qbs qt55canvas3d qt55tools
-- sudo apt-get -y install qttools5-dev
-# - sudo apt-get -y install libqt5websockets5-dev
+- sudo apt-get -y install qt56creator qt56base qt56graphicaleffects qt56connectivity qt56quickcontrols qt56qbs qt56canvas3d qt56tools qt56websockets
 
 script:
 - cd $DIR
-- source /opt/qt55/bin/qt55-env.sh
-- /opt/qt55/bin/qmake "CONFIG+=travis"
+- source /opt/qt56/bin/qt56-env.sh
+- /opt/qt56/bin/qmake "CONFIG+=travis"
 - make
 
 notifications:
