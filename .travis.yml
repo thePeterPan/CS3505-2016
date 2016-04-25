@@ -25,8 +25,8 @@ env:
 
 install:
 # - sudo apt-get -y install qt55[QTPACKAGE]
-- sudo apt-get -y install qt55creator qt55graphicaleffects qt55connectivity qt55quick1 qt55quickcontrols qt55qbs qt55canvas3d qt55tools
-- sudo apt-get -y install qttools5-dev
+- sudo apt-get -y install qt56creator qt56graphicaleffects qt56connectivity qt56quick1 qt56quickcontrols qt56qbs qt56canvas3d qt56tools qt56websockets
+# - sudo apt-get -y install qttools5-dev
 # - sudo apt-get -y install libqt5websockets5-dev
 
 script:
