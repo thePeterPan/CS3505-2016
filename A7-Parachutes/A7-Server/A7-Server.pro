@@ -60,18 +60,7 @@ unix:!macx {
 
 ########## MySQL Connector
 
-INCLUDEPATH+=$$system_path($$PWD/MySQL-Connector/include)
-unix:!macx {
-    LIBS+=$$system_path($$PWD/MySQL-Connector/lib/unix/libmysqlcppconn-static.a)
-}
-win32 {
-    # Not tested
-    LIBS+=$$system_path($$PWD/MySQL-Connector/lib/win32/mysqlcppconn-static.lib)
-}
-macx {
-    # not tested
-    LIBS+=$$system_path($$PWD/MySQL-Connector/lib/macx/libmysqlcppconn-static.a)
-}
+include(MySQL-Connector/MySQL-Connector.pro)
 
 LIBS+=-ldl # got a build error, was told to put this here, fixed, don't know why.
 # Also order matters: http://stackoverflow.com/questions/19901934/strange-linking-error-dso-missing-from-command-line
