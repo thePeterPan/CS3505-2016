@@ -1,6 +1,7 @@
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
 #include <QQueue>
+#include <QTimer>
 #include <QObject>
 #include "Box2D/Box2D.h"
 #include <QString>
@@ -16,6 +17,7 @@ public:
     explicit gameLogic(QObject *parent = 0, int windowWidth = 800, int windowHeight = 635, float scale = 100.0f);
     float getXPos();
     float getYPos();
+    int getCurrentLevel();
     b2World* World;
     void paintWorld(QPainter * painter);
     b2World* getWorld();
@@ -38,17 +40,23 @@ private:
     QQueue<QString> words;
     QList<TemporarySprite> sprites;
     int currentLevel;
+    int timerSeconds;
+    int timerFactor = 30;
+    void startNewTimer();
 
 signals:
     void newWord(QString word);
     void newLevel(int level);
     void failed();
     void victory();
+    void updateActionTimer(QString message);
+
 
 public slots:
     void newLetterTyped(QChar letter);
     void changeHeight(int);
     void changeWidth(int);
+    void updateTimer();
 
 };
 

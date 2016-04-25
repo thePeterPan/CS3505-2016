@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
@@ -62,6 +62,7 @@
    </attribute>
    <addaction name="actionPause"/>
    <addaction name="actionStart"/>
+   <addaction name="actionTimer"/>
   </widget>
   <action name="actionPause">
    <property name="icon">
@@ -79,6 +80,11 @@
    </property>
    <property name="text">
     <string>start</string>
+   </property>
+  </action>
+  <action name="actionTimer">
+   <property name="text">
+    <string>Timer:</string>
    </property>
   </action>
  </widget>

@@ -13,7 +13,7 @@ gameWindow::gameWindow(QWidget *parent) :
 
     game = new gameLogic(this,this->width(),this->height());
     connectSignalsAndSlots();
-    game->testSignals();
+    //game->testSignals();
     pm.load(":/images/backgrond2.jpg");
 
 }
@@ -32,6 +32,7 @@ void gameWindow::connectSignalsAndSlots()
     connect(this->game, &gameLogic::newLevel, this, &gameWindow::receiveNewLevel);
     connect(this->game, &gameLogic::failed, this, &gameWindow::receiveFail);
     connect(this->game, &gameLogic::victory, this, &gameWindow::receiveVictory);
+    connect(this->game, &gameLogic::updateActionTimer, this, &gameWindow::actionTimerUpdated);
     connect(this, &gameWindow::letterTyped, this->game, &gameLogic::newLetterTyped);
     connect(this,SIGNAL(newHeight(int)),this->game,SLOT(changeHeight(int)));
     connect(this,SIGNAL(newWidth(int)),this->game,SLOT(changeWidth(int)));
@@ -64,7 +65,13 @@ void gameWindow::keyPressEvent(QKeyEvent *e) {
 void gameWindow::receiveNewWord(QString word)
 {
     qDebug() << "received " << word;
+    //startNewTimer();
+
 }
+
+
+
+
 
 void gameWindow::receiveNewLevel(int level)
 {
@@ -86,4 +93,9 @@ void gameWindow::resizeEvent(QResizeEvent *)
 {
     emit newHeight( ui->centralwidget->height());
     emit newWidth( ui->centralwidget->width());
+}
+
+void gameWindow::actionTimerUpdated(QString message)
+{
+    ui->actionTimer->setText(message);
 }

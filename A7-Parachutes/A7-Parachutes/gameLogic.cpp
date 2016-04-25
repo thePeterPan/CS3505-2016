@@ -43,6 +43,8 @@ void gameLogic::addWordToWorld()
     {
         CreateBox(""+currentWord[i],i*spacing, height-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f);
     }
+    //emit newWord(currentWord);
+    startNewTimer();
 }
 
 /**
@@ -62,6 +64,11 @@ void gameLogic::CreateGround(float x, float y, float width, float height)
     b2PolygonShape groundBox;
     groundBox.SetAsBox((width/2.0f)/SCALE, (height/2.0f)/SCALE); // Creates a box shape. Divide your desired width and height by 2.
     ground->CreateFixture(&groundBox,10.0f); // Apply the fixture definition
+}
+
+int gameLogic::getCurrentLevel()
+{
+    return currentLevel;
 }
 
 /**
@@ -231,4 +238,30 @@ void gameLogic::changeHeight(int newHeight){
 void gameLogic::changeWidth(int newWidth){
     windowWidth = newWidth;
     xScale = 100 * windowWidth / 800;
+}
+
+void gameLogic::startNewTimer()
+{
+    qDebug() << "starting timer";
+    timerSeconds = currentLevel * timerFactor;
+    QTimer::singleShot(1000,this,SLOT(updateTimer()));
+}
+
+void gameLogic::updateTimer()
+{
+    timerSeconds--;
+    QString timerText = "Time:";
+    if(timerSeconds < 10)
+        timerText.append("0");
+    timerText.append(QString::number(timerSeconds));
+    emit updateActionTimer(timerText);
+    if(timerSeconds > 0)
+    {
+        QTimer::singleShot(1000,this,SLOT(updateTimer()));
+    }
+    else
+    {
+        qDebug() << "time's up!";
+    }
+    qDebug() << "updating timer";
 }
