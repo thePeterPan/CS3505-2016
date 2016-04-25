@@ -10,13 +10,11 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    webrequesthandler.cpp \
     mysqlwrapper.cpp \
     networking.cpp \
     webserver.cpp
 
 HEADERS += \
-    webrequesthandler.h \
     mysqlwrapper.h \
     networking.h \
     webserver.h
