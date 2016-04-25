@@ -14,7 +14,7 @@ gameLogic::gameLogic(QObject *parent, float scale) : QObject(parent), SCALE(scal
 void gameLogic::setUpBox2D()
 {
     /** Prepare the world */
-    Gravity = b2Vec2(0.0f, -3.8f);
+    Gravity = b2Vec2(0.0f, -8.8f);
     bool doSleep = true;
 
     World = new b2World(Gravity);
