@@ -20,10 +20,10 @@ void gameLogic::setUpBox2D()
 
     World = new b2World(gravity);
 
-    CreateGround(0.0f, 0.0f,2000.0f, 1.0f);
+    CreateGround(0.0f, 0.0f,2200.0f, 1.0f);
     CreateGround(0.0f,0.0f,1.0f,1400.0f);
-    CreateGround(800.0f,0.0f,1.0f,1400.0f);
-    CreateGround(0.0f,650.0f,2000.0f,1.0f);
+    CreateGround(1098.0f,0.0f,1.0f,1400.0f);
+    CreateGround(0.0f,675.0f,2*1098.0f,1.0f);
 
     createRoughGround();
 }
@@ -36,8 +36,8 @@ void gameLogic::addWordToWorld()
     }
     sprites.clear();
     //NEEDS TO BE A GLOBAL:: WIDTH, HEIGHT
-    int width = 800;
-    int height = 635;
+    int width = 1098;
+    int height = 673;
     float itemWidth = 80.0f;
     int spacing = width / currentWord.length();
     for(int i = 0; i < currentWord.length(); i++)
@@ -251,10 +251,10 @@ void gameLogic::paintWorld(QPainter *painter)
 }
 void gameLogic::changeHeight(int newHeight){
     windowHeight = newHeight;
-    yScale = 100 * windowHeight / 635;
+    yScale = 100 * windowHeight / 673;
 }
 
 void gameLogic::changeWidth(int newWidth){
     windowWidth = newWidth;
-    xScale = 100 * windowWidth / 800;
+    xScale = 100 * windowWidth / 1098;
 }
