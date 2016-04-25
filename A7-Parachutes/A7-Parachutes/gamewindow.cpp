@@ -15,6 +15,8 @@ gameWindow::gameWindow(QWidget *parent) :
     connectSignalsAndSlots();
     game->testSignals();
 
+    ui->listWidget->hide();
+
 
 }
 
