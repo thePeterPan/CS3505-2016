@@ -30,7 +30,8 @@ private:
     void CreateBox(QString letter, float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
 
     float SCALE;
-    int width, height;
+    int windowWidth, windowHeight;
+    int xScale, yScale;
 
     QString currentWord;
     int currentWordIndex;

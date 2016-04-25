@@ -11,7 +11,7 @@ gameWindow::gameWindow(QWidget *parent) :
 
     scale = 100;
 
-    game = new gameLogic(this,ui->centralwidget->width(),ui->centralwidget->height());
+    game = new gameLogic(this,this->width(),this->height());
     connectSignalsAndSlots();
     game->testSignals();
     pm.load(":/images/backgrond2.jpg");

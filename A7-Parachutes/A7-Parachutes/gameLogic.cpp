@@ -3,11 +3,12 @@
 #include <QDebug>
 
 gameLogic::gameLogic(QObject *parent, int windowWidth, int windowHeight, float scale) :
-    QObject(parent), width(windowWidth), height(windowHeight), SCALE(scale)
+    QObject(parent), windowWidth(windowWidth), windowHeight(windowHeight), SCALE(scale)
 {
     sprites = QList<TemporarySprite>();
     setUpBox2D();
     SCALE = 100.0f;
+    xScale,yScale = SCALE;
     currentLevel = 1;
     getWordsFromDatabase(currentLevel);
 }
@@ -16,7 +17,6 @@ void gameLogic::setUpBox2D()
 {
     /** Prepare the world */
     b2Vec2 gravity = b2Vec2(0.0f, -9.8f);
-    bool doSleep = true;
 
     World = new b2World(gravity);
 
@@ -35,6 +35,8 @@ void gameLogic::addWordToWorld()
     }
     sprites.clear();
     //NEEDS TO BE A GLOBAL:: WIDTH, HEIGHT
+    int width = 800;
+    int height = 635;
     float itemWidth = 80.0f;
     int spacing = width / currentWord.length();
     for(int i = 0; i < currentWord.length(); i++)
@@ -218,14 +220,15 @@ void gameLogic::paintWorld(QPainter *painter)
     {
         (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::white);
 
-        sprites[i].draw(painter);
+        sprites[i].draw(painter, xScale, yScale, windowHeight);
     }
 }
 void gameLogic::changeHeight(int newHeight){
-    height = newHeight;
+    windowHeight = newHeight;
+    yScale = 100 * windowHeight / 635;
 }
 
 void gameLogic::changeWidth(int newWidth){
-    width = newWidth;
-
+    windowWidth = newWidth;
+    xScale = 100 * windowWidth / 800;
 }
