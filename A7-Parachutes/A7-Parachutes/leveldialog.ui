@@ -145,9 +145,9 @@ font: 9pt &quot;Fixedsys&quot;;
   <widget class="QLabel" name="freestyleTitle">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>130</x>
      <y>170</y>
-     <width>241</width>
+     <width>321</width>
      <height>51</height>
     </rect>
    </property>

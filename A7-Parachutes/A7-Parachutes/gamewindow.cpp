@@ -14,8 +14,8 @@ gameWindow::gameWindow(QWidget *parent) :
     game = new gameLogic(this,(float)scale);
     connectSignalsAndSlots();
     game->testSignals();
-
     pm.load(":/images/backgrond2.jpg");
+
 
 
 }
