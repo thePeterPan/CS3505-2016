@@ -35,7 +35,6 @@ void gameLogic::addWordToWorld()
         World->DestroyBody(sprites[i].getBody());
     }
     sprites.clear();
-    //NEEDS TO BE A GLOBAL:: WIDTH, HEIGHT
 
     float itemWidth = 80.0f;
     int spacing = windowWidth / currentWord.length();
@@ -248,7 +247,8 @@ void gameLogic::paintWorld(QPainter *painter)
         sprites[i].draw(painter, xScale, yScale, windowHeight2);
     }
 }
-void gameLogic::changeHeight(int newHeight){
+void gameLogic::changeHeight(int newHeight)
+{
     windowHeight2 = newHeight;
     yScale = 100 * windowHeight2 / windowHeight;
 }
