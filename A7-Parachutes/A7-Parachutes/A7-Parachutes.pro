@@ -6,8 +6,9 @@
 
 QT       += core gui
 
-#QMAKE_CXXFLAGS += -std=c++0x
 CONFIG += c++11
+
+#QMAKE_CXXFLAGS += -std=c++0x
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,18 +20,24 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     Trie/Node.cpp \
     Trie/Trie.cpp \
-    echoclient.cpp \
     leveldialog.cpp \
     registrationDialog.cpp \
-    gamewindow.cpp
+    gamewindow.cpp \
+    sprite.cpp \
+    gameLogic.cpp \
+    temporarysprite.cpp \
+    networking.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
     Trie/Trie.h \
-    echoclient.h \
     leveldialog.h \
     registrationDialog.h \
-    gamewindow.h
+    gamewindow.h \
+    sprite.h \
+    gameLogic.h \
+    temporarysprite.h \
+    networking.h
 
 FORMS    += mainwindow.ui \
     leveldialog.ui \
@@ -38,7 +45,7 @@ FORMS    += mainwindow.ui \
     gamewindow.ui
 
 RESOURCES += \
-    images.qrc
+    resources.qrc
 
 include(Box2D/Box2D.pro)
 

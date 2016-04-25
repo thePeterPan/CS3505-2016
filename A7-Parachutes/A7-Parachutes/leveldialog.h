@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include "gamewindow.h"
+#include "temporarysprite.h"
+
 
 namespace Ui {
 class levelDialog;

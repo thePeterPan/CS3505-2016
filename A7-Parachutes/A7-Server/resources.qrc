@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>A7-Server.ini</file>
+        <file>sample.json</file>
+        <file>docroot/index.html</file>
+        <file>docroot/images/qq.jpg</file>
+        <file>docroot/readme.html</file>
+        <file>docroot/controlPanel.html</file>
+        <file>docroot/res/dialog-polyfill.js</file>
+        <file>docroot/res/dialog-polyfill.css</file>
+    </qresource>
+</RCC>

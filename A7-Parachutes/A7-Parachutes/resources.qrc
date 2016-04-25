@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/cloud.png</file>
+        <file>images/start.png</file>
+        <file>images/Pause.png</file>
+        <file>images/crate_sprite.png</file>
+        <file>A7-Parachutes.ini</file>
+        <file>images/crate_sprite.ai</file>
+        <file>images/crate_sprite.svg</file>
+    </qresource>
+</RCC>
