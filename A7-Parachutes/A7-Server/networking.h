@@ -6,11 +6,15 @@
 #include <QByteArray>
 #include <QSettings>
 #include <QDebug>
+#include <QFile>
 
-//QT_FORWARD_DECLARE_CLASS(QWebSocketServer)
-//QT_FORWARD_DECLARE_CLASS(QWebSocket)
-#include <QtWebSockets/QWebSocketServer>
-#include <QtWebSockets/QWebSocket>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
+
+#include "QtWebSockets/qwebsocketserver.h"
+#include "QtWebSockets/qwebsocket.h"
 
 class Networking : public QObject
 {
@@ -18,6 +22,17 @@ class Networking : public QObject
 public:
     explicit Networking(QString configFile, QObject *parent = Q_NULLPTR);
     ~Networking();
+
+    QString testJson();
+
+    enum RequestType {
+        WordList,
+        Login,
+        Signup,
+        GameOver,
+        TeacherList,
+        UsernameCheck
+    };
 
 Q_SIGNALS:
     void closed();
@@ -32,6 +47,10 @@ private:
     QWebSocketServer *webSocketServer;
     QList<QWebSocket *> clients;
     bool debug;
+
+    void writeWordList(QString teacher, QString listName, QJsonObject &json);
+    void printJsonObject(QJsonObject &json);
+    QString jsonTest();
 };
 
 #endif // NETWORKING_H
