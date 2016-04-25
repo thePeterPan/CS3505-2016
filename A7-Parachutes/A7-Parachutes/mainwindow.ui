@@ -60,7 +60,7 @@ center;
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="images.qrc">:/images/logo.PNG</pixmap>
+         <pixmap>:/images/logo.PNG</pixmap>
         </property>
        </widget>
       </item>
@@ -250,7 +250,7 @@ font: 9pt &quot;Fixedsys&quot;;
      <x>0</x>
      <y>0</y>
      <width>688</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -271,8 +271,6 @@ font: 9pt &quot;Fixedsys&quot;;
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
