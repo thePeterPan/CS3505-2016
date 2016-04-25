@@ -14,7 +14,7 @@ gameLogic::gameLogic(QObject *parent, float scale) : QObject(parent), SCALE(scal
 void gameLogic::setUpBox2D()
 {
     /** Prepare the world */
-    b2Vec2 gravity = b2Vec2(0.0f, -2.8f);
+    b2Vec2 gravity = b2Vec2(0.0f, -9.8f);
     bool doSleep = true;
 
     World = new b2World(gravity);
@@ -108,44 +108,44 @@ void gameLogic::getWordsFromDatabase(int level)
     //test data
     if(level == 1)
     {
-        words.append("basket");
-        words.append("ball");
-        words.append("basketball");
-        words.append("warrior");
-        words.append("cavalier");
-        words.append("spur");
-        words.append("jazz");
-        words.append("celtic");
-        words.append("final");
-        words.append("guard");
+        words.append("rainbow");
+        words.append("cloudy");
+        words.append("raindrop");
+        words.append("parachute");
+        words.append("snowflake");
+        words.append("fantastic");
+        words.append("airplane");
+        words.append("sunlight");
+        words.append("bumblebee");
+        words.append("butterfly");
     }
     else if(level == 2)
     {
-        words.append("base");
-        words.append("ball");
-        words.append("baseball");
-        words.append("brave");
-        words.append("yankee");
-        words.append("indian");
-        words.append("mariner");
-        words.append("giant");
-        words.append("dodger");
-        words.append("diamondback");
+        words.append("flower");
+        words.append("cucumber");
+        words.append("tomato");
+        words.append("icecream");
+        words.append("pumpernickle");
+        words.append("sesameseed");
+        words.append("wind");
+        words.append("sky");
+        words.append("downpour");
+        words.append("inkpot");
     }
     else if(level == 3)
     {
-        words.append("foot");
-        words.append("ball");
-        words.append("football");
-        words.append("cowboy");
-        words.append("redskin");
-        words.append("jet");
-        words.append("patriot");
-        words.append("raider");
-        words.append("charger");
-        words.append("seahawk");
-        words.append("ram");
-        words.append("texan");
+        words.append("feather");
+        words.append("falcon");
+        words.append("nest");
+        words.append("caterpillar");
+        words.append("frolic");
+        words.append("dandelion");
+        words.append("hyper");
+        words.append("cartwheel");
+        words.append("somersault");
+        words.append("foursquare");
+        words.append("blissful");
+        words.append("delicious");
     }
     currentWord = words.first();
     currentWordIndex = 0;
@@ -213,20 +213,11 @@ void gameLogic::testSignals()
 void gameLogic::paintWorld(QPainter *painter)
 {
     World->Step(1.0f/60.0f, 8, 3);
-    bool drawBox;
 
     for(int i = 0; i < sprites.length(); i++)
     {
-        if(currentWordIndex >= i)
-        {
-            painter->setPen(Qt::red);
-            drawBox = true;
-        }
-        else
-        {
-            painter->setPen(Qt::white);
-            drawBox = false;
-        }
-        sprites[i].draw(painter,drawBox);
+        (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::white);
+
+        sprites[i].draw(painter);
     }
 }

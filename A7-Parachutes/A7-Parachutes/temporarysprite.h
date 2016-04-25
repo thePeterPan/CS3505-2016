@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QPixmap>
 #include <QFont>
+#include <QTransform>
 
 
 class TemporarySprite
@@ -15,7 +16,7 @@ class TemporarySprite
 public:
     TemporarySprite();
     TemporarySprite(b2Body * body, QString letter, int width);
-    void draw(QPainter * painter, bool typed);
+    void draw(QPainter * painter);
     QString getLetter();
     b2Body * getBody();
 

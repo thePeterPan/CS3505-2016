@@ -8,12 +8,12 @@ TemporarySprite::TemporarySprite()
 TemporarySprite::TemporarySprite(b2Body *body, QString letter, int width) : body(body), letter(letter), width(width)
 {
     image = new QPixmap(":/images/crate_sprite.svg");
-    (*image) = image->scaled(width, width);
+    (*image) = image->scaled(width, width,Qt::KeepAspectRatio);
     font = QFont("Helvetica",20);
     font.setCapitalization(QFont::AllUppercase);
 }
 
-void TemporarySprite::draw(QPainter *painter, bool typed)
+void TemporarySprite::draw(QPainter *painter)
 {
     // Need to make these things global parameters:::
     int height = 635;
@@ -24,13 +24,12 @@ void TemporarySprite::draw(QPainter *painter, bool typed)
     int y = height - body->GetPosition().y * scale;
     //painter->setBrushOrigin(x,y); //Doesn't work yet.
 
-    painter->drawPixmap(x-width/2,y-width/2,width,width,*image);
+    QTransform transform;
+    transform.rotateRadians(body->GetAngle());
+
+    painter->drawPixmap(x-width/2,y-width/2,width,width,image->transformed(transform));
     painter->setFont(font);
     painter->drawText(x-10,y,50,50,0,letter);
-    if(typed)
-    {
-        painter->drawRect(x-width/2,y-width/2,width,width);
-    }
     //painter->rotate(body->GetAngle()); // Doesn't work.
 }
 
