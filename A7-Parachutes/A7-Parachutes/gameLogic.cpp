@@ -195,7 +195,7 @@ void gameLogic::testSignals()
 
 void gameLogic::paintWorld(QPainter *painter)
 {
-    World->Step(1.f/120.f, 8, 3);
+    World->Step(1.0f/60.0f, 8, 3);
     bool drawBox;
 
     for(int i = 0; i < sprites.length(); i++)
