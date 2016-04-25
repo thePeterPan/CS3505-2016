@@ -27,7 +27,7 @@ void TemporarySprite::draw(QPainter *painter)
     painter->drawPixmap(x-width/2,y-width/2,width,width,*image);
     painter->setFont(font);
     painter->drawText(x-9,y,50,50,0,letter);
-    painter->rotate(body->GetAngle());
+    //painter->rotate(body->GetAngle());
 }
 
 QString TemporarySprite::getLetter()

@@ -43,7 +43,7 @@ void gameLogic::addWordToWorld()
     int spacing = width / currentWord.length();
     for(int i = 0; i < currentWord.length(); i++)
     {
-        CreateBox(""+currentWord[i],i*spacing, height-width/2,itemWidth,itemWidth, 0.1f,1.0f);
+        CreateBox(""+currentWord[i],i*spacing, height-itemWidth/2,itemWidth,itemWidth, 0.1f,1.0f);
     }
 }
 
