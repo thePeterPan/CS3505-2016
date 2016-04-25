@@ -22,15 +22,15 @@ void TemporarySprite::draw(QPainter *painter)
 
     int x = body->GetPosition().x * scale;
     int y = height - body->GetPosition().y * scale;
-    //painter->setBrushOrigin(x,y); //Doesn't work yet.
+    float angle = body->GetAngle();
 
     QTransform transform;
-    transform.rotateRadians(body->GetAngle());
+    transform.rotateRadians(angle);
+    float size = width * abs(sin(angle) * cos(angle))/ sqrt(2);
 
-    painter->drawPixmap(x-width/2,y-width/2,width,width,image->transformed(transform));
+    painter->drawPixmap(x-width/2,y-width/2,width+size,width+size,image->transformed(transform));
     painter->setFont(font);
     painter->drawText(x-10,y,50,50,0,letter);
-    //painter->rotate(body->GetAngle()); // Doesn't work.
 }
 
 QString TemporarySprite::getLetter()

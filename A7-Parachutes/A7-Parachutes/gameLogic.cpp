@@ -108,6 +108,7 @@ void gameLogic::getWordsFromDatabase(int level)
     //test data
     if(level == 1)
     {
+        words.append("parachuting");
         words.append("rainbow");
         words.append("cloudy");
         words.append("raindrop");
