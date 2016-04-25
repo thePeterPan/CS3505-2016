@@ -22,7 +22,7 @@ env:
 
 install:
 # - sudo apt-get -y install qt55[QTPACKAGE]
-- sudo apt-get -y install qt56creator qt56base qt56graphicaleffects qt56connectivity qt56quickcontrols qt56qbs qt56canvas3d qt56tools qt56websockets
+- sudo apt-get --force-yes install qt56creator qt56base qt56graphicaleffects qt56connectivity qt56quickcontrols qt56qbs qt56canvas3d qt56tools qt56websockets
 
 script:
 - cd $DIR
