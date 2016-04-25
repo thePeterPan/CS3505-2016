@@ -55,3 +55,4 @@ win32|macx {
 unix:!macx {
     include(QtWebSockets/websockets.pro)
 }
+

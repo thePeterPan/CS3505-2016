@@ -29,6 +29,8 @@ private:
 
     gameLogic* game;
 
+    QPixmap pm;
+
     int scale;
 
     void connectSignalsAndSlots();

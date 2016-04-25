@@ -16,7 +16,7 @@ TemporarySprite::TemporarySprite(b2Body *body, QString letter, int width) : body
 void TemporarySprite::draw(QPainter *painter)
 {
     // Need to make these things global parameters:::
-    int height = 635;
+    int height = 595;
     int scale = 100;
     //-----
 

@@ -14,8 +14,8 @@ gameWindow::gameWindow(QWidget *parent) :
     game = new gameLogic(this,(float)scale);
     connectSignalsAndSlots();
     game->testSignals();
+    pm.load(":/images/backgrond2.jpg");
 
-    ui->listWidget->hide();
 
 
 }
@@ -41,6 +41,10 @@ void gameWindow::connectSignalsAndSlots()
 void gameWindow::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
+    int width = this->ui->centralwidget->width();
+    int height = this->ui->centralwidget->height();
+    pm = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
+    painter.drawPixmap(0, 0, pm);
     game->paintWorld(&painter);
     QTimer::singleShot(30,this,SLOT(update()));
 }
