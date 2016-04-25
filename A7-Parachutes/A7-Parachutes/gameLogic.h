@@ -6,6 +6,7 @@
 #include <QString>
 #include <QList>
 #include "temporarysprite.h"
+#include <QVector>
 
 
 class gameLogic : public QObject
@@ -28,6 +29,7 @@ private:
     b2Vec2 position;
     void CreateGround(float x, float y, float width, float height);
     void CreateBox(QString letter, float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
+    void createRoughGround();
 
     float SCALE;
     int windowWidth, windowHeight;

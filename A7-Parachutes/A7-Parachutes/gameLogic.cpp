@@ -25,6 +25,7 @@ void gameLogic::setUpBox2D()
     CreateGround(800.0f,0.0f,1.0f,1400.0f);
     CreateGround(0.0f,650.0f,2000.0f,1.0f);
 
+    createRoughGround();
 }
 
 void gameLogic::addWordToWorld()
@@ -62,6 +63,31 @@ void gameLogic::CreateGround(float x, float y, float width, float height)
     b2PolygonShape groundBox;
     groundBox.SetAsBox((width/2.0f)/SCALE, (height/2.0f)/SCALE); // Creates a box shape. Divide your desired width and height by 2.
     ground->CreateFixture(&groundBox,10.0f); // Apply the fixture definition
+}
+
+/**
+ * Creates random shapes for the ground
+ * @brief gameLogic::createRoughGround
+ */
+void gameLogic::createRoughGround()
+{
+    float size = 7;
+    for(float i = 0; i < size; i++)
+    {
+        b2BodyDef boxDef;
+        boxDef.type = b2_dynamicBody;
+        boxDef.position.Set((i*8/size), 2.0f);
+        b2Body* box = World->CreateBody(&boxDef);
+
+        b2PolygonShape shape;
+        shape.SetAsBox(0.1f,0.1f);
+        b2FixtureDef fixtureDef;
+        fixtureDef.shape = &shape;
+        fixtureDef.density = 10.0f;
+        fixtureDef.friction = 0.05f;
+        fixtureDef.restitution = 0.3f;
+        box->CreateFixture(&fixtureDef);
+    }
 }
 
 /**
