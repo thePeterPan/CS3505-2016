@@ -31,8 +31,8 @@ install:
 
 script:
 - cd $DIR
-- source /opt/qt55/bin/qt55-env.sh
-- /opt/qt55/bin/qmake "CONFIG+=travis"
+- source /opt/qt56/bin/qt56-env.sh
+- /opt/qt56/bin/qmake "CONFIG+=travis"
 - make
 
 notifications:
