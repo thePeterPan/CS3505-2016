@@ -196,9 +196,20 @@ void gameLogic::testSignals()
 void gameLogic::paintWorld(QPainter *painter)
 {
     World->Step(1.f/120.f, 8, 3);
+    bool drawBox;
 
     for(int i = 0; i < sprites.length(); i++)
     {
-        sprites[i].draw(painter);
+        if(currentWordIndex >= i)
+        {
+            painter->setPen(Qt::red);
+            drawBox = true;
+        }
+        else
+        {
+            painter->setPen(Qt::black);
+            drawBox = false;
+        }
+        sprites[i].draw(painter,drawBox);
     }
 }
