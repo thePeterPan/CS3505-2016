@@ -218,7 +218,7 @@ void gameLogic::paintWorld(QPainter *painter)
 
     for(int i = 0; i < sprites.length(); i++)
     {
-        (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::white);
+        (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::black);
 
         sprites[i].draw(painter, xScale, yScale, windowHeight);
     }

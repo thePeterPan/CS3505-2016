@@ -19,6 +19,7 @@ void TemporarySprite::draw(QPainter *painter, int xScale, int yScale, int height
     int x = body->GetPosition().x * xScale;
     int y = height - body->GetPosition().y * yScale;
     float angle = body->GetAngle();
+    font.setPointSize(17+3*xScale / 100);
 
     QTransform transform;
     transform.rotateRadians(angle);

@@ -37,6 +37,8 @@ private:
 
     void setListWidget(QString word);
 
+    QTimer * timer;
+
 protected:
     void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);

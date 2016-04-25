@@ -16,6 +16,9 @@ gameWindow::gameWindow(QWidget *parent) :
     game->testSignals();
     pm.load(":/images/backgrond2.jpg");
 
+    timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()), this, SLOT(update()));
+    timer->start(30);
 }
 
 gameWindow::~gameWindow()
@@ -37,7 +40,6 @@ void gameWindow::connectSignalsAndSlots()
     connect(this,SIGNAL(newWidth(int)),this->game,SLOT(changeWidth(int)));
 
 
-
 }
 
 void gameWindow::paintEvent(QPaintEvent *)
@@ -48,7 +50,7 @@ void gameWindow::paintEvent(QPaintEvent *)
     pm = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
     painter.drawPixmap(0, 0, pm);
     game->paintWorld(&painter);
-    QTimer::singleShot(30,this,SLOT(update()));
+    //QTimer::singleShot(30,this,SLOT(update()));
 }
 
 void gameWindow::keyPressEvent(QKeyEvent *e) {
