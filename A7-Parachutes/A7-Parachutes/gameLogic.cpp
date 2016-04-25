@@ -14,18 +14,15 @@ gameLogic::gameLogic(QObject *parent, float scale) : QObject(parent), SCALE(scal
 void gameLogic::setUpBox2D()
 {
     /** Prepare the world */
-    Gravity = b2Vec2(0.0f, -8.8f);
+    b2Vec2 gravity = b2Vec2(0.0f, -2.8f);
     bool doSleep = true;
 
-    World = new b2World(Gravity);
+    World = new b2World(gravity);
 
     CreateGround(0.0f, 0.0f,2000.0f, 1.0f);
-    CreateGround(0.0f,0.0f,1.0f,1200.0f);
-    CreateGround(800.0f,0.0f,1.0f,1200.0f);
-    CreateGround(0.0f,1000.0f,2000.0f,1.0f);
-
-
-
+    CreateGround(0.0f,0.0f,1.0f,1400.0f);
+    CreateGround(800.0f,0.0f,1.0f,1400.0f);
+    CreateGround(0.0f,650.0f,2000.0f,1.0f);
 
 }
 
@@ -43,10 +40,17 @@ void gameLogic::addWordToWorld()
     int spacing = width / currentWord.length();
     for(int i = 0; i < currentWord.length(); i++)
     {
-        CreateBox(""+currentWord[i],i*spacing, height-itemWidth/2,itemWidth,itemWidth, 0.1f,1.0f);
+        CreateBox(""+currentWord[i],i*spacing, height-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f);
     }
 }
 
+/**
+ * @brief gameLogic::CreateGround
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ */
 void gameLogic::CreateGround(float x, float y, float width, float height)
 {
 
@@ -59,6 +63,19 @@ void gameLogic::CreateGround(float x, float y, float width, float height)
     ground->CreateFixture(&groundBox,10.0f); // Apply the fixture definition
 }
 
+/**
+ * NOTE: Box2D can only reliably simulate objects with size dimensions less than 10m.
+ * Therefore, a large scaling number is needed in order to scale down or up from pixel size.
+ * @brief gameLogic::CreateBox
+ * @param letter
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ * @param friction
+ * @param restitution
+ * @param density
+ */
 void gameLogic::CreateBox(QString letter, float x, float y, float width, float height, float friction, float restitution, float density)
 {
     b2BodyDef boxDef;
@@ -207,7 +224,7 @@ void gameLogic::paintWorld(QPainter *painter)
         }
         else
         {
-            painter->setPen(Qt::black);
+            painter->setPen(Qt::white);
             drawBox = false;
         }
         sprites[i].draw(painter,drawBox);

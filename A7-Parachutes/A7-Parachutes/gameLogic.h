@@ -31,7 +31,6 @@ private:
 
     float SCALE;
 
-    b2Vec2 Gravity;
     QString currentWord;
     int currentWordIndex;
     QQueue<QString> words;
