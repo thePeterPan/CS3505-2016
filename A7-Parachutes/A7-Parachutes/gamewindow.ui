@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>635</height>
+    <width>1098</width>
+    <height>673</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1098</width>
      <height>21</height>
     </rect>
    </property>
@@ -62,10 +62,11 @@
    </attribute>
    <addaction name="actionPause"/>
    <addaction name="actionStart"/>
+   <addaction name="actionTime"/>
   </widget>
   <action name="actionPause">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/images/Pause.png</normaloff>:/images/Pause.png</iconset>
    </property>
    <property name="text">
@@ -74,16 +75,19 @@
   </action>
   <action name="actionStart">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/images/start.png</normaloff>:/images/start.png</iconset>
    </property>
    <property name="text">
     <string>start</string>
    </property>
   </action>
+  <action name="actionTime">
+   <property name="text">
+    <string>Time</string>
+   </property>
+  </action>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

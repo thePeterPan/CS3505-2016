@@ -11,7 +11,7 @@ gameWindow::gameWindow(QWidget *parent) :
 
     scale = 100;
 
-    game = new gameLogic(this,ui->centralwidget->width(),ui->centralwidget->height());
+    game = new gameLogic(this,this->width(),this->height());
     connectSignalsAndSlots();
     game->testSignals();
     pm.load(":/images/backgrond2.jpg");
@@ -87,6 +87,6 @@ void gameWindow::receiveVictory()
 void gameWindow::resizeEvent(QResizeEvent *)
 {
 
-   emit newHeight( ui->centralwidget->height());
-    emit newWidth( ui->centralwidget->width());
+   emit newHeight( this->width());
+    emit newWidth( this->height());
 }
