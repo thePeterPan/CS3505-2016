@@ -35,6 +35,7 @@ void gameWindow::connectSignalsAndSlots()
     connect(this->game, &gameLogic::failed, this, &gameWindow::receiveFail);
     connect(this->game, &gameLogic::victory, this, &gameWindow::receiveVictory);
     connect(this, &gameWindow::letterTyped, this->game, &gameLogic::newLetterTyped);
+    connect(ui->actionPause, SIGNAL(triggered(bool)), ui->actionPause, SLOT(sendStartActive()));
 
 }
 
@@ -78,4 +79,9 @@ void gameWindow::receiveFail()
 void gameWindow::receiveVictory()
 {
     qDebug() << "received victory";
+}
+
+void gameWindow::sendStartActive() {
+    ui->actionStart->activate(QAction::Hover);
+
 }

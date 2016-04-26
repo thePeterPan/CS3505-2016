@@ -8,6 +8,8 @@ levelDialog::levelDialog(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->level1Button, SIGNAL(clicked()), this, SLOT(showGameWindow()));
+    connect(ui->level2Button, SIGNAL(clicked()), this, SLOT(showGameWindow()));
+    connect(ui->level3Button, SIGNAL(clicked()), this, SLOT(showGameWindow()));
 }
 
 levelDialog::~levelDialog()

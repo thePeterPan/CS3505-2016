@@ -10,6 +10,7 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    app.setWindowIcon(QIcon(":/images/crate_sprite.svg"));
     MainWindow w;
     w.show();
 
