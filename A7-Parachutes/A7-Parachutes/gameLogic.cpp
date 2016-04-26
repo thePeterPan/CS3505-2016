@@ -12,6 +12,7 @@ gameLogic::gameLogic(QObject *parent, int windowWidth, int windowHeight, float s
     SCALE = 100.0f;
     xScale,yScale = SCALE;
     currentLevel = 1;
+    score = 0;
     getWordsFromDatabase(currentLevel);
 }
 
@@ -196,6 +197,8 @@ void gameLogic::newLetterTyped(QChar letter)
         qDebug() << letter << " was correct";
         if(currentWordIndex == currentWord.length() - 1)
         {
+            score += completeWordReward * timerSeconds;
+            emit updateScore(QString::number(score));
             if(words.isEmpty())
             {
                 getWordsFromDatabase(++currentLevel);
@@ -218,8 +221,9 @@ void gameLogic::newLetterTyped(QChar letter)
     }
     else
     {
-
-       emit failed();
+        score -= missTypePenalty;
+        emit updateScore(QString::number(score));
+        emit failed();
     }
     // If the new letter is incorrect || the position of the lowest sprite on GUI is bad:
     //      emit failed();

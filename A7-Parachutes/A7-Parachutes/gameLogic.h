@@ -45,6 +45,9 @@ private:
     int timerSeconds;
     int timerFactor = 5;
     QTimer* timer;
+    int score;
+    int missTypePenalty = 10;
+    int completeWordReward = 100;
 
     bool readyToPlay = false;
 
@@ -54,6 +57,7 @@ signals:
     void failed();
     void victory();
     void updateActionTimer(QString message);
+    void updateScore(QString score);
 
 
 public slots:
