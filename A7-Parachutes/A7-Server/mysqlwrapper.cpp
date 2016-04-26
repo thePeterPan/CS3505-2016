@@ -7,6 +7,11 @@ MySQLWrapper::MySQLWrapper(QObject *parent)
 
 }
 
+MySQLWrapper::~MySQLWrapper()
+{
+    this->close();
+}
+
 void MySQLWrapper::setHost(QString _hostPath, int _port)
 {
     hostPath = _hostPath;
@@ -54,24 +59,68 @@ bool MySQLWrapper::open()
 bool MySQLWrapper::close()
 {
     // Do not explicitly free driver, the connector object. Connector/C++ takes care of freeing that.
+    connection->close();
+    resultSet->close();
+    statement->close();
+
     delete resultSet;
     delete statement;
     delete connection;
     return true;
 }
 
-bool MySQLWrapper::exec()
+
+bool MySQLWrapper::loginAvailable(QString login)
 {
-    /// Source: https://dev.mysql.com/doc/connector-cpp/en/connector-cpp-examples-complete-example-1.html
-    statement = connection->createStatement();
-    resultSet = statement->executeQuery("SELECT first FROM user");
-    while (resultSet->next()) {
-      qDebug() << "\t... MySQL replies: ";
-      /* Access column data by alias or column name */
-//        qDebug() << QObject::tr(res->getString("_message").asStdString());
-      qDebug() << "\t... MySQL says it again: ";
-      /* Access column fata by numeric offset, 1 is the first column */
-//        qDebug() << QObject::tr(res->getString(1));
+    QString sql = "select count(*) as count from user where login = ?";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1,login.toStdString());
+    resultSet = statement->executeQuery();
+    while(resultSet->next())
+    {
+        int count = resultSet->getInt("count");
+        if(count != 0)
+            return false;
     }
     return true;
+}
+
+bool MySQLWrapper::isTeacher(QString login)
+{
+    QString sql = "select is_teacher from user where login = ?";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1,login.toStdString());
+    resultSet = statement->executeQuery();
+    while(resultSet->next())
+    {
+        return resultSet->getBoolean("is_teacher");
+    }
+    return false;
+}
+
+void MySQLWrapper::insertNewStudent(QString login, QString first, QString last, QString password, QString teacher)
+{
+    QString sql = "insert into user (login, first, last, password, is_teacher) values (?, ?, ?, ?, ?)";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1,login.toStdString());
+    statement->setString(2,first.toStdString());
+    statement->setString(3,last.toStdString());
+    statement->setString(4,password.toStdString());
+    statement->setBoolean(5,false);
+
+    statement->executeUpdate();
+
+    sql = "insert into class (student,teacher) values (?, ?)";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1,login.toStdString());
+    statement->setString(2,teacher.toStdString());
+
+    statement->executeUpdate();
+
+
+}
+
+void MySQLWrapper::insertNewTeacher(QString login, QString first, QString last, QString password)
+{
+
 }
