@@ -8,7 +8,7 @@
 #include "Box2D/Box2D.h"
 #include <QDebug>
 #include <QKeyEvent>
-#include <QmediaPlayer>
+#include <QMediaPlayer>
 
 namespace Ui {
 class gameWindow;
@@ -39,7 +39,7 @@ private:
 
     QTimer * timer;
 
-    QmediaPlayer player;
+    QMediaPlayer* player;
 
 
 protected:
