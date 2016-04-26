@@ -33,7 +33,7 @@ private:
     void CreateBox(QString letter, float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
     void createRoughGround();
     void scoreChanged(int score);
-    void gameOver();
+    //void gameOver();
 
     float SCALE;
     int windowWidth, windowHeight, windowHeight2;
@@ -60,6 +60,7 @@ signals:
     void victory();
     void updateActionTimer(QString message);
     void updateScore(QString score);
+    void gameOver();
 
 
 public slots:

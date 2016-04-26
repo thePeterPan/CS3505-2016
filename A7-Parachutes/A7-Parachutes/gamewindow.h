@@ -40,6 +40,8 @@ private:
 
     QTimer * timer;
 
+
+
 protected:
     void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);
@@ -60,9 +62,11 @@ signals:
 
     void pauseGame();
     void unPauseGame();
+    void showLevelDial();
 private slots:
     void on_actionPause_triggered();
     void on_actionStart_triggered();
+    void on_gameOver_triggered();
 };
 
 #endif // GAMEWINDOW_H

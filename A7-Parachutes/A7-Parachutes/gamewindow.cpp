@@ -44,6 +44,7 @@ void gameWindow::connectSignalsAndSlots()
     connect(this, &gameWindow::readyToPlay, this->game, &gameLogic::startGame);
     connect(this, SIGNAL(pauseGame()), this->game,SLOT(pause()));
     connect(this, SIGNAL(unPauseGame()), this->game, SLOT(unPause()));
+    connect(this->game, &gameLogic::gameOver, this, &gameWindow::on_gameOver_triggered);
 }
 
 void gameWindow::paintEvent(QPaintEvent *)
@@ -115,3 +116,19 @@ void gameWindow::on_actionStart_triggered()
     timer->start(30);
     emit unPauseGame();
 }
+
+void gameWindow::on_gameOver_triggered()
+{
+    timer->stop();
+    emit pauseGame();
+    QMessageBox msgBox;
+    msgBox.setText("Game over! You Lose!");
+    msgBox.exec();
+    //show the level dialog
+    //leveldial.show();
+    //this is just to freeze the screen
+    emit showLevelDial();
+}
+
+
+

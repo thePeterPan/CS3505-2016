@@ -227,7 +227,7 @@ void gameLogic::newLetterTyped(QChar letter)
         }
         else
         {
-            gameOver();
+            emit gameOver();
         }
         emit failed();
     }
@@ -317,11 +317,13 @@ void gameLogic::scoreChanged(int score)
     emit updateScore(QString("Score: ").append(QString::number(score)));
 }
 
+/*
 void gameLogic::gameOver()
 {
     qDebug() << "Game Over!";
-}
 
+}
+*/
 void gameLogic::pause()
 {
     this->timer->stop();
