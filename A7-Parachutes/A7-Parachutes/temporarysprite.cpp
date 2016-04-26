@@ -19,6 +19,7 @@ void TemporarySprite::draw(QPainter *painter, int xScale, int yScale, int height
     int x = body->GetPosition().x * xScale;
     int y = height - body->GetPosition().y * yScale;
     float angle = body->GetAngle();
+    font.setPointSize(15+5*xScale / 100);
 
     QTransform transform;
     transform.rotateRadians(angle);
@@ -28,7 +29,7 @@ void TemporarySprite::draw(QPainter *painter, int xScale, int yScale, int height
 
     painter->drawPixmap(x-size/2,y-size/2,size,size,image->transformed(transform));
     painter->setFont(font);
-    painter->drawText(x-10,y,50,50,0,letter);
+    painter->drawText(x-10,y-10,50,50,0,letter);
 }
 
 QString TemporarySprite::getLetter()

@@ -22,11 +22,12 @@ void gameLogic::setUpBox2D()
 
     World = new b2World(gravity);
 
-    CreateGround(0.0f, 0.0f,2000.0f, 1.0f);
-    CreateGround(0.0f,0.0f,1.0f,1400.0f);
-    CreateGround(800.0f,0.0f,1.0f,1400.0f);
-    CreateGround(0.0f,650.0f,2000.0f,1.0f);
+    CreateGround(0.0f, 0.0f,windowWidth * 2, 1.0f);
+    CreateGround(0.0f,0.0f,1.0f,windowHeight * 2);
+    CreateGround(800.0f,0.0f,1.0f,windowHeight * 2);
+    CreateGround(0.0f,windowHeight,windowWidth * 2,1.0f);
 
+    createRoughGround();
 }
 
 void gameLogic::addWordToWorld()
@@ -36,14 +37,12 @@ void gameLogic::addWordToWorld()
         World->DestroyBody(sprites[i].getBody());
     }
     sprites.clear();
-    //NEEDS TO BE A GLOBAL:: WIDTH, HEIGHT
-    int width = 800;
-    int height = 635;
+
     float itemWidth = 80.0f;
-    int spacing = width / currentWord.length();
+    int spacing = windowWidth / currentWord.length();
     for(int i = 0; i < currentWord.length(); i++)
     {
-        CreateBox(""+currentWord[i],i*spacing, height-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f);
+        CreateBox(""+currentWord[i],i*spacing, windowHeight-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f);
     }
     if(readyToPlay)
         startNewTimer();
@@ -71,6 +70,31 @@ void gameLogic::CreateGround(float x, float y, float width, float height)
 int gameLogic::getCurrentLevel()
 {
     return currentLevel;
+}
+
+/**
+ * Creates random shapes for the ground
+ * @brief gameLogic::createRoughGround
+ */
+void gameLogic::createRoughGround()
+{
+    float size = 5;
+    for(float i = 0; i < size; i++)
+    {
+        b2BodyDef boxDef;
+        //boxDef.type = b2_dynamicBody;
+        boxDef.position.Set(i+ i * 0.1f, 0.21f);
+        b2Body* box = World->CreateBody(&boxDef);
+
+        b2PolygonShape shape;
+        shape.SetAsBox(0.1f,0.1f);
+        b2FixtureDef fixtureDef;
+        fixtureDef.shape = &shape;
+        fixtureDef.density = 150.0f;
+        fixtureDef.friction = 0.05f;
+        fixtureDef.restitution = 1.0f;
+        box->CreateFixture(&fixtureDef);
+    }
 }
 
 /**
@@ -227,19 +251,21 @@ void gameLogic::paintWorld(QPainter *painter)
 
     for(int i = 0; i < sprites.length(); i++)
     {
-        (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::white);
+        (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::cyan);
 
-        sprites[i].draw(painter, xScale, yScale, windowHeight);
+        sprites[i].draw(painter, xScale, yScale, windowHeight2);
     }
 }
-void gameLogic::changeHeight(int newHeight){
-    windowHeight = newHeight;
-    yScale = 100 * windowHeight / 635;
+void gameLogic::changeHeight(int newHeight)
+{
+    windowHeight2 = newHeight;
+    yScale = 100 * windowHeight2 / windowHeight;
 }
 
-void gameLogic::changeWidth(int newWidth){
-    windowWidth = newWidth;
-    xScale = 100 * windowWidth / 800;
+void gameLogic::changeWidth(int newWidth)
+{
+    xScale = 100 * newWidth / windowWidth;
+    //windowWidth = newWidth; // Not needed - physics world is scaled anyways.
 }
 
 void gameLogic::startGame(){
