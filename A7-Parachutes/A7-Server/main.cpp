@@ -43,5 +43,18 @@ int main(int argc, char *argv[])
     Networking* server = new Networking(configFile, &app);
     QObject::connect(server, &Networking::closed, &app, &QCoreApplication::quit);
 
+    //Name=neverland-db
+    //Server=us-cdbr-azure-west-c.cloudapp.net
+    //Login=b485a4f4f7fcea
+    //Password=fd0282b9
+    //Port=3306
+
+    MySQLWrapper *sql = new MySQLWrapper();
+    sql->setHost("us-cdbr-azure-west-c.cloudapp.net");
+    sql->setUsername("b485a4f4f7fcea");
+    sql->setPassword("fd0282b9");
+    sql->setDatabaseName("neverland-db");
+    sql->exec();
+
     return app.exec();
 }
