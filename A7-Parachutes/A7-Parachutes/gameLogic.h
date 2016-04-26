@@ -69,6 +69,8 @@ public slots:
     void updateTimer();
     void startNewTimer();
     void startGame();
+    void pause();
+    void unPause();
 
 };
 

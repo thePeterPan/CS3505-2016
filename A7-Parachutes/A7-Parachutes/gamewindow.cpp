@@ -32,9 +32,6 @@ void gameWindow::startGame()
 
 void gameWindow::connectSignalsAndSlots()
 {
-    //connect(ui->loginButton, SIGNAL(clicked()), this, SLOT(showLevelDialog()));
-    //connect(ui->createAccountButton, SIGNAL(clicked()), this, SLOT(showRegistration()));
-    //connect(ui->)
     connect(this->game, &gameLogic::newWord, this, &gameWindow::receiveNewWord);
     connect(this->game, &gameLogic::newLevel, this, &gameWindow::receiveNewLevel);
     connect(this->game, &gameLogic::failed, this, &gameWindow::receiveFail);
@@ -45,8 +42,8 @@ void gameWindow::connectSignalsAndSlots()
     connect(this,SIGNAL(newHeight(int)),this->game,SLOT(changeHeight(int)));
     connect(this,SIGNAL(newWidth(int)),this->game,SLOT(changeWidth(int)));
     connect(this, &gameWindow::readyToPlay, this->game, &gameLogic::startGame);
-
-
+    connect(this, SIGNAL(pauseGame()), this->game,SLOT(pause()));
+    connect(this, SIGNAL(unPauseGame()), this->game, SLOT(unPause()));
 }
 
 void gameWindow::paintEvent(QPaintEvent *)
@@ -57,15 +54,13 @@ void gameWindow::paintEvent(QPaintEvent *)
     pm = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
     painter.drawPixmap(0, 0, pm);
     game->paintWorld(&painter);
-    //QTimer::singleShot(30,this,SLOT(update()));
 }
 
-void gameWindow::keyPressEvent(QKeyEvent *e) {
+void gameWindow::keyPressEvent(QKeyEvent *e)
+{
     QChar letter = e->text()[0].toUpper();
-    if (letter >= 'A' && letter <= 'Z'){
-       // ui->listWidget->addItem(QString(letter));
-        //ONLY SEND THIS if the box corresponding to
-        //the letter they typed is in the target zone
+    if (letter >= 'A' && letter <= 'Z')
+    {
         emit letterTyped(letter);
     }
 }
@@ -73,13 +68,8 @@ void gameWindow::keyPressEvent(QKeyEvent *e) {
 void gameWindow::receiveNewWord(QString word)
 {
     qDebug() << "received " << word;
-    //startNewTimer();
 
 }
-
-
-
-
 
 void gameWindow::receiveNewLevel(int level)
 {
@@ -89,7 +79,6 @@ void gameWindow::receiveNewLevel(int level)
 void gameWindow::receiveFail()
 {
     qDebug() << "received fail";
-
 }
 
 void gameWindow::receiveVictory()
@@ -111,4 +100,18 @@ void gameWindow::actionTimerUpdated(QString message)
 void gameWindow::scoreUpdated(QString score)
 {
     ui->actionScore->setText(score);
+}
+
+void gameWindow::on_actionPause_triggered()
+{
+    timer->stop();
+    emit pauseGame();
+}
+
+void gameWindow::on_actionStart_triggered()
+{
+    if(timer->isActive())
+        return;
+    timer->start(30);
+    emit unPauseGame();
 }

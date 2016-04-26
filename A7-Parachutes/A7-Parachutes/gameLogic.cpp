@@ -321,3 +321,15 @@ void gameLogic::gameOver()
 {
     qDebug() << "Game Over!";
 }
+
+void gameLogic::pause()
+{
+    this->timer->stop();
+    qDebug() << "Pause!";
+}
+
+void gameLogic::unPause()
+{
+    this->timer->start(1000);
+    qDebug() << "Go again!";
+}

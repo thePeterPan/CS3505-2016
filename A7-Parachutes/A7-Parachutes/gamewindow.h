@@ -57,6 +57,12 @@ signals:
     void newHeight(int);
     void newWidth(int);
     void readyToPlay();
+
+    void pauseGame();
+    void unPauseGame();
+private slots:
+    void on_actionPause_triggered();
+    void on_actionStart_triggered();
 };
 
 #endif // GAMEWINDOW_H
