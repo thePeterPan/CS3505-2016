@@ -18,6 +18,7 @@ gameWindow::gameWindow(QWidget *parent) :
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()), this, SLOT(update()));
     timer->start(30);
+
     player = new QMediaPlayer;
     player->setMedia(QUrl("qrc:/images/bgm.mp3"));
     player->setVolume(50);
