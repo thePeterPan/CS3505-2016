@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia
 
 CONFIG += c++11
 
@@ -55,3 +55,4 @@ win32|macx {
 unix:!macx {
     include(QtWebSockets/websockets.pro)
 }
+

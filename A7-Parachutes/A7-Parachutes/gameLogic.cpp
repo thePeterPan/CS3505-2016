@@ -2,12 +2,17 @@
 #include "Box2D/Box2D.h"
 #include <QDebug>
 
-gameLogic::gameLogic(QObject *parent, float scale) : QObject(parent), SCALE(scale)
+gameLogic::gameLogic(QObject *parent, int windowWidth, int windowHeight, float scale) :
+    QObject(parent), windowWidth(windowWidth), windowHeight(windowHeight), SCALE(scale)
 {
+    timer = new QTimer();
+    connect(timer, SIGNAL(timeout()),this,SLOT(updateTimer()));
     sprites = QList<TemporarySprite>();
     setUpBox2D();
     SCALE = 100.0f;
+    xScale,yScale = SCALE;
     currentLevel = 1;
+    score = 0;
     getWordsFromDatabase(currentLevel);
 }
 
@@ -15,15 +20,15 @@ void gameLogic::setUpBox2D()
 {
     /** Prepare the world */
     b2Vec2 gravity = b2Vec2(0.0f, -9.8f);
-    bool doSleep = true;
 
     World = new b2World(gravity);
 
-    CreateGround(0.0f, 0.0f,2000.0f, 1.0f);
-    CreateGround(0.0f,0.0f,1.0f,1400.0f);
-    CreateGround(800.0f,0.0f,1.0f,1400.0f);
-    CreateGround(0.0f,650.0f,2000.0f,1.0f);
+    CreateGround(0.0f, 0.0f,windowWidth * 2, 1.0f);
+    CreateGround(0.0f,0.0f,1.0f,windowHeight * 2);
+    CreateGround(800.0f,0.0f,1.0f,windowHeight * 2);
+    CreateGround(0.0f,windowHeight,windowWidth * 2,1.0f);
 
+    createRoughGround();
 }
 
 void gameLogic::addWordToWorld()
@@ -33,15 +38,15 @@ void gameLogic::addWordToWorld()
         World->DestroyBody(sprites[i].getBody());
     }
     sprites.clear();
-    //NEEDS TO BE A GLOBAL:: WIDTH, HEIGHT
-    float width = 800.0f;
-    float height = 635.0f;
+
     float itemWidth = 80.0f;
-    int spacing = width / currentWord.length();
+    int spacing = windowWidth / currentWord.length();
     for(int i = 0; i < currentWord.length(); i++)
     {
-        CreateBox(""+currentWord[i],i*spacing, height-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f);
+        CreateBox(""+currentWord[i],i*spacing, windowHeight-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f);
     }
+    if(readyToPlay)
+        startNewTimer();
 }
 
 /**
@@ -61,6 +66,36 @@ void gameLogic::CreateGround(float x, float y, float width, float height)
     b2PolygonShape groundBox;
     groundBox.SetAsBox((width/2.0f)/SCALE, (height/2.0f)/SCALE); // Creates a box shape. Divide your desired width and height by 2.
     ground->CreateFixture(&groundBox,10.0f); // Apply the fixture definition
+}
+
+int gameLogic::getCurrentLevel()
+{
+    return currentLevel;
+}
+
+/**
+ * Creates random shapes for the ground
+ * @brief gameLogic::createRoughGround
+ */
+void gameLogic::createRoughGround()
+{
+    float size = 5;
+    for(float i = 0; i < size; i++)
+    {
+        b2BodyDef boxDef;
+        //boxDef.type = b2_dynamicBody;
+        boxDef.position.Set(i+ i * 0.1f, 0.21f);
+        b2Body* box = World->CreateBody(&boxDef);
+
+        b2PolygonShape shape;
+        shape.SetAsBox(0.1f,0.1f);
+        b2FixtureDef fixtureDef;
+        fixtureDef.shape = &shape;
+        fixtureDef.density = 150.0f;
+        fixtureDef.friction = 0.05f;
+        fixtureDef.restitution = 1.0f;
+        box->CreateFixture(&fixtureDef);
+    }
 }
 
 /**
@@ -162,6 +197,8 @@ void gameLogic::newLetterTyped(QChar letter)
         qDebug() << letter << " was correct";
         if(currentWordIndex == currentWord.length() - 1)
         {
+            score += completeWordReward * timerSeconds;
+            scoreChanged(score);
             if(words.isEmpty())
             {
                 getWordsFromDatabase(++currentLevel);
@@ -184,8 +221,15 @@ void gameLogic::newLetterTyped(QChar letter)
     }
     else
     {
-
-       emit failed();
+        if (score > 0) {
+            score -= missTypePenalty;
+            scoreChanged(score);
+        }
+        else
+        {
+            emit gameOver();
+        }
+        emit failed();
     }
     // If the new letter is incorrect || the position of the lowest sprite on GUI is bad:
     //      emit failed();
@@ -217,8 +261,77 @@ void gameLogic::paintWorld(QPainter *painter)
 
     for(int i = 0; i < sprites.length(); i++)
     {
-        (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::white);
+        (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::cyan);
 
-        sprites[i].draw(painter);
+        sprites[i].draw(painter, xScale, yScale, windowHeight2);
     }
+}
+void gameLogic::changeHeight(int newHeight)
+{
+    windowHeight2 = newHeight;
+    yScale = 100 * windowHeight2 / windowHeight;
+}
+
+void gameLogic::changeWidth(int newWidth)
+{
+    xScale = 100 * newWidth / windowWidth;
+    //windowWidth = newWidth; // Not needed - physics world is scaled anyways.
+}
+
+void gameLogic::startGame(){
+    readyToPlay = true;
+    startNewTimer();
+}
+
+void gameLogic::startNewTimer()
+{
+    qDebug() << "starting timer";
+    timerSeconds = currentLevel * timerFactor;
+    QString timerText = "Time:";
+    if(timerSeconds < 10)
+        timerText.append("0");
+    timerText.append(QString::number(timerSeconds));
+    emit updateActionTimer(timerText);
+    timer->start(1000);
+}
+
+void gameLogic::updateTimer()
+{
+    timerSeconds--;
+    QString timerText = "Time:";
+    if(timerSeconds < 10)
+        timerText.append("0");
+    timerText.append(QString::number(timerSeconds));
+    emit updateActionTimer(timerText);
+    if(timerSeconds <= 0)
+    {
+        timer->stop();
+        emit failed();
+        qDebug() << "time's up!";
+    }
+    qDebug() << "updating timer";
+}
+
+void gameLogic::scoreChanged(int score)
+{
+    emit updateScore(QString("Score: ").append(QString::number(score)));
+}
+
+/*
+void gameLogic::gameOver()
+{
+    qDebug() << "Game Over!";
+
+}
+*/
+void gameLogic::pause()
+{
+    this->timer->stop();
+    qDebug() << "Pause!";
+}
+
+void gameLogic::unPause()
+{
+    this->timer->start(1000);
+    qDebug() << "Go again!";
 }
