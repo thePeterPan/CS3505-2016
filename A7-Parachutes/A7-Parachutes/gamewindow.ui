@@ -40,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -63,6 +63,7 @@
    <addaction name="actionPause"/>
    <addaction name="actionStart"/>
    <addaction name="actionTimer"/>
+   <addaction name="actionScore"/>
   </widget>
   <action name="actionPause">
    <property name="icon">
@@ -85,6 +86,14 @@
   <action name="actionTimer">
    <property name="text">
     <string>Timer:</string>
+   </property>
+  </action>
+  <action name="actionScore">
+   <property name="text">
+    <string>Score: 0</string>
+   </property>
+   <property name="toolTip">
+    <string>Score</string>
    </property>
   </action>
  </widget>

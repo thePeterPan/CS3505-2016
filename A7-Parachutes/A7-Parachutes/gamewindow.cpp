@@ -110,5 +110,5 @@ void gameWindow::actionTimerUpdated(QString message)
 
 void gameWindow::scoreUpdated(QString score)
 {
-    qDebug() << "Score: " << score;
+    ui->actionScore->setText(score);
 }
