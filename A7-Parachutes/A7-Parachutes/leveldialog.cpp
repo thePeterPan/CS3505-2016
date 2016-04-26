@@ -19,4 +19,5 @@ void levelDialog::showGameWindow() {
     this->close();
     game.setFocus();
     game.show();
+    game.startGame();
 }

@@ -5,6 +5,8 @@
 gameLogic::gameLogic(QObject *parent, int windowWidth, int windowHeight, float scale) :
     QObject(parent), windowWidth(windowWidth), windowHeight(windowHeight), SCALE(scale)
 {
+    timer = new QTimer();
+    connect(timer, SIGNAL(timeout()),this,SLOT(updateTimer()));
     sprites = QList<TemporarySprite>();
     setUpBox2D();
     SCALE = 100.0f;
@@ -43,8 +45,8 @@ void gameLogic::addWordToWorld()
     {
         CreateBox(""+currentWord[i],i*spacing, height-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f);
     }
-    //emit newWord(currentWord);
-    startNewTimer();
+    if(readyToPlay)
+        startNewTimer();
 }
 
 /**
@@ -240,11 +242,21 @@ void gameLogic::changeWidth(int newWidth){
     xScale = 100 * windowWidth / 800;
 }
 
+void gameLogic::startGame(){
+    readyToPlay = true;
+    startNewTimer();
+}
+
 void gameLogic::startNewTimer()
 {
     qDebug() << "starting timer";
     timerSeconds = currentLevel * timerFactor;
-    QTimer::singleShot(1000,this,SLOT(updateTimer()));
+    QString timerText = "Time:";
+    if(timerSeconds < 10)
+        timerText.append("0");
+    timerText.append(QString::number(timerSeconds));
+    emit updateActionTimer(timerText);
+    timer->start(1000);
 }
 
 void gameLogic::updateTimer()
@@ -255,12 +267,9 @@ void gameLogic::updateTimer()
         timerText.append("0");
     timerText.append(QString::number(timerSeconds));
     emit updateActionTimer(timerText);
-    if(timerSeconds > 0)
+    if(timerSeconds <= 0)
     {
-        QTimer::singleShot(1000,this,SLOT(updateTimer()));
-    }
-    else
-    {
+        timer->stop();
         qDebug() << "time's up!";
     }
     qDebug() << "updating timer";

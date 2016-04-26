@@ -15,12 +15,16 @@ gameWindow::gameWindow(QWidget *parent) :
     connectSignalsAndSlots();
     //game->testSignals();
     pm.load(":/images/backgrond2.jpg");
-
 }
 
 gameWindow::~gameWindow()
 {
     delete ui;
+}
+
+void gameWindow::startGame()
+{
+    emit readyToPlay();
 }
 
 void gameWindow::connectSignalsAndSlots()
@@ -36,6 +40,7 @@ void gameWindow::connectSignalsAndSlots()
     connect(this, &gameWindow::letterTyped, this->game, &gameLogic::newLetterTyped);
     connect(this,SIGNAL(newHeight(int)),this->game,SLOT(changeHeight(int)));
     connect(this,SIGNAL(newWidth(int)),this->game,SLOT(changeWidth(int)));
+    connect(this, &gameWindow::readyToPlay, this->game, &gameLogic::startGame);
 
 
 

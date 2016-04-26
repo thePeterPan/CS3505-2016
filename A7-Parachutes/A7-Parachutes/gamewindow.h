@@ -22,6 +22,7 @@ class gameWindow : public QMainWindow
 public:
     explicit gameWindow(QWidget *parent = 0);
     void keyPressEvent(QKeyEvent* e);
+    void startGame();
     ~gameWindow();
 
 private:
@@ -52,6 +53,7 @@ signals:
     void letterTyped(QChar letter);
     void newHeight(int);
     void newWidth(int);
+    void readyToPlay();
 };
 
 #endif // GAMEWINDOW_H

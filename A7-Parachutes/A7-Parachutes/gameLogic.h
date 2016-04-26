@@ -41,8 +41,10 @@ private:
     QList<TemporarySprite> sprites;
     int currentLevel;
     int timerSeconds;
-    int timerFactor = 30;
-    void startNewTimer();
+    int timerFactor = 5;
+    QTimer* timer;
+
+    bool readyToPlay = false;
 
 signals:
     void newWord(QString word);
@@ -57,6 +59,8 @@ public slots:
     void changeHeight(int);
     void changeWidth(int);
     void updateTimer();
+    void startNewTimer();
+    void startGame();
 
 };
 
