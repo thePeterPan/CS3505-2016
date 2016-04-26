@@ -54,7 +54,17 @@ int main(int argc, char *argv[])
     sql->setUsername("b485a4f4f7fcea");
     sql->setPassword("fd0282b9");
     sql->setDatabaseName("neverland-db");
-    sql->exec();
+    sql->open();
 
+    bool yoda = sql->isTeacher("luke");
+    if(!yoda)
+        qDebug() << "Got it";
+    else
+        qDebug() << "booo";
+
+    sql->insertNewStudent("lando","Lando","Calrissian","guns","yoda");
+
+
+    sql->close();
     return app.exec();
 }
