@@ -225,6 +225,10 @@ void gameLogic::newLetterTyped(QChar letter)
             score -= missTypePenalty;
             scoreChanged(score);
         }
+        else
+        {
+            gameOver();
+        }
         emit failed();
     }
     // If the new letter is incorrect || the position of the lowest sprite on GUI is bad:
@@ -302,6 +306,7 @@ void gameLogic::updateTimer()
     if(timerSeconds <= 0)
     {
         timer->stop();
+        gameOver();
         qDebug() << "time's up!";
     }
     qDebug() << "updating timer";
@@ -310,4 +315,9 @@ void gameLogic::updateTimer()
 void gameLogic::scoreChanged(int score)
 {
     emit updateScore(QString("Score: ").append(QString::number(score)));
+}
+
+void gameLogic::gameOver()
+{
+    qDebug() << "Game Over!";
 }
