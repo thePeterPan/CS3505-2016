@@ -40,6 +40,7 @@ void gameWindow::connectSignalsAndSlots()
     connect(this->game, &gameLogic::failed, this, &gameWindow::receiveFail);
     connect(this->game, &gameLogic::victory, this, &gameWindow::receiveVictory);
     connect(this->game, &gameLogic::updateActionTimer, this, &gameWindow::actionTimerUpdated);
+    connect(this->game, &gameLogic::updateScore, this, &gameWindow::scoreUpdated);
     connect(this, &gameWindow::letterTyped, this->game, &gameLogic::newLetterTyped);
     connect(this,SIGNAL(newHeight(int)),this->game,SLOT(changeHeight(int)));
     connect(this,SIGNAL(newWidth(int)),this->game,SLOT(changeWidth(int)));
@@ -105,4 +106,9 @@ void gameWindow::resizeEvent(QResizeEvent *)
 void gameWindow::actionTimerUpdated(QString message)
 {
     ui->actionTimer->setText(message);
+}
+
+void gameWindow::scoreUpdated(QString score)
+{
+    ui->actionScore->setText(score);
 }

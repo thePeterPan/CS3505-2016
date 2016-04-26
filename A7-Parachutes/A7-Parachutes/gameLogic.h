@@ -32,6 +32,8 @@ private:
     void CreateGround(float x, float y, float width, float height);
     void CreateBox(QString letter, float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
     void createRoughGround();
+    void scoreChanged(int score);
+    void gameOver();
 
     float SCALE;
     int windowWidth, windowHeight, windowHeight2;
@@ -45,6 +47,9 @@ private:
     int timerSeconds;
     int timerFactor = 5;
     QTimer* timer;
+    int score;
+    int missTypePenalty = 50;
+    int completeWordReward = 100; //This Score bonus is multiplied by seconds left on the timer
 
     bool readyToPlay = false;
 
@@ -54,6 +59,7 @@ signals:
     void failed();
     void victory();
     void updateActionTimer(QString message);
+    void updateScore(QString score);
 
 
 public slots:

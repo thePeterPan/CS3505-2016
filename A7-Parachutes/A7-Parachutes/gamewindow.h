@@ -50,6 +50,7 @@ public slots:
     void receiveFail();//Connected to gameLogic::failed
     void receiveVictory();//Connected to gameLogic::victory
     void actionTimerUpdated(QString message);
+    void scoreUpdated(QString score);
 
 signals:
     void letterTyped(QChar letter);
