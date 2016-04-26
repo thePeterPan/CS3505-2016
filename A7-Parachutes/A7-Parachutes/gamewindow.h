@@ -50,12 +50,19 @@ public slots:
     void receiveFail();//Connected to gameLogic::failed
     void receiveVictory();//Connected to gameLogic::victory
     void actionTimerUpdated(QString message);
+    void scoreUpdated(QString score);
 
 signals:
     void letterTyped(QChar letter);
     void newHeight(int);
     void newWidth(int);
     void readyToPlay();
+
+    void pauseGame();
+    void unPauseGame();
+private slots:
+    void on_actionPause_triggered();
+    void on_actionStart_triggered();
 };
 
 #endif // GAMEWINDOW_H

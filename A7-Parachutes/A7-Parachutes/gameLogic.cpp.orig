@@ -306,8 +306,12 @@ void gameLogic::updateTimer()
     if(timerSeconds <= 0)
     {
         timer->stop();
+<<<<<<< HEAD
         emit failed();
+=======
+        gameOver();
         qDebug() << "time's up!";
+>>>>>>> origin/sprite_box2d
     }
     qDebug() << "updating timer";
 }
