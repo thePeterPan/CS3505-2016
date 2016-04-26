@@ -1,6 +1,5 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
-
 #include <QMainWindow>
 #include <sprite.h>
 #include <QPainter>
@@ -9,7 +8,7 @@
 #include "Box2D/Box2D.h"
 #include <QDebug>
 #include <QKeyEvent>
-
+#include <QMediaPlayer>
 
 namespace Ui {
 class gameWindow;
@@ -40,6 +39,7 @@ private:
 
     QTimer * timer;
 
+    QMediaPlayer* player;
 
 
 protected:
