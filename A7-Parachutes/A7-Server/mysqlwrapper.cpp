@@ -163,4 +163,32 @@ QList<QString> MySQLWrapper::getTeacherWordsByLevel(QString teacher, int level)
     return list;
 }
 
+int MySQLWrapper::getUserCurrentLevel(QString login)
+{
 
+}
+
+void MySQLWrapper::updateUserLevel(QString login, int level)
+{
+
+}
+
+void MySQLWrapper::updateUserScore(QString login, int score)
+{
+
+}
+
+int MySQLWrapper::getUserScore(QString login)
+{
+
+}
+
+void MySQLWrapper::updateUserLevel(QString login, int level)
+{
+
+}
+
+void MySQLWrapper::addTeacherWordsByLevel(QList<QString> words, QString login, int level)
+{
+
+}
