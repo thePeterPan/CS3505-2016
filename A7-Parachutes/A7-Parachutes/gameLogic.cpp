@@ -296,7 +296,7 @@ void gameLogic::updateTimer()
     if(timerSeconds <= 0)
     {
         timer->stop();
-        qDebug() << "time's up!";
+        emit failed();
     }
     qDebug() << "updating timer";
 }
