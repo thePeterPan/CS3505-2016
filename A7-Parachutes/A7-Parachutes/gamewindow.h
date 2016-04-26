@@ -22,6 +22,7 @@ class gameWindow : public QMainWindow
 public:
     explicit gameWindow(QWidget *parent = 0);
     void keyPressEvent(QKeyEvent* e);
+    void startGame();
     ~gameWindow();
 
 private:
@@ -37,6 +38,8 @@ private:
 
     void setListWidget(QString word);
 
+    QTimer * timer;
+
 protected:
     void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);
@@ -46,11 +49,20 @@ public slots:
     void receiveNewLevel(int level);//Connected to gameLogic::newLevel
     void receiveFail();//Connected to gameLogic::failed
     void receiveVictory();//Connected to gameLogic::victory
+    void actionTimerUpdated(QString message);
+    void scoreUpdated(QString score);
 
 signals:
     void letterTyped(QChar letter);
     void newHeight(int);
     void newWidth(int);
+    void readyToPlay();
+
+    void pauseGame();
+    void unPauseGame();
+private slots:
+    void on_actionPause_triggered();
+    void on_actionStart_triggered();
 };
 
 #endif // GAMEWINDOW_H

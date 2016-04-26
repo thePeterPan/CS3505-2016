@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -12,11 +12,11 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Player', 'Score', 'Words', 'Rank'],
-          ['Peter', 1000, 400, 200],
-          ['Yan', 1170, 460, 250],
-          ['Fred', 660, 1120, 300],
-          ['keeton', 1030, 540, 350]
+          ['Year', 'Score', 'Words', 'Rank'],
+          ['2014', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
         ]);
 
         var options = {
@@ -42,7 +42,7 @@
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation. We hide it in small screens. -->
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
-       
+                    <a class="mdl-navigation__link" href="">Link</a>
                     <a class="mdl-navigation__link" href="controlPanel.html"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color--cyan">
     Management
 </button></a>
@@ -56,13 +56,13 @@
                 </nav>
             </div>
         </header>
-       <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">Parachute---The Lost Boys & Wendy</span>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Title</span>
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="readme.html">Readme</a>
-                <a class="mdl-navigation__link" href="https://github.com/University-of-Utah-CS3505/u0680482">This Project</a>
-                <a class="mdl-navigation__link" href="controlPanel.html">Management</a>
-                <a class="mdl-navigation__link" href="index.html">Home</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
             </nav>
         </div>
         <main class="mdl-layout__content">
@@ -104,6 +104,11 @@
                 <div class="mdl-card__supporting-text">
                   Game Statics.
                     <div id="columnchart_material"></div>
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                        Get Started
+                    </a>
                 </div>
                 <div class="mdl-card__menu">
                     <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">

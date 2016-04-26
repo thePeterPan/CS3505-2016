@@ -57,6 +57,7 @@ bool MySQLWrapper::close()
     delete resultSet;
     delete statement;
     delete connection;
+    return true;
 }
 
 bool MySQLWrapper::exec()

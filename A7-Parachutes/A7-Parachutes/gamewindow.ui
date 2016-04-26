@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1098</width>
-    <height>673</height>
+    <width>800</width>
+    <height>635</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,8 +39,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1098</width>
-     <height>21</height>
+     <width>800</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>
@@ -62,11 +62,12 @@
    </attribute>
    <addaction name="actionPause"/>
    <addaction name="actionStart"/>
-   <addaction name="actionTime"/>
+   <addaction name="actionTimer"/>
+   <addaction name="actionScore"/>
   </widget>
   <action name="actionPause">
    <property name="icon">
-    <iconset>
+    <iconset resource="resources.qrc">
      <normaloff>:/images/Pause.png</normaloff>:/images/Pause.png</iconset>
    </property>
    <property name="text">
@@ -75,19 +76,29 @@
   </action>
   <action name="actionStart">
    <property name="icon">
-    <iconset>
+    <iconset resource="resources.qrc">
      <normaloff>:/images/start.png</normaloff>:/images/start.png</iconset>
    </property>
    <property name="text">
     <string>start</string>
    </property>
   </action>
-  <action name="actionTime">
+  <action name="actionTimer">
    <property name="text">
-    <string>Time</string>
+    <string>Timer:</string>
+   </property>
+  </action>
+  <action name="actionScore">
+   <property name="text">
+    <string>Score: 0</string>
+   </property>
+   <property name="toolTip">
+    <string>Score</string>
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
