@@ -5,7 +5,7 @@ GameWindow::GameWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::GameWindow)
 {
     ui->setupUi(this);
-
+    pause = false;
     scale = 100;
 
     game = new GameLogic(this,this->width(),this->height());
@@ -55,9 +55,11 @@ void GameWindow::connectSignalsAndSlots()
     connect(this,       &GameWindow::newWidth,          this->game, &GameLogic::changeWidth);
     connect(this,       &GameWindow::readyToPlay,       this->game, &GameLogic::startGame);
 //    connect(this, SIGNAL(pauseGame()), this->game, SLOT(pause()));
-    connect(this,       &GameWindow::pauseGame,         this->game, &GameLogic::pause);
+     connect(this,       &GameWindow::pauseGame,         this->game, &GameLogic::pause);
+     connect(this,       &GameWindow::pauseGame,         this,  &GameWindow::pauseSwitch);
 //    connect(this, SIGNAL(unPauseGame()), this->game, SLOT(unPause()));
     connect(this,       &GameWindow::unPauseGame,       this->game, &GameLogic::unPause);
+    connect(this,       &GameWindow::unPauseGame,       this,  &GameWindow::pauseSwitch);
     connect(this->game, &GameLogic::gameOver,           this,       &GameWindow::on_gameOver_triggered);
 }
 
@@ -73,10 +75,12 @@ void GameWindow::paintEvent(QPaintEvent *)
 
 void GameWindow::keyPressEvent(QKeyEvent *e)
 {
+    if(!pause){
     QChar letter = e->text()[0].toUpper();
     if (letter >= 'A' && letter <= 'Z')
     {
         emit letterTyped(letter);
+    }
     }
 }
 
@@ -145,4 +149,8 @@ void GameWindow::on_gameOver_triggered()
     emit showLevelDial();
 }
 
+void GameWindow::pauseSwitch()
+{
+  pause = !pause;
+}
 
