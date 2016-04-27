@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>webServer.ini</file>
+    </qresource>
+</RCC>
