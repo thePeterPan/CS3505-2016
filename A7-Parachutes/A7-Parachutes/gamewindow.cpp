@@ -13,6 +13,9 @@ GameWindow::GameWindow(QWidget *parent) :
 
     //game->testSignals();
     pm.load(":/images/nightBackground.jpg");
+    int width = this->width();
+    int height = this->height();
+    pm = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
 
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()), this, SLOT(update()));
@@ -34,10 +37,9 @@ GameWindow::~GameWindow()
 
 void GameWindow::startGame()
 {
-
     emit readyToPlay();
     timer->start(30);
-
+    pause = false;
 }
 
 void GameWindow::connectSignalsAndSlots()
@@ -49,15 +51,11 @@ void GameWindow::connectSignalsAndSlots()
     connect(this->game, &GameLogic::updateActionTimer,  this,       &GameWindow::actionTimerUpdated);
     connect(this->game, &GameLogic::updateScore,        this,       &GameWindow::scoreUpdated);
     connect(this,       &GameWindow::letterTyped,       this->game, &GameLogic::newLetterTyped);
-//    connect(this, SIGNAL(newHeight(int)), this->game, SLOT(changeHeight(int)));
     connect(this,       &GameWindow::newHeight,         this->game, &GameLogic::changeHeight);
-//    connect(this, SIGNAL(newWidth(int)), this->game, SLOT(changeWidth(int)));
     connect(this,       &GameWindow::newWidth,          this->game, &GameLogic::changeWidth);
     connect(this,       &GameWindow::readyToPlay,       this->game, &GameLogic::startGame);
-//    connect(this, SIGNAL(pauseGame()), this->game, SLOT(pause()));
      connect(this,       &GameWindow::pauseGame,         this->game, &GameLogic::pause);
      connect(this,       &GameWindow::pauseGame,         this,  &GameWindow::pauseSwitch);
-//    connect(this, SIGNAL(unPauseGame()), this->game, SLOT(unPause()));
     connect(this,       &GameWindow::unPauseGame,       this->game, &GameLogic::unPause);
     connect(this,       &GameWindow::unPauseGame,       this,  &GameWindow::pauseSwitch);
     connect(this->game, &GameLogic::gameOver,           this,       &GameWindow::on_gameOver_triggered);
@@ -66,9 +64,6 @@ void GameWindow::connectSignalsAndSlots()
 void GameWindow::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    int width = this->ui->centralwidget->width();
-    int height = this->ui->centralwidget->height();
-    pm = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
     painter.drawPixmap(0, 0, pm);
     game->paintWorld(&painter);
 }
@@ -109,6 +104,10 @@ void GameWindow::resizeEvent(QResizeEvent *)
 {
     emit newHeight( ui->centralwidget->height());
     emit newWidth( ui->centralwidget->width());
+    int width = this->width();
+    int height = this->height();
+    pm = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
+
 }
 
 void GameWindow::actionTimerUpdated(QString message)
