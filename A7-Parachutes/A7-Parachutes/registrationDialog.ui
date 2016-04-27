@@ -19,6 +19,11 @@
   <property name="windowTitle">
    <string>Registration</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog{
+background:url(:/images/backgrond2.jpg)
+}</string>
+  </property>
   <widget class="QLabel" name="titleLabel">
    <property name="geometry">
     <rect>
@@ -229,6 +234,38 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>54</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">image: url(:/images/crate_sprite.svg);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>10</y>
+     <width>54</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">image: url(:/images/crate_sprite.svg);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
   </widget>
  </widget>
  <resources/>

@@ -10,8 +10,10 @@ GameWindow::GameWindow(QWidget *parent) :
 
     game = new GameLogic(this,this->width(),this->height());
     connectSignalsAndSlots();
+
     //game->testSignals();
-    pm.load(":/images/backgrond2.jpg");
+    pm.load(":/images/nightBackground.jpg");
+
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()), this, SLOT(update()));
 
@@ -32,6 +34,7 @@ GameWindow::~GameWindow()
 
 void GameWindow::startGame()
 {
+
     emit readyToPlay();
     timer->start(30);
 
@@ -97,6 +100,7 @@ void GameWindow::receiveVictory()
     qDebug() << "received victory";
 }
 
+
 void GameWindow::resizeEvent(QResizeEvent *)
 {
     emit newHeight( ui->centralwidget->height());
@@ -140,6 +144,5 @@ void GameWindow::on_gameOver_triggered()
     //emit unPauseGame();
     emit showLevelDial();
 }
-
 
 
