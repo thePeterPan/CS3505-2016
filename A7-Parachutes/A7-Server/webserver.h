@@ -5,7 +5,6 @@
 #include <QSettings>
 
 #include "staticfilecontroller.h"
-#include "webrequesthandler.h"
 #include "httplistener.h"
 
 class WebServer : public QObject

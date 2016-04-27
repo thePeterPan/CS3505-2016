@@ -43,5 +43,28 @@ int main(int argc, char *argv[])
     Networking* server = new Networking(configFile, &app);
     QObject::connect(server, &Networking::closed, &app, &QCoreApplication::quit);
 
+    //Name=neverland-db
+    //Server=us-cdbr-azure-west-c.cloudapp.net
+    //Login=b485a4f4f7fcea
+    //Password=fd0282b9
+    //Port=3306
+
+    MySQLWrapper *sql = new MySQLWrapper();
+    sql->setHost("us-cdbr-azure-west-c.cloudapp.net");
+    sql->setUsername("b485a4f4f7fcea");
+    sql->setPassword("fd0282b9");
+    sql->setDatabaseName("neverland-db");
+    sql->open();
+
+    QList<QList<QString>> stats = sql->getTeacherStats("yoda");
+    qDebug() << "Stats for Yoda's class";
+    foreach(QList<QString> user, stats)
+    {
+        qDebug() << "Student: " << user.at(0);
+        qDebug() << "Level: " << user.at(1);
+        qDebug() << "High Score: " << user.at(2);
+    }
+
+    sql->close();
     return app.exec();
 }

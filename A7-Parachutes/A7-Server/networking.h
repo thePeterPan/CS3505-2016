@@ -16,6 +16,8 @@
 #include "QtWebSockets/qwebsocketserver.h"
 #include "QtWebSockets/qwebsocket.h"
 
+#include "mysqlwrapper.h"
+
 class Networking : public QObject
 {
     Q_OBJECT
@@ -48,7 +50,11 @@ private:
     QList<QWebSocket *> clients;
     bool debug;
 
-    void writeWordList(QString teacher, QString listName, QJsonObject &json);
+    MySQLWrapper *db;
+    void openConnectionToDatabase(QString configFile);
+    // TODO: check for if database did not connect.
+
+    void writeWordList(QString teacher, QString listName, int level, QJsonObject &json);
     void printJsonObject(QJsonObject &json);
     QString jsonTest();
 };
