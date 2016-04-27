@@ -36,5 +36,6 @@ void WindowController::openGameWindow()
 void WindowController::gameOverReceived()
 {
     level.show();
+    level.setFocus();
     game.close();
 }

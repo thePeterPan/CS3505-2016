@@ -130,15 +130,17 @@ void GameWindow::on_actionStart_triggered()
 void GameWindow::on_gameOver_triggered()
 {
     timer->stop();
-    emit pauseGame();
     QMessageBox msgBox;
     msgBox.setText("Game over! You Lose!");
     msgBox.exec();
+
+    game = new GameLogic(this,this->width(),this->height());
+    timer->start(30);
+    emit readyToPlay();
+
     //show the level dialog
     //leveldial.show();
     //this is just to freeze the screen
-    emit unPauseGame();
-    emit showLevelDial();
 }
 
 
