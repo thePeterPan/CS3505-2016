@@ -1,35 +1,40 @@
 #include "windowcontroller.h"
 
-windowController::windowController() {
-
-    main.show();
-    connect(&main, &MainWindow::showRegistrationSignal, this, &windowController::openRegistrationDialogue);
-    connect(&main, &MainWindow::showLevelDialogSignal, this, &windowController::openLevelDialogue);
-    connect(&level, &levelDialog::showGameWindowSignal, this, &windowController::openGameWindow);
-    connect(&game, &gameWindow::showLevelDial, this, &windowController::gameOverReceived);
+WindowController::WindowController(QWidget *parent)
+{
+    start();
+    connect(&main, &MainWindow::showRegistrationSignal, this, &WindowController::openRegistrationDialogue);
+    connect(&main, &MainWindow::showLevelDialogSignal, this, &WindowController::openLevelDialogue);
+    connect(&level, &LevelSelectionDialog::showGameWindowSignal, this, &WindowController::openGameWindow);
+    connect(&game, &GameWindow::showLevelDial, this, &WindowController::gameOverReceived);
 }
 
-void windowController::start(){
+void WindowController::start()
+{
     main.show();
 }
 
-void windowController::openRegistrationDialogue() {
+void WindowController::openRegistrationDialogue()
+{
     registration.show();
 }
 
-void windowController::openLevelDialogue() {
+void WindowController::openLevelDialogue()
+{
     level.show();
     main.close();
 }
 
-void windowController::openGameWindow() {
+void WindowController::openGameWindow()
+{
     game.show();
     game.setFocus();
     game.startGame();
     level.close();
 }
 
-void windowController::gameOverReceived() {
+void WindowController::gameOverReceived()
+{
     level.show();
     game.close();
 }

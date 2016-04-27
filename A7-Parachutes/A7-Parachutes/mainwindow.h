@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "leveldialog.h"
-#include "registrationDialog.h"
+#include "registrationdialog.h"
 
 namespace Ui {
 class MainWindow;

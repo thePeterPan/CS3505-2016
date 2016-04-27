@@ -1,21 +1,22 @@
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
+
+#include <QObject>
 #include <QQueue>
 #include <QTimer>
-#include <QObject>
-#include "Box2D/Box2D.h"
-#include <QString>
 #include <QList>
-#include "temporarysprite.h"
 #include <QVector>
+#include <QDebug>
 
+#include "Box2D/Box2D.h"
+#include "temporarysprite.h"
 
-class gameLogic : public QObject
+class GameLogic : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit gameLogic(QObject *parent = 0, int windowWidth = 800, int windowHeight = 635, float scale = 100.0f);
+    explicit GameLogic(QObject *parent = 0, int windowWidth = 800, int windowHeight = 635, float scale = 100.0f);
     float getXPos();
     float getYPos();
     int getCurrentLevel();

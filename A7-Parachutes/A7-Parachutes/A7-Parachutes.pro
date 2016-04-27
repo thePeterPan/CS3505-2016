@@ -21,25 +21,25 @@ SOURCES += main.cpp\
     Trie/Node.cpp \
     Trie/Trie.cpp \
     leveldialog.cpp \
-    registrationDialog.cpp \
     gamewindow.cpp \
     sprite.cpp \
-    gameLogic.cpp \
     temporarysprite.cpp \
     networking.cpp \
-    windowcontroller.cpp
+    windowcontroller.cpp \
+    gamelogic.cpp \
+    registrationdialog.cpp
 
 HEADERS  += mainwindow.h \
     Trie/Node.h \
     Trie/Trie.h \
     leveldialog.h \
-    registrationDialog.h \
     gamewindow.h \
     sprite.h \
-    gameLogic.h \
     temporarysprite.h \
     networking.h \
-    windowcontroller.h
+    windowcontroller.h \
+    gamelogic.h \
+    registrationdialog.h
 
 FORMS    += mainwindow.ui \
     leveldialog.ui \
@@ -49,7 +49,11 @@ FORMS    += mainwindow.ui \
 RESOURCES += \
     resources.qrc
 
+########## Box2D
+
 include(Box2D/Box2D.pro)
+
+########## QtWebSockets
 
 win32|macx {
     QT += websockets

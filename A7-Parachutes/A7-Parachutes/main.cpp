@@ -11,7 +11,7 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    windowController w;
+    WindowController w;
     //MainWindow m;
     //m.show();
     //w->start();
