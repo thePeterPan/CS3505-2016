@@ -17,6 +17,7 @@ class GameLogic : public QObject
 
 public:
     explicit GameLogic(QObject *parent = 0, int windowWidth = 800, int windowHeight = 635, float scale = 100.0f);
+    ~GameLogic();
     float getXPos();
     float getYPos();
     int getCurrentLevel();
@@ -73,6 +74,7 @@ public slots:
     void startGame();
     void pause();
     void unPause();
+    //void restart();
 
 };
 

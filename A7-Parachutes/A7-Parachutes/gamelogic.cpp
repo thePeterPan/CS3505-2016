@@ -10,8 +10,11 @@ GameLogic::GameLogic(QObject *parent, int windowWidth, int windowHeight, float s
     SCALE = 100.0f;
     xScale,yScale = SCALE;
     currentLevel = 1;
-    score = 0;
-    getWordsFromDatabase(currentLevel);
+}
+
+GameLogic::~GameLogic()
+{
+    delete World;
 }
 
 void GameLogic::setUpBox2D()
@@ -278,6 +281,9 @@ void GameLogic::changeWidth(int newWidth)
 
 void GameLogic::startGame(){
     readyToPlay = true;
+    score = 0;
+    scoreChanged(score);
+    getWordsFromDatabase(currentLevel);
     startNewTimer();
 }
 

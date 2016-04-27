@@ -68,6 +68,7 @@ signals:
     void pauseGame();
     void unPauseGame();
     void showLevelDial();
+    //void restart();
 private slots:
     void on_actionPause_triggered();
     void on_actionStart_triggered();

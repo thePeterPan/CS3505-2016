@@ -14,7 +14,6 @@ GameWindow::GameWindow(QWidget *parent) :
     pm.load(":/images/backgrond2.jpg");
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(30);
 
     player = new QMediaPlayer;
     player->setMedia(QUrl("qrc:/images/bgm.mp3"));
@@ -26,11 +25,16 @@ GameWindow::GameWindow(QWidget *parent) :
 GameWindow::~GameWindow()
 {
     delete ui;
+    delete timer;
+    delete game;
+    delete player;
 }
 
 void GameWindow::startGame()
 {
     emit readyToPlay();
+    timer->start(30);
+
 }
 
 void GameWindow::connectSignalsAndSlots()
@@ -133,7 +137,7 @@ void GameWindow::on_gameOver_triggered()
     //show the level dialog
     //leveldial.show();
     //this is just to freeze the screen
-    emit unPauseGame();
+    //emit unPauseGame();
     emit showLevelDial();
 }
 
