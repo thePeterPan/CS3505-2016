@@ -18,6 +18,8 @@ Networking::Networking(QString configFile, QObject *parent)
             qDebug() << "Socket Server listening on address" << webSocketServer->serverUrl().url();
         connect(webSocketServer, &QWebSocketServer::newConnection, this, &Networking::onNewConnection);
         connect(webSocketServer, &QWebSocketServer::closed, this, &Networking::closed);
+
+        openConnectionToDatabase(configFile);
     } else {
         if (debug) {
             qDebug() << "Error starting socket server on" << webSocketServer->serverUrl().url();
@@ -30,6 +32,8 @@ Networking::Networking(QString configFile, QObject *parent)
             }
             connect(webSocketServer, &QWebSocketServer::newConnection, this, &Networking::onNewConnection);
             connect(webSocketServer, &QWebSocketServer::closed, this, &Networking::closed);
+
+            openConnectionToDatabase(configFile);
         } else {
             if (debug) {
                 qDebug() << "Unable to launch socket server.";
@@ -99,7 +103,7 @@ void Networking::processTextMessage(QString message)
                 {
                     QJsonObject wordList;
                     // Write the list of words to the wordList QJsonObject
-                    writeWordList(receivedObject["teacher"].toString(), receivedObject["listName"].toString(), wordList);
+                    writeWordList(receivedObject["teacher"].toString(), receivedObject["listName"].toString(), 00000, wordList);
                     // Convert the QJsonObject to a QJsonDocument:
                     QJsonDocument responseDocument(wordList);
                     // Send the response message
@@ -151,28 +155,45 @@ void Networking::socketDisconnected()
 ///////////////////////////////////
 
 /*!
- * \brief Networking::getJsonWordList
+ * \brief Networking::openConnectionToDatabase
+ */
+void Networking::openConnectionToDatabase(QString configFile)
+{
+    QSettings* dbSettings = new QSettings(configFile, QSettings::IniFormat);
+    dbSettings->beginGroup("database");
+    db = new MySQLWrapper();
+    db->setHost(dbSettings->value("host").toString().toStdString().c_str());
+    db->setUsername(dbSettings->value("username").toString().toStdString().c_str());
+    db->setPassword(dbSettings->value("password").toString().toStdString().c_str());
+    db->setDatabaseName(dbSettings->value("schema").toString().toStdString().c_str());
+    db->open();
+}
+
+/*!
+ * \brief Queries the database for the list of words.
  * \return
  */
-void Networking::writeWordList(QString teacher, QString listName, QJsonObject &json)
+void Networking::writeWordList(QString teacher, QString listName, int level, QJsonObject &json)
 {
     // Create root JSON Object:
-    QJsonObject wordList;
+    QJsonObject jsonWordList;
 
     // Add the key "name" and its value.
-    wordList["name"] = listName;
-    // Create a dummy array of words to send.
+    jsonWordList["name"] = listName;
+
+    // Query the database for a list of words:
+    QList<QString> wordList = db->getTeacherWordsByLevel(teacher, level);
+    // Add the words to the list of words:
     QJsonArray wordArray;
-    for (int i = 0; i < 10; ++i)
+    for (QString word : wordList)
     {
-        QString word(tr("word") + QString::number(i));
         wordArray.append(word);
     }
     // Add the key "list" and its value is the array.
-    wordList["list"] = wordArray;
+    jsonWordList["list"] = wordArray;
 
     // Add the root JSON object to the given JSON object.
-    json["wordList"] = wordList;
+    json["wordList"] = jsonWordList;
 }
 
 /*!
