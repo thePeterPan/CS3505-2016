@@ -16,6 +16,8 @@
 #include "QtWebSockets/qwebsocketserver.h"
 #include "QtWebSockets/qwebsocket.h"
 
+#include "mysqlwrapper.h"
+
 class Networking : public QObject
 {
     Q_OBJECT

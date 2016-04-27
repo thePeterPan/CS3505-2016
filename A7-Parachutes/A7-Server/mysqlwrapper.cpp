@@ -59,21 +59,25 @@ bool MySQLWrapper::open()
 bool MySQLWrapper::close()
 {
     // Do not explicitly free driver, the connector object. Connector/C++ takes care of freeing that.
-    connection->close();
     resultSet->close();
     statement->close();
+    connection->close();
 
     delete resultSet;
     delete statement;
     delete connection;
 }
 
-
-bool MySQLWrapper::loginAvailable(QString login)
+/**
+ * @brief loginAvailable
+ * @param login
+ * @return True if no user has username login, false otherwise
+ */
+bool MySQLWrapper::usernameAvailable(QString login)
 {
-    QString sql = "select count(*) as count from user where login = ?";
+    QString sql = "SELECT count(*) AS count FROM user WHERE login = ?";
     statement = connection->prepareStatement(sql.toStdString());
-    statement->setString(1,login.toStdString());
+    statement->setString(1, login.toStdString());
     resultSet = statement->executeQuery();
     while(resultSet->next())
     {
@@ -84,9 +88,15 @@ bool MySQLWrapper::loginAvailable(QString login)
     return true;
 }
 
+/**
+ * @brief loginCorrect
+ * @param login
+ * @param password
+ * @return True if login and password combination are correct
+ */
 bool MySQLWrapper::loginCorrect(QString login, QString password)
 {
-    QString sql = "select count(*) as count from user where login = ? and password = ?";
+    QString sql = "SELECT count(*) AS count FROM user WHERE login = ? AND password = ?";
     statement = connection->prepareStatement(sql.toStdString());
     statement->setString(1,login.toStdString());
     statement->setString(2,password.toStdString());
@@ -100,9 +110,14 @@ bool MySQLWrapper::loginCorrect(QString login, QString password)
     return false;
 }
 
+/**
+ * @brief isTeacher
+ * @param login
+ * @return True if user with username login is a teacher
+ */
 bool MySQLWrapper::isTeacher(QString login)
 {
-    QString sql = "select is_teacher from user where login = ?";
+    QString sql = "SELECT is_teacher FROM user WHERE login = ?";
     statement = connection->prepareStatement(sql.toStdString());
     statement->setString(1,login.toStdString());
     resultSet = statement->executeQuery();
@@ -113,9 +128,17 @@ bool MySQLWrapper::isTeacher(QString login)
     return false;
 }
 
+/**
+ * @brief insertNewStudent Inserts new student into database
+ * @param login
+ * @param first
+ * @param last
+ * @param password
+ * @param teacher
+ */
 void MySQLWrapper::insertNewStudent(QString login, QString first, QString last, QString password, QString teacher)
 {
-    QString sql = "insert into user (login, first, last, password, is_teacher) values (?, ?, ?, ?, ?)";
+    QString sql = "INSERT INTO user (login, first, last, password, is_teacher) VALUES (?, ?, ?, ?, ?)";
     statement = connection->prepareStatement(sql.toStdString());
     statement->setString(1,login.toStdString());
     statement->setString(2,first.toStdString());
@@ -125,19 +148,24 @@ void MySQLWrapper::insertNewStudent(QString login, QString first, QString last, 
 
     statement->executeUpdate();
 
-    sql = "insert into class (student,teacher) values (?, ?)";
+    sql = "INSERT INTO class (student,teacher) VALUES (?, ?)";
     statement = connection->prepareStatement(sql.toStdString());
     statement->setString(1,login.toStdString());
     statement->setString(2,teacher.toStdString());
 
     statement->executeUpdate();
-
-
 }
 
+/**
+ * @brief insertNewTeacher Inserts new teacher into database
+ * @param login
+ * @param first
+ * @param last
+ * @param password
+ */
 void MySQLWrapper::insertNewTeacher(QString login, QString first, QString last, QString password)
 {
-    QString sql = "insert into user (login, first, last, password, is_teacher) values (?, ?, ?, ?, ?)";
+    QString sql = "INSERT INTO user (login, first, last, password, is_teacher) VALUES (?, ?, ?, ?, ?)";
     statement = connection->prepareStatement(sql.toStdString());
     statement->setString(1,login.toStdString());
     statement->setString(2,first.toStdString());
@@ -148,9 +176,15 @@ void MySQLWrapper::insertNewTeacher(QString login, QString first, QString last, 
     statement->executeUpdate();
 }
 
+/**
+ * @brief getTeacherWordsByLevel
+ * @param teacher
+ * @param level
+ * @return QList of words for teacher at given level
+ */
 QList<QString> MySQLWrapper::getTeacherWordsByLevel(QString teacher, int level)
 {
-    QString sql = "select word from words where teacher = ? and level = ?;";
+    QString sql = "SELECT word FROM words WHERE teacher = ? AND level = ?;";
     statement = connection->prepareStatement(sql.toStdString());
     statement->setString(1,teacher.toStdString());
     statement->setInt(2,level);
@@ -163,31 +197,52 @@ QList<QString> MySQLWrapper::getTeacherWordsByLevel(QString teacher, int level)
     return list;
 }
 
+/**
+ * @brief getUserCurrentLevel Gets user's (student) current level
+ * @param login
+ * @return -1 if user is not a student or user does not exist
+ */
 int MySQLWrapper::getUserCurrentLevel(QString login)
 {
 
 }
 
+/**
+ * @brief updateUserLevel Updates user's current level
+ * @param login
+ * @param level
+ */
 void MySQLWrapper::updateUserLevel(QString login, int level)
 {
 
 }
 
+/**
+ * @brief updateUserScore Updates user's high score in database.
+ * @param login
+ * @param score
+ */
 void MySQLWrapper::updateUserScore(QString login, int score)
 {
 
 }
 
+/**
+ * @brief getUserScore
+ * @param login
+ * @return User's current high score
+ */
 int MySQLWrapper::getUserScore(QString login)
 {
 
 }
 
-void MySQLWrapper::updateUserLevel(QString login, int level)
-{
-
-}
-
+/**
+ * @brief addTeacherWordsByLevel Adds list of words to teacher's list at given level
+ * @param words
+ * @param login
+ * @param level
+ */
 void MySQLWrapper::addTeacherWordsByLevel(QList<QString> words, QString login, int level)
 {
 
