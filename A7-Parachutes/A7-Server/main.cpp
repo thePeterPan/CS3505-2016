@@ -56,14 +56,14 @@ int main(int argc, char *argv[])
     sql->setDatabaseName("neverland-db");
     sql->open();
 
-    bool yoda = sql->isTeacher("luke");
-    if(!yoda)
-        qDebug() << "Got it";
-    else
-        qDebug() << "booo";
-
-    sql->insertNewStudent("lando","Lando","Calrissian","guns","yoda");
-
+    QList<QList<QString>> stats = sql->getTeacherStats("yoda");
+    qDebug() << "Stats for Yoda's class";
+    foreach(QList<QString> user, stats)
+    {
+        qDebug() << "Student: " << user.at(0);
+        qDebug() << "Level: " << user.at(1);
+        qDebug() << "High Score: " << user.at(2);
+    }
 
     sql->close();
     return app.exec();

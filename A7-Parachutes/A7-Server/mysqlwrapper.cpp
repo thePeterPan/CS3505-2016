@@ -62,6 +62,7 @@ bool MySQLWrapper::close()
     resultSet->close();
     statement->close();
     connection->close();
+    driver->threadEnd();
 
     delete resultSet;
     delete statement;
@@ -154,6 +155,14 @@ void MySQLWrapper::insertNewStudent(QString login, QString first, QString last, 
     statement->setString(2,teacher.toStdString());
 
     statement->executeUpdate();
+
+    sql = "INSERT INTO current_level (login,level,highscore) VALUES (?,?,?)";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1,login.toStdString());
+    statement->setInt(2,1);
+    statement->setInt(3,0);
+
+    statement->executeUpdate();
 }
 
 /**
@@ -204,7 +213,15 @@ QList<QString> MySQLWrapper::getTeacherWordsByLevel(QString teacher, int level)
  */
 int MySQLWrapper::getUserCurrentLevel(QString login)
 {
-
+    QString sql = "SELECT level FROM current_level WHERE login = ?";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1,login.toStdString());
+    resultSet = statement->executeQuery();
+    while(resultSet->next())
+    {
+        return resultSet->getInt("level");
+    }
+    return -1;
 }
 
 /**
@@ -212,10 +229,19 @@ int MySQLWrapper::getUserCurrentLevel(QString login)
  * @param login
  * @param level
  */
-void MySQLWrapper::updateUserLevel(QString login, int level)
+void MySQLWrapper::updateUserLevelAndScore(QString login, int level, int score)
 {
+    QString sql = "INSERT INTO current_level (login,level) VALUES(?,?) on duplicate key update login=?, level=?";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1,login.toStdString());
+    statement->setInt(2,level);
+    statement->setString(3,login.toStdString());
+    statement->setInt(4,level);
+    statement->executeUpdate();
 
+    updateUserScore(login, score);
 }
+
 
 /**
  * @brief updateUserScore Updates user's high score in database.
@@ -224,7 +250,28 @@ void MySQLWrapper::updateUserLevel(QString login, int level)
  */
 void MySQLWrapper::updateUserScore(QString login, int score)
 {
+    int currentScore = getUserScore(login);
+    if(score > currentScore)
+    {
+        QString sql = "INSERT INTO current_level (login,highscore) VALUES(?,?) on duplicate key update login=?, highscore=?";
+        statement = connection->prepareStatement(sql.toStdString());
+        statement->setString(1,login.toStdString());
+        statement->setInt(2,score);
+        statement->setString(3,login.toStdString());
+        statement->setInt(4,score);
+        statement->executeUpdate();
+    }
+}
 
+void MySQLWrapper::updateUserLevel(QString login, int level)
+{
+    QString sql = "INSERT INTO current_level (login,level) VALUES(?,?) on duplicate key update login=?, highscore=?";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1,login.toStdString());
+    statement->setInt(2,level);
+    statement->setString(3,login.toStdString());
+    statement->setInt(4,level);
+    statement->executeUpdate();
 }
 
 /**
@@ -234,7 +281,15 @@ void MySQLWrapper::updateUserScore(QString login, int score)
  */
 int MySQLWrapper::getUserScore(QString login)
 {
-
+    QString sql = "SELECT highscore FROM current_level WHERE login = ?";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1,login.toStdString());
+    resultSet = statement->executeQuery();
+    while(resultSet->next())
+    {
+        return resultSet->getInt("highscore");
+    }
+    return -1;
 }
 
 /**
@@ -243,7 +298,85 @@ int MySQLWrapper::getUserScore(QString login)
  * @param login
  * @param level
  */
-void MySQLWrapper::addTeacherWordsByLevel(QList<QString> words, QString login, int level)
+void MySQLWrapper::addTeacherWordsByLevel(QList<QString> words, QString teacher, int level)
 {
+    if(isTeacher(teacher))
+    {
+        foreach(QString word, words)
+        {
+            QString sql = "INSERT IGNORE INTO words (teacher, level, word) VALUES (?, ?, ?)";
+            statement = connection->prepareStatement(sql.toStdString());
+            statement->setString(1, teacher.toStdString());
+            statement->setInt(2,level);
+            statement->setString(3,word.toStdString());
+            statement->executeUpdate();
+        }
+    }
+}
+/**
+ * @brief MySQLWrapper::getTeacher
+ * @param student
+ * @return Name of student's teacher. Empty string if non-existent student
+ */
+QString MySQLWrapper::getTeacher(QString student)
+{
+    QString sql = "SELECT teacher FROM class WHERE student = ?;";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1,student.toStdString());
+    resultSet = statement->executeQuery();
+    while(resultSet->next())
+    {
+        return (QString::fromUtf8(resultSet->getString("teacher").asStdString().c_str()));
+    }
+    return "";
+}
 
+QList<QString> MySQLWrapper::getStudentNextWords(QString student)
+{
+//    QString sql = "SELECT word FROM words WHERE teacher = ? AND level = ?;";
+//    statement = connection->prepareStatement(sql.toStdString());
+//    statement->setString(1,teacher.toStdString());
+//    statement->setInt(2,level);
+//    resultSet = statement->executeQuery();
+//    QList<QString> list;
+//    while(resultSet->next())
+//    {
+//        list.push_back(QString::fromUtf8(resultSet->getString("word").asStdString().c_str()));
+//    }
+//    return list;
+}
+
+
+/**
+ * @brief MySQLWrapper::getTeacherStats
+ * @param teacher
+ * @return QList of QList<QString> with stats
+ * Each list is formatted as follows:
+ * Student Name (string)
+ * Student Level (as a string)
+ * Student High Score (as a string)
+ */
+QList<QList<QString>> MySQLWrapper::getTeacherStats(QString teacher)
+{
+    QString sql = "SELECT c.student, l.level, l.highscore from class c, current_level l where c.student = l.login and c.teacher = ?;";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1,teacher.toStdString());
+    QList<QList<QString>> result;
+    resultSet = statement->executeQuery();
+    while(resultSet->next())
+    {
+        QList<QString> user;
+        user.push_back(QString::fromUtf8(resultSet->getString("student").asStdString().c_str()));
+        user.push_back(QString::number(resultSet->getInt("level")));
+        user.push_back(QString::number(resultSet->getInt("highscore")));
+        result.push_back(user);
+    }
+    return result;
+}
+
+void MySQLWrapper::incrementUserLevel(QString login)
+{
+    int level = getUserCurrentLevel(login);
+    level++;
+    updateUserLevel(login,level);
 }

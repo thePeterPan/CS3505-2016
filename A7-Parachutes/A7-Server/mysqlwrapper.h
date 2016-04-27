@@ -48,6 +48,10 @@ public:
     QList<QString> getTeacherWordsByLevel(QString teacher, int level);
     int getUserCurrentLevel(QString login);
     int getUserScore(QString login);
+    QString getTeacher(QString student);
+    QList<QString> getStudents(QString teacher);
+    QList<QString> getStudentNextWords(QString student);
+    QList<QList<QString>> getTeacherStats(QString teacher);
 
     /////////// Verification
     bool usernameAvailable(QString login);
@@ -62,7 +66,8 @@ public:
     /////////// Updates
     void updateUserScore(QString login, int score);
     void updateUserLevel(QString login, int level);
-
+    void updateUserLevelAndScore(QString login, int level, int score);
+    void incrementUserLevel(QString login);
 signals:
 
 public slots:
