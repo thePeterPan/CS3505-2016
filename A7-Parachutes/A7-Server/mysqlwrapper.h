@@ -50,7 +50,6 @@ public:
     int getUserScore(QString login);
     QString getTeacher(QString student);
     QList<QString> getStudents(QString teacher);
-    QList<QString> getStudentNextWords(QString student);
     QList<QList<QString>> getTeacherStats(QString teacher);
 
     /////////// Verification
