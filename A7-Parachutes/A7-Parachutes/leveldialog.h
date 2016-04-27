@@ -20,8 +20,9 @@ public:
 
 private:
     Ui::levelDialog *ui;
-    gameWindow game;
 
+signals:
+    void showGameWindowSignal();
 private slots:
     void showGameWindow();
 };

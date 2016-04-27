@@ -21,8 +21,9 @@ MainWindow::~MainWindow()
 void MainWindow::showLevelDialog() {
 
     if(checkLogin()){
-     level.show();
-     this->close();
+     //level.show();
+     emit showLevelDialogSignal();
+     //this->close();
     }
 
 }
@@ -41,5 +42,5 @@ bool MainWindow::checkLogin(){
 
 
 void MainWindow::showRegistration() {
-    registration.show();
+    emit showRegistrationSignal();
 }

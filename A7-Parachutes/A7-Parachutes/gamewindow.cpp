@@ -133,7 +133,9 @@ void gameWindow::on_gameOver_triggered()
     //show the level dialog
     //leveldial.show();
     //this is just to freeze the screen
+    emit unPauseGame();
     emit showLevelDial();
+
 }
 
 
