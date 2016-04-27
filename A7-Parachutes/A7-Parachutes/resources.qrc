@@ -9,5 +9,6 @@
         <file>images/crate_sprite.svg</file>
         <file>images/logo.PNG</file>
         <file>images/backgrond2.jpg</file>
+        <file>images/nightBackground.jpg</file>
     </qresource>
 </RCC>
