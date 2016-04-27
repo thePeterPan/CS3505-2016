@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>levelDialog</class>
- <widget class="QDialog" name="levelDialog">
+ <class>LevelSelectionDialog</class>
+ <widget class="QDialog" name="LevelSelectionDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -124,9 +124,9 @@ font: 9pt &quot;Fixedsys&quot;;
   <widget class="QLabel" name="levelTttle">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>60</y>
-     <width>371</width>
+     <x>130</x>
+     <y>170</y>
+     <width>321</width>
      <height>51</height>
     </rect>
    </property>

@@ -3,14 +3,12 @@
 #include "Box2D/Box2D.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-
-    connect(ui->loginButton, SIGNAL(clicked()), this, SLOT(showLevelDialog()));
-    connect(ui->createAccountButton, SIGNAL(clicked()), this, SLOT(showRegistration()));
+    connect(ui->loginButton, &QPushButton::clicked, this, &MainWindow::showLevelDialog);
+    connect(ui->createAccountButton, &QPushButton::clicked, this, &MainWindow::showRegistration);
 }
 
 MainWindow::~MainWindow()
@@ -18,16 +16,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::showLevelDialog() {
-
+void MainWindow::showLevelDialog()
+{
     if(checkLogin()){
-     level.show();
-     this->close();
+     //level.show();
+     emit showLevelDialogSignal();
+     //this->close();
     }
-
 }
 
-bool MainWindow::checkLogin(){
+bool MainWindow::checkLogin()
+{
     if(ui->inputPassword->text().count() ==0 || ui->inputUsername->text().count() ==0){
 
         ui->warningLabel->setText("User Name or Password CANNOT BE EMPTY");
@@ -40,6 +39,7 @@ bool MainWindow::checkLogin(){
 }
 
 
-void MainWindow::showRegistration() {
-    registration.show();
+void MainWindow::showRegistration()
+{
+    emit showRegistrationSignal();
 }

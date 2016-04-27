@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>gameWindow</class>
- <widget class="QMainWindow" name="gameWindow">
+ <class>GameWindow</class>
+ <widget class="QMainWindow" name="GameWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -40,11 +40,16 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
   <widget class="QToolBar" name="toolBar">
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
@@ -62,6 +67,8 @@
    </attribute>
    <addaction name="actionPause"/>
    <addaction name="actionStart"/>
+   <addaction name="actionTimer"/>
+   <addaction name="actionScore"/>
   </widget>
   <action name="actionPause">
    <property name="icon">
@@ -82,6 +89,19 @@
    </property>
    <property name="text">
     <string>start</string>
+   </property>
+  </action>
+  <action name="actionTimer">
+   <property name="text">
+    <string>Timer:</string>
+   </property>
+  </action>
+  <action name="actionScore">
+   <property name="text">
+    <string>Score: 0</string>
+   </property>
+   <property name="toolTip">
+    <string>Score</string>
    </property>
   </action>
  </widget>

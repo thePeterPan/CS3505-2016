@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "leveldialog.h"
-#include "registrationDialog.h"
+#include "registrationdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,13 +19,15 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    levelDialog level;
-    RegistrationDialog registration;
     bool checkLogin();
 
+signals:
+    void showRegistrationSignal();
+    void showLevelDialogSignal();
+
 private slots:
-    void showLevelDialog();
     void showRegistration();
+    void showLevelDialog();
 };
 
 #endif // MAINWINDOW_H
