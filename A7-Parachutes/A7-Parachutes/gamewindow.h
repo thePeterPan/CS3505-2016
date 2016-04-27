@@ -26,6 +26,7 @@ class GameWindow : public QMainWindow
 public:
     explicit GameWindow(QWidget *parent = 0);
     void keyPressEvent(QKeyEvent* e);
+
     void startGame();
     ~GameWindow();
 
@@ -45,6 +46,8 @@ private:
     QTimer * timer;
 
     QMediaPlayer* player;
+
+    bool pause;
 
 
 protected:
@@ -74,6 +77,7 @@ private slots:
     void on_actionPause_triggered();
     void on_actionStart_triggered();
     void on_gameOver_triggered();
+    void pauseSwitch();
 };
 
 #endif // GAMEWINDOW_H
