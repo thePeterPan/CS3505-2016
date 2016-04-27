@@ -14,31 +14,25 @@
    <string>Parachutes</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListWidget" name="listWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>500</y>
-      <width>781</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Fixedsys</family>
-      <pointsize>18</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="flow">
-     <enum>QListView::LeftToRight</enum>
-    </property>
-   </widget>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -50,8 +44,12 @@
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
@@ -69,6 +67,8 @@
    </attribute>
    <addaction name="actionPause"/>
    <addaction name="actionStart"/>
+   <addaction name="actionTimer"/>
+   <addaction name="actionScore"/>
   </widget>
   <action name="actionPause">
    <property name="icon">
@@ -86,6 +86,19 @@
    </property>
    <property name="text">
     <string>start</string>
+   </property>
+  </action>
+  <action name="actionTimer">
+   <property name="text">
+    <string>Timer:</string>
+   </property>
+  </action>
+  <action name="actionScore">
+   <property name="text">
+    <string>Score: 0</string>
+   </property>
+   <property name="toolTip">
+    <string>Score</string>
    </property>
   </action>
  </widget>
