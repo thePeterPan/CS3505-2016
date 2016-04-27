@@ -19,6 +19,11 @@
   <property name="windowTitle">
    <string>Registration</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog{
+background:url(:/images/backgrond2.jpg)
+}</string>
+  </property>
   <widget class="QLabel" name="titleLabel">
    <property name="geometry">
     <rect>
@@ -233,7 +238,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>20</x>
      <y>10</y>
      <width>54</width>
      <height>41</height>
@@ -249,7 +254,7 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>390</x>
      <y>10</y>
      <width>54</width>
      <height>41</height>

@@ -1,18 +1,17 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/cloud.png</file>
         <file>images/start.png</file>
         <file>images/Pause.png</file>
-        <file>images/crate_sprite.png</file>
-        <file>A7-Parachutes.ini</file>
-        <file>images/crate_sprite.ai</file>
-        <file>images/crate_sprite.svg</file>
-        <file>images/logo.PNG</file>
-        <file>images/backgrond2.jpg</file>
-<<<<<<< HEAD
         <file>images/nightBackground.jpg</file>
-=======
+        <file>images/logo.PNG</file>
+        <file>images/crate_sprite_no_parachute.svg</file>
+        <file>images/crate_sprite.svg</file>
+        <file>images/crate_sprite.png</file>
+        <file>images/crate_sprite.ai</file>
+        <file>images/cloud.png</file>
         <file>images/bgm.mp3</file>
->>>>>>> fred
+        <file>images/background.jpg</file>
+        <file>images/backgrond2.jpg</file>
+        <file>images/11.jpg</file>
     </qresource>
 </RCC>

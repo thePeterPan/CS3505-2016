@@ -60,3 +60,6 @@ unix:!macx {
     include(QtWebSockets/websockets.pro)
 }
 
+RESOURCES += \
+    resources.qrc
+

@@ -12,7 +12,8 @@ GameWindow::GameWindow(QWidget *parent) :
     connectSignalsAndSlots();
 
     //game->testSignals();
-    pm.load(":/images/nightBackgrond.jpg");
+    pm.load(":/images/nightBackground.jpg");
+
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()), this, SLOT(update()));
     timer->start(30);

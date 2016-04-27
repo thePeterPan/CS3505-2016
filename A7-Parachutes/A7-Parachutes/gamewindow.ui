@@ -34,16 +34,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="font">
     <font>
@@ -95,6 +85,14 @@
    <property name="text">
     <string>Timer:</string>
    </property>
+   <property name="font">
+    <font>
+     <family>AR PL UMing TW MBE</family>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
   </action>
   <action name="actionScore">
    <property name="text">
@@ -102,6 +100,11 @@
    </property>
    <property name="toolTip">
     <string>Score</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR PL UMing CN</family>
+    </font>
    </property>
   </action>
  </widget>
