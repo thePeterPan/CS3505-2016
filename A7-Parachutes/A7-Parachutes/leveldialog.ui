@@ -124,8 +124,8 @@ font: 9pt &quot;Fixedsys&quot;;
   <widget class="QLabel" name="levelTttle">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>90</y>
+     <x>100</x>
+     <y>60</y>
      <width>371</width>
      <height>51</height>
     </rect>
@@ -142,14 +142,6 @@ color: rgb(102, 178, 255);
     <string>Level Selection</string>
    </property>
   </widget>
-  <zorder>levelTttle</zorder>
-  <zorder>level1Button</zorder>
-  <zorder>level2Button</zorder>
-  <zorder>level3Button</zorder>
-  <zorder>level1HighScore</zorder>
-  <zorder>level2HighScore</zorder>
-  <zorder>level3HighScore</zorder>
-  <zorder>levelTttle</zorder>
  </widget>
  <resources/>
  <connections/>
