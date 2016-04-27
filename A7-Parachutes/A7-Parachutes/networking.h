@@ -27,12 +27,11 @@ public:
         UsernameCheck
     };
 
-    void requestWordList(QString teacher, int level);
+    void requestWordList(QString teacher, QString listName);
 
 Q_SIGNALS:
     void socketClosed();
     void receiveError(QString errorMessage);
-    void newList(QList<QString> list);
 
 private Q_SLOTS:
     void onConnected();
@@ -43,7 +42,7 @@ private:
     QWebSocket webSocket;
     QUrl url;
     bool debug;
-    QList<QString> getWordList(QJsonArray &array);
+
     void printJsonObject(QJsonObject &json);
     void printJsonArray(QJsonArray &array);
     void testJson(QString message);
