@@ -46,8 +46,6 @@ FORMS    += mainwindow.ui \
     registrationDialog.ui \
     gamewindow.ui
 
-RESOURCES += \
-    resources.qrc
 
 ########## Box2D
 
@@ -61,4 +59,7 @@ win32|macx {
 unix:!macx {
     include(QtWebSockets/websockets.pro)
 }
+
+RESOURCES += \
+    resources.qrc
 

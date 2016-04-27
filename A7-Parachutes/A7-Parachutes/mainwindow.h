@@ -20,6 +20,8 @@ public:
 private:
     Ui::MainWindow *ui;
     bool checkLogin();
+     QPixmap pm;
+     void paintEvent(QPaintEvent *);
 
 signals:
     void showRegistrationSignal();

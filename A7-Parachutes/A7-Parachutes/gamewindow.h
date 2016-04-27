@@ -52,6 +52,7 @@ protected:
     void resizeEvent(QResizeEvent *);
 
 public slots:
+
     void receiveNewWord(QString word);  // Connected to gameLogic::newWord
     void receiveNewLevel(int level);    // Connected to gameLogic::newLevel
     void receiveFail();                 // Connected to gameLogic::failed

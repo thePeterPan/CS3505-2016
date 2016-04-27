@@ -82,7 +82,7 @@
         "fifth place",
         "sixth place",
         "seventh place",
-        "eigth place",
+        "eighth place",
         "ninth place",
         "tenth place"
       ]
@@ -98,5 +98,20 @@
       "message": "error message string",
       "receivedString": ""
     }
+  },
+  "WEBSITE request teacher stats template": {
+    "web": {
+      "teacher": "teacherName"
+    }
+  },
+  "WEBSITE response teacher stats": {
+    "teacherName": "teacher name",
+    "students": [
+      ["username", "current level", "high score"],
+      ["username", "current level", "high score"],
+      ["username", "current level", "high score"],
+      ["username", "current level", "high score"],
+      ["username", "current level", "high score"]
+    ]
   }
 }

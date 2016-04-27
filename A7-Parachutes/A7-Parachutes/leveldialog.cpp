@@ -5,7 +5,9 @@ LevelSelectionDialog::LevelSelectionDialog(QWidget *parent) :
     QDialog(parent), ui(new Ui::LevelSelectionDialog)
 {
     ui->setupUi(this);
+
     connect(ui->level1Button, &QPushButton::clicked, this, &LevelSelectionDialog::showGameWindow);
+
 }
 
 LevelSelectionDialog::~LevelSelectionDialog()
