@@ -192,7 +192,7 @@ QList<QString> MySQLWrapper::getTeacherWordsByLevel(QString teacher, int level)
     QList<QString> list;
     while(resultSet->next())
     {
-        list.push_back(resultSet->getString("word"));
+        list.push_back(QString::fromUtf8(resultSet->getString("word").asStdString().c_str()));
     }
     return list;
 }
