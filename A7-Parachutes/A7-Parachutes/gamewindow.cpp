@@ -1,6 +1,7 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
-GameWindow::GameWindow(Networking *client, QWidget *parent) : client(client),
+
+GameWindow::GameWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::GameWindow)
 {
     ui->setupUi(this);

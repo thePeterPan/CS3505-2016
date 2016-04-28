@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "leveldialog.h"
 #include "registrationdialog.h"
-#include "networking.h"
 
 namespace Ui {
 class MainWindow;
@@ -15,7 +14,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(Networking *client, QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
 private:
@@ -23,7 +22,6 @@ private:
     bool checkLogin();
      QPixmap pm;
      void paintEvent(QPaintEvent *);
-     Networking* client;
 
 signals:
     void showRegistrationSignal();

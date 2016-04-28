@@ -13,7 +13,6 @@
 
 #include "gamelogic.h"
 #include "sprite.h"
-#include "networking.h"
 
 namespace Ui {
 class GameWindow;

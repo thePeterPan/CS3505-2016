@@ -5,8 +5,6 @@
 #include <QDialog>
 #include <QDebug>
 
-#include "networking.h"
-
 namespace Ui {
 class RegistrationDialog;
 }
@@ -16,7 +14,7 @@ class RegistrationDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit RegistrationDialog(Networking *client, QWidget *parent = 0);
+    explicit RegistrationDialog(QWidget *parent = 0);
     ~RegistrationDialog();
 
 private slots:
@@ -27,7 +25,6 @@ private slots:
 
 private:
     Ui::RegistrationDialog *ui;
-    Networking* client;
 
 
 };
