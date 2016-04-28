@@ -19,7 +19,7 @@ Networking::Networking(QString configFile, QObject *parent)
         connect(webSocketServer, &QWebSocketServer::newConnection, this, &Networking::onNewConnection);
         connect(webSocketServer, &QWebSocketServer::closed, this, &Networking::closed);
 
-//        openConnectionToDatabase(configFile);
+        openConnectionToDatabase(configFile);
     } else {
         if (debug) {
             qDebug() << "Error starting socket server on" << webSocketServer->serverUrl().url();
@@ -33,7 +33,7 @@ Networking::Networking(QString configFile, QObject *parent)
             connect(webSocketServer, &QWebSocketServer::newConnection, this, &Networking::onNewConnection);
             connect(webSocketServer, &QWebSocketServer::closed, this, &Networking::closed);
 
-//            openConnectionToDatabase(configFile);
+            openConnectionToDatabase(configFile);
         } else {
             if (debug) {
                 qDebug() << "Unable to launch socket server.";
@@ -131,8 +131,8 @@ void Networking::processTextMessage(QString message)
                     {
                         QJsonArray student;
                         student.append("student" + QString::number(i));
-                        student.append("level" + QString::number(i));
-                        student.append("score" + QString::number(i));
+                        student.append(QString::number(i*2));
+                        student.append(QString::number(i*4));
                         teststudentArray.append(student);
                     }
                     test["students"] = teststudentArray;

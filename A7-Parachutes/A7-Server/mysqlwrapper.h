@@ -67,6 +67,7 @@ public:
     void updateUserLevel(QString login, int level);
     void updateUserLevelAndScore(QString login, int level, int score);
     void incrementUserLevel(QString login);
+
 signals:
 
 public slots:

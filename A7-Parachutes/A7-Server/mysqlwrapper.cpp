@@ -335,9 +335,14 @@ QString MySQLWrapper::getTeacher(QString student)
     return "";
 }
 
+/**
+ * @brief Get a list of students that belong to the teacher.
+ * @param teacher
+ * @return
+ */
 QList<QString> MySQLWrapper::getStudents(QString teacher)
 {
-    QString sql = "SELECT student from class where teacher = ?;";
+    QString sql = "SELECT student FROM class WHERE teacher = ?;";
     statement = connection->prepareStatement(sql.toStdString());
     statement->setString(1,teacher.toStdString());
     QList<QString> result;
@@ -361,7 +366,7 @@ QList<QString> MySQLWrapper::getStudents(QString teacher)
  */
 QList<QList<QString>> MySQLWrapper::getTeacherStats(QString teacher)
 {
-    QString sql = "SELECT c.student, l.level, l.highscore from class c, current_level l where c.student = l.login and c.teacher = ?;";
+    QString sql = "SELECT c.student, l.level, l.highscore FROM class c, current_level l WHERE c.student = l.login AND c.teacher = ?;";
     statement = connection->prepareStatement(sql.toStdString());
     statement->setString(1,teacher.toStdString());
     QList<QList<QString>> result;
@@ -377,6 +382,10 @@ QList<QList<QString>> MySQLWrapper::getTeacherStats(QString teacher)
     return result;
 }
 
+/**
+ * @brief Increases the user level by one.
+ * @param login
+ */
 void MySQLWrapper::incrementUserLevel(QString login)
 {
     int level = getUserCurrentLevel(login);
