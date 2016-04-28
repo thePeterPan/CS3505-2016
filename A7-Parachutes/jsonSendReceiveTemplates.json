@@ -137,24 +137,43 @@
   "generic response template": {
     "success": false
   },
-
   "WEBSITE request teacher stats template": {
-    "web": {
+    "webrequest": {
       "teacher": "teacherLogin"
     }
   },
   "WEBSITE response teacher stats": {
     "teacherName": "teacher name",
     "students": [
-      ["username", "current level", "high score"],
-      ["username", "current level", "high score"],
-      ["username", "current level", "high score"],
-      ["username", "current level", "high score"],
-      ["username", "current level", "high score"]
+      [
+        "username",
+        "current level",
+        "high score"
+      ],
+      [
+        "username",
+        "current level",
+        "high score"
+      ],
+      [
+        "username",
+        "current level",
+        "high score"
+      ],
+      [
+        "username",
+        "current level",
+        "high score"
+      ],
+      [
+        "username",
+        "current level",
+        "high score"
+      ]
     ]
   },
   "WEBSITE request teacher list of students": {
-    "web": {
+    "webrequest": {
       "teacher": "teacherLogin"
     }
   },
@@ -168,7 +187,7 @@
     ]
   },
   "WEBSITE request new teacher": {
-    "web": {
+    "webrequest": {
       "username": "teacherUsername",
       "firstName": "first",
       "lastName": "last",
@@ -176,7 +195,7 @@
     }
   },
   "WEBSITE request new list of words": {
-    "web": {
+    "webrequest": {
       "username": "teacherUsername",
       "level": 3,
       "words": [
@@ -187,20 +206,20 @@
     }
   },
   "WEBSITE request add new word": {
-    "web": {
+    "webrequest": {
       "username": "teacherUsername",
       "level": 3,
       "word": "word1"
     }
   },
   "WEBSITE request delete words by level": {
-    "web": {
+    "webrequest": {
       "username": "teacherUsername",
       "level": 3
     }
   },
   "WEBSITE request delete single word": {
-    "web": {
+    "webrequest": {
       "username": "teacherUsername",
       "level": 3,
       "word": "word"
