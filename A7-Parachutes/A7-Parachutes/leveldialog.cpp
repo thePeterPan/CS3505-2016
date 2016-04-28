@@ -1,8 +1,8 @@
 #include "leveldialog.h"
 #include "ui_leveldialog.h"
 
+LevelSelectionDialog::LevelSelectionDialog(Networking *client, QWidget *parent) : client(client),
 
-LevelSelectionDialog::LevelSelectionDialog(QWidget *parent) :
     QDialog(parent), ui(new Ui::LevelSelectionDialog)
 {
     ui->setupUi(this);

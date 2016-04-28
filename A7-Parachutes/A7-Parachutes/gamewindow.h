@@ -23,7 +23,8 @@ class GameWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit GameWindow(QWidget *parent = 0);
+    explicit GameWindow(Networking *client, QWidget *parent = 0);
+    void keyPressEvent(QKeyEvent* e);
     ~GameWindow();
 
     void startGame();
@@ -40,12 +41,13 @@ private:
 
     bool pause;
 
+    Networking* client;
+
     void connectSignalsAndSlots();
 
 protected:
     void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);
-    void keyPressEvent(QKeyEvent* e);
 
 public slots:
     void receiveNewWord(QString word);      // Connected to GameLogic::newWord

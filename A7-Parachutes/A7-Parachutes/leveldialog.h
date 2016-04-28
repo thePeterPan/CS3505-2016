@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include "gamewindow.h"
 #include "temporarysprite.h"
+#include "networking.h"
 #include <QFile>
 #include <QStringList>
 #include <QTextStream>
