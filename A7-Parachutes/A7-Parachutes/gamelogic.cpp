@@ -6,10 +6,16 @@ GameLogic::GameLogic(QObject *parent, int windowWidth, int windowHeight, float s
     timer = new QTimer();
     connect(timer, SIGNAL(timeout()),this,SLOT(updateTimer()));
     sprites = QList<TemporarySprite>();
+
+    for(int i = 0; i < 20; i++) //assuming that there will never be more than 20 letters in a word.
+    {
+        sprites.append(TemporarySprite());
+    }
     setUpBox2D();
     SCALE = 100.0f;
     xScale,yScale = SCALE;
     currentLevel = 1;
+    previousWord = "";
 }
 
 GameLogic::~GameLogic()
@@ -35,17 +41,17 @@ void GameLogic::setUpBox2D()
 
 void GameLogic::addWordToWorld()
 {
-    for(int i = 0; i < sprites.length(); i++)
+    for(int i = 0; i < previousWord.length(); i++)
     {
         World->DestroyBody(sprites[i].getBody());
     }
-    sprites.clear();
-
+    previousWord = currentWord;
     float itemWidth = 80.0f;
     int spacing = windowWidth / currentWord.length();
     for(int i = 0; i < currentWord.length(); i++)
     {
-        CreateBox(""+currentWord[i],i*spacing, windowHeight-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f);
+        sprites[i].setBody(CreateBox(""+currentWord[i],i*spacing, windowHeight-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f));
+        sprites[i].setLetter(""+currentWord[i]);
     }
     if(readyToPlay)
         startNewTimer();
@@ -113,7 +119,7 @@ void GameLogic::createRoughGround()
  * @param restitution
  * @param density
  */
-void GameLogic::CreateBox(QString letter, float x, float y, float width, float height, float friction, float restitution, float density)
+b2Body * GameLogic::CreateBox(QString letter, float x, float y, float width, float height, float friction, float restitution, float density)
 {
     b2BodyDef boxDef;
     boxDef.type = b2_dynamicBody;
@@ -129,8 +135,7 @@ void GameLogic::CreateBox(QString letter, float x, float y, float width, float h
     fixtureDef.restitution = restitution;
     box->CreateFixture(&fixtureDef);
 
-    TemporarySprite sprite(box,letter,(int)width);
-    sprites.append(sprite);
+    return box;
 }
 
 b2World* GameLogic::getWorld()
@@ -261,7 +266,7 @@ void GameLogic::paintWorld(QPainter *painter)
 {
     World->Step(1.0f/60.0f, 8, 3);
 
-    for(int i = 0; i < sprites.length(); i++)
+    for(int i = 0; i < currentWord.length(); i++)
     {
         (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::cyan);
 

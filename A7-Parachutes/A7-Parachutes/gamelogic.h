@@ -32,7 +32,7 @@ private:
     void addWordToWorld();
     b2Vec2 position;
     void CreateGround(float x, float y, float width, float height);
-    void CreateBox(QString letter, float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
+    b2Body * CreateBox(QString letter, float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
     void createRoughGround();
     void scoreChanged(int score);
     //void gameOver();
@@ -42,6 +42,7 @@ private:
     int xScale, yScale;
 
     QString currentWord;
+    QString previousWord;
     int currentWordIndex;
     QQueue<QString> words;
     QList<TemporarySprite> sprites;
