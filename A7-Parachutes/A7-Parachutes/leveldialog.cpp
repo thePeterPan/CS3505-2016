@@ -38,7 +38,7 @@ void LevelSelectionDialog::openFile() {
      QString content = ifile.readAll();
 
      // extract words
-     QStringList list = content.split("\n");
+     QStringList list = content.split("\n",QString::SkipEmptyParts);
 
      foreach(QString s, list){
 

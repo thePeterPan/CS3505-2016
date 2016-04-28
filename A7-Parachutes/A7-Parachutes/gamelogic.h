@@ -49,7 +49,7 @@ private:
     QList<TemporarySprite> sprites;
     int currentLevel;
     int timerSeconds;
-    int timerFactor = 5;
+    int timerFactor = 8;
     QTimer* timer;
     int score;
     int missTypePenalty = 50;

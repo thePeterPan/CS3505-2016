@@ -154,7 +154,7 @@ void GameLogic::getWordsFromDatabase(int level)
     {
         words.append("parachuting");
         words.append("rainbow");
-        /*words.append("cloudy");
+        words.append("cloudy");
         words.append("raindrop");
         words.append("parachute");
         words.append("snowflake");
@@ -162,12 +162,12 @@ void GameLogic::getWordsFromDatabase(int level)
         words.append("airplane");
         words.append("sunlight");
         words.append("bumblebee");
-        words.append("butterfly");*/
+        words.append("butterfly");
     }
     else if(level == 2)
     {
         words.append("flower");
-        /*words.append("cucumber");
+        words.append("cucumber");
         words.append("tomato");
         words.append("icecream");
         words.append("pumpernickle");
@@ -175,12 +175,12 @@ void GameLogic::getWordsFromDatabase(int level)
         words.append("wind");
         words.append("sky");
         words.append("downpour");
-        words.append("inkpot");*/
+        words.append("inkpot");
     }
     else if(level == 3)
     {
         words.append("feather");
-        /*words.append("falcon");
+        words.append("falcon");
         words.append("nest");
         words.append("caterpillar");
         words.append("frolic");
@@ -190,7 +190,7 @@ void GameLogic::getWordsFromDatabase(int level)
         words.append("somersault");
         words.append("foursquare");
         words.append("blissful");
-        words.append("delicious");*/
+        words.append("delicious");
     }
     }else{
 
@@ -301,7 +301,8 @@ void GameLogic::startGame(){
 void GameLogic::startNewTimer()
 {
     qDebug() << "starting timer";
-    timerSeconds = currentLevel * timerFactor;
+    timerSeconds = timerFactor - currentLevel;
+    timerSeconds = (timerSeconds > 3) ? timerSeconds : 3;
     QString timerText = "Time:";
     if(timerSeconds < 10)
         timerText.append("0");
