@@ -15,6 +15,7 @@ GameLogic::GameLogic(QObject *parent, int windowWidth, int windowHeight, float s
 GameLogic::~GameLogic()
 {
     delete World;
+    delete timer;
 }
 
 void GameLogic::setUpBox2D()
@@ -267,16 +268,12 @@ void GameLogic::paintWorld(QPainter *painter)
         sprites[i].draw(painter, xScale, yScale, windowHeight2);
     }
 }
-void GameLogic::changeHeight(int newHeight)
+
+void GameLogic::changeSize(int newWidth, int newHeight)
 {
     windowHeight2 = newHeight;
     yScale = 100 * windowHeight2 / windowHeight;
-}
-
-void GameLogic::changeWidth(int newWidth)
-{
     xScale = 100 * newWidth / windowWidth;
-    //windowWidth = newWidth; // Not needed - physics world is scaled anyways.
 }
 
 void GameLogic::startGame(){

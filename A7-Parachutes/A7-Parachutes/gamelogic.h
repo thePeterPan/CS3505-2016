@@ -67,8 +67,7 @@ signals:
 
 public slots:
     void newLetterTyped(QChar letter);
-    void changeHeight(int);
-    void changeWidth(int);
+    void changeSize(int newWidth, int newHeight);
     void updateTimer();
     void startNewTimer();
     void startGame();
