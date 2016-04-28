@@ -90,6 +90,8 @@ void Networking::processTextMessage(QString message)
         {
             // Convert the document to a QJsonObject:
             QJsonObject receivedObject = receivedDocument.object();
+            // Look at what the client has requested through the message:
+            RequestType request = RequestType(qRound(receivedObject["requestType"].toDouble()));
 
             if (debug)
                 printJsonObject(receivedObject);
@@ -102,11 +104,11 @@ void Networking::processTextMessage(QString message)
                 if (request == WordList)
                 {
                     // Make sure the two needed key/values exist
-                    if (receivedObject.contains("teacher") && receivedObject.contains("listName"))
+                    if (receivedObject.contains("teacher") && receivedObject.contains("level"))
                     {
                         QJsonObject wordList;
                         // Write the list of words to the wordList QJsonObject
-                        writeWordList(receivedObject["teacher"].toString(), receivedObject["listName"].toString(), 00000, wordList);
+                        writeWordList(receivedObject["teacher"].toString(), receivedObject["level"].toInt(), wordList);
                         // Convert the QJsonObject to a QJsonDocument:
                         QJsonDocument responseDocument(wordList);
                         // Send the response message
@@ -139,6 +141,7 @@ void Networking::processTextMessage(QString message)
 
                     QJsonDocument responseDocument(test);
                     client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                } else {
                     if (debug)
                         qDebug() << "Responded: " << responseDocument.toJson(QJsonDocument::Compact);
                 }
