@@ -217,7 +217,6 @@ void Networking::writeWordList(QString teacher, int level, QJsonObject &json)
     QJsonArray wordArray;
     for (QString word : wordList)
     {
-        qDebug() << "appending word: " << word;
         wordArray.append(word);
     }
     // Add the key "list" and its value is the array.
