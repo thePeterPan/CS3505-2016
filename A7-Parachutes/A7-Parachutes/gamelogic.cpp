@@ -340,3 +340,8 @@ void GameLogic::unPause()
     this->timer->start(1000);
     qDebug() << "Go again!";
 }
+
+void GameLogic::addWordsFromFile(QStringList list){
+
+
+}
