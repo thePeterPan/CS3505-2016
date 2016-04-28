@@ -132,7 +132,7 @@ void Networking::processTextMessage(QString message)
                     QJsonObject loginAvailable;
                     writeLoginAvailable(receivedObject["username"].toString(), loginAvailable);
                     QJsonDocument responseDocument(loginAvailable);
-                    client->sentTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
                 }
             } else if (request == Signup)
             {
