@@ -35,7 +35,7 @@ private:
 
     GameLogic* game;
 
-    QPixmap pm;
+    QPixmap pm,background;
 
     int scale;
 
@@ -66,8 +66,7 @@ public slots:
 
 signals:
     void letterTyped(QChar letter);
-    void newHeight(int);
-    void newWidth(int);
+    void newSize(int newWidth,int newHeight);
     void readyToPlay();
 
     void pauseGame();

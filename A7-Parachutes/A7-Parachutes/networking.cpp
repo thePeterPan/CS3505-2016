@@ -37,12 +37,12 @@ Networking::~Networking() {}
  * \param teacher
  * \param listName
  */
-void Networking::requestWordList(QString teacher, QString listName)
+void Networking::requestWordList(QString teacher, int level)
 {
     QJsonObject requestObject;
     requestObject["requestType"] = WordList;
     requestObject["teacher"] = teacher;
-    requestObject["listName"] = listName;
+    requestObject["level"] = level;
 
     QJsonDocument requestDocument(requestObject);
     webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
@@ -64,7 +64,7 @@ void Networking::onConnected()
     connect(&webSocket, &QWebSocket::textMessageReceived, this, &Networking::onTextMessageReceived);
     connect(&webSocket, &QWebSocket::binaryMessageReceived, this, &Networking::onBinaryMessageReceived);
 
-    requestWordList("teacher", "listname");
+    requestWordList("yoda", 1);
 //    webSocket.sendTextMessage("Client: test");
 }
 
@@ -90,7 +90,8 @@ void Networking::onTextMessageReceived(QString message)
                 if (debug)
                     qDebug() << "wordList is found";
                 QJsonArray wordList = itr.value().toObject()["list"].toArray();
-                printJsonArray(wordList);
+                QList<QString> result = getWordList(wordList);
+                emit newList(result);
             }
         }
     } else {
@@ -99,6 +100,16 @@ void Networking::onTextMessageReceived(QString message)
             qDebug() << "Error! Unkown JSON Object:" << message;
         // TODO: Send error message to server
     }
+}
+
+QList<QString> Networking::getWordList(QJsonArray &array)
+{
+    QList<QString> result;
+    for(QJsonValue value : array)
+    {
+        result.push_back(value.toString());
+    }
+    return result;
 }
 
 /*!
@@ -131,7 +142,7 @@ void Networking::printJsonArray(QJsonArray &array)
     qDebug() << "---------------------JSON Array-------------------------";
     for(QJsonValue value : array)
     {
-        qDebug() << value;
+        qDebug() << "value: " << value.toString();
     }
     qDebug() << "--------------------------------------------------------";
 }
