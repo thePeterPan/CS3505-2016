@@ -96,25 +96,101 @@ void Networking::processTextMessage(QString message)
             if (debug)
                 printJsonObject(receivedObject);
 
-            if (request == WordList)
+            if (receivedObject.contains("requestType"))
             {
-                // Make sure the two needed key/values exist
-                if (receivedObject.contains("teacher") && receivedObject.contains("listName"))
+                // Look at what the client has requested through the message:
+                RequestType request = RequestType(qRound(receivedObject["requestType"].toDouble()));
+
+                if (request == WordList)
                 {
-                    QJsonObject wordList;
-                    // Write the list of words to the wordList QJsonObject
-                    writeWordList(receivedObject["teacher"].toString(), receivedObject["listName"].toString(), 00000, wordList);
-                    // Convert the QJsonObject to a QJsonDocument:
-                    QJsonDocument responseDocument(wordList);
-                    // Send the response message
-                    client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
-                } else {
+                    // Make sure the two needed key/values exist
+                    if (receivedObject.contains("teacher") && receivedObject.contains("level"))
+                    {
+                        QJsonObject wordList;
+                        // Write the list of words to the wordList QJsonObject
+                        writeWordList(receivedObject["teacher"].toString(), receivedObject["level"].toInt(), wordList);
+                        // Convert the QJsonObject to a QJsonDocument:
+                        QJsonDocument responseDocument(wordList);
+                        // Send the response message
+                        client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    }
+                    else
+                    {
+                        if (debug)
+                            qDebug() << "Error! Invalid Word List:" << message;
+                        //
+                    }
+                }
+                else if (request == Login)
+                {
+                    if (receivedObject.contains("username") && receivedObject.contains("password"))
+                    {
+                        QJsonObject login;
+
+                        writeLogin(receivedObject["username"].toString(), receivedObject["password"].toString(), login);
+
+                        QJsonDocument responseDocument(login);
+
+                        client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    }
+                }
+                else if (request == UsernameCheck)
+                {
+                    if (receivedObject.contains("username"))
+                    {
+                        QJsonObject loginAvailable;
+                        writeLoginAvailable(receivedObject["username"].toString(), loginAvailable);
+                        QJsonDocument responseDocument(loginAvailable);
+                        client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    }
+                }
+                else if (request == Signup)
+                {
+                    if (receivedObject.contains("username") && receivedObject.contains("password") && receivedObject.contains("firstName") && receivedObject.contains("lastName") && receivedObject.contains("teacher"))
+                    {
+                        QJsonObject signup;
+                        writeSignup(receivedObject["username"].toString(), receivedObject["password"].toString(), receivedObject["firstName"].toString(), receivedObject["lastName"].toString(), receivedObject["teacher"].toString(), signup);
+                        QJsonDocument responseDocument(signup);
+                        client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    }
+                }
+                else
+                {
                     if (debug)
-                        qDebug() << "Error! Unknown JSON Document:" << message;
-                    //
+                        qDebug() << "ERROR! Unkown Enum RequestType type:" << request;
                 }
             }
-        } else {
+            else if(receivedObject.contains("webrequest"))
+            {
+                if (receivedObject["webrequest"].toObject().contains("teacher"))
+                {
+                    QJsonObject test;
+                    test["teacherName"] = "test name";
+                    QJsonArray teststudentArray;
+                    for (int i = 0; i < 10; ++i)
+                    {
+                        QJsonArray student;
+                        student.append("student" + QString::number(i));
+                        student.append(QString::number(i*2));
+                        student.append(QString::number(i*4));
+                        teststudentArray.append(student);
+                    }
+                    test["students"] = teststudentArray;
+
+                    QJsonDocument responseDocument(test);
+                    client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    if (debug)
+                        qDebug() << "Responded: " << responseDocument.toJson(QJsonDocument::Compact);
+                }
+            }
+            else
+            {
+                if (debug)
+                    qDebug() << "Error! Unknown request type.";
+            }
+        }
+        else
+        {
             if (debug)
                 qDebug() << "Error! Unknown JSON Document:" << message;
             // TODO: Send error message to client.
@@ -173,13 +249,13 @@ void Networking::openConnectionToDatabase(QString configFile)
  * \brief Queries the database for the list of words.
  * \return
  */
-void Networking::writeWordList(QString teacher, QString listName, int level, QJsonObject &json)
+void Networking::writeWordList(QString teacher, int level, QJsonObject &json)
 {
     // Create root JSON Object:
     QJsonObject jsonWordList;
 
     // Add the key "name" and its value.
-    jsonWordList["name"] = listName;
+    jsonWordList["name"] = level;
 
     // Query the database for a list of words:
     QList<QString> wordList = db->getTeacherWordsByLevel(teacher, level);
@@ -194,6 +270,48 @@ void Networking::writeWordList(QString teacher, QString listName, int level, QJs
 
     // Add the root JSON object to the given JSON object.
     json["wordList"] = jsonWordList;
+}
+
+/*!
+ * \brief Queries the database whether the provided login, password pair are correct
+ * \param login
+ * \param password
+ * \param json
+ */
+void Networking::writeLogin(QString login, QString password, QJsonObject &json)
+{
+    QJsonObject jsonUserAccess;
+    jsonUserAccess["accessGranted"] = db->loginCorrect(login, password);
+    jsonUserAccess["username"] = login;
+    json["userAccess"] = jsonUserAccess;
+}
+
+/*!
+ * \brief Queries the database if the username is taken
+ * \param login
+ * \param json
+ */
+void Networking::writeLoginAvailable(QString login, QJsonObject &json)
+{
+    json["usernameIsAvailable"] = db->usernameAvailable(login);
+}
+
+/*!
+ * \brief Inserts the new user into the database
+ * \param login
+ * \param password
+ * \param first
+ * \param last
+ * \param teacher
+ * \param json
+ */
+void Networking::writeSignup(QString login, QString password, QString first, QString last, QString teacher, QJsonObject &json)
+{
+    QJsonObject jsonUserAccess;
+    jsonUserAccess["accessGranted"] = db->usernameAvailable(login);
+    jsonUserAccess["username"] = login;
+    json["userAccess"] = jsonUserAccess;
+    db->insertNewStudent(login, first, last, password, teacher);
 }
 
 /*!

@@ -54,7 +54,10 @@ private:
     void openConnectionToDatabase(QString configFile);
     // TODO: check for if database did not connect.
 
-    void writeWordList(QString teacher, QString listName, int level, QJsonObject &json);
+    void writeWordList(QString teacher, int level, QJsonObject &json);
+    void writeLogin(QString login, QString password, QJsonObject &json);
+    void writeLoginAvailable(QString login, QJsonObject &json);
+    void writeSignup(QString login, QString password, QString first, QString last, QString teacher, QJsonObject &json);
     void printJsonObject(QJsonObject &json);
     QString jsonTest();
 };
