@@ -55,7 +55,8 @@ win32|macx {
     QT += websockets
 }
 unix:!macx {
-    include(QtWebSockets/websockets.pro)
+#    include(QtWebSockets/websockets.pro)
+    QT += websockets
 }
 
 ########## MySQL Connector
