@@ -199,11 +199,12 @@ void GameLogic::getWordsFromDatabase(int level)
         }
 
     }
+    if(words.size()>0){
     currentWord = words.first();
     currentWordIndex = 0;
     words.removeFirst();
     qDebug() << currentWord;
-    addWordToWorld();
+    addWordToWorld();}
 }
 
 void GameLogic::newLetterTyped(QChar letter)
