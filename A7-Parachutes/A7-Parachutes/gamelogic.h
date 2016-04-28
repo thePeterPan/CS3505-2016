@@ -1,21 +1,23 @@
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
+
+#include <QObject>
 #include <QQueue>
 #include <QTimer>
-#include <QObject>
-#include "Box2D/Box2D.h"
-#include <QString>
 #include <QList>
-#include "temporarysprite.h"
 #include <QVector>
+#include <QDebug>
 
+#include "Box2D/Box2D.h"
+#include "temporarysprite.h"
 
-class gameLogic : public QObject
+class GameLogic : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit gameLogic(QObject *parent = 0, int windowWidth = 800, int windowHeight = 635, float scale = 100.0f);
+    explicit GameLogic(QObject *parent = 0, int windowWidth = 800, int windowHeight = 635, float scale = 100.0f);
+    ~GameLogic();
     float getXPos();
     float getYPos();
     int getCurrentLevel();
@@ -25,12 +27,13 @@ public:
     void testSignals();
     void getWordsFromDatabase(int level);
 
+
 private:
     void setUpBox2D();
     void addWordToWorld();
     b2Vec2 position;
     void CreateGround(float x, float y, float width, float height);
-    void CreateBox(QString letter, float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
+    b2Body * CreateBox(QString letter, float x, float y, float width, float height, float friction = .8, float restitution = .6, float density = 1.3);
     void createRoughGround();
     void scoreChanged(int score);
     //void gameOver();
@@ -40,6 +43,7 @@ private:
     int xScale, yScale;
 
     QString currentWord;
+    QString previousWord;
     int currentWordIndex;
     QQueue<QString> words;
     QList<TemporarySprite> sprites;
@@ -53,6 +57,8 @@ private:
 
     bool readyToPlay = false;
 
+    QStringList wordsList;
+
 signals:
     void newWord(QString word);
     void newLevel(int level);
@@ -63,15 +69,18 @@ signals:
     void gameOver();
 
 
+
 public slots:
     void newLetterTyped(QChar letter);
-    void changeHeight(int);
-    void changeWidth(int);
+    void changeSize(int newWidth, int newHeight);
     void updateTimer();
     void startNewTimer();
     void startGame();
     void pause();
     void unPause();
+    void addWordsFromFile(QStringList);
+
+    //void restart();
 
 };
 
