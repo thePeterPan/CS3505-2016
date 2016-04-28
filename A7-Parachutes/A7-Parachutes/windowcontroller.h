@@ -22,11 +22,12 @@ public:
     void start();
 
 private:
+    Networking* client;
     MainWindow main;
     LevelSelectionDialog level;
     RegistrationDialog registration;
     GameWindow game;
-    Networking* client;
+
 
 protected:
 

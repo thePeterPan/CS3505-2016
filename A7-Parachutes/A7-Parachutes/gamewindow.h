@@ -14,6 +14,7 @@
 
 #include "gamelogic.h"
 #include "sprite.h"
+#include "networking.h"
 
 namespace Ui {
 class GameWindow;
@@ -24,7 +25,7 @@ class GameWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit GameWindow(QWidget *parent = 0);
+    explicit GameWindow(Networking *client, QWidget *parent = 0);
     void keyPressEvent(QKeyEvent* e);
 
     void startGame();
@@ -48,6 +49,8 @@ private:
     QMediaPlayer* player;
 
     bool pause;
+
+    Networking* client;
 
 
 protected:

@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "Box2D/Box2D.h"
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(Networking *client, QWidget *parent) : client(client),
     QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
