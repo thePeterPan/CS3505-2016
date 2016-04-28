@@ -141,7 +141,7 @@ void GameLogic::getWordsFromDatabase(int level)
 {
     words.clear();
 
-    if(wordsList.isEmpty()){
+    if(wordsList.size()<2){
 
     //test data
     if(level == 1)
