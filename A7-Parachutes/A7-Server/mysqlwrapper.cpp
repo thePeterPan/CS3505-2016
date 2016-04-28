@@ -317,6 +317,50 @@ void MySQLWrapper::addTeacherWordsByLevel(QList<QString> words, QString teacher,
         }
     }
 }
+
+void MySQLWrapper::addNewTeacherWordByLevel(QString word, QString login, int level)
+{
+    if(isTeacher(login))
+    {
+        QString sql = "INSERT IGNORE INTO words (teacher, level, word) VALUES (?, ?, ?)";
+        statement = connection->prepareStatement(sql.toStdString());
+        statement->setString(1, login.toStdString());
+        statement->setInt(2,level);
+        statement->setString(3,word.toStdString());
+        statement->executeUpdate();
+    }
+}
+
+void MySQLWrapper::deleteTeacherWordsByLevel(QString login, int level)
+{
+    if(isTeacher(login))
+    {
+        QList<QString> wordsToDelete = getTeacherWordsByLevel(login, level);
+        foreach(QString word, wordsToDelete)
+        {
+            QString sql = "DELETE FROM words WHERE teacher=? AND level=? AND word=?";
+            statement = connection->prepareStatement(sql.toStdString());
+            statement->setString(1, login.toStdString());
+            statement->setInt(2, level);
+            statement->setString(3, word.toStdString());
+            statement->executeUpdate();
+        }
+    }
+}
+
+void MySQLWrapper::deleteTeacherWordByLevel(QString word, QString login, int level)
+{
+    if(isTeacher(login))
+    {
+        QString sql = "DELETE FROM words WHERE teacher=? AND level=? AND word=?";
+        statement = connection->prepareStatement(sql.toStdString());
+        statement->setString(1, login.toStdString());
+        statement->setInt(2, level);
+        statement->setString(3, word.toStdString());
+        statement->executeUpdate();
+    }
+}
+
 /**
  * @brief MySQLWrapper::getTeacher
  * @param student

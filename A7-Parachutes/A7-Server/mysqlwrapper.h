@@ -61,6 +61,11 @@ public:
     void insertNewStudent(QString login, QString first, QString last, QString password, QString teacher);
     void insertNewTeacher(QString login, QString first, QString last, QString password);
     void addTeacherWordsByLevel(QList<QString> words, QString login, int level);
+    void addNewTeacherWordByLevel(QString word, QString login, int level);
+
+    /////////// Deletions
+    void deleteTeacherWordsByLevel(QString login, int level);
+    void deleteTeacherWordByLevel(QString word, QString login, int level);
 
     /////////// Updates
     void updateUserScore(QString login, int score);
