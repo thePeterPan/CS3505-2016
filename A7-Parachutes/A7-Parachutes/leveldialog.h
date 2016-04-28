@@ -2,28 +2,33 @@
 #define LEVELDIALOG_H
 
 #include <QDialog>
+#include <QFileDialog>
 #include "gamewindow.h"
 #include "temporarysprite.h"
 
-
 namespace Ui {
-class levelDialog;
+class LevelSelectionDialog;
 }
 
-class levelDialog : public QDialog
+class LevelSelectionDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit levelDialog(QWidget *parent = 0);
-    ~levelDialog();
+    explicit LevelSelectionDialog(QWidget *parent = 0);
+    ~LevelSelectionDialog();
 
 private:
-    Ui::levelDialog *ui;
-    gameWindow game;
+    Ui::LevelSelectionDialog *ui;
+
+
+signals:
+    void showGameWindowSignal();
+    void addWordsFromFile(QStringList);
 
 private slots:
     void showGameWindow();
+    void openFile();
 };
 
 #endif // LEVELDIALOG_H

@@ -17,10 +17,10 @@ public:
     int getX();
     void setY(int newY);
     int getY();
+
     void nextFrame();
 
 private:
-
     QPixmap * image;
     int x, y, width, height;
     int currentFrame, numFrames;
