@@ -62,6 +62,7 @@ public slots:
     void receiveVictory();              // Connected to gameLogic::victory
     void actionTimerUpdated(QString message);
     void scoreUpdated(QString score);
+    void catchAddWordsFromLevel(QStringList);
 
 signals:
     void letterTyped(QChar letter);
@@ -72,12 +73,14 @@ signals:
     void pauseGame();
     void unPauseGame();
     void showLevelDial();
+    void addWordsFromFile(QStringList);
     //void restart();
 private slots:
     void on_actionPause_triggered();
     void on_actionStart_triggered();
     void on_gameOver_triggered();
     void pauseSwitch();
+
 };
 
 #endif // GAMEWINDOW_H

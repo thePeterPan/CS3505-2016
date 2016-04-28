@@ -56,6 +56,8 @@ private:
 
     bool readyToPlay = false;
 
+    QStringList wordsList;
+
 signals:
     void newWord(QString word);
     void newLevel(int level);
