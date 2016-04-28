@@ -2,7 +2,6 @@
 
 TemporarySprite::TemporarySprite(b2Body *body, QString letter, int width) : body(body), letter(letter), width(width)
 {
-    qDebug()<<"Sprite construct";
     image = new QPixmap(":/images/crate_sprite.svg");
     (*image) = image->scaled(width, width,Qt::KeepAspectRatio);
     font = QFont("Helvetica",20);

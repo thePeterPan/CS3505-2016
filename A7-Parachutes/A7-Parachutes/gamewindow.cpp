@@ -51,12 +51,12 @@ void GameWindow::connectSignalsAndSlots()
     connect(this->game, &GameLogic::updateActionTimer,  this,       &GameWindow::actionTimerUpdated);
     connect(this->game, &GameLogic::updateScore,        this,       &GameWindow::scoreUpdated);
     connect(this,       &GameWindow::letterTyped,       this->game, &GameLogic::newLetterTyped);
-    connect(this,       &GameWindow::newSize,         this->game, &GameLogic::changeSize);
+    connect(this,       &GameWindow::newSize,           this->game, &GameLogic::changeSize);
     connect(this,       &GameWindow::readyToPlay,       this->game, &GameLogic::startGame);
     connect(this,       &GameWindow::pauseGame,         this->game, &GameLogic::pause);
-    connect(this,       &GameWindow::pauseGame,         this,  &GameWindow::pauseSwitch);
+    connect(this,       &GameWindow::pauseGame,         this,       &GameWindow::pauseSwitch);
     connect(this,       &GameWindow::unPauseGame,       this->game, &GameLogic::unPause);
-    connect(this,       &GameWindow::unPauseGame,       this,  &GameWindow::pauseSwitch);
+    connect(this,       &GameWindow::unPauseGame,       this,       &GameWindow::pauseSwitch);
     connect(this->game, &GameLogic::gameOver,           this,       &GameWindow::on_gameOver_triggered);
 }
 
