@@ -7,6 +7,7 @@
 #include "leveldialog.h"
 #include "registrationdialog.h"
 #include "gamewindow.h"
+#include "networking.h"
 
 namespace Ui {
 class WindowController;
@@ -17,7 +18,7 @@ class WindowController : public QObject
     Q_OBJECT
 
 public:
-    explicit WindowController(QWidget *parent = 0);
+    explicit WindowController(Networking *client, QWidget *parent = 0);
     void start();
 
 private:
@@ -25,6 +26,7 @@ private:
     LevelSelectionDialog level;
     RegistrationDialog registration;
     GameWindow game;
+    Networking* client;
 
 protected:
 

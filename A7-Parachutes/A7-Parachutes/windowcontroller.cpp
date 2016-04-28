@@ -1,6 +1,6 @@
 #include "windowcontroller.h"
 
-WindowController::WindowController(QWidget *parent)
+WindowController::WindowController(Networking *client, QWidget *parent) : client(client)
 {
     start();
     connect(&main, &MainWindow::showRegistrationSignal, this, &WindowController::openRegistrationDialogue);
