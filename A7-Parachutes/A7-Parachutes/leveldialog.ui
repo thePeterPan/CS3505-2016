@@ -6,18 +6,23 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>563</width>
-    <height>350</height>
+    <width>507</width>
+    <height>243</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Select Level</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog{
+ background:url(:/images/11.jpg)
+}</string>
+  </property>
   <widget class="QPushButton" name="level1Button">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>150</y>
+     <x>220</x>
+     <y>120</y>
      <width>75</width>
      <height>61</height>
     </rect>
@@ -32,107 +37,30 @@ font: 9pt &quot;Fixedsys&quot;;
     <locale language="English" country="UnitedStates"/>
    </property>
    <property name="text">
-    <string>Level 1</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="level2Button">
-   <property name="geometry">
-    <rect>
-     <x>220</x>
-     <y>150</y>
-     <width>75</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton{
-background-color: rgb(102, 178, 255);
-font: 9pt &quot;Fixedsys&quot;;
-}</string>
-   </property>
-   <property name="text">
-    <string>Level 2</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="level3Button">
-   <property name="geometry">
-    <rect>
-     <x>370</x>
-     <y>150</y>
-     <width>75</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton{
-background-color: rgb(102, 178, 255);
-font: 9pt &quot;Fixedsys&quot;;
-}</string>
-   </property>
-   <property name="text">
-    <string>Level 3</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="level1HighScore">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>220</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 6pt &quot;Fixedsys&quot;;</string>
-   </property>
-   <property name="text">
-    <string>High Score: 0</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="level2HighScore">
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>220</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 6pt &quot;Fixedsys&quot;;</string>
-   </property>
-   <property name="text">
-    <string>High Score: 0</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="level3HighScore">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>220</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 6pt &quot;Fixedsys&quot;;</string>
-   </property>
-   <property name="text">
-    <string>High Score: 0</string>
+    <string>Play!</string>
    </property>
   </widget>
   <widget class="QLabel" name="levelTttle">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>140</x>
      <y>40</y>
      <width>371</width>
      <height>51</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Sans</family>
+     <pointsize>24</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">font: 30pt &quot;Fixedsys&quot;;
-color: rgb(102, 178, 255);
+    <string notr="true">
+color: rgb(14, 15, 227)
 </string>
    </property>
    <property name="locale">
@@ -140,6 +68,19 @@ color: rgb(102, 178, 255);
    </property>
    <property name="text">
     <string>Level Selection</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="wordsButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>200</y>
+     <width>101</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Import Words</string>
    </property>
   </widget>
  </widget>

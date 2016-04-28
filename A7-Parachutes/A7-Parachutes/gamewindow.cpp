@@ -58,6 +58,9 @@ void GameWindow::connectSignalsAndSlots()
     connect(this,       &GameWindow::unPauseGame,       this->game, &GameLogic::unPause);
     connect(this,       &GameWindow::unPauseGame,       this,       &GameWindow::pauseSwitch);
     connect(this->game, &GameLogic::gameOver,           this,       &GameWindow::on_gameOver_triggered);
+    connect(this,       &GameWindow::addWordsFromFile,  this->game, &GameLogic::addWordsFromFile);
+
+
 }
 
 void GameWindow::paintEvent(QPaintEvent *)
@@ -147,3 +150,7 @@ void GameWindow::pauseSwitch()
     pause = !pause;
 }
 
+void GameWindow::catchAddWordsFromLevel(QStringList list)
+{
+  emit addWordsFromFile(list);
+}

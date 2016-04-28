@@ -7,6 +7,7 @@ WindowController::WindowController(QWidget *parent)
     connect(&main, &MainWindow::showLevelDialogSignal, this, &WindowController::openLevelDialogue);
     connect(&level, &LevelSelectionDialog::showGameWindowSignal, this, &WindowController::openGameWindow);
     connect(&game, &GameWindow::showLevelDial, this, &WindowController::gameOverReceived);
+    connect(&level,&LevelSelectionDialog::addWordsFromFile,&game,&GameWindow::catchAddWordsFromLevel);
 }
 
 void WindowController::start()
