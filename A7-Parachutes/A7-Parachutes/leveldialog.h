@@ -5,14 +5,11 @@
 #include <QFileDialog>
 #include "gamewindow.h"
 #include "temporarysprite.h"
-<<<<<<< HEAD
 #include "networking.h"
-=======
 #include <QFile>
 #include <QStringList>
 #include <QTextStream>
 #include <QDebug>
->>>>>>> refs/remotes/origin/neverland-dev
 
 namespace Ui {
 class LevelSelectionDialog;
