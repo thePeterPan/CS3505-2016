@@ -318,6 +318,12 @@ void MySQLWrapper::addTeacherWordsByLevel(QList<QString> words, QString teacher,
     }
 }
 
+/**
+ * @brief MySQLWrapper::addNewTeacherWordByLevel Adds individual word to db by teacher and level
+ * @param word
+ * @param login
+ * @param level
+ */
 void MySQLWrapper::addNewTeacherWordByLevel(QString word, QString login, int level)
 {
     if(isTeacher(login))
@@ -331,6 +337,11 @@ void MySQLWrapper::addNewTeacherWordByLevel(QString word, QString login, int lev
     }
 }
 
+/**
+ * @brief MySQLWrapper::deleteTeacherWordsByLevel Deletes all words with that teacher and level
+ * @param login
+ * @param level
+ */
 void MySQLWrapper::deleteTeacherWordsByLevel(QString login, int level)
 {
     if(isTeacher(login))
@@ -348,6 +359,12 @@ void MySQLWrapper::deleteTeacherWordsByLevel(QString login, int level)
     }
 }
 
+/**
+ * @brief MySQLWrapper::deleteTeacherWordByLevel deletes individual word by the teacher, word and level
+ * @param word
+ * @param login
+ * @param level
+ */
 void MySQLWrapper::deleteTeacherWordByLevel(QString word, QString login, int level)
 {
     if(isTeacher(login))
@@ -379,6 +396,11 @@ QString MySQLWrapper::getTeacher(QString student)
     return "";
 }
 
+/**
+ * @brief MySQLWrapper::getStudents gets all the students of one teacher
+ * @param teacher
+ * @return
+ */
 QList<QString> MySQLWrapper::getStudents(QString teacher)
 {
     QString sql = "SELECT student from class where teacher = ?;";
