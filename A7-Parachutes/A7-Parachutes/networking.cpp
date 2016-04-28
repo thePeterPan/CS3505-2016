@@ -39,14 +39,11 @@ Networking::~Networking() {}
  */
 void Networking::requestWordList(QString teacher, int level)
 {
-    qDebug() << "requesting word list";
     QJsonObject requestObject;
     requestObject["requestType"] = WordList;
     requestObject["teacher"] = teacher;
     requestObject["level"] = level;
-    qDebug()<< "object: " << requestObject;
     QJsonDocument requestDocument(requestObject);
-    qDebug() << "document" << requestDocument;
     webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
 }
 
