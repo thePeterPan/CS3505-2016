@@ -3,6 +3,8 @@
 
 #include <QEvent>
 #include <QDialog>
+#include <QDebug>
+
 namespace Ui {
 class RegistrationDialog;
 }
@@ -13,7 +15,6 @@ class RegistrationDialog : public QDialog
 
 public:
     explicit RegistrationDialog(QWidget *parent = 0);
-
     ~RegistrationDialog();
 
 private slots:
@@ -21,6 +22,7 @@ private slots:
     void disableTeacherName();
     void showMainwindow();
     void checkInput();
+
 private:
     Ui::RegistrationDialog *ui;
 
