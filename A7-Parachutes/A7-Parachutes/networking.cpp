@@ -43,7 +43,6 @@ void Networking::requestWordList(QString teacher, int level)
     requestObject["requestType"] = WordList;
     requestObject["teacher"] = teacher;
     requestObject["level"] = level;
-
     QJsonDocument requestDocument(requestObject);
     webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
 }
@@ -76,7 +75,6 @@ void Networking::onTextMessageReceived(QString message)
 {
     if (debug)
         qDebug() << "Text message received" << message;
-
     // Convert the received message to a json document:
     QJsonDocument receivedDocument = QJsonDocument::fromJson(message.toUtf8());
     if (receivedDocument.isObject())
@@ -90,8 +88,14 @@ void Networking::onTextMessageReceived(QString message)
                 if (debug)
                     qDebug() << "wordList is found";
                 QJsonArray wordList = itr.value().toObject()["list"].toArray();
-                QList<QString> result = getWordList(wordList);
-                emit newList(result);
+                printJsonArray(wordList);
+//                QList<QString> result = getWordList(wordList);
+//                foreach(QString word, result)
+//                {
+//                    qDebug() << word;
+//                }
+
+//                emit newList(result);
             }
         }
     } else {

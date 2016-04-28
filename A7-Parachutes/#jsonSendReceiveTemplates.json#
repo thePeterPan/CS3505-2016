@@ -24,7 +24,7 @@
   "login response template": {
     "userAccess": {
       "accessGranted": true,
-      "username": "username"
+      "username": "username",
     }
   },
   "teacher list request template": {
@@ -134,9 +134,6 @@
     "requestType": "enum::Networking::IncrementLevel",
     "username": "username"
   },
-  "generic response template": {
-    "success": false
-  },
 
   "WEBSITE request teacher stats template": {
     "web": {
@@ -152,7 +149,7 @@
       ["username", "current level", "high score"],
       ["username", "current level", "high score"]
     ]
-  },
+  }
   "WEBSITE request teacher list of students": {
     "web": {
       "teacher": "teacherLogin"
@@ -166,44 +163,5 @@
       "studentLogin3",
       "studentLogin4"
     ]
-  },
-  "WEBSITE request new teacher": {
-    "web": {
-      "username": "teacherUsername",
-      "firstName": "first",
-      "lastName": "last",
-      "password": "#############"
-    }
-  },
-  "WEBSITE request new list of words": {
-    "web": {
-      "username": "teacherUsername",
-      "level": 3,
-      "words": [
-        "word1",
-        "word2",
-        "word3"
-      ]
-    }
-  },
-  "WEBSITE request add new word": {
-    "web": {
-      "username": "teacherUsername",
-      "level": 3,
-      "word": "word1"
-    }
-  },
-  "WEBSITE request delete words by level": {
-    "web": {
-      "username": "teacherUsername",
-      "level": 3
-    }
-  },
-  "WEBSITE request delete single word": {
-    "web": {
-      "username": "teacherUsername",
-      "level": 3,
-      "word": "word"
-    }
   }
 }
