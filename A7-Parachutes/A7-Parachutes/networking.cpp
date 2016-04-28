@@ -37,7 +37,7 @@ Networking::~Networking() {}
  * \param teacher
  * \param listName
  */
-void Networking::requestWordList(QString teacher, QString listName)
+void Networking::requestWordList(QString teacher, int level)
 {
     QJsonObject requestObject;
     requestObject["requestType"] = WordList;
@@ -64,7 +64,7 @@ void Networking::onConnected()
     connect(&webSocket, &QWebSocket::textMessageReceived, this, &Networking::onTextMessageReceived);
     connect(&webSocket, &QWebSocket::binaryMessageReceived, this, &Networking::onBinaryMessageReceived);
 
-    requestWordList("teacher", "listname");
+    requestWordList("yoda", 1);
 //    webSocket.sendTextMessage("Client: test");
 }
 
@@ -102,6 +102,16 @@ void Networking::onTextMessageReceived(QString message)
     }
 }
 
+QList<QString> Networking::getWordList(QJsonArray &array)
+{
+    QList<QString> result;
+    for(QJsonValue value : array)
+    {
+        result.push_back(value.toString());
+    }
+    return result;
+}
+
 /*!
  * \brief Networking::onBinaryMessageReceived
  * \param data
@@ -132,7 +142,7 @@ void Networking::printJsonArray(QJsonArray &array)
     qDebug() << "---------------------JSON Array-------------------------";
     for(QJsonValue value : array)
     {
-        qDebug() << value;
+        qDebug() << "value: " << value.toString();
     }
     qDebug() << "--------------------------------------------------------";
 }

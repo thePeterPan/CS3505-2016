@@ -121,6 +121,44 @@ void Networking::processTextMessage(QString message)
                         //
                     }
                 }
+                else if (request == Login)
+                {
+                    if (receivedObject.contains("username") && receivedObject.contains("password"))
+                    {
+                        QJsonObject login;
+
+                        writeLogin(receivedObject["username"].toString(), receivedObject["password"].toString(), login);
+
+                        QJsonDocument responseDocument(login);
+
+                        client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    }
+                }
+                else if (request == UsernameCheck)
+                {
+                    if (receivedObject.contains("username"))
+                    {
+                        QJsonObject loginAvailable;
+                        writeLoginAvailable(receivedObject["username"].toString(), loginAvailable);
+                        QJsonDocument responseDocument(loginAvailable);
+                        client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    }
+                }
+                else if (request == Signup)
+                {
+                    if (receivedObject.contains("username") && receivedObject.contains("password") && receivedObject.contains("firstName") && receivedObject.contains("lastName") && receivedObject.contains("teacher"))
+                    {
+                        QJsonObject signup;
+                        writeSignup(receivedObject["username"].toString(), receivedObject["password"].toString(), receivedObject["firstName"].toString(), receivedObject["lastName"].toString(), receivedObject["teacher"].toString(), signup);
+                        QJsonDocument responseDocument(signup);
+                        client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    }
+                }
+                else
+                {
+                    if (debug)
+                        qDebug() << "ERROR! Unkown Enum RequestType type:" << request;
+                }
             }
             else if(receivedObject.contains("webrequest"))
             {
@@ -141,39 +179,8 @@ void Networking::processTextMessage(QString message)
 
                     QJsonDocument responseDocument(test);
                     client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
-                } else {
                     if (debug)
                         qDebug() << "Responded: " << responseDocument.toJson(QJsonDocument::Compact);
-                }
-            } else if (request == Login)
-            {
-                if (receivedObject.contains("username") && receivedObject.contains("password"))
-                {
-                    QJsonObject login;
-
-                    writeLogin(receivedObject["username"].toString(), receivedObject["password"].toString(), login);
-
-                    QJsonDocument responseDocument(login);
-
-                    client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
-                }
-            } else if (request == UsernameCheck)
-            {
-                if (receivedObject.contains("username"))
-                {
-                    QJsonObject loginAvailable;
-                    writeLoginAvailable(receivedObject["username"].toString(), loginAvailable);
-                    QJsonDocument responseDocument(loginAvailable);
-                    client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
-                }
-            } else if (request == Signup)
-            {
-                if (receivedObject.contains("username") && receivedObject.contains("password") && receivedObject.contains("firstName") && receivedObject.contains("lastName") && receivedObject.contains("teacher"))
-                {
-                    QJsonObject signup;
-                    writeSignup(receivedObject["username"].toString(), receivedObject["password"].toString(), receivedObject["firstName"].toString(), receivedObject["lastName"].toString(), receivedObject["teacher"].toString(), signup);
-                    QJsonDocument responseDocument(signup);
-                    client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
                 }
             }
             else
@@ -242,13 +249,13 @@ void Networking::openConnectionToDatabase(QString configFile)
  * \brief Queries the database for the list of words.
  * \return
  */
-void Networking::writeWordList(QString teacher, QString listName, int level, QJsonObject &json)
+void Networking::writeWordList(QString teacher, int level, QJsonObject &json)
 {
     // Create root JSON Object:
     QJsonObject jsonWordList;
 
     // Add the key "name" and its value.
-    jsonWordList["name"] = listName;
+    jsonWordList["name"] = level;
 
     // Query the database for a list of words:
     QList<QString> wordList = db->getTeacherWordsByLevel(teacher, level);
