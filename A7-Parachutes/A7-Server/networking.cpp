@@ -19,7 +19,7 @@ Networking::Networking(QString configFile, QObject *parent)
         connect(webSocketServer, &QWebSocketServer::newConnection, this, &Networking::onNewConnection);
         connect(webSocketServer, &QWebSocketServer::closed, this, &Networking::closed);
 
-        openConnectionToDatabase(configFile);
+//        openConnectionToDatabase(configFile);
     } else {
         if (debug) {
             qDebug() << "Error starting socket server on" << webSocketServer->serverUrl().url();
@@ -33,7 +33,7 @@ Networking::Networking(QString configFile, QObject *parent)
             connect(webSocketServer, &QWebSocketServer::newConnection, this, &Networking::onNewConnection);
             connect(webSocketServer, &QWebSocketServer::closed, this, &Networking::closed);
 
-            openConnectionToDatabase(configFile);
+//            openConnectionToDatabase(configFile);
         } else {
             if (debug) {
                 qDebug() << "Unable to launch socket server.";
@@ -90,31 +90,67 @@ void Networking::processTextMessage(QString message)
         {
             // Convert the document to a QJsonObject:
             QJsonObject receivedObject = receivedDocument.object();
-            // Look at what the client has requested through the message:
-            RequestType request = RequestType(qRound(receivedObject["requestType"].toDouble()));
 
             if (debug)
                 printJsonObject(receivedObject);
 
-            if (request == WordList)
+            if (receivedObject.contains("requestType"))
             {
-                // Make sure the two needed key/values exist
-                if (receivedObject.contains("teacher") && receivedObject.contains("listName"))
+                // Look at what the client has requested through the message:
+                RequestType request = RequestType(qRound(receivedObject["requestType"].toDouble()));
+
+                if (request == WordList)
                 {
-                    QJsonObject wordList;
-                    // Write the list of words to the wordList QJsonObject
-                    writeWordList(receivedObject["teacher"].toString(), receivedObject["listName"].toString(), 00000, wordList);
-                    // Convert the QJsonObject to a QJsonDocument:
-                    QJsonDocument responseDocument(wordList);
-                    // Send the response message
-                    client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
-                } else {
-                    if (debug)
-                        qDebug() << "Error! Unknown JSON Document:" << message;
-                    //
+                    // Make sure the two needed key/values exist
+                    if (receivedObject.contains("teacher") && receivedObject.contains("listName"))
+                    {
+                        QJsonObject wordList;
+                        // Write the list of words to the wordList QJsonObject
+                        writeWordList(receivedObject["teacher"].toString(), receivedObject["listName"].toString(), 00000, wordList);
+                        // Convert the QJsonObject to a QJsonDocument:
+                        QJsonDocument responseDocument(wordList);
+                        // Send the response message
+                        client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    }
+                    else
+                    {
+                        if (debug)
+                            qDebug() << "Error! Invalid Word List:" << message;
+                        //
+                    }
                 }
             }
-        } else {
+            else if(receivedObject.contains("webrequest"))
+            {
+                if (receivedObject["webrequest"].toObject().contains("teacher"))
+                {
+                    QJsonObject test;
+                    test["teacherName"] = "test name";
+                    QJsonArray teststudentArray;
+                    for (int i = 0; i < 10; ++i)
+                    {
+                        QJsonArray student;
+                        student.append("student" + QString::number(i));
+                        student.append("level" + QString::number(i));
+                        student.append("score" + QString::number(i));
+                        teststudentArray.append(student);
+                    }
+                    test["students"] = teststudentArray;
+
+                    QJsonDocument responseDocument(test);
+                    client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    if (debug)
+                        qDebug() << "Responded: " << responseDocument.toJson(QJsonDocument::Compact);
+                }
+            }
+            else
+            {
+                if (debug)
+                    qDebug() << "Error! Unknown request type.";
+            }
+        }
+        else
+        {
             if (debug)
                 qDebug() << "Error! Unknown JSON Document:" << message;
             // TODO: Send error message to client.

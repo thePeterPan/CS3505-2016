@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -16,16 +16,17 @@
 
         function sendTeacherMessage() {
             initWebSocket();
-            var msg = document.getElementById("teacherName").value;
-            if ( websocket != null )
-            {
-                document.getElementById("inputText").value = "";
-                document.getElementById("teacherNameDiv").setAttribute("visibility", "hidden");
-                websocket.send( msg );
-                console.log( "string sent :", '"' + msg + '"' );
-            }
+            
+//             if ( websocket != null )
+//             {
+//                 var msg = document.getElementById("teacherName").value;
+//                 // document.getElementById("inputText").value = "";
+//                 document.getElementById("teacherNameDiv").setAttribute("visibility", "hidden");
+//                 websocket.send( msg );
+//                 console.log( "string sent :", '"' + msg + '"' );
+//             }
 
-            stopWebSocket();
+//             stopWebSocket();
         }
 
         function initWebSocket() {
@@ -39,6 +40,14 @@
 
                 websocket.onopen = function (evt) {
                     console.log("CONNECTED");
+//                     var msg = document.getElementById("teacherName").value;
+//                     // document.getElementById("inputText").value = "";
+                    document.getElementById("teacherNameDiv").setAttribute("visibility", "hidden");
+                    var teacherNameObject = {"webrequest": {"teacher": document.getElementById("teacherName").value}};
+                    websocket.send( JSON.stringify(teacherNameObject) );
+                    console.log( "string sent :", '"' + JSON.stringify(teacherNameObject) + '"' );
+
+                    
                 };
                 websocket.onclose = function (evt) {
                     console.log("DISCONNECTED");
@@ -67,6 +76,7 @@
 //                ['Alice', {v: 12500, f: '$12,500'}, true],
 //                ['Bob',   {v: 7000,  f: '$7,000'},  true]
 //            ]);
+            stopWebSocket();
         }
 
         function stopWebSocket() {
@@ -107,9 +117,10 @@
 
         google.charts.load('current', {'packages':['table']});
         google.charts.setOnLoadCallback(drawTable);
-        var data = new google.visualization.DataTable();
+        var data;
 
         function drawTable() {
+             data = new google.visualization.DataTable();
 
             data.addColumn('string', 'Username');
             data.addColumn('number', 'Current Level');
