@@ -5,6 +5,10 @@
 #include <QFileDialog>
 #include "gamewindow.h"
 #include "temporarysprite.h"
+#include <QFile>
+#include <QStringList>
+#include <QTextStream>
+#include <QDebug>
 
 namespace Ui {
 class LevelSelectionDialog;

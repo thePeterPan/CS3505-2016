@@ -147,7 +147,7 @@ void GameLogic::getWordsFromDatabase(int level)
 {
     words.clear();
 
-    if(wordsList.isEmpty())
+    if(wordsList.size()<2)
     {
 
         //test data
@@ -202,10 +202,12 @@ void GameLogic::getWordsFromDatabase(int level)
         }
         //wordsList.clear();
     }
+    if(words.size()>0){
     currentWord = words.first();
     currentWordIndex = 0;
     words.removeFirst();
     qDebug() << currentWord;
+
     addWordToWorld();
 
     /*

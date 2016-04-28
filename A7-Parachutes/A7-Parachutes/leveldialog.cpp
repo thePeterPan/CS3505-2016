@@ -1,9 +1,6 @@
 #include "leveldialog.h"
 #include "ui_leveldialog.h"
-#include <QFile>
-#include <QStringList>
-#include <QTextStream>
-#include <QDebug>
+
 
 LevelSelectionDialog::LevelSelectionDialog(QWidget *parent) :
     QDialog(parent), ui(new Ui::LevelSelectionDialog)
