@@ -99,7 +99,7 @@ void Networking::processTextMessage(QString message)
             if (request == WordList)
             {
                 // Make sure the two needed key/values exist
-                if (receivedObject.contains("teacher") && receivedObject.contains("listName"))
+                if (receivedObject.contains("teacher") && receivedObject.contains("level"))
                 {
                     QJsonObject wordList;
                     // Write the list of words to the wordList QJsonObject
