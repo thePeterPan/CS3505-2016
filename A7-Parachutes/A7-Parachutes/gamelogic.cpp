@@ -147,6 +147,8 @@ void GameLogic::getWordsFromDatabase(int level)
 {
     words.clear();
 
+    if(wordsList.isEmpty()){
+
     //test data
     if(level == 1)
     {
@@ -189,6 +191,13 @@ void GameLogic::getWordsFromDatabase(int level)
         words.append("foursquare");
         words.append("blissful");
         words.append("delicious");
+    }
+    }else{
+
+        foreach(QString s, wordsList){
+            words.append(s);
+        }
+
     }
     currentWord = words.first();
     currentWordIndex = 0;
@@ -341,4 +350,10 @@ void GameLogic::unPause()
 {
     this->timer->start(1000);
     qDebug() << "Go again!";
+}
+
+void GameLogic::addWordsFromFile(QStringList list){
+
+    wordsList = list;
+
 }

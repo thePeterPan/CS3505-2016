@@ -27,6 +27,7 @@ public:
     void testSignals();
     void getWordsFromDatabase(int level);
 
+
 private:
     void setUpBox2D();
     void addWordToWorld();
@@ -56,6 +57,8 @@ private:
 
     bool readyToPlay = false;
 
+    QStringList wordsList;
+
 signals:
     void newWord(QString word);
     void newLevel(int level);
@@ -66,6 +69,7 @@ signals:
     void gameOver();
 
 
+
 public slots:
     void newLetterTyped(QChar letter);
     void changeSize(int newWidth, int newHeight);
@@ -74,6 +78,8 @@ public slots:
     void startGame();
     void pause();
     void unPause();
+    void addWordsFromFile(QStringList);
+
     //void restart();
 
 };

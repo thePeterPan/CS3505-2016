@@ -2,7 +2,7 @@
 #define LEVELDIALOG_H
 
 #include <QDialog>
-
+#include <QFileDialog>
 #include "gamewindow.h"
 #include "temporarysprite.h"
 
@@ -21,11 +21,14 @@ public:
 private:
     Ui::LevelSelectionDialog *ui;
 
+
 signals:
     void showGameWindowSignal();
+    void addWordsFromFile(QStringList);
 
 private slots:
     void showGameWindow();
+    void openFile();
 };
 
 #endif // LEVELDIALOG_H
