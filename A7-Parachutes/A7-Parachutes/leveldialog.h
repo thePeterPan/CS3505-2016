@@ -5,14 +5,10 @@
 #include <QFileDialog>
 #include "gamewindow.h"
 #include "temporarysprite.h"
-<<<<<<< HEAD
-#include "networking.h"
-=======
 #include <QFile>
 #include <QStringList>
 #include <QTextStream>
 #include <QDebug>
->>>>>>> refs/remotes/origin/neverland-dev
 
 namespace Ui {
 class LevelSelectionDialog;
@@ -23,12 +19,11 @@ class LevelSelectionDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit LevelSelectionDialog(Networking *client, QWidget *parent = 0);
+    explicit LevelSelectionDialog(QWidget *parent = 0);
     ~LevelSelectionDialog();
 
 private:
     Ui::LevelSelectionDialog *ui;
-    Networking* client;
 
 
 signals:

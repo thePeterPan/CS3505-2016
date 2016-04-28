@@ -99,11 +99,11 @@ void Networking::processTextMessage(QString message)
             if (request == WordList)
             {
                 // Make sure the two needed key/values exist
-                if (receivedObject.contains("teacher") && receivedObject.contains("level"))
+                if (receivedObject.contains("teacher") && receivedObject.contains("listName"))
                 {
                     QJsonObject wordList;
                     // Write the list of words to the wordList QJsonObject
-                    writeWordList(receivedObject["teacher"].toString(), receivedObject["level"].toInt(), wordList);
+                    writeWordList(receivedObject["teacher"].toString(), receivedObject["listName"].toString(), 00000, wordList);
                     // Convert the QJsonObject to a QJsonDocument:
                     QJsonDocument responseDocument(wordList);
                     // Send the response message
@@ -173,13 +173,13 @@ void Networking::openConnectionToDatabase(QString configFile)
  * \brief Queries the database for the list of words.
  * \return
  */
-void Networking::writeWordList(QString teacher, int level, QJsonObject &json)
+void Networking::writeWordList(QString teacher, QString listName, int level, QJsonObject &json)
 {
     // Create root JSON Object:
     QJsonObject jsonWordList;
 
     // Add the key "name" and its value.
-    jsonWordList["level"] = level;
+    jsonWordList["name"] = listName;
 
     // Query the database for a list of words:
     QList<QString> wordList = db->getTeacherWordsByLevel(teacher, level);
@@ -187,7 +187,6 @@ void Networking::writeWordList(QString teacher, int level, QJsonObject &json)
     QJsonArray wordArray;
     for (QString word : wordList)
     {
-        qDebug() << "appending word: " << word;
         wordArray.append(word);
     }
     // Add the key "list" and its value is the array.
