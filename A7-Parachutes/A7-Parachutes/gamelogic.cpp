@@ -147,63 +147,74 @@ void GameLogic::getWordsFromDatabase(int level)
 {
     words.clear();
 
-    if(wordsList.isEmpty()){
+    if(wordsList.isEmpty())
+    {
 
-    //test data
-    if(level == 1)
-    {
-        words.append("parachuting");
-        words.append("rainbow");
-        words.append("cloudy");
-        words.append("raindrop");
-        words.append("parachute");
-        words.append("snowflake");
-        words.append("fantastic");
-        words.append("airplane");
-        words.append("sunlight");
-        words.append("bumblebee");
-        words.append("butterfly");
+        //test data
+        if(level == 1)
+        {
+            words.append("parachuting");
+            words.append("rainbow");
+            words.append("cloudy");
+            words.append("raindrop");
+            words.append("parachute");
+            words.append("snowflake");
+            words.append("fantastic");
+            words.append("airplane");
+            words.append("sunlight");
+            words.append("bumblebee");
+            words.append("butterfly");
+        }
+        else if(level == 2)
+        {
+            words.append("flower");
+            words.append("cucumber");
+            words.append("tomato");
+            words.append("icecream");
+            words.append("pumpernickle");
+            words.append("sesameseed");
+            words.append("wind");
+            words.append("sky");
+            words.append("downpour");
+            words.append("inkpot");
+        }
+        else if(level == 3)
+        {
+            words.append("feather");
+            words.append("falcon");
+            words.append("nest");
+            words.append("caterpillar");
+            words.append("frolic");
+            words.append("dandelion");
+            words.append("hyper");
+            words.append("cartwheel");
+            words.append("somersault");
+            words.append("foursquare");
+            words.append("blissful");
+            words.append("delicious");
+        }
     }
-    else if(level == 2)
+    else
     {
-        words.append("flower");
-        words.append("cucumber");
-        words.append("tomato");
-        words.append("icecream");
-        words.append("pumpernickle");
-        words.append("sesameseed");
-        words.append("wind");
-        words.append("sky");
-        words.append("downpour");
-        words.append("inkpot");
-    }
-    else if(level == 3)
-    {
-        words.append("feather");
-        words.append("falcon");
-        words.append("nest");
-        words.append("caterpillar");
-        words.append("frolic");
-        words.append("dandelion");
-        words.append("hyper");
-        words.append("cartwheel");
-        words.append("somersault");
-        words.append("foursquare");
-        words.append("blissful");
-        words.append("delicious");
-    }
-    }else{
-
-        foreach(QString s, wordsList){
+        foreach(QString s, wordsList)
+        {
             words.append(s);
         }
-
+        //wordsList.clear();
     }
     currentWord = words.first();
     currentWordIndex = 0;
     words.removeFirst();
     qDebug() << currentWord;
     addWordToWorld();
+
+    /*
+     *
+     * Have a signal that tells this that it is loading from file.
+     * Have file set up so that each level is divided (or 15 words, whatever is first)
+     * Here, it either uses the test words, words from file, or, hopefully, words from a db
+     *
+     * */
 }
 
 void GameLogic::newLetterTyped(QChar letter)
