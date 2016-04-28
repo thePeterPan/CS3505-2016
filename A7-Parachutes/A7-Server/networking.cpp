@@ -113,6 +113,36 @@ void Networking::processTextMessage(QString message)
                         qDebug() << "Error! Unknown JSON Document:" << message;
                     //
                 }
+            } else if (request == Login)
+            {
+                if (receivedObject.contains("username") && receivedObject.contains("password"))
+                {
+                    QJsonObject login;
+
+                    writeLogin(receivedObject["username"].toString(), receivedObject["password"].toString(), login);
+
+                    QJsonDocument responseDocument(login);
+
+                    client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                }
+            } else if (request == UsernameCheck)
+            {
+                if (receivedObject.contains("username"))
+                {
+                    QJsonObject loginAvailable;
+                    writeLoginAvailable(receivedObject["username"].toString(), loginAvailable);
+                    QJsonDocument responseDocument(loginAvailable);
+                    client->sentTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                }
+            } else if (request == Signup)
+            {
+                if (receivedObject.contains("username") && receivedObject.contains("password") && receivedObject.contains("firstName") && receivedObject.contains("lastName") && receivedObject.contains("teacher"))
+                {
+                    QJsonObject signup;
+                    writeSignup(receivedObject["username"].toString(), receivedObject["password"].toString(), receivedObject["firstName"].toString(), receivedObject["lastName"].toString(), receivedObject["teacher"].toString(), signup);
+                    QJsonDocument responseDocument(signup);
+                    client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                }
             }
         } else {
             if (debug)
@@ -195,6 +225,48 @@ void Networking::writeWordList(QString teacher, int level, QJsonObject &json)
 
     // Add the root JSON object to the given JSON object.
     json["wordList"] = jsonWordList;
+}
+
+/*!
+ * \brief Queries the database whether the provided login, password pair are correct
+ * \param login
+ * \param password
+ * \param json
+ */
+void Networking::writeLogin(QString login, QString password, QJsonObject &json)
+{
+    QJsonObject jsonUserAccess;
+    jsonUserAccess["accessGranted"] = db->loginCorrect(login, password);
+    jsonUserAccess["username"] = login;
+    json["userAccess"] = jsonUserAccess;
+}
+
+/*!
+ * \brief Queries the database if the username is taken
+ * \param login
+ * \param json
+ */
+void Networking::writeLoginAvailable(QString login, QJsonObject &json)
+{
+    json["usernameIsAvailable"] = db->usernameAvailable(login);
+}
+
+/*!
+ * \brief Inserts the new user into the database
+ * \param login
+ * \param password
+ * \param first
+ * \param last
+ * \param teacher
+ * \param json
+ */
+void Networking::writeSignup(QString login, QString password, QString first, QString last, QString teacher, QJsonObject &json)
+{
+    QJsonObject jsonUserAccess;
+    jsonUserAccess["accessGranted"] = db->usernameAvailable(login);
+    jsonUserAccess["username"] = login;
+    json["userAccess"] = jsonUserAccess;
+    db->insertNewStudent(login, first, last, password, teacher);
 }
 
 /*!
