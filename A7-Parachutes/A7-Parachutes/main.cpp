@@ -30,7 +30,6 @@ int main(int argc, char *argv[])
 //    Networking* client = new Networking(configFile, &app);
 //    // If the connection closes:
 //    QObject::connect(client, &Networking::socketClosed, &app, &QCoreApplication::quit);
-//    qDebug() << "about to request";
 //    client->requestWordList("yoda", 1);
 
     return app.exec();
