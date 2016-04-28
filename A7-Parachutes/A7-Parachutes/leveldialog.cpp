@@ -1,23 +1,21 @@
 #include "leveldialog.h"
 #include "ui_leveldialog.h"
 
-levelDialog::levelDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::levelDialog)
+LevelSelectionDialog::LevelSelectionDialog(QWidget *parent) :
+    QDialog(parent), ui(new Ui::LevelSelectionDialog)
 {
     ui->setupUi(this);
-    connect(ui->level1Button, SIGNAL(clicked()), this, SLOT(showGameWindow()));
+
+    connect(ui->level1Button, &QPushButton::clicked, this, &LevelSelectionDialog::showGameWindow);
 
 }
 
-levelDialog::~levelDialog()
+LevelSelectionDialog::~LevelSelectionDialog()
 {
     delete ui;
 }
 
-void levelDialog::showGameWindow() {
-    this->close();
-    game.setFocus();
-    game.show();
-    game.startGame();
+void LevelSelectionDialog::showGameWindow()
+{
+    emit showGameWindowSignal();
 }

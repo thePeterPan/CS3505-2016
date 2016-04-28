@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "windowcontroller.h"
 #include <QApplication>
 
 // 3rd party libraries
@@ -10,8 +11,12 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    MainWindow w;
-    w.show();
+
+    WindowController w;
+    //MainWindow m;
+    //m.show();
+    //w->start();
+
 
     // Get settings from config file:
     QString configFile = ":/A7-Parachutes.ini";

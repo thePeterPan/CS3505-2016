@@ -65,7 +65,7 @@ int Sprite::getY()
  */
 void Sprite::draw(QPainter *painter)
 {
-    painter->drawPixmap(x - (width/2),y - (height/2),*image,currentFrame * width,0,width,height);
+    painter->drawPixmap(x - (width/2),y - (height/2),*image,currentFrame * width, 0, width, height);
     nextFrame();
 }
 

@@ -1,33 +1,39 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
+
 #include <QMainWindow>
-#include <sprite.h>
+#include <QDebug>
 #include <QPainter>
 #include <QTimer>
-#include "gameLogic.h"
-#include "Box2D/Box2D.h"
-#include <QDebug>
 #include <QKeyEvent>
 #include <QMediaPlayer>
+#include <QMessageBox>
+#include <QKeyEvent>
+
+#include "Box2D/Box2D.h"
+
+#include "gamelogic.h"
+#include "sprite.h"
 
 namespace Ui {
-class gameWindow;
+class GameWindow;
 }
 
-class gameWindow : public QMainWindow
+class GameWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit gameWindow(QWidget *parent = 0);
+    explicit GameWindow(QWidget *parent = 0);
     void keyPressEvent(QKeyEvent* e);
+
     void startGame();
-    ~gameWindow();
+    ~GameWindow();
 
 private:
-    Ui::gameWindow *ui;
+    Ui::GameWindow *ui;
 
-    gameLogic* game;
+    GameLogic* game;
 
     QPixmap pm;
 
@@ -41,16 +47,19 @@ private:
 
     QMediaPlayer* player;
 
+    bool pause;
+
 
 protected:
     void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);
 
 public slots:
-    void receiveNewWord(QString word); //Connected to gameLogic::newWord
-    void receiveNewLevel(int level);//Connected to gameLogic::newLevel
-    void receiveFail();//Connected to gameLogic::failed
-    void receiveVictory();//Connected to gameLogic::victory
+
+    void receiveNewWord(QString word);  // Connected to gameLogic::newWord
+    void receiveNewLevel(int level);    // Connected to gameLogic::newLevel
+    void receiveFail();                 // Connected to gameLogic::failed
+    void receiveVictory();              // Connected to gameLogic::victory
     void actionTimerUpdated(QString message);
     void scoreUpdated(QString score);
 
@@ -63,10 +72,12 @@ signals:
     void pauseGame();
     void unPauseGame();
     void showLevelDial();
+    //void restart();
 private slots:
     void on_actionPause_triggered();
     void on_actionStart_triggered();
     void on_gameOver_triggered();
+    void pauseSwitch();
 };
 
 #endif // GAMEWINDOW_H
