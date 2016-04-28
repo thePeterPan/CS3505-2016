@@ -1,12 +1,8 @@
 #include "leveldialog.h"
 #include "ui_leveldialog.h"
 
-<<<<<<< HEAD
-LevelSelectionDialog::LevelSelectionDialog(Networking *client, QWidget *parent) : client(client),
-=======
 
 LevelSelectionDialog::LevelSelectionDialog(QWidget *parent) :
->>>>>>> refs/remotes/origin/neverland-dev
     QDialog(parent), ui(new Ui::LevelSelectionDialog)
 {
     ui->setupUi(this);
