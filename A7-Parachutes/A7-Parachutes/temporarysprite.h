@@ -16,16 +16,21 @@ class TemporarySprite
 public:
     TemporarySprite();
     TemporarySprite(b2Body * body, QString letter, int width);
-    void draw(QPainter * painter, int xScale, int yScale, int height);
+    void draw(QPainter * painter);
     QString getLetter();
     b2Body * getBody();
+    void update(int xScale, int yScale, int height);
+    void resize(int sizeScale);
 
 private:
     b2Body * body;
     QString letter;
-    int width,scale;
+    int width,scale,x,y;
     QPixmap * image;
+    QPixmap * image2;
     QFont font;
+    QTransform transform;
+    float size;
 
 };
 

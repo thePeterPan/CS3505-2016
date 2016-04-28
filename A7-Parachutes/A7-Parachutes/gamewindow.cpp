@@ -14,8 +14,8 @@ GameWindow::GameWindow(QWidget *parent) :
     //game->testSignals();
     pm.load(":/images/nightBackground.jpg");
     int width = this->width();
-    int height = this->height();
-    pm = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
+    int height = this->height() - ui->toolBar->height();
+    background = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
 
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()), this, SLOT(update()));
@@ -51,31 +51,30 @@ void GameWindow::connectSignalsAndSlots()
     connect(this->game, &GameLogic::updateActionTimer,  this,       &GameWindow::actionTimerUpdated);
     connect(this->game, &GameLogic::updateScore,        this,       &GameWindow::scoreUpdated);
     connect(this,       &GameWindow::letterTyped,       this->game, &GameLogic::newLetterTyped);
-    connect(this,       &GameWindow::newHeight,         this->game, &GameLogic::changeHeight);
-    connect(this,       &GameWindow::newWidth,          this->game, &GameLogic::changeWidth);
+    connect(this,       &GameWindow::newSize,           this->game, &GameLogic::changeSize);
     connect(this,       &GameWindow::readyToPlay,       this->game, &GameLogic::startGame);
-     connect(this,       &GameWindow::pauseGame,         this->game, &GameLogic::pause);
-     connect(this,       &GameWindow::pauseGame,         this,  &GameWindow::pauseSwitch);
+    connect(this,       &GameWindow::pauseGame,         this->game, &GameLogic::pause);
+    connect(this,       &GameWindow::pauseGame,         this,       &GameWindow::pauseSwitch);
     connect(this,       &GameWindow::unPauseGame,       this->game, &GameLogic::unPause);
-    connect(this,       &GameWindow::unPauseGame,       this,  &GameWindow::pauseSwitch);
+    connect(this,       &GameWindow::unPauseGame,       this,       &GameWindow::pauseSwitch);
     connect(this->game, &GameLogic::gameOver,           this,       &GameWindow::on_gameOver_triggered);
 }
 
 void GameWindow::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    painter.drawPixmap(0, 0, pm);
+    painter.drawPixmap(0, ui->toolBar->height(), background);
     game->paintWorld(&painter);
 }
 
 void GameWindow::keyPressEvent(QKeyEvent *e)
 {
     if(!pause){
-    QChar letter = e->text()[0].toUpper();
-    if (letter >= 'A' && letter <= 'Z')
-    {
-        emit letterTyped(letter);
-    }
+        QChar letter = e->text()[0].toUpper();
+        if (letter >= 'A' && letter <= 'Z')
+        {
+            emit letterTyped(letter);
+        }
     }
 }
 
@@ -102,12 +101,11 @@ void GameWindow::receiveVictory()
 
 void GameWindow::resizeEvent(QResizeEvent *)
 {
-    emit newHeight( ui->centralwidget->height());
-    emit newWidth( ui->centralwidget->width());
     int width = this->width();
-    int height = this->height();
-    pm = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
-
+    int height = this->height() - ui->toolBar->height();
+    emit newSize( width, height);
+    this->update();
+    background = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
 }
 
 void GameWindow::actionTimerUpdated(QString message)
@@ -141,10 +139,6 @@ void GameWindow::on_gameOver_triggered()
     QMessageBox msgBox;
     msgBox.setText("Game over! You Lose!");
     msgBox.exec();
-    //show the level dialog
-    //leveldial.show();
-    //this is just to freeze the screen
-    //emit unPauseGame();
     emit showLevelDial();
 }
 

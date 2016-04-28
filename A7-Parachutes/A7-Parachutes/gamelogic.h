@@ -48,12 +48,14 @@ private:
     int currentLevel;
     int timerSeconds;
     int timerFactor = 5;
-    QTimer* timer;
+    QTimer* timer, * worldUpdater;
     int score;
     int missTypePenalty = 50;
     int completeWordReward = 100; //This Score bonus is multiplied by seconds left on the timer
 
     bool readyToPlay = false;
+
+    int updateSpeed = 30;
 
 signals:
     void newWord(QString word);
@@ -67,9 +69,9 @@ signals:
 
 public slots:
     void newLetterTyped(QChar letter);
-    void changeHeight(int);
-    void changeWidth(int);
+    void changeSize(int newWidth, int newHeight);
     void updateTimer();
+    void updateWorld();
     void startNewTimer();
     void startGame();
     void pause();

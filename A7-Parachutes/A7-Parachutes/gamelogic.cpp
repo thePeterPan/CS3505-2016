@@ -4,7 +4,9 @@ GameLogic::GameLogic(QObject *parent, int windowWidth, int windowHeight, float s
     QObject(parent), windowWidth(windowWidth), windowHeight(windowHeight), SCALE(scale)
 {
     timer = new QTimer();
+    worldUpdater = new QTimer();
     connect(timer, SIGNAL(timeout()),this,SLOT(updateTimer()));
+    connect(worldUpdater,SIGNAL(timeout()),this,SLOT(updateWorld()));
     sprites = QList<TemporarySprite>();
     setUpBox2D();
     SCALE = 100.0f;
@@ -15,6 +17,8 @@ GameLogic::GameLogic(QObject *parent, int windowWidth, int windowHeight, float s
 GameLogic::~GameLogic()
 {
     delete World;
+    delete timer;
+    delete worldUpdater;
 }
 
 void GameLogic::setUpBox2D()
@@ -258,26 +262,29 @@ void GameLogic::testSignals()
 
 void GameLogic::paintWorld(QPainter *painter)
 {
-    World->Step(1.0f/60.0f, 8, 3);
+    //QTimer::singleShot(1,this,SLOT(updateWorld()));
 
     for(int i = 0; i < sprites.length(); i++)
     {
         (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::cyan);
 
-        sprites[i].draw(painter, xScale, yScale, windowHeight2);
+        sprites[i].draw(painter);
     }
 }
-void GameLogic::changeHeight(int newHeight)
+
+void GameLogic::changeSize(int newWidth, int newHeight)
 {
     windowHeight2 = newHeight;
     yScale = 100 * windowHeight2 / windowHeight;
+    xScale = 100 * newWidth / windowWidth;
+
+    for(int i = 0; i < sprites.length(); i++)
+    {
+        sprites[i].resize((yScale + xScale)/2);
+    }
+
 }
 
-void GameLogic::changeWidth(int newWidth)
-{
-    xScale = 100 * newWidth / windowWidth;
-    //windowWidth = newWidth; // Not needed - physics world is scaled anyways.
-}
 
 void GameLogic::startGame(){
     readyToPlay = true;
@@ -285,6 +292,7 @@ void GameLogic::startGame(){
     scoreChanged(score);
     getWordsFromDatabase(currentLevel);
     startNewTimer();
+    this->worldUpdater->start(updateSpeed);
 }
 
 void GameLogic::startNewTimer()
@@ -317,6 +325,15 @@ void GameLogic::updateTimer()
     qDebug() << "updating timer";
 }
 
+void GameLogic::updateWorld()
+{
+    World->Step(1.0f/60.0f, 8, 3);
+    for(int i = 0; i < sprites.length(); i++)
+    {
+        sprites[i].update(xScale, yScale, windowHeight2);
+    }
+}
+
 void GameLogic::scoreChanged(int score)
 {
     emit updateScore(QString("Score: ").append(QString::number(score)));
@@ -332,11 +349,13 @@ void gameLogic::gameOver()
 void GameLogic::pause()
 {
     this->timer->stop();
+    this->worldUpdater->stop();
     qDebug() << "Pause!";
 }
 
 void GameLogic::unPause()
 {
     this->timer->start(1000);
+    this->worldUpdater->start(updateSpeed);
     qDebug() << "Go again!";
 }
