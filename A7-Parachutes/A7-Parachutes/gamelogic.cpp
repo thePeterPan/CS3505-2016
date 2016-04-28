@@ -7,7 +7,8 @@ GameLogic::GameLogic(QObject *parent, int windowWidth, int windowHeight, float s
     connect(timer, SIGNAL(timeout()),this,SLOT(updateTimer()));
     sprites = QList<TemporarySprite>();
 
-    for(int i = 0; i < 20; i++) //assuming that there will never be more than 20 letters in a word.
+    //assuming that there will never be more than 20 letters in a word.
+    for(int i = 0; i < 20; i++)
     {
         sprites.append(TemporarySprite());
     }
@@ -16,6 +17,7 @@ GameLogic::GameLogic(QObject *parent, int windowWidth, int windowHeight, float s
     xScale,yScale = SCALE;
     currentLevel = 1;
     previousWord = "";
+    fromFile = false;
 }
 
 GameLogic::~GameLogic()
@@ -23,6 +25,125 @@ GameLogic::~GameLogic()
     delete World;
     delete timer;
 }
+
+// ===== Public Methods ===== //
+
+
+int GameLogic::getCurrentLevel()
+{
+    return currentLevel;
+}
+
+void GameLogic::getWordsFromDatabase(int level)
+{
+    words.clear();
+
+    if(!fromFile)
+    {
+
+        //test data
+        if(level == 1)
+        {
+            words.append("parachuting");
+            words.append("rainbow");
+            words.append("cloudy");
+            words.append("raindrop");
+            words.append("parachute");
+            words.append("snowflake");
+            words.append("fantastic");
+            words.append("airplane");
+            words.append("sunlight");
+            words.append("bumblebee");
+            words.append("butterfly");
+        }
+        else if(level == 2)
+        {
+            words.append("flower");
+            words.append("cucumber");
+            words.append("tomato");
+            words.append("icecream");
+            words.append("pumpernickle");
+            words.append("sesameseed");
+            words.append("wind");
+            words.append("sky");
+            words.append("downpour");
+            words.append("inkpot");
+        }
+        else if(level == 3)
+        {
+            words.append("feather");
+            words.append("falcon");
+            words.append("nest");
+            words.append("caterpillar");
+            words.append("frolic");
+            words.append("dandelion");
+            words.append("hyper");
+            words.append("cartwheel");
+            words.append("somersault");
+            words.append("foursquare");
+            words.append("blissful");
+            words.append("delicious");
+        }
+    }
+    else
+    {
+        int numWords = wordsList.size();
+        int start = (level - 1) * 10;
+        if(start >= numWords)
+        {
+            timer->stop();
+            emit levelCompleted(currentLevel - 1, score);
+            return;
+        }
+        int end = ((start + 10) > numWords) ? numWords : start + 10;
+        for(int i = start; i < end; i++)
+        {
+            words.append(wordsList[i]);
+        }
+        //wordsList.clear();
+    }
+
+    if(words.size()>0){
+        currentWord = words.first();
+        currentWordIndex = 0;
+        words.removeFirst();
+        qDebug() << currentWord;
+
+        addWordToWorld();
+    }
+    else
+    {
+        timer->stop();
+        emit levelCompleted(currentLevel - 1, score);
+        return;
+    }
+
+    /*
+     *
+     * Have a signal that tells this that it is loading from file.
+     * Have file set up so that each level is divided (or 15 words, whatever is first)
+     * Here, it either uses the test words, words from file, or, hopefully, words from a db
+     *
+     * */
+}
+
+void GameLogic::paintWorld(QPainter *painter)
+{
+    World->Step(1.0f/60.0f, 8, 3);
+
+    for(int i = 0; i < currentWord.length(); i++)
+    {
+        (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::cyan);
+
+        sprites[i].draw(painter, xScale, yScale, windowHeight2);
+    }
+}
+
+// ===== Private Methods ===== //
+
+
+// ---------- BOX2D ---------- //
+
 
 void GameLogic::setUpBox2D()
 {
@@ -39,23 +160,6 @@ void GameLogic::setUpBox2D()
     createRoughGround();
 }
 
-void GameLogic::addWordToWorld()
-{
-    for(int i = 0; i < previousWord.length(); i++)
-    {
-        World->DestroyBody(sprites[i].getBody());
-    }
-    previousWord = currentWord;
-    float itemWidth = 80.0f;
-    int spacing = windowWidth / currentWord.length();
-    for(int i = 0; i < currentWord.length(); i++)
-    {
-        sprites[i].setBody(CreateBox(""+currentWord[i],i*spacing, windowHeight-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f));
-        sprites[i].setLetter(""+currentWord[i]);
-    }
-    if(readyToPlay)
-        startNewTimer();
-}
 
 /**
  * @brief gameLogic::CreateGround
@@ -74,11 +178,6 @@ void GameLogic::CreateGround(float x, float y, float width, float height)
     b2PolygonShape groundBox;
     groundBox.SetAsBox((width/2.0f)/SCALE, (height/2.0f)/SCALE); // Creates a box shape. Divide your desired width and height by 2.
     ground->CreateFixture(&groundBox,10.0f); // Apply the fixture definition
-}
-
-int GameLogic::getCurrentLevel()
-{
-    return currentLevel;
 }
 
 /**
@@ -104,6 +203,28 @@ void GameLogic::createRoughGround()
         fixtureDef.restitution = 1.0f;
         box->CreateFixture(&fixtureDef);
     }
+}
+
+// ---------- Sprites ---------- //
+
+
+void GameLogic::addWordToWorld()
+{
+    for(int i = 0; i < previousWord.length(); i++)
+    {
+        World->DestroyBody(sprites[i].getBody());
+    }
+    previousWord = currentWord;
+
+    float itemWidth = 80.0f;
+    int spacing = windowWidth / currentWord.length();
+    for(int i = 0; i < currentWord.length(); i++)
+    {
+        sprites[i].setBody(CreateBox(""+currentWord[i],i*spacing, windowHeight-itemWidth/2 + (rand() % 30),itemWidth,itemWidth, 0.1f,1.0f));
+        sprites[i].setLetter(""+currentWord[i]);
+    }
+    if(readyToPlay)
+        startNewTimer();
 }
 
 /**
@@ -138,73 +259,59 @@ b2Body * GameLogic::CreateBox(QString letter, float x, float y, float width, flo
     return box;
 }
 
-b2World* GameLogic::getWorld()
+// ---------- Game Play ---------- //
+
+void GameLogic::scoreChanged(int score)
 {
-    return World;
+    emit updateScore(QString("Score: ").append(QString::number(score)));
 }
 
-void GameLogic::getWordsFromDatabase(int level)
+void GameLogic::startNewTimer()
 {
-    words.clear();
-
-    if(wordsList.isEmpty()){
-
-    //test data
-    if(level == 1)
-    {
-        words.append("parachuting");
-        words.append("rainbow");
-        /*words.append("cloudy");
-        words.append("raindrop");
-        words.append("parachute");
-        words.append("snowflake");
-        words.append("fantastic");
-        words.append("airplane");
-        words.append("sunlight");
-        words.append("bumblebee");
-        words.append("butterfly");*/
-    }
-    else if(level == 2)
-    {
-        words.append("flower");
-        /*words.append("cucumber");
-        words.append("tomato");
-        words.append("icecream");
-        words.append("pumpernickle");
-        words.append("sesameseed");
-        words.append("wind");
-        words.append("sky");
-        words.append("downpour");
-        words.append("inkpot");*/
-    }
-    else if(level == 3)
-    {
-        words.append("feather");
-        /*words.append("falcon");
-        words.append("nest");
-        words.append("caterpillar");
-        words.append("frolic");
-        words.append("dandelion");
-        words.append("hyper");
-        words.append("cartwheel");
-        words.append("somersault");
-        words.append("foursquare");
-        words.append("blissful");
-        words.append("delicious");*/
-    }
-    }else{
-
-        foreach(QString s, wordsList){
-            words.append(s);
-        }
-
-    }
-    currentWord = words.first();
-    currentWordIndex = 0;
-    words.removeFirst();
-    qDebug() << currentWord;
-    addWordToWorld();
+    qDebug() << "starting timer";
+    timerSeconds = timerFactor - currentLevel;
+    timerSeconds = (timerSeconds > 3) ? timerSeconds : 3;
+    QString timerText = "Time:";
+    if(timerSeconds < 10)
+        timerText.append("0");
+    timerText.append(QString::number(timerSeconds));
+    emit updateActionTimer(timerText);
+    timer->start(1000);
 }
+
+
+// ===== SLOTS ===== //
+
+// ---------- Start, Pause, Play ---------- //
+
+void GameLogic::startGame()
+{
+    currentLevel = 1; //Start at level 1, unless other level specified somewhere.
+
+    readyToPlay = true;
+
+    // Give them some starting points, else they lose if they type
+    // something wrong at the very beginning.
+    score = 100;
+    scoreChanged(score);
+
+    getWordsFromDatabase(currentLevel);
+    startNewTimer();
+}
+
+void GameLogic::pause()
+{
+    this->timer->stop();
+    qDebug() << "Pause!";
+}
+
+void GameLogic::unPause()
+{
+    this->timer->start(1000);
+    qDebug() << "Go again!";
+}
+
+// --------- Keyboard Input ---------- //
 
 void GameLogic::newLetterTyped(QChar letter)
 {
@@ -243,7 +350,7 @@ void GameLogic::newLetterTyped(QChar letter)
         }
         else
         {
-            emit gameOver();
+            emit gameOver(currentLevel - 1,score);
         }
         emit failed();
     }
@@ -262,53 +369,7 @@ void GameLogic::newLetterTyped(QChar letter)
     //      Word isn't over, do nothing and wait for next letter typed
 }
 
-void GameLogic::testSignals()
-{
-    qDebug() << "emitting signals";
-    emit newWord("tanner");
-    emit newLevel(1);
-    emit failed();
-    emit victory();
-}
-
-void GameLogic::paintWorld(QPainter *painter)
-{
-    World->Step(1.0f/60.0f, 8, 3);
-
-    for(int i = 0; i < currentWord.length(); i++)
-    {
-        (currentWordIndex > i) ? painter->setPen(Qt::red) : painter->setPen(Qt::cyan);
-
-        sprites[i].draw(painter, xScale, yScale, windowHeight2);
-    }
-}
-
-void GameLogic::changeSize(int newWidth, int newHeight)
-{
-    windowHeight2 = newHeight;
-    yScale = 100 * windowHeight2 / windowHeight;
-    xScale = 100 * newWidth / windowWidth;
-}
-
-void GameLogic::startGame(){
-    readyToPlay = true;
-    score = 0;
-    scoreChanged(score);
-    getWordsFromDatabase(currentLevel);
-    startNewTimer();
-}
-
-void GameLogic::startNewTimer()
-{
-    qDebug() << "starting timer";
-    timerSeconds = currentLevel * timerFactor;
-    QString timerText = "Time:";
-    if(timerSeconds < 10)
-        timerText.append("0");
-    timerText.append(QString::number(timerSeconds));
-    emit updateActionTimer(timerText);
-    timer->start(1000);
-}
+// ---------- Timer ---------- //
 
 void GameLogic::updateTimer()
 {
@@ -322,16 +383,14 @@ void GameLogic::updateTimer()
     {
         timer->stop();
         emit failed();
-        emit gameOver();
+        emit gameOver(currentLevel - 1, score);
         qDebug() << "time's up!";
     }
     qDebug() << "updating timer";
 }
 
-void GameLogic::scoreChanged(int score)
-{
-    emit updateScore(QString("Score: ").append(QString::number(score)));
-}
+// ----------   ---------- //
+
 
 /*
 void gameLogic::gameOver()
@@ -340,20 +399,17 @@ void gameLogic::gameOver()
 
 }
 */
-void GameLogic::pause()
+
+
+void GameLogic::addWordsFromFile(QStringList list)
 {
-    this->timer->stop();
-    qDebug() << "Pause!";
-}
-
-void GameLogic::unPause()
-{
-    this->timer->start(1000);
-    qDebug() << "Go again!";
-}
-
-void GameLogic::addWordsFromFile(QStringList list){
-
     wordsList = list;
+    fromFile = true;
+}
 
+void GameLogic::changeSize(int newWidth, int newHeight)
+{
+    windowHeight2 = newHeight;
+    yScale = 100 * windowHeight2 / windowHeight;
+    xScale = 100 * newWidth / windowWidth;
 }

@@ -1,9 +1,6 @@
 #include "leveldialog.h"
 #include "ui_leveldialog.h"
-#include <QFile>
-#include <QStringList>
-#include <QTextStream>
-#include <QDebug>
+
 
 LevelSelectionDialog::LevelSelectionDialog(QWidget *parent) :
     QDialog(parent), ui(new Ui::LevelSelectionDialog)
@@ -38,7 +35,7 @@ void LevelSelectionDialog::openFile() {
      QString content = ifile.readAll();
 
      // extract words
-     QStringList list = content.split("\n");
+     QStringList list = content.split("\n",QString::SkipEmptyParts);
 
      foreach(QString s, list){
 
