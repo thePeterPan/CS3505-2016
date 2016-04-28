@@ -2,10 +2,17 @@
 #define LEVELDIALOG_H
 
 #include <QDialog>
-
+#include <QFileDialog>
 #include "gamewindow.h"
 #include "temporarysprite.h"
+<<<<<<< HEAD
 #include "networking.h"
+=======
+#include <QFile>
+#include <QStringList>
+#include <QTextStream>
+#include <QDebug>
+>>>>>>> refs/remotes/origin/neverland-dev
 
 namespace Ui {
 class LevelSelectionDialog;
@@ -23,11 +30,14 @@ private:
     Ui::LevelSelectionDialog *ui;
     Networking* client;
 
+
 signals:
     void showGameWindowSignal();
+    void addWordsFromFile(QStringList);
 
 private slots:
     void showGameWindow();
+    void openFile();
 };
 
 #endif // LEVELDIALOG_H

@@ -30,7 +30,14 @@ int main(int argc, char *argv[])
 
     // Turns out putting this in a method was deleting the client object when the method returned,
     // therefore creating a pointer for it is better.
+<<<<<<< HEAD
 
+=======
+//    Networking* client = new Networking(configFile, &app);
+//    // If the connection closes:
+//    QObject::connect(client, &Networking::socketClosed, &app, &QCoreApplication::quit);
+//    client->requestWordList("yoda", 1);
+>>>>>>> refs/remotes/origin/neverland-dev
 
     return app.exec();
 }

@@ -8,7 +8,6 @@
 #include <QKeyEvent>
 #include <QMediaPlayer>
 #include <QMessageBox>
-#include <QKeyEvent>
 
 #include "Box2D/Box2D.h"
 
@@ -25,62 +24,66 @@ class GameWindow : public QMainWindow
     Q_OBJECT
 
 public:
+<<<<<<< HEAD
     explicit GameWindow(Networking *client, QWidget *parent = 0);
     void keyPressEvent(QKeyEvent* e);
+=======
+    explicit GameWindow(QWidget *parent = 0);
+    ~GameWindow();
+>>>>>>> refs/remotes/origin/neverland-dev
 
     void startGame();
-    ~GameWindow();
 
 private:
-    Ui::GameWindow *ui;
+    Ui::GameWindow * ui;
+    GameLogic * game;
 
-    GameLogic* game;
-
-    QPixmap pm;
-
+    QPixmap pm,background;
     int scale;
 
-    void connectSignalsAndSlots();
-
-    void setListWidget(QString word);
-
     QTimer * timer;
-
-    QMediaPlayer* player;
+    QMediaPlayer * player;
 
     bool pause;
 
+<<<<<<< HEAD
     Networking* client;
 
+=======
+    void connectSignalsAndSlots();
+>>>>>>> refs/remotes/origin/neverland-dev
 
 protected:
     void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);
+    void keyPressEvent(QKeyEvent* e);
 
 public slots:
-
-    void receiveNewWord(QString word);  // Connected to gameLogic::newWord
-    void receiveNewLevel(int level);    // Connected to gameLogic::newLevel
-    void receiveFail();                 // Connected to gameLogic::failed
-    void receiveVictory();              // Connected to gameLogic::victory
-    void actionTimerUpdated(QString message);
-    void scoreUpdated(QString score);
+    void receiveNewWord(QString word);      // Connected to GameLogic::newWord
+    void receiveNewLevel(int level);        // Connected to GameLogic::newLevel
+    void receiveFail();                     // Connected to GameLogic::failed
+    void receiveVictory();                  // Connected to GameLogic::victory
+    void actionTimerUpdated(QString message);   // Signal from GameLogic::updateActionTimer
+    void scoreUpdated(QString score);           // Signal from GameLogic::updateScore
+    void catchAddWordsFromLevel(QStringList);   // Signal from LevelSelectionDialog::addWordsFromFile
 
 signals:
-    void letterTyped(QChar letter);
-    void newHeight(int);
-    void newWidth(int);
-    void readyToPlay();
-
-    void pauseGame();
-    void unPauseGame();
-    void showLevelDial();
+    void letterTyped(QChar letter);             // Connected to GameLogic::newLetterTyped
+    void newSize(int newWidth,int newHeight);   // Connected to GameLogic::changeSize
+    void readyToPlay();                         // Connected to GameLogic::startGame
+    void pauseGame();                           // Connected to GameLogic::pause
+    void unPauseGame();                         // Connected to GameLogic::unPause and GameWindow::pauseSwitch
+    void showLevelDial();                       // Connected to WindowController::gameOverReceived
+    void addWordsFromFile(QStringList);         // Connected to GameLogic::addWordsFromFile
     //void restart();
+
 private slots:
-    void on_actionPause_triggered();
-    void on_actionStart_triggered();
-    void on_gameOver_triggered();
-    void pauseSwitch();
+    void on_actionPause_triggered();        // Signal from pause button
+    void on_actionStart_triggered();        // Signal from start button
+    void gameOver(int level, int score); // Signal from GameLogic::gameOver
+    void levelCompleted(int level, int score);
+    void pauseSwitch();                     // Signal from GameWindow::pauseGame
+
 };
 
 #endif // GAMEWINDOW_H
