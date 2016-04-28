@@ -13,6 +13,7 @@
 
 #include "gamelogic.h"
 #include "sprite.h"
+#include "networking.h"
 
 namespace Ui {
 class GameWindow;
@@ -23,8 +24,13 @@ class GameWindow : public QMainWindow
     Q_OBJECT
 
 public:
+<<<<<<< HEAD
+    explicit GameWindow(Networking *client, QWidget *parent = 0);
+    void keyPressEvent(QKeyEvent* e);
+=======
     explicit GameWindow(QWidget *parent = 0);
     ~GameWindow();
+>>>>>>> refs/remotes/origin/neverland-dev
 
     void startGame();
 
@@ -40,7 +46,12 @@ private:
 
     bool pause;
 
+<<<<<<< HEAD
+    Networking* client;
+
+=======
     void connectSignalsAndSlots();
+>>>>>>> refs/remotes/origin/neverland-dev
 
 protected:
     void paintEvent(QPaintEvent *);

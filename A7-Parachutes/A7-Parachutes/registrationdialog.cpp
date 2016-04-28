@@ -1,7 +1,7 @@
 #include "registrationdialog.h"
 #include "ui_registrationDialog.h"
 
-RegistrationDialog::RegistrationDialog(QWidget *parent) :
+RegistrationDialog::RegistrationDialog(Networking *client, QWidget *parent) : client(client),
     QDialog(parent), ui(new Ui::RegistrationDialog)
 {
     ui->setupUi(this);
