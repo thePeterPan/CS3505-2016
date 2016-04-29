@@ -25,9 +25,6 @@ public:
     // Other methods
     void getWordsFromDatabase(int level); // Does this need to be public?
 
-    //
-    void paintWorld(QPainter * painter);
-
 private:
 
     // Box2D //
@@ -92,6 +89,8 @@ public slots:
     void updateTimer();                 // Called by this->timer timeout()
     void addWordsFromFile(QStringList); // GameWindow::addWordsFromFile
     void changeSize(int newWidth, int newHeight); // GameWindow::newSize
+    void paintWorld(QPainter * painter);
+
 
     //void restart();
 

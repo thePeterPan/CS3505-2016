@@ -11,7 +11,6 @@
 
 #include "Box2D/Box2D.h"
 
-#include "gamelogic.h"
 #include "sprite.h"
 #include "networking.h"
 
@@ -32,7 +31,6 @@ public:
 
 private:
     Ui::GameWindow * ui;
-    GameLogic *game;
 
     QPixmap pm,background;
     int scale;
@@ -60,6 +58,10 @@ public slots:
     void catchAddWordsFromLevel(QStringList);   // Signal from LevelSelectionDialog::addWordsFromFile
     void receivedWordList(QList<QString> list);
 
+    void gameOver(int level, int score); // Signal from GameLogic::gameOver
+    void levelCompleted(int level, int score);
+    void pauseSwitch();
+
 
 signals:
     void letterTyped(QChar letter);             // Connected to GameLogic::newLetterTyped
@@ -71,12 +73,11 @@ signals:
     void addWordsFromFile(QStringList);         // Connected to GameLogic::addWordsFromFile
     //void restart();
 
+    void paintWorld(QPainter * painter);
+
 private slots:
     void on_actionPause_triggered();        // Signal from pause button
-    void on_actionStart_triggered();        // Signal from start button
-    void gameOver(int level, int score); // Signal from GameLogic::gameOver
-    void levelCompleted(int level, int score);
-    void pauseSwitch();                     // Signal from GameWindow::pauseGame
+    void on_actionStart_triggered();        // Signal from start button                   // Signal from GameWindow::pauseGame
 
 };
 
