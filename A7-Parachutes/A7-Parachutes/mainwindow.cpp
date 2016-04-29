@@ -2,8 +2,8 @@
 #include "ui_mainwindow.h"
 #include "Box2D/Box2D.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(Networking *client_, QWidget *parent)
+    : client(client_), QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     pm.load(":/images/backgrond2.jpg");

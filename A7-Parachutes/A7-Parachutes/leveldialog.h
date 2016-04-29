@@ -3,13 +3,14 @@
 
 #include <QDialog>
 #include <QFileDialog>
-#include "gamewindow.h"
-#include "temporarysprite.h"
-#include "networking.h"
 #include <QFile>
 #include <QStringList>
 #include <QTextStream>
 #include <QDebug>
+
+#include "gamewindow.h"
+#include "temporarysprite.h"
+#include "networking.h"
 
 namespace Ui {
 class LevelSelectionDialog;
@@ -20,12 +21,12 @@ class LevelSelectionDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit LevelSelectionDialog(QWidget *parent = 0);
+    explicit LevelSelectionDialog(Networking *client_, QWidget *parent = 0);
     ~LevelSelectionDialog();
 
 private:
     Ui::LevelSelectionDialog *ui;
-
+    Networking* client;
 
 signals:
     void showGameWindowSignal();

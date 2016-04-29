@@ -1,8 +1,8 @@
 #include "registrationdialog.h"
 #include "ui_registrationDialog.h"
 
-RegistrationDialog::RegistrationDialog(QWidget *parent) :
-    QDialog(parent), ui(new Ui::RegistrationDialog)
+RegistrationDialog::RegistrationDialog(Networking *client_, QWidget *parent)
+    : client(client_), QDialog(parent), ui(new Ui::RegistrationDialog)
 {
     ui->setupUi(this);
     ui->teacberNameLabel->setEnabled(false);

@@ -1,13 +1,14 @@
 #include "windowcontroller.h"
 
-WindowController::WindowController(QWidget *parent)
+WindowController::WindowController(Networking *client_, QWidget *parent)
+    : client(client_), game(client_), level(client_), registration(client_), main(client_)
 {
     start();
-    connect(&main, &MainWindow::showRegistrationSignal, this, &WindowController::openRegistrationDialogue);
-    connect(&main, &MainWindow::showLevelDialogSignal, this, &WindowController::openLevelDialogue);
+    connect(&main,  &MainWindow::showRegistrationSignal, this, &WindowController::openRegistrationDialogue);
+    connect(&main,  &MainWindow::showLevelDialogSignal, this, &WindowController::openLevelDialogue);
     connect(&level, &LevelSelectionDialog::showGameWindowSignal, this, &WindowController::openGameWindow);
-    connect(&game, &GameWindow::showLevelDial, this, &WindowController::gameOverReceived);
-    connect(&level,&LevelSelectionDialog::addWordsFromFile,&game,&GameWindow::catchAddWordsFromLevel);
+    connect(&game,  &GameWindow::showLevelDial, this, &WindowController::gameOverReceived);
+    connect(&level, &LevelSelectionDialog::addWordsFromFile,&game,&GameWindow::catchAddWordsFromLevel);
 }
 
 void WindowController::start()
