@@ -10,6 +10,8 @@ WindowController::WindowController(Networking *client_, QWidget *parent)
     connect(&game,  &GameWindow::showLevelDial,                 this, &WindowController::gameOverReceived);
     connect(&level, &LevelSelectionDialog::addWordsFromFile,    &game,&GameWindow::catchAddWordsFromLevel);
     connect(client, &Networking::newList,                       &game,&GameWindow::receivedWordList);
+    connect(&main, &MainWindow::checkLoginDataSignal,           this, &WindowController::checkLoginRequest);
+    connect(this,   &WindowController::loginAnswer,             &main,&MainWindow::loginAnswerReceived);
 }
 
 void WindowController::start()
@@ -40,4 +42,11 @@ void WindowController::gameOverReceived()
 {
     level.show();
     game.close();
+}
+
+void WindowController::checkLoginRequest(QString username, QString password)
+{
+    client->requestLogin(username, password);
+    //here we would emit the login check answer signal so the main window knows what to do.
+    emit loginAnswer(false);
 }

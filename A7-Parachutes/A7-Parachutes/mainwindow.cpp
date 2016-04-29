@@ -33,10 +33,18 @@ bool MainWindow::checkLogin()
         ui->warningLabel->setText("User Name or Password CANNOT BE EMPTY");
         return false;
     }
-    //else{
+    else{
         //check login data from sever.
+        emit checkLoginDataSignal(ui->inputUsername->text(), ui->inputPassword->text());
+        if (loginAnswer)
+            return true;
+        else
+        {
+            ui->warningLabel->setText("Username and/or password is incorrect, please try again");
+            return false;
+        }
+    }
 
-    return true;
 }
 
 
@@ -51,4 +59,9 @@ void MainWindow::paintEvent(QPaintEvent *) {
     int height = this->centralWidget()->height();
     pm = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
     painter.drawPixmap(0,0,pm);
+}
+
+void MainWindow::loginAnswerReceived(bool answer)
+{
+    loginAnswer = answer;
 }

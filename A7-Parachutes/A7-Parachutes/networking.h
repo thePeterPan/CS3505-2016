@@ -28,6 +28,7 @@ public:
     };
 
     void requestWordList(QString teacher, int level);
+    void requestLogin(QString username, QString password);
 
 Q_SIGNALS:
     void socketClosed();
