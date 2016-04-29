@@ -48,17 +48,12 @@ void Networking::requestWordList(QString teacher, int level)
     webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
 }
 
-///
-/// \brief sends a request to the server to check if the login was successful
-/// \param username
-/// \param password
-///
-void Networking::requestLogin(QString username, QString password)
+void Networking::requestNextList(int level)
 {
     QJsonObject requestObject;
-    requestObject["requestType"] = Login;
-    requestObject["username"] = username;
-    requestObject["password"] = password;
+    requestObject["requestType"] = WordList;
+    requestObject["teacher"] = "yoda";
+    requestObject["level"] = level;
 
     QJsonDocument requestDocument(requestObject);
     webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));

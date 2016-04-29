@@ -8,6 +8,7 @@
 #include "registrationdialog.h"
 #include "gamewindow.h"
 #include "networking.h"
+#include "gamelogic.h"
 
 namespace Ui {
 class WindowController;
@@ -27,6 +28,9 @@ private:
     LevelSelectionDialog level;
     RegistrationDialog registration;
     GameWindow game;
+    GameLogic logic;
+
+    void connectSignalsAndSlots();
 
 protected:
 

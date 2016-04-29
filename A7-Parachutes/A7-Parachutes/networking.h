@@ -48,6 +48,9 @@ private:
     void printJsonObject(QJsonObject &json);
     void printJsonArray(QJsonArray &array);
     void testJson(QString message);
+
+public slots:
+    void requestNextList(int level);
 };
 
 #endif // NETWORKING_H

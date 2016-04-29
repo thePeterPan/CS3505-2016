@@ -23,10 +23,7 @@ public:
     int getCurrentLevel();
 
     // Other methods
-    void getWordsFromDatabase(int level); // Does this need to be public?
-
-    //
-    void paintWorld(QPainter * painter);
+    void addWordsToQueue(int level); // Does this need to be public?
 
 private:
 
@@ -56,6 +53,7 @@ private:
     QString previousWord;
     int currentWordIndex;
     QQueue<QString> words; // Used with test words
+    QList<QString> fromDB;
     QStringList wordsList; // Used with word input from file
     bool fromFile;
 
@@ -83,6 +81,7 @@ signals:
     void updateScore(QString score);            // GameWindow::scoreUpdated
     void gameOver(int level, int score);        // GameWindow::on_gameOver_triggered
     void levelCompleted(int level, int score);
+    void requestWordList(int level);
 
 public slots:
     void startGame();                   // GameWindow::readyToPlay
@@ -90,8 +89,12 @@ public slots:
     void unPause();                     // GameWindow::unPauseGame
     void newLetterTyped(QChar letter);  // GameWindow::letterTyped
     void updateTimer();                 // Called by this->timer timeout()
-    void addWordsFromFile(QStringList); // GameWindow::addWordsFromFile
+    void addWordsFromFile(QStringList);
     void changeSize(int newWidth, int newHeight); // GameWindow::newSize
+    void paintWorld(QPainter * painter);
+    void receivedWordList(QList<QString> list);
+
+
 
     //void restart();
 

@@ -14,8 +14,6 @@ int main(int argc, char *argv[])
     // If the connection closes:
     QObject::connect(client, &Networking::socketClosed, &app, &QCoreApplication::quit);
 
-    qDebug() << "About to request";
-    client->requestWordList("yoda", 1);
     WindowController controller(client);
 
     return app.exec();
