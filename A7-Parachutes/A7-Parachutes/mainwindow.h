@@ -6,6 +6,8 @@
 #include "leveldialog.h"
 #include "registrationdialog.h"
 #include "networking.h"
+#include "ui_mainwindow.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -25,14 +27,20 @@ private:
     QPixmap pm;
     void paintEvent(QPaintEvent *);
     Networking *client;
+    bool loginAnswer;
 
 signals:
     void showRegistrationSignal();
     void showLevelDialogSignal();
+    void checkLoginDataSignal(QString, QString);
 
 private slots:
     void showRegistration();
     void showLevelDialog();
+
+public slots:
+    void loginAnswerReceived(bool);
+
 };
 
 #endif // MAINWINDOW_H
