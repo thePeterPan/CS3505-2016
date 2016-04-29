@@ -39,7 +39,7 @@ public slots:
     void openLevelDialogue();
     void openGameWindow();
     void gameOverReceived();
-    void checkLoginRequest(QString, QString);
+
 
 signals:
     void loginAnswer(bool);

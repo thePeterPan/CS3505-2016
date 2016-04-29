@@ -28,7 +28,6 @@ public:
     };
 
     void requestWordList(QString teacher, int level);
-    void requestLogin(QString username, QString password);
 
 Q_SIGNALS:
     void socketClosed();
@@ -51,6 +50,10 @@ private:
 
 public slots:
     void requestNextList(int level);
+    void requestLogin(QString username, QString password);
+
+signals:
+    void loginSuccessSignal(bool);
 };
 
 #endif // NETWORKING_H

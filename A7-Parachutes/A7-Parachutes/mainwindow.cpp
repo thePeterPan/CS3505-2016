@@ -10,6 +10,7 @@ MainWindow::MainWindow(Networking *client_, QWidget *parent)
 
     connect(ui->loginButton, &QPushButton::clicked, this, &MainWindow::showLevelDialog);
     connect(ui->createAccountButton, &QPushButton::clicked, this, &MainWindow::showRegistration);
+
 }
 
 MainWindow::~MainWindow()
@@ -34,8 +35,10 @@ bool MainWindow::checkLogin()
         return false;
     }
     else{
+
         //check login data from sever.
         emit checkLoginDataSignal(ui->inputUsername->text(), ui->inputPassword->text());
+
         if (loginAnswer)
             return true;
         else
@@ -44,7 +47,6 @@ bool MainWindow::checkLogin()
             return false;
         }
     }
-
 }
 
 
