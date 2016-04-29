@@ -41,7 +41,8 @@ void GameWindow::startGame()
 
 void GameWindow::connectSignalsAndSlots()
 {
-
+    connect(this,  &GameWindow::unPauseGame, this,  &GameWindow::pauseSwitch);
+    connect(this,  &GameWindow::pauseGame,   this,  &GameWindow::pauseSwitch);
 
 }
 
@@ -106,11 +107,6 @@ void GameWindow::scoreUpdated(QString score)
     ui->actionScore->setText(score);
 }
 
-void GameWindow::catchAddWordsFromLevel(QStringList list)
-{
-  emit addWordsFromFile(list);
-}
-
 void GameWindow::on_actionPause_triggered()
 {
     if(!pause)
@@ -162,9 +158,3 @@ void GameWindow::pauseSwitch()
 {
     pause = !pause;
 }
-
-void GameWindow::receivedWordList(QList<QString> list)
-{
-    qDebug() << "List received from server: " << list;
-}
-

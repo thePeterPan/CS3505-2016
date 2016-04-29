@@ -55,8 +55,6 @@ public slots:
     void receiveVictory();                  // Connected to GameLogic::victory
     void actionTimerUpdated(QString message);   // Signal from GameLogic::updateActionTimer
     void scoreUpdated(QString score);           // Signal from GameLogic::updateScore
-    void catchAddWordsFromLevel(QStringList);   // Signal from LevelSelectionDialog::addWordsFromFile
-    void receivedWordList(QList<QString> list);
 
     void gameOver(int level, int score); // Signal from GameLogic::gameOver
     void levelCompleted(int level, int score);
