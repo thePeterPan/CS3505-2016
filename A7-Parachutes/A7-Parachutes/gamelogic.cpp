@@ -34,14 +34,14 @@ int GameLogic::getCurrentLevel()
     return currentLevel;
 }
 
-void GameLogic::getWordsFromDatabase(int level)
+void GameLogic::addWordsToQueue(int level)
 {
     words.clear();
 
     if(!fromFile)
     {
-
-
+        words.append(fromDB);
+        /*
         //test data
         if(level == 1)
         {
@@ -85,7 +85,7 @@ void GameLogic::getWordsFromDatabase(int level)
             words.append("blissful");
             words.append("delicious");
         }
-
+        */
     }
     else
     {
@@ -295,7 +295,11 @@ void GameLogic::startGame()
     score = 100;
     scoreChanged(score);
 
-    getWordsFromDatabase(currentLevel);
+    if(!fromFile)
+    {
+        emit requestWordList(currentLevel);
+    }
+    addWordsToQueue(currentLevel);
     startNewTimer();
 }
 
@@ -324,7 +328,7 @@ void GameLogic::newLetterTyped(QChar letter)
             scoreChanged(score);
             if(words.isEmpty())
             {
-                getWordsFromDatabase(++currentLevel);
+                addWordsToQueue(++currentLevel);
                 emit newLevel(currentLevel);
             }
             else
@@ -335,6 +339,11 @@ void GameLogic::newLetterTyped(QChar letter)
                 qDebug() << "new word: " << currentWord;
                 addWordToWorld();
 
+            }
+            // If there is one word left, ask the DB for another list //
+            if(words.size() == 1)
+            {
+                emit requestWordList(currentLevel);
             }
         }
         else
@@ -367,6 +376,7 @@ void GameLogic::newLetterTyped(QChar letter)
     //          you won, game over.
     // Otherwise,
     //      Word isn't over, do nothing and wait for next letter typed
+
 }
 
 // ---------- Timer ---------- //
@@ -404,3 +414,12 @@ void GameLogic::changeSize(int newWidth, int newHeight)
     yScale = 100 * windowHeight2 / windowHeight;
     xScale = 100 * newWidth / windowWidth;
 }
+
+
+void GameLogic::receivedWordList(QList<QString> list)
+{
+    qDebug() << "List received from server: " << list;
+    fromDB = list;
+}
+
+

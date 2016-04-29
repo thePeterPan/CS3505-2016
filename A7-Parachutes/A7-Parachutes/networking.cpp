@@ -48,6 +48,17 @@ void Networking::requestWordList(QString teacher, int level)
     webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
 }
 
+void Networking::requestNextList(int level)
+{
+    QJsonObject requestObject;
+    requestObject["requestType"] = WordList;
+    requestObject["teacher"] = "yoda";
+    requestObject["level"] = level;
+
+    QJsonDocument requestDocument(requestObject);
+    webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
+}
+
 /////////////////////////////////
 ///////////// SLOTS /////////////
 /////////////////////////////////

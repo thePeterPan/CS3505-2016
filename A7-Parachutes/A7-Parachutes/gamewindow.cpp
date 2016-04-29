@@ -8,7 +8,6 @@ GameWindow::GameWindow(Networking *client_, QWidget *parent)
     pause = false;
     scale = 100;
 
-    game = new GameLogic(this,this->width(),this->height());
     connectSignalsAndSlots();
 
     pm.load(":/images/nightBackground.jpg");
@@ -30,7 +29,6 @@ GameWindow::~GameWindow()
 {
     delete ui;
     delete timer;
-    delete game;
     delete player;
 }
 
@@ -43,22 +41,8 @@ void GameWindow::startGame()
 
 void GameWindow::connectSignalsAndSlots()
 {
-    connect(this->game, &GameLogic::newWord,            this,       &GameWindow::receiveNewWord);
-    connect(this->game, &GameLogic::newLevel,           this,       &GameWindow::receiveNewLevel);
-    connect(this->game, &GameLogic::failed,             this,       &GameWindow::receiveFail);
-    connect(this->game, &GameLogic::victory,            this,       &GameWindow::receiveVictory);
-    connect(this->game, &GameLogic::updateActionTimer,  this,       &GameWindow::actionTimerUpdated);
-    connect(this->game, &GameLogic::updateScore,        this,       &GameWindow::scoreUpdated);
-    connect(this,       &GameWindow::letterTyped,       this->game, &GameLogic::newLetterTyped);
-    connect(this,       &GameWindow::newSize,           this->game, &GameLogic::changeSize);
-    connect(this,       &GameWindow::readyToPlay,       this->game, &GameLogic::startGame);
-    connect(this,       &GameWindow::pauseGame,         this->game, &GameLogic::pause);
-    connect(this,       &GameWindow::pauseGame,         this,       &GameWindow::pauseSwitch);
-    connect(this,       &GameWindow::unPauseGame,       this->game, &GameLogic::unPause);
-    connect(this,       &GameWindow::unPauseGame,       this,       &GameWindow::pauseSwitch);
-    connect(this->game, &GameLogic::gameOver,           this,       &GameWindow::gameOver);
-    connect(this,       &GameWindow::addWordsFromFile,  this->game, &GameLogic::addWordsFromFile);
-    connect(this->game, &GameLogic::levelCompleted,     this,       &GameWindow::levelCompleted);
+    connect(this,  &GameWindow::unPauseGame, this,  &GameWindow::pauseSwitch);
+    connect(this,  &GameWindow::pauseGame,   this,  &GameWindow::pauseSwitch);
 
 }
 
@@ -68,7 +52,7 @@ void GameWindow::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     painter.drawPixmap(0, ui->toolBar->height(), background);
-    game->paintWorld(&painter);
+    emit paintWorld(&painter);
 }
 
 void GameWindow::resizeEvent(QResizeEvent *)
@@ -123,23 +107,25 @@ void GameWindow::scoreUpdated(QString score)
     ui->actionScore->setText(score);
 }
 
-void GameWindow::catchAddWordsFromLevel(QStringList list)
-{
-  emit addWordsFromFile(list);
-}
-
 void GameWindow::on_actionPause_triggered()
 {
-    timer->stop();
-    emit pauseGame();
+    if(!pause)
+    {
+        timer->stop();
+        emit pauseGame();
+    }
+
 }
 
 void GameWindow::on_actionStart_triggered()
 {
-    if(timer->isActive())
-        return;
-    timer->start(30);
-    emit unPauseGame();
+    if(pause)
+    {
+        if(timer->isActive())
+            return;
+        timer->start(30);
+        emit unPauseGame();
+    }
 }
 
 void GameWindow::gameOver(int level, int score)
@@ -172,9 +158,3 @@ void GameWindow::pauseSwitch()
 {
     pause = !pause;
 }
-
-void GameWindow::receivedWordList(QList<QString> list)
-{
-    qDebug() << "List received from server: " << list;
-}
-
