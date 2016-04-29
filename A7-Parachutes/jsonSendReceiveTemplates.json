@@ -96,29 +96,19 @@
       "receivedString": ""
     }
   },
-  "get teacher request template": {
-    "requestType": "enum::Networking::Teacher",
+  "get user info request template": {
+    "requestType": "enum::Networking::UserInfo",
     "username": "username"
   },
-  "teacher response template": {
-    "teacher": {
-      "student": "username",
-      "teacher": "teacher"
-    }
-  },
-  "get current level request template": {
-    "requestType": "enum::Networking::Level",
-    "username": "username"
-  },
-  "current level response template": {
-    "level": {
+  "user info response template": {
+    "userInfo": {
       "username": "username",
-      "level": 3
+      "first": "firsName",
+      "last": "lastName",
+      "teacher": "teacher",
+      "level": 3,
+      "highScore": 2345
     }
-  },
-  "get users high score request template": {
-    "requestType": "enum::Networking::GetScore",
-    "username": "username"
   },
   "check is teacher request template": {
     "requestType": "enum::Networking::IsTeacher",
@@ -143,7 +133,6 @@
   "generic response template": {
     "success": false
   },
-
   "WEBSITE request teacher stats template": {
     "web": {
       "teacher": "teacherLogin"
