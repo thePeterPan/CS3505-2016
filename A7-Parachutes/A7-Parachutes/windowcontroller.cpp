@@ -18,6 +18,8 @@ void WindowController::connectSignalsAndSlots()
 
     connect(&level, &LevelSelectionDialog::addWordsFromFile,    &logic,&GameLogic::addWordsFromFile);
 
+    connect(&main, &MainWindow::checkLoginDataSignal,           this, &WindowController::checkLoginRequest);
+        connect(this,   &WindowController::loginAnswer,             &main,&MainWindow::loginAnswerReceived);
 
     // NETWORK AND GAME LOGIC COMMUNICATION //
 
@@ -81,5 +83,5 @@ void WindowController::checkLoginRequest(QString username, QString password)
 {
     client->requestLogin(username, password);
     //here we would emit the login check answer signal so the main window knows what to do.
-    emit loginAnswer(false);
+    emit loginAnswer(true);
 }
