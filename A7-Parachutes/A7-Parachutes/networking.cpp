@@ -106,7 +106,6 @@ void Networking::onTextMessageReceived(QString message)
         QJsonObject receivedObject = receivedDocument.object();
         for (QJsonObject::iterator itr = receivedObject.begin(); itr != receivedObject.end(); ++itr)
         {
-            qDebug() << itr.key();
             if (itr.key() == "wordList")
             {
                 if (debug)
@@ -119,7 +118,7 @@ void Networking::onTextMessageReceived(QString message)
             {
                 if (debug)
                     qDebug() << "userAccess is found";
-                bool loginSuccess = itr.value().isBool()["accessGranted"];
+                bool loginSuccess = itr.value().toObject()["accessGranted"].toBool();
                 emit loginSuccessSignal(loginSuccess);
             }
         }

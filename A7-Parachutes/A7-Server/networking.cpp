@@ -243,6 +243,10 @@ void Networking::openConnectionToDatabase(QString configFile)
     db->setPassword(dbSettings->value("password").toString().toStdString().c_str());
     db->setDatabaseName(dbSettings->value("schema").toString().toStdString().c_str());
     db->open();
+
+    qDebug() << db->loginCorrect("han", "fickle");
+    qDebug() << db->loginCorrect("han", "leia");
+    qDebug() << db->getTeacherWordsByLevel("yoda", 2);
 }
 
 /*!
