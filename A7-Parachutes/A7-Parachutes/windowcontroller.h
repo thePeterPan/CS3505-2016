@@ -36,6 +36,7 @@ public slots:
     void openGameWindow();
     void gameOverReceived();
 
+
 signals:
 
 private slots:

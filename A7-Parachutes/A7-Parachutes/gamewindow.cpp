@@ -14,7 +14,7 @@ GameWindow::GameWindow(Networking *client_, QWidget *parent)
     pm.load(":/images/nightBackground.jpg");
     int width = this->width();
     int height = this->height() - ui->toolBar->height();
-    background = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
+    background = pm.scaledToHeight(height);
 
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()), this, SLOT(update()));
@@ -75,7 +75,7 @@ void GameWindow::resizeEvent(QResizeEvent *)
 {
     int width = this->width();
     int height = this->height();
-    background = pm.scaled(width, height, Qt::KeepAspectRatioByExpanding);
+    background = pm.scaledToHeight(height);
     emit newSize(width, height);
     this->update();
 }
@@ -173,4 +173,8 @@ void GameWindow::pauseSwitch()
     pause = !pause;
 }
 
+void GameWindow::receivedWordList(QList<QString> list)
+{
+    qDebug() << "List received from server: " << list;
+}
 

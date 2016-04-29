@@ -58,6 +58,8 @@ public slots:
     void actionTimerUpdated(QString message);   // Signal from GameLogic::updateActionTimer
     void scoreUpdated(QString score);           // Signal from GameLogic::updateScore
     void catchAddWordsFromLevel(QStringList);   // Signal from LevelSelectionDialog::addWordsFromFile
+    void receivedWordList(QList<QString> list);
+
 
 signals:
     void letterTyped(QChar letter);             // Connected to GameLogic::newLetterTyped

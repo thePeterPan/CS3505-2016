@@ -6,8 +6,8 @@ LevelSelectionDialog::LevelSelectionDialog(Networking *client_, QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->level1Button, &QPushButton::clicked, this, &LevelSelectionDialog::showGameWindow);
-    connect(ui->wordsButton, &QPushButton::clicked, this, &LevelSelectionDialog::openFile);
+    connect(ui->level1Button,   &QPushButton::clicked, this, &LevelSelectionDialog::showGameWindow);
+    connect(ui->wordsButton,    &QPushButton::clicked, this, &LevelSelectionDialog::openFile);
 
 }
 

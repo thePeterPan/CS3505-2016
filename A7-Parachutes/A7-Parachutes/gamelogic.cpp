@@ -41,6 +41,7 @@ void GameLogic::getWordsFromDatabase(int level)
     if(!fromFile)
     {
 
+
         //test data
         if(level == 1)
         {
@@ -84,6 +85,7 @@ void GameLogic::getWordsFromDatabase(int level)
             words.append("blissful");
             words.append("delicious");
         }
+
     }
     else
     {
@@ -268,7 +270,7 @@ void GameLogic::scoreChanged(int score)
 
 void GameLogic::startNewTimer()
 {
-    qDebug() << "starting timer";
+    //qDebug() << "starting timer";
     timerSeconds = timerFactor - currentLevel;
     timerSeconds = (timerSeconds > 3) ? timerSeconds : 3;
     QString timerText = "Time:";
@@ -286,8 +288,6 @@ void GameLogic::startNewTimer()
 
 void GameLogic::startGame()
 {
-    currentLevel = 1; //Start at level 1, unless other level specified somewhere.
-
     readyToPlay = true;
 
     // Give them some starting points, else they lose if they type
@@ -302,13 +302,13 @@ void GameLogic::startGame()
 void GameLogic::pause()
 {
     this->timer->stop();
-    qDebug() << "Pause!";
+    //qDebug() << "Pause!";
 }
 
 void GameLogic::unPause()
 {
     this->timer->start(1000);
-    qDebug() << "Go again!";
+    //qDebug() << "Go again!";
 }
 
 // --------- Keyboard Input ---------- //
@@ -317,7 +317,7 @@ void GameLogic::newLetterTyped(QChar letter)
 {
     if(letter == currentWord.at(currentWordIndex).toUpper())
     {
-        qDebug() << letter << " was correct";
+        //qDebug() << letter << " was correct";
         if(currentWordIndex == currentWord.length() - 1)
         {
             score += completeWordReward * timerSeconds;
@@ -386,19 +386,10 @@ void GameLogic::updateTimer()
         emit gameOver(currentLevel - 1, score);
         qDebug() << "time's up!";
     }
-    qDebug() << "updating timer";
+    //qDebug() << "updating timer";
 }
 
 // ----------   ---------- //
-
-
-/*
-void gameLogic::gameOver()
-{
-    qDebug() << "Game Over!";
-
-}
-*/
 
 
 void GameLogic::addWordsFromFile(QStringList list)
