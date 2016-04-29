@@ -101,16 +101,20 @@
     "username": "username"
   },
   "teacher response template": {
-    "username": "username",
-    "teacher": "teacher"
+    "teacher": {
+      "student": "username",
+      "teacher": "teacher"
+    }
   },
   "get current level request template": {
     "requestType": "enum::Networking::Level",
     "username": "username"
   },
   "current level response template": {
-    "username": "username",
-    "level": 3
+    "level": {
+      "username": "username",
+      "level": 3
+    }
   },
   "get users high score request template": {
     "requestType": "enum::Networking::GetScore",
@@ -121,8 +125,10 @@
     "username": "teacherLogin"
   },
   "check is teacher response template": {
-    "username": "teacherLogin",
-    "isTeacher": false
+    "isTeacher": {
+      "username": "teacherLogin",
+      "isTeacher": false
+    }
   },
   "update user level and score request template": {
     "requestType": "enum::Networking::NewScoreLevel",
@@ -137,43 +143,24 @@
   "generic response template": {
     "success": false
   },
+
   "WEBSITE request teacher stats template": {
-    "webrequest": {
+    "web": {
       "teacher": "teacherLogin"
     }
   },
   "WEBSITE response teacher stats": {
     "teacherName": "teacher name",
     "students": [
-      [
-        "username",
-        "current level",
-        "high score"
-      ],
-      [
-        "username",
-        "current level",
-        "high score"
-      ],
-      [
-        "username",
-        "current level",
-        "high score"
-      ],
-      [
-        "username",
-        "current level",
-        "high score"
-      ],
-      [
-        "username",
-        "current level",
-        "high score"
-      ]
+      ["username", "current level", "high score"],
+      ["username", "current level", "high score"],
+      ["username", "current level", "high score"],
+      ["username", "current level", "high score"],
+      ["username", "current level", "high score"]
     ]
   },
   "WEBSITE request teacher list of students": {
-    "webrequest": {
+    "web": {
       "teacher": "teacherLogin"
     }
   },
@@ -187,7 +174,7 @@
     ]
   },
   "WEBSITE request new teacher": {
-    "webrequest": {
+    "web": {
       "username": "teacherUsername",
       "firstName": "first",
       "lastName": "last",
@@ -195,7 +182,7 @@
     }
   },
   "WEBSITE request new list of words": {
-    "webrequest": {
+    "web": {
       "username": "teacherUsername",
       "level": 3,
       "words": [
@@ -206,23 +193,25 @@
     }
   },
   "WEBSITE request add new word": {
-    "webrequest": {
+    "web": {
       "username": "teacherUsername",
       "level": 3,
       "word": "word1"
     }
   },
   "WEBSITE request delete words by level": {
-    "webrequest": {
+    "web": {
       "username": "teacherUsername",
       "level": 3
     }
   },
   "WEBSITE request delete single word": {
-    "webrequest": {
+    "web": {
       "username": "teacherUsername",
       "level": 3,
       "word": "word"
     }
   }
 }
+
+
