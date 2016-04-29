@@ -1,7 +1,7 @@
 #include "networking.h"
 
 Networking::Networking(QString configFile, QObject *parent)
-    : url(), debug(false), QObject(parent)
+    : url(), debug(true), QObject(parent)
 {
     // Get the settings from the ini file.
     QSettings* socketSettings = new QSettings(configFile, QSettings::IniFormat);
@@ -106,6 +106,7 @@ void Networking::onTextMessageReceived(QString message)
         QJsonObject receivedObject = receivedDocument.object();
         for (QJsonObject::iterator itr = receivedObject.begin(); itr != receivedObject.end(); ++itr)
         {
+            qDebug() << itr.key();
             if (itr.key() == "wordList")
             {
                 if (debug)
@@ -113,6 +114,13 @@ void Networking::onTextMessageReceived(QString message)
                 QJsonArray wordList = itr.value().toObject()["list"].toArray();
                 QList<QString> result = getWordList(wordList);
                 emit newList(result);
+            }
+            else if (itr.key() == "userAccess")
+            {
+                if (debug)
+                    qDebug() << "userAccess is found";
+                bool loginSuccess = itr.value().isBool()["accessGranted"];
+                emit loginSuccessSignal(loginSuccess);
             }
         }
     } else {
