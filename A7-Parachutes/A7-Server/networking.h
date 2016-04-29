@@ -30,10 +30,15 @@ public:
     enum RequestType {
         WordList,
         Login,
+        TeacherList,
+        UsernameCheck,
         Signup,
         GameOver,
-        TeacherList,
-        UsernameCheck
+        Error,
+        UserInfo,
+        IsTeacher,
+        NewScoreLevel,
+        IncrementLevel
     };
 
 Q_SIGNALS:

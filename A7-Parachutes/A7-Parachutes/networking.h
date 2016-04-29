@@ -21,10 +21,15 @@ public:
     enum RequestType {
         WordList,
         Login,
+        TeacherList,
+        UsernameCheck,
         Signup,
         GameOver,
-        TeacherList,
-        UsernameCheck
+        Error,
+        UserInfo,
+        IsTeacher,
+        NewScoreLevel,
+        IncrementLevel
     };
 
     void requestWordList(QString teacher, int level);
