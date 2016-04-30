@@ -53,9 +53,10 @@ void Networking::requestNextList(int level, QString teacher)
     requestWordList(teacher,level);
 }
 
-void Networking::sendNewScore(QString username, int level, int score)
+void Networking::requestWriteNewScore(QString username, int level, int score)
 {
     QJsonObject requestObject;
+    qDebug() << "writing";
     requestObject["requestType"] = NewScoreLevel;
     requestObject["username"] = username;
     requestObject["score"] = score;

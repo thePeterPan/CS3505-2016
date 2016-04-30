@@ -181,6 +181,7 @@ void Networking::processTextMessage(QString message)
                     if (receivedObject.contains("username") && receivedObject.contains("score") && receivedObject.contains("level"))
                     {
                         QJsonObject success;
+                        qDebug() << "about to write new score";
                         writeNewScore(receivedObject["username"].toString(), receivedObject["level"].toInt(), receivedObject["score"].toInt(), success);
 
                         QJsonDocument responseDocument(success);
@@ -378,12 +379,13 @@ void Networking::writeUserInfo(QString login, QJsonObject &json)
 
 void Networking::writeNewScore(QString login, int level, int highScore, QJsonObject &json)
 {
-    if (!db->usernameAvailable(login))
+    if (db->usernameAvailable(login))
     {
         json["success"] = false;
     }
     else
     {
+        qDebug() << "updating mysql database";
         db->updateUserLevelAndScore(login, level, highScore);
         json["success"] = true;
     }

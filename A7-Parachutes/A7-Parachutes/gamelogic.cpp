@@ -370,8 +370,8 @@ void GameLogic::newLetterTyped(QChar letter)
         }
         else
         {
-            emit gameOver(currentLevel - 1,score);
             sendScoreToDB();
+            emit gameOver(currentLevel - 1,score);
         }
         emit failed();
     }
@@ -405,6 +405,7 @@ void GameLogic::updateTimer()
     {
         timer->stop();
         emit failed();
+        sendScoreToDB();
         emit gameOver(currentLevel - 1, score);
         emit requestWordList(currentLevel, this->teacher);
         qDebug() << "time's up!";

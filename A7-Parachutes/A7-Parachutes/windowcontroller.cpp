@@ -31,7 +31,7 @@ void WindowController::connectSignalsAndSlots()
     connect(client, &Networking::newList,                       &logic,&GameLogic::receivedWordList);
     connect(&logic, &GameLogic::requestWordList,                client,&Networking::requestNextList);
     connect(client, &Networking::sendUserInfo,                  &logic,&GameLogic::receiveUserInfo);
-    connect(&logic, &GameLogic::sendScore,                      client,&Networking::sendNewScore);
+    connect(&logic, &GameLogic::sendScore,                      client,&Networking::requestWriteNewScore);
 
     // GAME WINDOW AND GAME LOGIC COMMUNICATION //
 

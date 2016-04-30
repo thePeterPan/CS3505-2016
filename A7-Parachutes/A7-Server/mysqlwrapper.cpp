@@ -232,15 +232,8 @@ int MySQLWrapper::getUserCurrentLevel(QString login)
  */
 void MySQLWrapper::updateUserLevelAndScore(QString login, int level, int score)
 {
-    QString sql = "INSERT INTO current_level (login,level) VALUES(?,?) on duplicate key update login=?, level=?";
-    statement = connection->prepareStatement(sql.toStdString());
-    statement->setString(1,login.toStdString());
-    statement->setInt(2,level);
-    statement->setString(3,login.toStdString());
-    statement->setInt(4,level);
-    statement->executeUpdate();
-
-    updateUserScore(login, score);
+    updateUserScore(login,score);
+    updateUserLevel(login,level);
 }
 
 /**
@@ -269,13 +262,19 @@ void MySQLWrapper::updateUserScore(QString login, int score)
  */
 void MySQLWrapper::updateUserLevel(QString login, int level)
 {
-    QString sql = "INSERT INTO current_level (login,level) VALUES(?,?) on duplicate key update login=?, highscore=?";
-    statement = connection->prepareStatement(sql.toStdString());
-    statement->setString(1,login.toStdString());
-    statement->setInt(2,level);
-    statement->setString(3,login.toStdString());
-    statement->setInt(4,level);
-    statement->executeUpdate();
+    int currentLevel = getUserCurrentLevel(login);
+    if(level > currentLevel)
+    {
+        QString sql = "INSERT INTO current_level (login,level) VALUES(?,?) on duplicate key update login=?, level =?;";
+        statement = connection->prepareStatement(sql.toStdString());
+        statement->setString(1,login.toStdString());
+        statement->setInt(2,level);
+        statement->setString(3,login.toStdString());
+        statement->setInt(4,level);
+        statement->executeUpdate();
+    }
+    currentLevel = getUserCurrentLevel(login);
+    qDebug() << login << " " << currentLevel;
 }
 
 /**
