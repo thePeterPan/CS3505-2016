@@ -57,7 +57,7 @@ public slots:
     void requestNextList(int level, QString teacher);
     void requestLogin(QString username, QString password);
     void requestUserInfo(QString username);
-    void sendNewScore(QString username, int level, int score);
+    void requestWriteNewScore(QString username, int level, int score);
     void requestWriteNewUser(QString username, QString first, QString last, QString password, QString teacher);
     void requestIsTeacher(QString teacher);
     void requestNameAvailable(QString username);
