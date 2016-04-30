@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <QUrl>
+#include <QDesktopServices>
+#include <QProcess>
 #include "leveldialog.h"
 #include "registrationdialog.h"
 #include "networking.h"
@@ -33,6 +35,7 @@ signals:
     void showRegistrationSignal();
     void showLevelDialogSignal();
     void checkLoginDataSignal(QString, QString);
+    void checkStudentOrTeacher(QString);
 
 private slots:
     void showRegistration();
@@ -40,6 +43,7 @@ private slots:
 
 public slots:
     void loginAnswerReceived(bool);
+    void getUserType(bool);
 
 };
 

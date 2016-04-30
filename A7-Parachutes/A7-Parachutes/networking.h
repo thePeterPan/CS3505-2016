@@ -56,11 +56,15 @@ private:
 public slots:
     void requestNextList(int level);
     void requestLogin(QString username, QString password);
+    void requestWriteNewUser(QString username, QString first, QString last, QString password, QString teacher);
+    void requestIsTeacher(QString teacher);
+    void requestNameAvailable(QString username);
 
 signals:
     void loginSuccessSignal(bool);
     void sendUsernameAvailable(bool available);
     void sendIsTeacher(bool teacher);
+    void sendUserType(bool teacher);
     void sendRegisterSuccess(bool success);
 };
 
