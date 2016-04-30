@@ -22,11 +22,8 @@ MainWindow::~MainWindow()
 void MainWindow::showLevelDialog()
 {
     if(checkLogin()){
-     //level.show();
-        //emit showLevelDialogSignal();
-        //emit checkStudentOrTeacher(ui->inputUsername->text());
+
         client->requestIsTeacher(ui->inputUsername->text());
-     //this->close();
     }
 }
 
@@ -51,8 +48,6 @@ void MainWindow::getUserType(bool teacher)
     if(teacher)
     {
         qDebug() << "got teacher";
-//        QString link = "http://localhost:8080/";
-//        QDesktopServices::openUrl(QUrl(link));
         system("firefox localhost:8080");
     }
     else
