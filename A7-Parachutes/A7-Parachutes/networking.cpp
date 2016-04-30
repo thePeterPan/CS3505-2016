@@ -65,6 +65,40 @@ void Networking::sendNewScore(QString username, int level, int score)
     webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
 }
 
+void Networking::requestWriteNewUser(QString username, QString first, QString last, QString password, QString teacher)
+{
+    QJsonObject requestObject;
+    requestObject["requestType"] = Signup;
+    requestObject["username"] = username;
+    requestObject["firstName"] = first;
+    requestObject["lastName"] = last;
+    requestObject["password"] = password;
+    requestObject["teacher"] = teacher;
+
+    QJsonDocument requestDocument(requestObject);
+    webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
+}
+
+void Networking::requestIsTeacher(QString teacher)
+{
+    QJsonObject requestObject;
+    requestObject["requestType"] = IsTeacher;
+    requestObject["username"] = teacher;
+
+    QJsonDocument requestDocument(requestObject);
+    webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
+}
+
+void Networking::requestNameAvailable(QString username)
+{
+    QJsonObject requestObject;
+    requestObject["requestType"] = UsernameCheck;
+    requestObject["username"] = username;
+
+    QJsonDocument requestDocument(requestObject);
+    webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
+}
+
 ///
 /// \brief sends a request to the server to check if the login was successful
 /// \param username
@@ -153,6 +187,32 @@ void Networking::onTextMessageReceived(QString message)
                 int highScore = itr.value().toObject()["highScore"].toInt();
 
                 emit sendUserInfo(username, nameF, nameL, teacher, level, highScore);
+            }
+            else if (itr.key() == "teacherList")
+            {
+
+            }
+            else if (itr.key() == "usernameIsAvailable")
+            {
+                bool available = itr.value().toBool();
+                emit sendUsernameAvailable(available);
+            }else if (itr.key() == "accessGranted")
+            {
+
+            }else if (itr.key() == "gameOver")
+            {
+
+            }else if (itr.key() == "error")
+            {
+
+            }else if (itr.key() == "isTeacher")
+            {
+                bool isTeacher = itr.value().toObject()["isTeacher"].toBool();
+                if(!isTeacher)
+                    qDebug() << "not a teacher";
+                else
+                    qDebug() << "is a teacher";
+                emit sendIsTeacher(isTeacher);
             }
         }
     } else {

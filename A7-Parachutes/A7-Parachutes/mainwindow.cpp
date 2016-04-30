@@ -2,8 +2,8 @@
 #include "ui_mainwindow.h"
 #include "Box2D/Box2D.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(Networking *client_, QWidget *parent)
+    : client(client_), QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     pm.load(":/images/backgrond2.jpg");
@@ -23,7 +23,9 @@ void MainWindow::showLevelDialog()
 {
     if(checkLogin()){
      //level.show();
-     emit showLevelDialogSignal();
+        //emit showLevelDialogSignal();
+        //emit checkStudentOrTeacher(ui->inputUsername->text());
+        client->requestIsTeacher(ui->inputUsername->text());
      //this->close();
     }
 }
@@ -39,17 +41,24 @@ bool MainWindow::checkLogin()
 
         //check login data from sever.
         emit checkLoginDataSignal(ui->inputUsername->text(), ui->inputPassword->text());
+        emit requestUserInfo(ui->inputUsername->text());
+//        return loginAnswer;
+    }
+}
 
-        if (loginAnswer)
-        {
-            emit requestUserInfo(ui->inputUsername->text());
-            return true;
-        }
-        else
-        {
-            ui->warningLabel->setText("Username and/or password is incorrect, please try again");
-            return false;
-        }
+void MainWindow::getUserType(bool teacher)
+{
+    if(teacher)
+    {
+        qDebug() << "got teacher";
+//        QString link = "http://localhost:8080/";
+//        QDesktopServices::openUrl(QUrl(link));
+        system("firefox localhost:8080");
+    }
+    else
+    {
+        emit showLevelDialogSignal();
+
     }
 }
 
@@ -70,4 +79,9 @@ void MainWindow::paintEvent(QPaintEvent *) {
 void MainWindow::loginAnswerReceived(bool answer)
 {
     loginAnswer = answer;
+    if(loginAnswer)
+        client->requestIsTeacher(ui->inputUsername->text());
+    else
+        ui->warningLabel->setText("Username and/or password is incorrect, please try again");
+
 }

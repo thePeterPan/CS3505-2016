@@ -1,8 +1,8 @@
 #include "registrationdialog.h"
 #include "ui_registrationDialog.h"
 
-RegistrationDialog::RegistrationDialog(QWidget *parent)
-    : QDialog(parent), ui(new Ui::RegistrationDialog)
+RegistrationDialog::RegistrationDialog(Networking * client_, QWidget *parent)
+    : client(client_), QDialog(parent), ui(new Ui::RegistrationDialog)
 {
     ui->setupUi(this);
     ui->teacberNameLabel->setEnabled(false);
@@ -29,6 +29,7 @@ void RegistrationDialog::disableTeacherName()
 {
     ui->teacberNameLabel->setEnabled(false);
     ui->teachersName->setEnabled(false);
+    ui->teachersName->setText("");
 }
 
 void RegistrationDialog::showMainwindow()
@@ -48,15 +49,15 @@ void RegistrationDialog::checkInput()
         }
         else if(ui->teacherRadioButton->isChecked())
         {
-            this->close();
+            client->requestNameAvailable(ui->username->text());
         }
         else if(ui->studentRadioButton->isChecked()&&ui->teachersName->text().count() > 0)
         {
-            this->close();
+            client->requestIsTeacher(ui->teachersName->text());
         }
         else
         {
-         ui->warningLabel->setText("Select Student or Teacher and fill the blank.");
+            ui->warningLabel->setText("Select Student or Teacher and fill the blank.");
         }
     }
     else
@@ -67,15 +68,32 @@ void RegistrationDialog::checkInput()
 
 void RegistrationDialog::getNameAvailable(bool available)
 {
-
+    if(!available)
+        ui->warningLabel->setText("This name is already taken");
+    else
+    {
+        client->requestWriteNewUser(ui->username->text(),"First","Last",ui->password->text(),ui->teachersName->text());
+        this->close();
+    }
 }
 
 void RegistrationDialog::getIsTeacher(bool teacher)
 {
-
+    if(!teacher)
+        ui->warningLabel->setText(ui->teachersName->text() + " is not a teacher");
+    else
+    {
+        client->requestNameAvailable(ui->username->text());
+    }
 }
 
 void RegistrationDialog::getRegisterSuccess(bool success)
 {
+    if(!success)
+        ui->warningLabel->setText("Something happened with your registration. Please try again");
+    else
+    {
+        //login and start game
+    }
 
 }

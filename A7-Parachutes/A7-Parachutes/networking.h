@@ -58,11 +58,15 @@ public slots:
     void requestLogin(QString username, QString password);
     void requestUserInfo(QString username);
     void sendNewScore(QString username, int level, int score);
+    void requestWriteNewUser(QString username, QString first, QString last, QString password, QString teacher);
+    void requestIsTeacher(QString teacher);
+    void requestNameAvailable(QString username);
 
 signals:
     void loginSuccessSignal(bool);
     void sendUsernameAvailable(bool available);
     void sendIsTeacher(bool teacher);
+    void sendUserType(bool teacher);
     void sendRegisterSuccess(bool success);
     void sendUserInfo(QString username, QString first, QString last, QString teacher, int level, int highScore);
 };
