@@ -66,4 +66,6 @@ void MainWindow::paintEvent(QPaintEvent *) {
 void MainWindow::loginAnswerReceived(bool answer)
 {
     loginAnswer = answer;
+    if(loginAnswer)
+        emit showLevelDialogSignal();
 }
