@@ -48,9 +48,21 @@ void Networking::requestWordList(QString teacher, int level)
     webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
 }
 
-void Networking::requestNextList(int level)
+void Networking::requestNextList(int level, QString teacher)
 {
-    requestWordList("yoda",level);
+    requestWordList(teacher,level);
+}
+
+void Networking::sendNewScore(QString username, int level, int score)
+{
+    QJsonObject requestObject;
+    requestObject["requestType"] = NewScoreLevel;
+    requestObject["username"] = username;
+    requestObject["score"] = score;
+    requestObject["level"] = level;
+
+    QJsonDocument requestDocument(requestObject);
+    webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
 }
 
 void Networking::requestWriteNewUser(QString username, QString first, QString last, QString password, QString teacher)
@@ -103,6 +115,15 @@ void Networking::requestLogin(QString username, QString password)
     webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
 }
 
+void Networking::requestUserInfo(QString username)
+{
+    QJsonObject requestObject;
+    requestObject["requestType"] = UserInfo;
+    requestObject["username"] = username;
+    QJsonDocument requestDocument(requestObject);
+    webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
+}
+
 /////////////////////////////////
 ///////////// SLOTS /////////////
 /////////////////////////////////
@@ -119,7 +140,6 @@ void Networking::onConnected()
     connect(&webSocket, &QWebSocket::textMessageReceived, this, &Networking::onTextMessageReceived);
     connect(&webSocket, &QWebSocket::binaryMessageReceived, this, &Networking::onBinaryMessageReceived);
 
-    requestWordList("yoda", 1);
 //    webSocket.sendTextMessage("Client: test");
 }
 
@@ -155,6 +175,19 @@ void Networking::onTextMessageReceived(QString message)
                 bool loginSuccess = itr.value().toObject()["accessGranted"].toBool();
                 emit loginSuccessSignal(loginSuccess);
             }
+            else if (itr.key() == "userInfo")
+            {
+                if(debug)
+                    qDebug() << "userInfo is found";
+                QString username = itr.value().toObject()["username"].toString();
+                QString nameF = itr.value().toObject()["first"].toString();
+                QString nameL = itr.value().toObject()["last"].toString();
+                QString teacher = itr.value().toObject()["teacher"].toString();
+                int level = itr.value().toObject()["level"].toInt();
+                int highScore = itr.value().toObject()["highScore"].toInt();
+
+                emit sendUserInfo(username, nameF, nameL, teacher, level, highScore);
+            }
             else if (itr.key() == "teacherList")
             {
 
@@ -170,9 +203,6 @@ void Networking::onTextMessageReceived(QString message)
             {
 
             }else if (itr.key() == "error")
-            {
-
-            }else if (itr.key() == "userInfo")
             {
 
             }else if (itr.key() == "isTeacher")

@@ -21,12 +21,11 @@ class LevelSelectionDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit LevelSelectionDialog(Networking *client_, QWidget *parent = 0);
+    explicit LevelSelectionDialog(QWidget *parent = 0);
     ~LevelSelectionDialog();
 
 private:
     Ui::LevelSelectionDialog *ui;
-    Networking* client;
 
 signals:
     void showGameWindowSignal();

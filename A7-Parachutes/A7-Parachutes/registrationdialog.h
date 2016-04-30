@@ -16,7 +16,7 @@ class RegistrationDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit RegistrationDialog(Networking *client_, QWidget *parent = 0);
+    explicit RegistrationDialog(Networking * client_, QWidget *parent = 0);
     ~RegistrationDialog();
 
 private slots:
@@ -32,7 +32,7 @@ public slots:
 
 private:
     Ui::RegistrationDialog *ui;
-    Networking *client;
+    Networking * client;
 
 };
 

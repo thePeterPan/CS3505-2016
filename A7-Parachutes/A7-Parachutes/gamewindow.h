@@ -23,7 +23,7 @@ class GameWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit GameWindow(Networking *client_, QWidget *parent = 0);
+    explicit GameWindow(QWidget *parent = 0);
     ~GameWindow();
 
     void startGame();
@@ -39,8 +39,6 @@ private:
     QMediaPlayer *player;
 
     bool pause;
-
-    Networking *client;
 
     void connectSignalsAndSlots();
 

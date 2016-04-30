@@ -373,6 +373,7 @@ void Networking::writeUserInfo(QString login, QJsonObject &json)
     jsonUserInfo["teacher"] = db->getTeacher(login);
     jsonUserInfo["level"] = db->getUserCurrentLevel(login);
     jsonUserInfo["highScore"] = db->getUserScore(login);
+    json["userInfo"] = jsonUserInfo;
 }
 
 void Networking::writeNewScore(QString login, int level, int highScore, QJsonObject &json)

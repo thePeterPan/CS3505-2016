@@ -28,13 +28,14 @@ private:
     bool checkLogin();
     QPixmap pm;
     void paintEvent(QPaintEvent *);
-    Networking *client;
     bool loginAnswer;
+    Networking *client;
 
 signals:
     void showRegistrationSignal();
     void showLevelDialogSignal();
     void checkLoginDataSignal(QString, QString);
+    void requestUserInfo(QString);
     void checkStudentOrTeacher(QString);
 
 private slots:
