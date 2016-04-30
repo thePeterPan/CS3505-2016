@@ -14,7 +14,8 @@ GameLogic::GameLogic(QObject *parent, int windowWidth, int windowHeight, float s
     }
     setUpBox2D();
     SCALE = 100.0f;
-    xScale,yScale = SCALE;
+    xScale = SCALE;
+    yScale = SCALE;
     currentLevel = 1;
     previousWord = "";
     fromFile = false;
@@ -425,6 +426,7 @@ void GameLogic::receivedWordList(QList<QString> list)
 
 void GameLogic::receiveUserInfo(QString username, QString first, QString last, QString teacher, int level, int highScore)
 {
+    username = username;
     firstName = first;
     lastName = last;
     teacher = teacher;

@@ -1,7 +1,7 @@
 #include "windowcontroller.h"
 
 WindowController::WindowController(Networking *client_, QWidget *parent)
-    : client(client_), game(client_), level(client_), registration(client_), main(client_), logic(this,game.width(),game.height())
+    : client(client_), game(), level(), registration(), main(), logic(this,game.width(),game.height())
 {
 
     connectSignalsAndSlots();
@@ -20,6 +20,7 @@ void WindowController::connectSignalsAndSlots()
 
     connect(&main, &MainWindow::checkLoginDataSignal,           client,&Networking::requestLogin);
     connect(client, &Networking::loginSuccessSignal,            &main, &MainWindow::loginAnswerReceived);
+    connect(&main, &MainWindow::requestUserInfo,                client,&Networking::requestUserInfo);
     connect(client, &Networking::sendUsernameAvailable,         &registration, &RegistrationDialog::getNameAvailable);
     connect(client, &Networking::sendIsTeacher,                 &registration, &RegistrationDialog::getIsTeacher);
     connect(client, &Networking::sendRegisterSuccess,           &registration, &RegistrationDialog::getRegisterSuccess);
@@ -29,6 +30,7 @@ void WindowController::connectSignalsAndSlots()
 
     connect(client, &Networking::newList,                       &logic,&GameLogic::receivedWordList);
     connect(&logic, &GameLogic::requestWordList,                client,&Networking::requestNextList);
+    connect(client, &Networking::sendUserInfo,                  &logic,&GameLogic::receiveUserInfo);
 
     // GAME WINDOW AND GAME LOGIC COMMUNICATION //
 

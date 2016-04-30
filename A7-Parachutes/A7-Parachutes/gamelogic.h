@@ -72,7 +72,7 @@ private:
     void startNewTimer();
 
     // User Info //
-    QString firstName, lastName, teacher;
+    QString username, firstName, lastName, teacher;
     int highScore;
 
 

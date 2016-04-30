@@ -18,7 +18,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(Networking *client_, QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
 private:
@@ -26,13 +26,13 @@ private:
     bool checkLogin();
     QPixmap pm;
     void paintEvent(QPaintEvent *);
-    Networking *client;
     bool loginAnswer;
 
 signals:
     void showRegistrationSignal();
     void showLevelDialogSignal();
     void checkLoginDataSignal(QString, QString);
+    void requestUserInfo(QString);
 
 private slots:
     void showRegistration();

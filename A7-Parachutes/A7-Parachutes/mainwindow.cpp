@@ -2,8 +2,8 @@
 #include "ui_mainwindow.h"
 #include "Box2D/Box2D.h"
 
-MainWindow::MainWindow(Networking *client_, QWidget *parent)
-    : client(client_), QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     pm.load(":/images/backgrond2.jpg");
@@ -41,8 +41,10 @@ bool MainWindow::checkLogin()
 
         if (loginAnswer)
         {
+            emit requestUserInfo(ui->inputUsername->text());
             return true;
-        }else
+        }
+        else
         {
             ui->warningLabel->setText("Username and/or password is incorrect, please try again");
             return false;
