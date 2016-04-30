@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     pm.load(":/images/backgrond2.jpg");
+    loginAnswer = false;
 
     connect(ui->loginButton, &QPushButton::clicked, this, &MainWindow::showLevelDialog);
     connect(ui->createAccountButton, &QPushButton::clicked, this, &MainWindow::showRegistration);
