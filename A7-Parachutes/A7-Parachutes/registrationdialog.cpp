@@ -65,3 +65,17 @@ void RegistrationDialog::checkInput()
     }
 }
 
+void RegistrationDialog::getNameAvailable(bool available)
+{
+
+}
+
+void RegistrationDialog::getIsTeacher(bool teacher)
+{
+
+}
+
+void RegistrationDialog::getRegisterSuccess(bool success)
+{
+
+}

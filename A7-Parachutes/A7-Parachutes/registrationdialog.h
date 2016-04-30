@@ -25,6 +25,11 @@ private slots:
     void showMainwindow();
     void checkInput();
 
+public slots:
+    void getNameAvailable(bool available);
+    void getIsTeacher(bool teacher);
+    void getRegisterSuccess(bool success);
+
 private:
     Ui::RegistrationDialog *ui;
     Networking *client;

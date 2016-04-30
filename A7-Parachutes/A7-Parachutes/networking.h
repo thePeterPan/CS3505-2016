@@ -59,6 +59,9 @@ public slots:
 
 signals:
     void loginSuccessSignal(bool);
+    void sendUsernameAvailable(bool available);
+    void sendIsTeacher(bool teacher);
+    void sendRegisterSuccess(bool success);
 };
 
 #endif // NETWORKING_H
