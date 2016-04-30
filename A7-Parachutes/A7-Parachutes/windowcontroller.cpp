@@ -44,6 +44,11 @@ void WindowController::connectSignalsAndSlots()
     connect(&logic,     &GameLogic::updateScore,        &game,      &GameWindow::scoreUpdated);
     connect(&logic,     &GameLogic::gameOver,           &game,      &GameWindow::gameOver);
     connect(&logic,     &GameLogic::levelCompleted,     &game,      &GameWindow::levelCompleted);
+
+    //Networking and GameWindow
+    connect(client,     &Networking::sendCurrentScore,  &game,      &GameWindow::setOldScore);
+    connect(&main,      &MainWindow::setOldScore,       client,     &Networking::requestCurrentHighScore);
+
     // GameWindow to GameLogic //
     connect(&game,      &GameWindow::letterTyped,       &logic,     &GameLogic::newLetterTyped);
     connect(&game,      &GameWindow::newSize,           &logic,     &GameLogic::changeSize);

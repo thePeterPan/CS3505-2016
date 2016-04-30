@@ -57,6 +57,7 @@ public slots:
     void gameOver(int level, int score); // Signal from GameLogic::gameOver
     void levelCompleted(int level, int score);
     void pauseSwitch();
+    void setOldScore(QString username, int level, int highscore);
 
 
 signals:
@@ -68,7 +69,6 @@ signals:
     void showLevelDial();                       // Connected to WindowController::gameOverReceived
     void addWordsFromFile(QStringList);         // Connected to GameLogic::addWordsFromFile
     //void restart();
-
     void paintWorld(QPainter * painter);
 
 private slots:

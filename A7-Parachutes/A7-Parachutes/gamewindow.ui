@@ -37,7 +37,8 @@
   <widget class="QToolBar" name="toolBar">
    <property name="font">
     <font>
-     <pointsize>20</pointsize>
+     <family>AR PL UMing TW</family>
+     <pointsize>15</pointsize>
     </font>
    </property>
    <property name="windowTitle">
@@ -59,6 +60,7 @@
    <addaction name="actionStart"/>
    <addaction name="actionTimer"/>
    <addaction name="actionScore"/>
+   <addaction name="actionOldScore"/>
   </widget>
   <action name="actionPause">
    <property name="icon">
@@ -104,6 +106,17 @@
    <property name="font">
     <font>
      <family>AR PL UMing CN</family>
+    </font>
+   </property>
+  </action>
+  <action name="actionOldScore">
+   <property name="text">
+    <string>oldScore</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>AR PL UMing TW</family>
+     <pointsize>15</pointsize>
     </font>
    </property>
   </action>

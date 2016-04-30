@@ -158,3 +158,10 @@ void GameWindow::pauseSwitch()
 {
     pause = !pause;
 }
+
+void GameWindow::setOldScore(QString username, int level, int highscore){
+
+    qDebug()<<highscore<<"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL";
+    QString s = QString::number(highscore);
+    ui->actionOldScore->setText("Old Score: "+s);
+}

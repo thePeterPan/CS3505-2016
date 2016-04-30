@@ -37,6 +37,7 @@ signals:
     void checkLoginDataSignal(QString, QString);
     void requestUserInfo(QString);
     void checkStudentOrTeacher(QString);
+    void setOldScore(QString username);
 
 private slots:
     void showRegistration();

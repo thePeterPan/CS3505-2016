@@ -187,6 +187,7 @@ void Networking::onTextMessageReceived(QString message)
                 int highScore = itr.value().toObject()["highScore"].toInt();
 
                 emit sendUserInfo(username, nameF, nameL, teacher, level, highScore);
+                emit sendCurrentScore(username, level, highScore);
             }
             else if (itr.key() == "teacherList")
             {
@@ -305,4 +306,13 @@ void Networking::testJson(QString message)
     qWarning() << subArray[1].toString();
 
     qDebug() << "-------------------------------------------------------------------------------------";
+}
+
+void Networking::requestCurrentHighScore(QString username){
+    QJsonObject requestObject;
+    requestObject["requestType"] = UserInfo;
+    requestObject["username"] = username;
+
+    QJsonDocument requestDocument(requestObject);
+    webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
 }

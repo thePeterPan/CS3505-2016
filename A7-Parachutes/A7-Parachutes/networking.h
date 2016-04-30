@@ -61,6 +61,7 @@ public slots:
     void requestWriteNewUser(QString username, QString first, QString last, QString password, QString teacher);
     void requestIsTeacher(QString teacher);
     void requestNameAvailable(QString username);
+    void requestCurrentHighScore(QString username);
 
 signals:
     void loginSuccessSignal(bool);
@@ -69,6 +70,7 @@ signals:
     void sendUserType(bool teacher);
     void sendRegisterSuccess(bool success);
     void sendUserInfo(QString username, QString first, QString last, QString teacher, int level, int highScore);
+    void sendCurrentScore(QString username, int level, int highscore);
 };
 
 #endif // NETWORKING_H

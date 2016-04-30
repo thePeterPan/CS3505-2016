@@ -39,6 +39,7 @@ bool MainWindow::checkLogin()
         //check login data from sever.
         emit checkLoginDataSignal(ui->inputUsername->text(), ui->inputPassword->text());
         emit requestUserInfo(ui->inputUsername->text());
+        emit setOldScore(ui->inputUsername->text());
 //        return loginAnswer;
     }
 }
