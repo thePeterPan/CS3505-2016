@@ -4,7 +4,7 @@ Networking::Networking(QString configFile, QObject *parent)
     : QObject(parent),
       webSocketServer(new QWebSocketServer(QStringLiteral("Neverland Server"), QWebSocketServer::NonSecureMode, this)),
       clients(),
-      debug(true)
+      debug()
 {
     // Read in the settings for the socket from the ini file.
     QSettings* socketSettings = new QSettings(configFile, QSettings::IniFormat);

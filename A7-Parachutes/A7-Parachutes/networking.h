@@ -57,6 +57,7 @@ public slots:
     void requestNextList(int level, QString teacher);
     void requestLogin(QString username, QString password);
     void requestUserInfo(QString username);
+    void sendNewScore(QString username, int level, int score);
 
 signals:
     void loginSuccessSignal(bool);

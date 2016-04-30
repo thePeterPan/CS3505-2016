@@ -53,6 +53,18 @@ void Networking::requestNextList(int level, QString teacher)
     requestWordList(teacher,level);
 }
 
+void Networking::sendNewScore(QString username, int level, int score)
+{
+    QJsonObject requestObject;
+    requestObject["requestType"] = NewScoreLevel;
+    requestObject["username"] = username;
+    requestObject["score"] = score;
+    requestObject["level"] = level;
+
+    QJsonDocument requestDocument(requestObject);
+    webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
+}
+
 ///
 /// \brief sends a request to the server to check if the login was successful
 /// \param username

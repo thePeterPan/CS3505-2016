@@ -35,6 +35,13 @@ int GameLogic::getCurrentLevel()
     return currentLevel;
 }
 
+void GameLogic::sendScoreToDB()
+{
+    int newLevel = (this->startingLevel > this->currentLevel) ? this->startingLevel : currentLevel;
+    int newScore = (this->highScore > this->score) ? this->highScore : this->score;
+    emit sendScore(username, newLevel, newScore);
+}
+
 void GameLogic::addWordsToQueue(int level)
 {
     words.clear();
@@ -117,6 +124,8 @@ void GameLogic::addWordsToQueue(int level)
     else
     {
         timer->stop();
+        if(!fromFile)
+            sendScoreToDB();
         emit levelCompleted(currentLevel - 1, score);
         return;
     }
@@ -362,6 +371,7 @@ void GameLogic::newLetterTyped(QChar letter)
         else
         {
             emit gameOver(currentLevel - 1,score);
+            sendScoreToDB();
         }
         emit failed();
     }
@@ -433,6 +443,7 @@ void GameLogic::receiveUserInfo(QString username, QString first, QString last, Q
     this->teacher = teacher;
     this->highScore = highScore;
     this->currentLevel = level;
+    this->startingLevel = level;
 
     emit requestWordList(currentLevel, teacher);
 

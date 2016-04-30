@@ -71,9 +71,11 @@ private:
     void scoreChanged(int score);
     void startNewTimer();
 
-    // User Info //
+    // User Info and DB//
     QString username, firstName, lastName, teacher;
-    int highScore;
+    int highScore, startingLevel;
+
+    void sendScoreToDB();
 
 
 signals:
@@ -86,6 +88,7 @@ signals:
     void gameOver(int level, int score);        // GameWindow::on_gameOver_triggered
     void levelCompleted(int level, int score);
     void requestWordList(int level, QString teacher);
+    void sendScore(QString user, int level, int score);
 
 public slots:
     void startGame();                   // GameWindow::readyToPlay
