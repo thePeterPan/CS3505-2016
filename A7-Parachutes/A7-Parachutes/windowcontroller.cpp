@@ -22,8 +22,8 @@ void WindowController::connectSignalsAndSlots()
     connect(client, &Networking::loginSuccessSignal,            &main, &MainWindow::loginAnswerReceived);
     connect(client, &Networking::sendUsernameAvailable,         &registration, &RegistrationDialog::getNameAvailable);
     connect(client, &Networking::sendIsTeacher,                 &registration, &RegistrationDialog::getIsTeacher);
+    connect(client, &Networking::sendIsTeacher,                 &main, &MainWindow::getUserType);
     connect(client, &Networking::sendRegisterSuccess,           &registration, &RegistrationDialog::getRegisterSuccess);
-
 
     // NETWORK AND GAME LOGIC COMMUNICATION //
 

@@ -344,7 +344,10 @@ void Networking::writeSignup(QString login, QString password, QString first, QSt
     jsonUserAccess["accessGranted"] = db->usernameAvailable(login);
     jsonUserAccess["username"] = login;
     json["userAccess"] = jsonUserAccess;
-    db->insertNewStudent(login, first, last, password, teacher);
+    if(teacher.length() > 0)
+        db->insertNewStudent(login, first, last, password, teacher);
+    else
+        db->insertNewTeacher(login,first,last,password);
 }
 
 void Networking::writeIsTeacher(QString teacher, QJsonObject &json)

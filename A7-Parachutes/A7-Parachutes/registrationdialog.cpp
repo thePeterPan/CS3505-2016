@@ -29,6 +29,7 @@ void RegistrationDialog::disableTeacherName()
 {
     ui->teacberNameLabel->setEnabled(false);
     ui->teachersName->setEnabled(false);
+    ui->teachersName->setText("");
 }
 
 void RegistrationDialog::showMainwindow()

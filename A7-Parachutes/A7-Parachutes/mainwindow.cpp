@@ -22,7 +22,9 @@ void MainWindow::showLevelDialog()
 {
     if(checkLogin()){
      //level.show();
-     emit showLevelDialogSignal();
+        //emit showLevelDialogSignal();
+        //emit checkStudentOrTeacher(ui->inputUsername->text());
+        client->requestIsTeacher(ui->inputUsername->text());
      //this->close();
     }
 }
@@ -38,14 +40,21 @@ bool MainWindow::checkLogin()
 
         //check login data from sever.
         emit checkLoginDataSignal(ui->inputUsername->text(), ui->inputPassword->text());
+    }
+}
 
-        if (loginAnswer)
-            return true;
-        else
-        {
-            ui->warningLabel->setText("Username and/or password is incorrect, please try again");
-            return false;
-        }
+void MainWindow::getUserType(bool teacher)
+{
+    if(teacher)
+    {
+        qDebug() << "got teacher";
+//        QString link = "http://localhost:8080/";
+//        QDesktopServices::openUrl(QUrl(link));
+        system("firefox localhost:8080");
+    }
+    else
+    {
+        emit showLevelDialogSignal();
     }
 }
 
@@ -67,5 +76,8 @@ void MainWindow::loginAnswerReceived(bool answer)
 {
     loginAnswer = answer;
     if(loginAnswer)
-        emit showLevelDialogSignal();
+        client->requestIsTeacher(ui->inputUsername->text());
+    else
+        ui->warningLabel->setText("Username and/or password is incorrect, please try again");
+
 }

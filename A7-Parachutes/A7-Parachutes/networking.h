@@ -64,6 +64,7 @@ signals:
     void loginSuccessSignal(bool);
     void sendUsernameAvailable(bool available);
     void sendIsTeacher(bool teacher);
+    void sendUserType(bool teacher);
     void sendRegisterSuccess(bool success);
 };
 
