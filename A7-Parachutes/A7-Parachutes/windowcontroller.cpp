@@ -20,12 +20,15 @@ void WindowController::connectSignalsAndSlots()
 
     connect(&main, &MainWindow::checkLoginDataSignal,           client,&Networking::requestLogin);
     connect(client, &Networking::loginSuccessSignal,            &main, &MainWindow::loginAnswerReceived);
+    connect(client, &Networking::sendUsernameAvailable,         &registration, &RegistrationDialog::getNameAvailable);
+    connect(client, &Networking::sendIsTeacher,                 &registration, &RegistrationDialog::getIsTeacher);
+    connect(client, &Networking::sendRegisterSuccess,           &registration, &RegistrationDialog::getRegisterSuccess);
+
 
     // NETWORK AND GAME LOGIC COMMUNICATION //
 
     connect(client, &Networking::newList,                       &logic,&GameLogic::receivedWordList);
     connect(&logic, &GameLogic::requestWordList,                client,&Networking::requestNextList);
-
 
     // GAME WINDOW AND GAME LOGIC COMMUNICATION //
 
