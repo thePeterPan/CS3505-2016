@@ -176,6 +176,17 @@ void Networking::processTextMessage(QString message)
                         client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
                     }
                 }
+                else if (request == NewScoreLevel)
+                {
+                    if (receivedObject.contains("username") && receivedObject.contains("score") && receivedObject.contains("level"))
+                    {
+                        QJsonObject success;
+                        writeNewScore(receivedObject["username"].toString(), receivedObject["level"].toInt(), receivedObject["score"].toInt(), success);
+
+                        QJsonDocument responseDocument(success);
+                        client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    }
+                }
                 else
                 {
                     if (debug)
@@ -265,8 +276,6 @@ void Networking::openConnectionToDatabase(QString configFile)
     db->setPassword(dbSettings->value("password").toString().toStdString().c_str());
     db->setDatabaseName(dbSettings->value("schema").toString().toStdString().c_str());
     db->open();
-
-    qDebug() << db->getFirstAndLastName("han");
 }
 
 /*!
@@ -361,6 +370,19 @@ void Networking::writeUserInfo(QString login, QJsonObject &json)
     jsonUserInfo["teacher"] = db->getTeacher(login);
     jsonUserInfo["level"] = db->getUserCurrentLevel(login);
     jsonUserInfo["highScore"] = db->getUserScore(login);
+}
+
+void Networking::writeNewScore(QString login, int level, int highScore, QJsonObject &json)
+{
+    if (!db->usernameAvailable(login))
+    {
+        json["success"] = false;
+    }
+    else
+    {
+        db->updateUserLevelAndScore(login, level, highScore);
+        json["success"] = true;
+    }
 }
 
 /*!
