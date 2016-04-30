@@ -7,6 +7,7 @@ MainWindow::MainWindow(Networking *client_, QWidget *parent)
 {
     ui->setupUi(this);
     pm.load(":/images/backgrond2.jpg");
+    loginAnswer = false;
 
     connect(ui->loginButton, &QPushButton::clicked, this, &MainWindow::showLevelDialog);
     connect(ui->createAccountButton, &QPushButton::clicked, this, &MainWindow::showRegistration);
@@ -40,6 +41,8 @@ bool MainWindow::checkLogin()
 
         //check login data from sever.
         emit checkLoginDataSignal(ui->inputUsername->text(), ui->inputPassword->text());
+        emit requestUserInfo(ui->inputUsername->text());
+//        return loginAnswer;
     }
 }
 
@@ -55,6 +58,7 @@ void MainWindow::getUserType(bool teacher)
     else
     {
         emit showLevelDialogSignal();
+
     }
 }
 

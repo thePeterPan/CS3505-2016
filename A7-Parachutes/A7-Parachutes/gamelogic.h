@@ -71,6 +71,12 @@ private:
     void scoreChanged(int score);
     void startNewTimer();
 
+    // User Info and DB//
+    QString username, firstName, lastName, teacher;
+    int highScore, startingLevel;
+
+    void sendScoreToDB();
+
 
 signals:
     void newWord(QString word); // GameWindow::receiveNewWord
@@ -81,7 +87,8 @@ signals:
     void updateScore(QString score);            // GameWindow::scoreUpdated
     void gameOver(int level, int score);        // GameWindow::on_gameOver_triggered
     void levelCompleted(int level, int score);
-    void requestWordList(int level);
+    void requestWordList(int level, QString teacher);
+    void sendScore(QString user, int level, int score);
 
 public slots:
     void startGame();                   // GameWindow::readyToPlay
@@ -93,6 +100,7 @@ public slots:
     void changeSize(int newWidth, int newHeight); // GameWindow::newSize
     void paintWorld(QPainter * painter);
     void receivedWordList(QList<QString> list);
+    void receiveUserInfo(QString username, QString first, QString last, QString teacher, int level, int highScore);
 
 
 

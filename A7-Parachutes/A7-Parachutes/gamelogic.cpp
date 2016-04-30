@@ -14,7 +14,8 @@ GameLogic::GameLogic(QObject *parent, int windowWidth, int windowHeight, float s
     }
     setUpBox2D();
     SCALE = 100.0f;
-    xScale,yScale = SCALE;
+    xScale = SCALE;
+    yScale = SCALE;
     currentLevel = 1;
     previousWord = "";
     fromFile = false;
@@ -32,6 +33,13 @@ GameLogic::~GameLogic()
 int GameLogic::getCurrentLevel()
 {
     return currentLevel;
+}
+
+void GameLogic::sendScoreToDB()
+{
+    int newLevel = (this->startingLevel > this->currentLevel) ? this->startingLevel : currentLevel;
+    int newScore = (this->highScore > this->score) ? this->highScore : this->score;
+    emit sendScore(username, newLevel, newScore);
 }
 
 void GameLogic::addWordsToQueue(int level)
@@ -116,6 +124,8 @@ void GameLogic::addWordsToQueue(int level)
     else
     {
         timer->stop();
+        if(!fromFile)
+            sendScoreToDB();
         emit levelCompleted(currentLevel - 1, score);
         return;
     }
@@ -295,10 +305,10 @@ void GameLogic::startGame()
     score = 100;
     scoreChanged(score);
 
-    if(!fromFile)
-    {
-        emit requestWordList(currentLevel);
-    }
+//    if(!fromFile)
+//    {
+//        emit requestWordList(currentLevel, teacher);
+//    }
     addWordsToQueue(currentLevel);
     startNewTimer();
 }
@@ -343,7 +353,8 @@ void GameLogic::newLetterTyped(QChar letter)
             // If there is one word left, ask the DB for another list //
             if(words.size() == 1)
             {
-                emit requestWordList(currentLevel);
+                qDebug() << "Words requested for level: " << currentLevel + 1;
+                emit requestWordList(currentLevel + 1, this->teacher);
             }
         }
         else
@@ -360,6 +371,7 @@ void GameLogic::newLetterTyped(QChar letter)
         else
         {
             emit gameOver(currentLevel - 1,score);
+            sendScoreToDB();
         }
         emit failed();
     }
@@ -394,9 +406,9 @@ void GameLogic::updateTimer()
         timer->stop();
         emit failed();
         emit gameOver(currentLevel - 1, score);
+        emit requestWordList(currentLevel, this->teacher);
         qDebug() << "time's up!";
     }
-    //qDebug() << "updating timer";
 }
 
 // ----------   ---------- //
@@ -423,3 +435,16 @@ void GameLogic::receivedWordList(QList<QString> list)
 }
 
 
+void GameLogic::receiveUserInfo(QString username, QString first, QString last, QString teacher, int level, int highScore)
+{
+    this->username = username;
+    this->firstName = first;
+    this->lastName = last;
+    this->teacher = teacher;
+    this->highScore = highScore;
+    this->currentLevel = level;
+    this->startingLevel = level;
+
+    emit requestWordList(currentLevel, teacher);
+
+}
