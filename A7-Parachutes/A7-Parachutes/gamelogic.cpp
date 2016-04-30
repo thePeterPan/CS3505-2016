@@ -396,6 +396,7 @@ void GameLogic::updateTimer()
         timer->stop();
         emit failed();
         emit gameOver(currentLevel - 1, score);
+        emit requestWordList(currentLevel, this->teacher);
         qDebug() << "time's up!";
     }
 }
