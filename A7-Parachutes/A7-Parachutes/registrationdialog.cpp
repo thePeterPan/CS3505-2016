@@ -41,7 +41,7 @@ void RegistrationDialog::checkInput()
 {
     if(ui->username->text().count() > 0
             &&ui->password->text().count() > 0
-            &&ui->confirmPassword->text().count() > 0)
+            &&ui->confirmPassword->text().count() > 0 && ui->firstName->text().count()>0&&ui->lastName->text().count()>0)
     {
         if(ui->password->text().compare(ui->confirmPassword->text(), Qt::CaseSensitive)!= 0)
         {
@@ -62,7 +62,7 @@ void RegistrationDialog::checkInput()
     }
     else
     {
-        ui->warningLabel->setText("Username or password cannot be empty");
+        ui->warningLabel->setText("Username,Realname or password cannot be empty");
     }
 }
 

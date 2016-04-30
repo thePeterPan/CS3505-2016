@@ -16,15 +16,31 @@
   <property name="styleSheet">
    <string notr="true">QDialog{
  background:url(:/images/11.jpg)
-}</string>
+}
+
+QPushButton{
+	border: 1px solid #199909;
+        border-radius: 6px;
+        background-color: #116a06;
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0.67, 
+            stop: 0 #22c70d, stop: 1 #116a06);
+}
+QPushButton:hover {
+	
+}
+
+QPushButton:active {
+	
+}
+</string>
   </property>
   <widget class="QPushButton" name="level1Button">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>130</x>
      <y>120</y>
-     <width>75</width>
-     <height>61</height>
+     <width>111</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -37,13 +53,13 @@ font: 9pt &quot;Fixedsys&quot;;
     <locale language="English" country="UnitedStates"/>
    </property>
    <property name="text">
-    <string>Play!</string>
+    <string>Play Now!</string>
    </property>
   </widget>
   <widget class="QLabel" name="levelTttle">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>110</x>
      <y>40</y>
      <width>371</width>
      <height>51</height>
@@ -67,16 +83,16 @@ color: rgb(14, 15, 227)
     <locale language="English" country="UnitedStates"/>
    </property>
    <property name="text">
-    <string>Level Selection</string>
+    <string>Level Customization</string>
    </property>
   </widget>
   <widget class="QPushButton" name="wordsButton">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>200</y>
+     <x>290</x>
+     <y>120</y>
      <width>101</width>
-     <height>26</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="text">
