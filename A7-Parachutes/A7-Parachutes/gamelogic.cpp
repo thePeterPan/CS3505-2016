@@ -297,7 +297,7 @@ void GameLogic::startGame()
 
     if(!fromFile)
     {
-        emit requestWordList(currentLevel);
+        emit requestWordList(currentLevel, teacher);
     }
     addWordsToQueue(currentLevel);
     startNewTimer();
@@ -343,7 +343,7 @@ void GameLogic::newLetterTyped(QChar letter)
             // If there is one word left, ask the DB for another list //
             if(words.size() == 1)
             {
-                emit requestWordList(currentLevel);
+                emit requestWordList(currentLevel, teacher);
             }
         }
         else
@@ -423,3 +423,11 @@ void GameLogic::receivedWordList(QList<QString> list)
 }
 
 
+void GameLogic::receiveUserInfo(QString username, QString first, QString last, QString teacher, int level, int highScore)
+{
+    firstName = first;
+    lastName = last;
+    teacher = teacher;
+    highScore = highScore;
+    currentLevel = level;
+}

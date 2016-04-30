@@ -40,8 +40,9 @@ bool MainWindow::checkLogin()
         emit checkLoginDataSignal(ui->inputUsername->text(), ui->inputPassword->text());
 
         if (loginAnswer)
+        {
             return true;
-        else
+        }else
         {
             ui->warningLabel->setText("Username and/or password is incorrect, please try again");
             return false;
@@ -66,4 +67,5 @@ void MainWindow::paintEvent(QPaintEvent *) {
 void MainWindow::loginAnswerReceived(bool answer)
 {
     loginAnswer = answer;
+    qDebug()<<answer;
 }

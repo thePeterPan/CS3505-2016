@@ -48,9 +48,9 @@ void Networking::requestWordList(QString teacher, int level)
     webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
 }
 
-void Networking::requestNextList(int level)
+void Networking::requestNextList(int level, QString teacher)
 {
-    requestWordList("yoda",level);
+    requestWordList(teacher,level);
 }
 
 ///
@@ -65,6 +65,15 @@ void Networking::requestLogin(QString username, QString password)
     requestObject["username"] = username;
     requestObject["password"] = password;
 
+    QJsonDocument requestDocument(requestObject);
+    webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
+}
+
+void Networking::requestUserInfo(QString username)
+{
+    QJsonObject requestObject;
+    requestObject["requestType"] = UserInfo;
+    requestObject["username"] = username;
     QJsonDocument requestDocument(requestObject);
     webSocket.sendTextMessage(requestDocument.toJson(QJsonDocument::Compact));
 }
@@ -85,7 +94,6 @@ void Networking::onConnected()
     connect(&webSocket, &QWebSocket::textMessageReceived, this, &Networking::onTextMessageReceived);
     connect(&webSocket, &QWebSocket::binaryMessageReceived, this, &Networking::onBinaryMessageReceived);
 
-    requestWordList("yoda", 1);
 //    webSocket.sendTextMessage("Client: test");
 }
 
@@ -120,6 +128,19 @@ void Networking::onTextMessageReceived(QString message)
                     qDebug() << "userAccess is found";
                 bool loginSuccess = itr.value().toObject()["accessGranted"].toBool();
                 emit loginSuccessSignal(loginSuccess);
+            }
+            else if (itr.key() == "userInfo")
+            {
+                if(debug)
+                    qDebug() << "userInfo is found";
+                QString username = itr.value().toObject()["username"].toString();
+                QString nameF = itr.value().toObject()["first"].toString();
+                QString nameL = itr.value().toObject()["last"].toString();
+                QString teacher = itr.value().toObject()["teacher"].toString();
+                int level = itr.value().toObject()["level"].toInt();
+                int highScore = itr.value().toObject()["highScore"].toInt();
+
+                emit sendUserInfo(username, nameF, nameL, teacher, level, highScore);
             }
         }
     } else {

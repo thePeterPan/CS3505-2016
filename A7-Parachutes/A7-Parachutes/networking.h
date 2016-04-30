@@ -54,14 +54,16 @@ private:
     void testJson(QString message);
 
 public slots:
-    void requestNextList(int level);
+    void requestNextList(int level, QString teacher);
     void requestLogin(QString username, QString password);
+    void requestUserInfo(QString username);
 
 signals:
     void loginSuccessSignal(bool);
     void sendUsernameAvailable(bool available);
     void sendIsTeacher(bool teacher);
     void sendRegisterSuccess(bool success);
+    void sendUserInfo(QString username, QString first, QString last, QString teacher, int level, int highScore);
 };
 
 #endif // NETWORKING_H
