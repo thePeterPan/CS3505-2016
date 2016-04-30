@@ -70,5 +70,4 @@ void MainWindow::paintEvent(QPaintEvent *) {
 void MainWindow::loginAnswerReceived(bool answer)
 {
     loginAnswer = answer;
-    qDebug()<<answer;
 }

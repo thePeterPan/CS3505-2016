@@ -4,7 +4,7 @@ Networking::Networking(QString configFile, QObject *parent)
     : QObject(parent),
       webSocketServer(new QWebSocketServer(QStringLiteral("Neverland Server"), QWebSocketServer::NonSecureMode, this)),
       clients(),
-      debug()
+      debug(true)
 {
     // Read in the settings for the socket from the ini file.
     QSettings* socketSettings = new QSettings(configFile, QSettings::IniFormat);
@@ -370,6 +370,7 @@ void Networking::writeUserInfo(QString login, QJsonObject &json)
     jsonUserInfo["teacher"] = db->getTeacher(login);
     jsonUserInfo["level"] = db->getUserCurrentLevel(login);
     jsonUserInfo["highScore"] = db->getUserScore(login);
+    json["userInfo"] = jsonUserInfo;
 }
 
 void Networking::writeNewScore(QString login, int level, int highScore, QJsonObject &json)
