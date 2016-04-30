@@ -61,28 +61,13 @@
   "game over request template": {
     "requestType": "enum::Networking::GameOver",
     "username": "username",
-    "token": "##################",
-    "gameType": "enum::GameType",
-    "score": 1,
-    "timestamp": "timestamp",
-    "duration": "duration"
+    "level": 5433,
+    "score": 1
   },
   "game over response template": {
     "gameOver": {
       "username": "username",
-      "placement": 1,
-      "leaderboard": [
-        "first place",
-        "second place",
-        "third place",
-        "fourth place",
-        "fifth place",
-        "sixth place",
-        "seventh place",
-        "eighth place",
-        "ninth place",
-        "tenth place"
-      ]
+      "highScore": 543534
     }
   },
   "client error response template": {
