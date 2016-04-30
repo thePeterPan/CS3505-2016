@@ -154,6 +154,28 @@ void Networking::processTextMessage(QString message)
                         client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
                     }
                 }
+                else if (request == IsTeacher)
+                {
+                    if (receivedObject.contains("username"))
+                    {
+                        QJsonObject signup;
+                        writeIsTeacher(receivedObject["username"].toString(), signup);
+
+                        QJsonDocument responseDocument(signup);
+                        client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    }
+                }
+                else if (request == UserInfo)
+                {
+                    if (receivedObject.contains("username"))
+                    {
+                        QJsonObject info;
+                        writeUserInfo(receivedObject["username"].toString(), info);
+
+                        QJsonDocument responseDocument(info);
+                        client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+                    }
+                }
                 else
                 {
                     if (debug)
@@ -243,6 +265,8 @@ void Networking::openConnectionToDatabase(QString configFile)
     db->setPassword(dbSettings->value("password").toString().toStdString().c_str());
     db->setDatabaseName(dbSettings->value("schema").toString().toStdString().c_str());
     db->open();
+
+    qDebug() << db->getFirstAndLastName("han");
 }
 
 /*!
@@ -312,6 +336,31 @@ void Networking::writeSignup(QString login, QString password, QString first, QSt
     jsonUserAccess["username"] = login;
     json["userAccess"] = jsonUserAccess;
     db->insertNewStudent(login, first, last, password, teacher);
+}
+
+void Networking::writeIsTeacher(QString teacher, QJsonObject &json)
+{
+    QJsonObject jsonIsTeacher;
+    jsonIsTeacher["username"] = teacher;
+    jsonIsTeacher["isTeacher"] = db->isTeacher(teacher);
+    json["isTeacher"] = jsonIsTeacher;
+}
+
+void Networking::writeUserInfo(QString login, QJsonObject &json)
+{
+    QJsonObject jsonUserInfo;
+    jsonUserInfo["username"] = login;
+    QList<QString> name = db->getFirstAndLastName(login);
+    if (name.length() != 2)
+    {
+        json["success"] = false;
+        return;
+    }
+    jsonUserInfo["first"] = name[0];
+    jsonUserInfo["last"] = name[1];
+    jsonUserInfo["teacher"] = db->getTeacher(login);
+    jsonUserInfo["level"] = db->getUserCurrentLevel(login);
+    jsonUserInfo["highScore"] = db->getUserScore(login);
 }
 
 /*!

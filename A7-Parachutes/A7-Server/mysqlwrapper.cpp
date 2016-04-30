@@ -453,3 +453,19 @@ void MySQLWrapper::incrementUserLevel(QString login)
     level++;
     updateUserLevel(login,level);
 }
+
+QList<QString> MySQLWrapper::getFirstAndLastName(QString login)
+{
+    QString sql = "SELECT first, last FROM user WHERE login = ?;";
+    statement = connection->prepareStatement(sql.toStdString());
+    statement->setString(1, login.toStdString());
+    QList<QString> result;
+    resultSet = statement->executeQuery();
+    while(resultSet->next())
+    {
+        result.push_back(QString::fromUtf8(resultSet->getString("first").asStdString().c_str()));
+        result.push_back(QString::fromUtf8(resultSet->getString("last").asStdString().c_str()));
+    }
+
+    return result;
+}

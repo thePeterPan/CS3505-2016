@@ -51,6 +51,7 @@ public:
     QString getTeacher(QString student);
     QList<QString> getStudents(QString teacher);
     QList<QList<QString>> getTeacherStats(QString teacher);
+    QList<QString> getFirstAndLastName(QString login);
 
     /////////// Verification
     bool usernameAvailable(QString login);

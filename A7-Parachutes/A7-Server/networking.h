@@ -63,6 +63,9 @@ private:
     void writeLogin(QString login, QString password, QJsonObject &json);
     void writeLoginAvailable(QString login, QJsonObject &json);
     void writeSignup(QString login, QString password, QString first, QString last, QString teacher, QJsonObject &json);
+    void writeIsTeacher(QString teacher, QJsonObject &json);
+    void writeUserInfo(QString login, QJsonObject &json);
+
     void printJsonObject(QJsonObject &json);
     QString jsonTest();
 };
