@@ -66,6 +66,7 @@ private:
     void writeIsTeacher(QString teacher, QJsonObject &json);
     void writeUserInfo(QString login, QJsonObject &json);
     void writeNewScore(QString login, int level, int highScore, QJsonObject &json);
+    void writeTeacherStats(QString teacherName, QJsonObject &json);
 
     void printJsonObject(QJsonObject &json);
     QString jsonTest();

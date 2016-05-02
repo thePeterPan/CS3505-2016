@@ -90,8 +90,6 @@ void Networking::processTextMessage(QString message)
         {
             // Convert the document to a QJsonObject:
             QJsonObject receivedObject = receivedDocument.object();
-            // Look at what the client has requested through the message:
-            RequestType request = RequestType(qRound(receivedObject["requestType"].toDouble()));
 
             if (debug)
                 printJsonObject(receivedObject);
@@ -198,21 +196,30 @@ void Networking::processTextMessage(QString message)
             {
                 if (receivedObject["webrequest"].toObject().contains("teacher"))
                 {
-                    QJsonObject test;
-                    test["teacherName"] = "test name";
-                    QJsonArray teststudentArray;
-                    for (int i = 0; i < 10; ++i)
-                    {
-                        QJsonArray student;
-                        student.append("student" + QString::number(i));
-                        student.append(QString::number(i*2));
-                        student.append(QString::number(i*4));
-                        teststudentArray.append(student);
-                    }
-                    test["students"] = teststudentArray;
+//                    QJsonObject test;
+//                    test["teacherName"] = "test name";
 
-                    QJsonDocument responseDocument(test);
+                    QString teacherName = receivedObject["webrequest"].toObject()["teacher"].toString();
+
+                    QJsonObject rootObject;
+                    if (debug)
+                        qDebug() << "Writing teacher stats from database.";
+                    writeTeacherStats(teacherName, rootObject);
+
+//                    QJsonArray teststudentArray;
+//                    for (int i = 0; i < 10; ++i)
+//                    {
+//                        QJsonArray student;
+//                        student.append("student" + QString::number(i));
+//                        student.append(QString::number(i*2));
+//                        student.append(QString::number(i*4));
+//                        teststudentArray.append(student);
+//                    }
+//                    test["students"] = teststudentArray;
+
+                    QJsonDocument responseDocument(rootObject);
                     client->sendTextMessage(responseDocument.toJson(QJsonDocument::Compact));
+
                     if (debug)
                         qDebug() << "Responded: " << responseDocument.toJson(QJsonDocument::Compact);
                 }
@@ -394,6 +401,23 @@ void Networking::writeNewScore(QString login, int level, int highScore, QJsonObj
         db->updateUserLevelAndScore(login, level, highScore);
         json["success"] = true;
     }
+}
+
+void Networking::writeTeacherStats(QString teacherName, QJsonObject &json)
+{
+    json["teacherName"] = teacherName;
+
+    QList<QList<QString>> teacherStatsList = db->getTeacherStats(teacherName);
+
+    QJsonArray resultingStudentList;
+    for (QList<QString> individualStudents : teacherStatsList)
+    {
+        QJsonArray student;
+        student = QJsonArray::fromStringList(individualStudents);
+        resultingStudentList.append(student);
+    }
+
+    json["students"] = resultingStudentList;
 }
 
 /*!
