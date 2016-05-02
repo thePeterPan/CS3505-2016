@@ -315,8 +315,13 @@ void Networking::writeWordList(QString teacher, int level, QJsonObject &json)
 void Networking::writeLogin(QString login, QString password, QJsonObject &json)
 {
     QJsonObject jsonUserAccess;
-    jsonUserAccess["accessGranted"] = db->loginCorrect(login, password);
+    bool isTeacher = false;
+    bool loginCorrect = db->loginCorrect(login, password);
+    if(loginCorrect)
+        isTeacher = db->isTeacher(login);
+    jsonUserAccess["accessGranted"] = loginCorrect;
     jsonUserAccess["username"] = login;
+    jsonUserAccess["isTeacher"] = isTeacher;
     json["userAccess"] = jsonUserAccess;
 }
 

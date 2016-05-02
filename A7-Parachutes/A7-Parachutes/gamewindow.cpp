@@ -144,14 +144,17 @@ void GameWindow::gameOver(int level, int score)
 
 void GameWindow::levelCompleted(int level, int score)
 {
-    timer->stop();
-    emit pauseGame();
-    QMessageBox msgBox;
-    msgBox.setMinimumSize(150,75);
-    QString s = "Congratulations! You beat level " + QString::number(level) + "! \n Score: " + QString::number(score);
-    msgBox.setText(s);
-    msgBox.exec();
-    emit showLevelDial();
+    if(level > 0)
+    {
+        timer->stop();
+        emit pauseGame();
+        QMessageBox msgBox;
+        msgBox.setMinimumSize(150,75);
+        QString s = "Congratulations! You beat level " + QString::number(level) + "! \n Score: " + QString::number(score);
+        msgBox.setText(s);
+        msgBox.exec();
+        emit showLevelDial();
+    }
 }
 
 void GameWindow::pauseSwitch()

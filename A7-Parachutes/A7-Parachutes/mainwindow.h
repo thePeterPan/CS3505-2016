@@ -44,7 +44,7 @@ private slots:
     void showLevelDialog();
 
 public slots:
-    void loginAnswerReceived(bool);
+    void loginAnswerReceived(QString,bool,bool);
     void getUserType(bool);
 
 };

@@ -173,8 +173,10 @@ void Networking::onTextMessageReceived(QString message)
             {
                 if (debug)
                     qDebug() << "userAccess is found";
+                QString username = itr.value().toObject()["username"].toString();
                 bool loginSuccess = itr.value().toObject()["accessGranted"].toBool();
-                emit loginSuccessSignal(loginSuccess);
+                bool isTeacher = itr.value().toObject()["isTeacher"].toBool();
+                emit loginSuccessSignal(username,loginSuccess,isTeacher);
             }
             else if (itr.key() == "userInfo")
             {

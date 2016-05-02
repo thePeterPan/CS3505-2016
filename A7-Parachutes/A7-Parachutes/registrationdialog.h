@@ -4,6 +4,7 @@
 #include <QEvent>
 #include <QDialog>
 #include <QDebug>
+#include <QMessageBox>
 
 #include "networking.h"
 

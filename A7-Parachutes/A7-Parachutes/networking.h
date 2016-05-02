@@ -64,7 +64,7 @@ public slots:
     void requestCurrentHighScore(QString username);
 
 signals:
-    void loginSuccessSignal(bool);
+    void loginSuccessSignal(QString, bool,bool);
     void sendUsernameAvailable(bool available);
     void sendIsTeacher(bool teacher);
     void sendUserType(bool teacher);

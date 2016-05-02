@@ -49,11 +49,11 @@ void MainWindow::getUserType(bool teacher)
     if(teacher)
     {
         qDebug() << "got teacher";
-        system("firefox localhost:8080");
+        //system("firefox localhost:8080");
     }
     else
     {
-        emit showLevelDialogSignal();
+        //emit showLevelDialogSignal();
 
     }
 }
@@ -72,11 +72,20 @@ void MainWindow::paintEvent(QPaintEvent *) {
     painter.drawPixmap(0,0,pm);
 }
 
-void MainWindow::loginAnswerReceived(bool answer)
+void MainWindow::loginAnswerReceived(QString username, bool answer, bool teacher)
 {
     loginAnswer = answer;
     if(loginAnswer)
-        client->requestIsTeacher(ui->inputUsername->text());
+    {
+        if(teacher)
+            system("firefox localhost:8080");
+        else
+        {
+            client->requestCurrentHighScore(username);
+            emit showLevelDialogSignal();
+        }
+
+    }
     else
         ui->warningLabel->setText("Username and/or password is incorrect, please try again");
 

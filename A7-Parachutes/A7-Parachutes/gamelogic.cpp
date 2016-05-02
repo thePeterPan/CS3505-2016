@@ -49,51 +49,6 @@ void GameLogic::addWordsToQueue(int level)
     if(!fromFile)
     {
         words.append(fromDB);
-        /*
-        //test data
-        if(level == 1)
-        {
-            words.append("parachuting");
-            words.append("rainbow");
-            words.append("cloudy");
-            words.append("raindrop");
-            words.append("parachute");
-            words.append("snowflake");
-            words.append("fantastic");
-            words.append("airplane");
-            words.append("sunlight");
-            words.append("bumblebee");
-            words.append("butterfly");
-        }
-        else if(level == 2)
-        {
-            words.append("flower");
-            words.append("cucumber");
-            words.append("tomato");
-            words.append("icecream");
-            words.append("pumpernickle");
-            words.append("sesameseed");
-            words.append("wind");
-            words.append("sky");
-            words.append("downpour");
-            words.append("inkpot");
-        }
-        else if(level == 3)
-        {
-            words.append("feather");
-            words.append("falcon");
-            words.append("nest");
-            words.append("caterpillar");
-            words.append("frolic");
-            words.append("dandelion");
-            words.append("hyper");
-            words.append("cartwheel");
-            words.append("somersault");
-            words.append("foursquare");
-            words.append("blissful");
-            words.append("delicious");
-        }
-        */
     }
     else
     {

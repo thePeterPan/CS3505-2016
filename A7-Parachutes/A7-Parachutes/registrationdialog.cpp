@@ -72,7 +72,7 @@ void RegistrationDialog::getNameAvailable(bool available)
         ui->warningLabel->setText("This name is already taken");
     else
     {
-        client->requestWriteNewUser(ui->username->text(),"First","Last",ui->password->text(),ui->teachersName->text());
+        client->requestWriteNewUser(ui->username->text(),ui->firstName->text(),ui->lastName->text(), ui->password->text(),ui->teachersName->text());
         this->close();
     }
 }
@@ -94,6 +94,12 @@ void RegistrationDialog::getRegisterSuccess(bool success)
     else
     {
         //login and start game
+        QMessageBox msgBox;
+        msgBox.setMinimumSize(150,75);
+        QString s = "Successfully created your account. Please log in.";
+        msgBox.setText(s);
+        msgBox.exec();
+        client->requestCurrentHighScore(ui->username->text());
     }
 
 }
