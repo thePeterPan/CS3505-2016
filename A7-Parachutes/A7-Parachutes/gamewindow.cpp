@@ -150,7 +150,7 @@ void GameWindow::levelCompleted(int level, int score)
         emit pauseGame();
         QMessageBox msgBox;
         msgBox.setMinimumSize(150,75);
-        QString s = "Congratulations! You beat level " + QString::number(level) + "! \n Score: " + QString::number(score);
+        QString s = "Congratulations! You beat level " + QString::number(level) + "!";
         msgBox.setText(s);
         msgBox.exec();
         emit showLevelDial();
